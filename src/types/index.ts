@@ -340,6 +340,15 @@ export interface TTSResult {
   durationMs: number;
 }
 
+/**
+ * Extended TTS result with word-level caption data from VTT parsing.
+ * Used by generateTTSWithCaptions() in the DSGS pipeline.
+ */
+export interface TTSResultWithCaptions extends TTSResult {
+  captions: import("@remotion/captions").Caption[];
+  vttPath: string;
+}
+
 export interface SubtitleEntry {
   text: string;
   startFrame: number;

@@ -1,58 +1,72 @@
 [
   {
-    "text": "로버트",
+    "text": "할",
     "startMs": 100,
-    "endMs": 928,
+    "endMs": 734,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 치알디니의",
-    "startMs": 928,
-    "endMs": 1756,
-    "timestampMs": 928,
+    "text": " 엘로드의",
+    "startMs": 734,
+    "endMs": 1367,
+    "timestampMs": 734,
     "confidence": null
   },
   {
-    "text": " 설득의",
-    "startMs": 1756,
-    "endMs": 2584,
-    "timestampMs": 1756,
+    "text": " 미라클",
+    "startMs": 1367,
+    "endMs": 2001,
+    "timestampMs": 1367,
     "confidence": null
   },
   {
-    "text": " 심리학,",
-    "startMs": 2584,
-    "endMs": 3413,
-    "timestampMs": 2584,
+    "text": " 모닝,",
+    "startMs": 2001,
+    "endMs": 2635,
+    "timestampMs": 2001,
     "confidence": null
   },
   {
-    "text": " 핵심",
-    "startMs": 3413,
-    "endMs": 4241,
-    "timestampMs": 3413,
+    "text": " 당신의",
+    "startMs": 2635,
+    "endMs": 3269,
+    "timestampMs": 2635,
     "confidence": null
   },
   {
-    "text": " 인사이트를",
-    "startMs": 4241,
-    "endMs": 5069,
-    "timestampMs": 4241,
+    "text": " 아침을",
+    "startMs": 3269,
+    "endMs": 3902,
+    "timestampMs": 3269,
     "confidence": null
   },
   {
-    "text": " 함께",
-    "startMs": 5069,
-    "endMs": 5897,
-    "timestampMs": 5069,
+    "text": " 바꾸는",
+    "startMs": 3902,
+    "endMs": 4536,
+    "timestampMs": 3902,
     "confidence": null
   },
   {
-    "text": " 살펴보겠습니다.",
-    "startMs": 5897,
-    "endMs": 6725,
-    "timestampMs": 5897,
+    "text": " 6가지",
+    "startMs": 4536,
+    "endMs": 5170,
+    "timestampMs": 4536,
+    "confidence": null
+  },
+  {
+    "text": " 습관을",
+    "startMs": 5170,
+    "endMs": 5803,
+    "timestampMs": 5170,
+    "confidence": null
+  },
+  {
+    "text": " 알아봅니다.",
+    "startMs": 5803,
+    "endMs": 6437,
+    "timestampMs": 5803,
     "confidence": null
   }
 ]

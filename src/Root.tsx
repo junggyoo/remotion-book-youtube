@@ -6,6 +6,7 @@ import type { SynthesizedPreviewProps } from "@/compositions/SynthesizedPreview"
 import { buildCompositionProps } from "@/pipeline/buildProps";
 import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
+import miracleMorningBook from "../content/books/miracle-morning.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -19,10 +20,17 @@ import {
 loadProjectFonts();
 
 const book = testBook as unknown as BookContent;
+const mmBook = miracleMorningBook as unknown as BookContent;
 
 // Build default props for preview (no TTS in preview mode)
 const longformProps: CompositionProps = buildCompositionProps(book, "longform");
 const shortsProps: CompositionProps = buildCompositionProps(book, "shorts");
+
+// Miracle Morning — TTS audio + captions loaded at render time via manifest
+const mmLongformProps: CompositionProps = buildCompositionProps(
+  mmBook,
+  "longform",
+);
 
 // Build synthesized scene preview props
 const synthTheme = useTheme("dark", "selfHelp");
@@ -71,6 +79,16 @@ export const RemotionRoot: React.FC = () => {
         width={shortsProps.width}
         height={shortsProps.height}
         defaultProps={shortsProps as any}
+      />
+      <Composition
+        id="MiracleMorning"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        component={LongformComposition as any}
+        durationInFrames={mmLongformProps.totalDurationFrames}
+        fps={mmLongformProps.fps}
+        width={mmLongformProps.width}
+        height={mmLongformProps.height}
+        defaultProps={mmLongformProps as any}
       />
       <Composition
         id="SynthesizedPreview"

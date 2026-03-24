@@ -1,23 +1,30 @@
 [
   {
-    "text": "치알디니는",
+    "text": "할",
     "startMs": 100,
-    "endMs": 1183,
+    "endMs": 841,
     "timestampMs": 100,
     "confidence": null
   },
   {
+    "text": " 엘로드는",
+    "startMs": 841,
+    "endMs": 1581,
+    "timestampMs": 841,
+    "confidence": null
+  },
+  {
     "text": " 이렇게",
-    "startMs": 1183,
-    "endMs": 2267,
-    "timestampMs": 1183,
+    "startMs": 1581,
+    "endMs": 2322,
+    "timestampMs": 1581,
     "confidence": null
   },
   {
     "text": " 말합니다.",
-    "startMs": 2267,
-    "endMs": 3350,
-    "timestampMs": 2267,
+    "startMs": 2322,
+    "endMs": 3062,
+    "timestampMs": 2322,
     "confidence": null
   }
 ]

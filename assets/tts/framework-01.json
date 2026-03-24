@@ -1,51 +1,100 @@
 [
   {
-    "text": "치알디니가",
+    "text": "SAVERS는",
     "startMs": 100,
-    "endMs": 868,
+    "endMs": 1043,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 제시한",
-    "startMs": 868,
-    "endMs": 1636,
-    "timestampMs": 868,
+    "text": " Silence,",
+    "startMs": 1043,
+    "endMs": 1986,
+    "timestampMs": 1043,
     "confidence": null
   },
   {
-    "text": " 설득의",
-    "startMs": 1636,
-    "endMs": 2404,
-    "timestampMs": 1636,
+    "text": " Affirmations,",
+    "startMs": 1986,
+    "endMs": 2929,
+    "timestampMs": 1986,
+    "confidence": null
+  },
+  {
+    "text": " Visualization,",
+    "startMs": 2929,
+    "endMs": 3871,
+    "timestampMs": 2929,
+    "confidence": null
+  },
+  {
+    "text": " Exercise,",
+    "startMs": 3871,
+    "endMs": 4814,
+    "timestampMs": 3871,
+    "confidence": null
+  },
+  {
+    "text": " Reading,",
+    "startMs": 4814,
+    "endMs": 5757,
+    "timestampMs": 4814,
+    "confidence": null
+  },
+  {
+    "text": " Scribing의",
+    "startMs": 5757,
+    "endMs": 6700,
+    "timestampMs": 5757,
+    "confidence": null
+  },
+  {
+    "text": " 약자로,",
+    "startMs": 6700,
+    "endMs": 7643,
+    "timestampMs": 6700,
+    "confidence": null
+  },
+  {
+    "text": " 매일",
+    "startMs": 7643,
+    "endMs": 8586,
+    "timestampMs": 7643,
+    "confidence": null
+  },
+  {
+    "text": " 아침",
+    "startMs": 8586,
+    "endMs": 9529,
+    "timestampMs": 8586,
+    "confidence": null
+  },
+  {
+    "text": " 실천하는",
+    "startMs": 9529,
+    "endMs": 10471,
+    "timestampMs": 9529,
     "confidence": null
   },
   {
     "text": " 6가지",
-    "startMs": 2404,
-    "endMs": 3171,
-    "timestampMs": 2404,
+    "startMs": 10471,
+    "endMs": 11414,
+    "timestampMs": 10471,
     "confidence": null
   },
   {
-    "text": " 핵심",
-    "startMs": 3171,
-    "endMs": 3939,
-    "timestampMs": 3171,
+    "text": " 습관",
+    "startMs": 11414,
+    "endMs": 12357,
+    "timestampMs": 11414,
     "confidence": null
   },
   {
-    "text": " 원칙을",
-    "startMs": 3939,
-    "endMs": 4707,
-    "timestampMs": 3939,
-    "confidence": null
-  },
-  {
-    "text": " 정리합니다.",
-    "startMs": 4707,
-    "endMs": 5475,
-    "timestampMs": 4707,
+    "text": " 프레임워크입니다.",
+    "startMs": 12357,
+    "endMs": 13300,
+    "timestampMs": 12357,
     "confidence": null
   }
 ]

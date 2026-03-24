@@ -4,6 +4,7 @@ import {
   Sequence,
   Audio,
   staticFile,
+  useCurrentFrame,
   useDelayRender,
 } from "remotion";
 import type { PlannedScene, CompositionProps } from "@/pipeline/buildProps";
@@ -38,6 +39,7 @@ import { TransitionScene } from "@/scenes/TransitionScene";
 import { ListRevealScene } from "@/scenes/ListRevealScene";
 import { SplitQuoteScene } from "@/scenes/SplitQuoteScene";
 import { CaptionLayer } from "@/components/hud/CaptionLayer";
+import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
 import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
 import type { CustomScene } from "@/types";
 
@@ -164,6 +166,23 @@ const SceneRenderer: React.FC<{
   }
 };
 
+/** Wrapper to provide useCurrentFrame() to SubtitleLayer inside a Sequence */
+const SubtitleLayerWrapper: React.FC<{
+  format: CompositionProps["format"];
+  theme: CompositionProps["theme"];
+  subtitles: import("@/types").SubtitleEntry[];
+}> = ({ format, theme, subtitles }) => {
+  const frame = useCurrentFrame();
+  return (
+    <SubtitleLayer
+      format={format}
+      theme={theme}
+      subtitles={subtitles}
+      currentFrame={frame}
+    />
+  );
+};
+
 const PREMOUNT_FRAMES = 30;
 
 export const LongformComposition: React.FC<CompositionProps> = ({
@@ -220,7 +239,7 @@ export const LongformComposition: React.FC<CompositionProps> = ({
               <Audio src={staticFile(`tts/${ttsEntry.audioFile}`)} volume={1} />
             )}
 
-            {/* Word-highlight captions */}
+            {/* Word-highlight captions (legacy path) */}
             {ttsEntry && (
               <div style={{ position: "absolute", inset: 0, zIndex: 70 }}>
                 <CaptionLayer
@@ -230,6 +249,15 @@ export const LongformComposition: React.FC<CompositionProps> = ({
                   sceneStartFrame={scene.from}
                 />
               </div>
+            )}
+
+            {/* Sentence-level subtitles (DSGS path — when no CaptionLayer data) */}
+            {!ttsEntry && scene.subtitles && scene.subtitles.length > 0 && (
+              <SubtitleLayerWrapper
+                format={format}
+                theme={theme}
+                subtitles={scene.subtitles}
+              />
             )}
           </Sequence>
         );

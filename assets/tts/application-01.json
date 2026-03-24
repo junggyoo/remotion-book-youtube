@@ -1,44 +1,128 @@
 [
   {
-    "text": "상호성의",
+    "text": "실제",
     "startMs": 100,
-    "endMs": 927,
+    "endMs": 817,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 원칙을",
-    "startMs": 927,
-    "endMs": 1754,
-    "timestampMs": 927,
+    "text": " 아침",
+    "startMs": 817,
+    "endMs": 1535,
+    "timestampMs": 817,
     "confidence": null
   },
   {
-    "text": " 실생활에",
-    "startMs": 1754,
-    "endMs": 2581,
-    "timestampMs": 1754,
+    "text": " 루틴은",
+    "startMs": 1535,
+    "endMs": 2252,
+    "timestampMs": 1535,
     "confidence": null
   },
   {
-    "text": " 적용하는",
-    "startMs": 2581,
-    "endMs": 3408,
-    "timestampMs": 2581,
+    "text": " 이렇게",
+    "startMs": 2252,
+    "endMs": 2970,
+    "timestampMs": 2252,
     "confidence": null
   },
   {
-    "text": " 4단계",
-    "startMs": 3408,
-    "endMs": 4235,
-    "timestampMs": 3408,
+    "text": " 구성됩니다.",
+    "startMs": 2970,
+    "endMs": 3687,
+    "timestampMs": 2970,
     "confidence": null
   },
   {
-    "text": " 방법입니다.",
-    "startMs": 4235,
-    "endMs": 5062,
-    "timestampMs": 4235,
+    "text": "5시",
+    "startMs": 3637,
+    "endMs": 4236,
+    "timestampMs": 3637,
+    "confidence": null
+  },
+  {
+    "text": " 기상",
+    "startMs": 4236,
+    "endMs": 4835,
+    "timestampMs": 4236,
+    "confidence": null
+  },
+  {
+    "text": " 후",
+    "startMs": 4835,
+    "endMs": 5434,
+    "timestampMs": 4835,
+    "confidence": null
+  },
+  {
+    "text": " 각",
+    "startMs": 5434,
+    "endMs": 6033,
+    "timestampMs": 5434,
+    "confidence": null
+  },
+  {
+    "text": " 활동에",
+    "startMs": 6033,
+    "endMs": 6632,
+    "timestampMs": 6033,
+    "confidence": null
+  },
+  {
+    "text": " 10분씩",
+    "startMs": 6632,
+    "endMs": 7231,
+    "timestampMs": 6632,
+    "confidence": null
+  },
+  {
+    "text": " 투자하면",
+    "startMs": 7231,
+    "endMs": 7831,
+    "timestampMs": 7231,
+    "confidence": null
+  },
+  {
+    "text": " 6시에는",
+    "startMs": 7831,
+    "endMs": 8430,
+    "timestampMs": 7831,
+    "confidence": null
+  },
+  {
+    "text": " 모든",
+    "startMs": 8430,
+    "endMs": 9029,
+    "timestampMs": 8430,
+    "confidence": null
+  },
+  {
+    "text": " SAVERS를",
+    "startMs": 9029,
+    "endMs": 9628,
+    "timestampMs": 9029,
+    "confidence": null
+  },
+  {
+    "text": " 완료할",
+    "startMs": 9628,
+    "endMs": 10227,
+    "timestampMs": 9628,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 10227,
+    "endMs": 10826,
+    "timestampMs": 10227,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 10826,
+    "endMs": 11425,
+    "timestampMs": 10826,
     "confidence": null
   }
 ]

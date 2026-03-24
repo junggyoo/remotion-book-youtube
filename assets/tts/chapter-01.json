@@ -2,50 +2,50 @@
   {
     "text": "첫",
     "startMs": 100,
-    "endMs": 843,
+    "endMs": 832,
     "timestampMs": 100,
     "confidence": null
   },
   {
     "text": " 번째",
-    "startMs": 843,
-    "endMs": 1586,
-    "timestampMs": 843,
+    "startMs": 832,
+    "endMs": 1564,
+    "timestampMs": 832,
     "confidence": null
   },
   {
     "text": " 파트,",
-    "startMs": 1586,
-    "endMs": 2329,
-    "timestampMs": 1586,
+    "startMs": 1564,
+    "endMs": 2296,
+    "timestampMs": 1564,
     "confidence": null
   },
   {
-    "text": " 설득의",
-    "startMs": 2329,
-    "endMs": 3071,
-    "timestampMs": 2329,
+    "text": " SAVERS",
+    "startMs": 2296,
+    "endMs": 3029,
+    "timestampMs": 2296,
     "confidence": null
   },
   {
-    "text": " 핵심",
-    "startMs": 3071,
-    "endMs": 3814,
-    "timestampMs": 3071,
+    "text": " 시스템의",
+    "startMs": 3029,
+    "endMs": 3761,
+    "timestampMs": 3029,
     "confidence": null
   },
   {
-    "text": " 원칙들을",
-    "startMs": 3814,
-    "endMs": 4557,
-    "timestampMs": 3814,
+    "text": " 핵심을",
+    "startMs": 3761,
+    "endMs": 4493,
+    "timestampMs": 3761,
     "confidence": null
   },
   {
-    "text": " 알아봅니다.",
-    "startMs": 4557,
-    "endMs": 5300,
-    "timestampMs": 4557,
+    "text": " 살펴봅니다.",
+    "startMs": 4493,
+    "endMs": 5225,
+    "timestampMs": 4493,
     "confidence": null
   }
 ]
