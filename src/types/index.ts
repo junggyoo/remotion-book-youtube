@@ -33,6 +33,7 @@ export type SceneType =
   | 'transition'
   | 'listReveal'
   | 'splitQuote'
+  | 'custom'
 
 /** Content-level layout archetype hints. @see LayoutType for full VCL layout grammar. */
 export type LayoutArchetype =
@@ -229,6 +230,19 @@ export interface SceneBase {
   shorts?: ShortsSceneConfig
 }
 
+// --- CustomScene ---
+
+/**
+ * A scene driven by a pre-built SceneBlueprint (BlueprintRenderer path).
+ * Used when type: "custom" appears in content JSON.
+ * BlueprintRenderer is not yet implemented — the composition renders null and logs a warning.
+ */
+export type CustomScene = SceneBase & {
+  type: 'custom'
+  content: Record<string, unknown>
+  blueprint: SceneBlueprint
+}
+
 // --- Discriminated Union for Typed Scenes ---
 
 export type TypedScene =
@@ -246,6 +260,7 @@ export type TypedScene =
   | (SceneBase & { type: 'transition'; content: TransitionContent })
   | (SceneBase & { type: 'listReveal'; content: ListRevealContent })
   | (SceneBase & { type: 'splitQuote'; content: SplitQuoteContent })
+  | CustomScene
 
 /** Union of all scene content types. Used by SynthesizedBlueprint.fallbackContent and pipeline stages. */
 export type SceneContent =

@@ -1,0 +1,101 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createApplicationBlueprint > returns a valid SceneBlueprint matching snapshot 1`] = `
+{
+  "choreography": "path-trace",
+  "durationFrames": 150,
+  "elements": [
+    {
+      "id": "application-texture",
+      "props": {
+        "layer": 5,
+      },
+      "type": "texture-overlay",
+    },
+    {
+      "id": "application-anchorStatement",
+      "props": {
+        "layer": 20,
+        "text": "How to apply this in practice",
+        "tokenRef": "typeScale.headlineM",
+        "weight": "bold",
+      },
+      "type": "headline",
+    },
+    {
+      "id": "application-steps-0-title",
+      "props": {
+        "index": 0,
+        "layer": 30,
+        "text": "Step One",
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+      },
+      "type": "body-text",
+    },
+    {
+      "id": "application-steps-1-title",
+      "props": {
+        "index": 1,
+        "layer": 30,
+        "text": "Step Two",
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+      },
+      "type": "body-text",
+    },
+    {
+      "id": "application-steps-2-title",
+      "props": {
+        "index": 2,
+        "layer": 30,
+        "text": "Step Three",
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+      },
+      "type": "body-text",
+    },
+  ],
+  "format": "longform",
+  "from": 0,
+  "id": "preset-application-0",
+  "intent": "Application flow with 3 step(s) in path-trace reveal",
+  "layout": "map-flow",
+  "mediaPlan": {
+    "assetPlan": {
+      "fallbackMode": "text-only",
+      "required": [],
+    },
+    "audioPlan": {
+      "pitch": "+0Hz",
+      "speed": 1,
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+    },
+    "captionPlan": {
+      "leadFrames": 3,
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "mode": "sentence-by-sentence",
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide",
+    },
+    "narrationText": "Test narration text.",
+  },
+  "motionPreset": "smooth",
+  "origin": "preset",
+  "theme": {
+    "accent": "tokens.colors.dark.accent",
+    "bg": "tokens.colors.dark.bg",
+    "genre": "psychology",
+    "lineSubtle": "tokens.colors.dark.lineSubtle",
+    "mode": "dark",
+    "premium": "tokens.colors.dark.premium",
+    "signal": "tokens.colors.dark.signal",
+    "surface": "tokens.colors.dark.surface",
+    "surfaceMuted": "tokens.colors.dark.surfaceMuted",
+    "textMuted": "tokens.colors.dark.textMuted",
+    "textStrong": "tokens.colors.dark.textStrong",
+  },
+}
+`;

@@ -1,0 +1,94 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createCoverBlueprint > returns a valid SceneBlueprint matching snapshot 1`] = `
+{
+  "choreography": "reveal-sequence",
+  "durationFrames": 150,
+  "elements": [
+    {
+      "id": "cover-texture",
+      "props": {
+        "layer": 5,
+      },
+      "type": "texture-overlay",
+    },
+    {
+      "id": "cover-image",
+      "props": {
+        "layer": 25,
+        "role": "book-cover",
+        "src": "/covers/test.jpg",
+      },
+      "type": "image",
+    },
+    {
+      "id": "cover-title",
+      "props": {
+        "layer": 30,
+        "text": "Test Book Title",
+        "tokenRef": "typeScale.headlineL",
+      },
+      "type": "headline",
+    },
+    {
+      "id": "cover-author",
+      "props": {
+        "layer": 20,
+        "text": "Test Author",
+        "tokenRef": "typeScale.bodyS",
+      },
+      "type": "body-text",
+    },
+    {
+      "id": "cover-brandLabel",
+      "props": {
+        "layer": 40,
+        "text": "Editorial Signal",
+        "tokenRef": "typeScale.label",
+      },
+      "type": "label",
+    },
+  ],
+  "format": "longform",
+  "from": 0,
+  "id": "preset-cover-0",
+  "intent": "Book cover reveal with title, author, and brand",
+  "layout": "center-focus",
+  "mediaPlan": {
+    "assetPlan": {
+      "fallbackMode": "text-only",
+      "required": [],
+    },
+    "audioPlan": {
+      "pitch": "+0Hz",
+      "speed": 1,
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+    },
+    "captionPlan": {
+      "leadFrames": 3,
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "mode": "sentence-by-sentence",
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide",
+    },
+    "narrationText": "Test narration text.",
+  },
+  "motionPreset": "dramatic",
+  "origin": "preset",
+  "theme": {
+    "accent": "tokens.colors.dark.accent",
+    "bg": "tokens.colors.dark.bg",
+    "genre": "psychology",
+    "lineSubtle": "tokens.colors.dark.lineSubtle",
+    "mode": "dark",
+    "premium": "tokens.colors.dark.premium",
+    "signal": "tokens.colors.dark.signal",
+    "surface": "tokens.colors.dark.surface",
+    "surfaceMuted": "tokens.colors.dark.surfaceMuted",
+    "textMuted": "tokens.colors.dark.textMuted",
+    "textStrong": "tokens.colors.dark.textStrong",
+  },
+}
+`;

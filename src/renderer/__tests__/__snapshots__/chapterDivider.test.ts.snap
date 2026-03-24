@@ -1,0 +1,76 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`createChapterDividerBlueprint > returns a valid SceneBlueprint matching snapshot 1`] = `
+{
+  "choreography": "reveal-sequence",
+  "durationFrames": 150,
+  "elements": [
+    {
+      "id": "chapterDivider-texture",
+      "props": {
+        "layer": 5,
+      },
+      "type": "texture-overlay",
+    },
+    {
+      "id": "chapterDivider-chapterNumber",
+      "props": {
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "value": 1,
+      },
+      "type": "number-display",
+    },
+    {
+      "id": "chapterDivider-chapterTitle",
+      "props": {
+        "layer": 35,
+        "text": "Chapter One",
+        "tokenRef": "typeScale.headlineM",
+      },
+      "type": "headline",
+    },
+  ],
+  "format": "longform",
+  "from": 0,
+  "id": "preset-chapterDivider-0",
+  "intent": "Chapter divider with number and title reveal",
+  "layout": "left-anchor",
+  "mediaPlan": {
+    "assetPlan": {
+      "fallbackMode": "text-only",
+      "required": [],
+    },
+    "audioPlan": {
+      "pitch": "+0Hz",
+      "speed": 1,
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+    },
+    "captionPlan": {
+      "leadFrames": 3,
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "mode": "sentence-by-sentence",
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide",
+    },
+    "narrationText": "Test narration text.",
+  },
+  "motionPreset": "heavy",
+  "origin": "preset",
+  "theme": {
+    "accent": "tokens.colors.dark.accent",
+    "bg": "tokens.colors.dark.bg",
+    "genre": "psychology",
+    "lineSubtle": "tokens.colors.dark.lineSubtle",
+    "mode": "dark",
+    "premium": "tokens.colors.dark.premium",
+    "signal": "tokens.colors.dark.signal",
+    "surface": "tokens.colors.dark.surface",
+    "surfaceMuted": "tokens.colors.dark.surfaceMuted",
+    "textMuted": "tokens.colors.dark.textMuted",
+    "textStrong": "tokens.colors.dark.textStrong",
+  },
+}
+`;

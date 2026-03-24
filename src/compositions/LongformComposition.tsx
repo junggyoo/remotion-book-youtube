@@ -84,6 +84,10 @@ const SceneRenderer: React.FC<{
       return <ListRevealScene {...baseProps} content={scene.content as ListRevealContent} />
     case 'splitQuote':
       return <SplitQuoteScene {...baseProps} content={scene.content as SplitQuoteContent} />
+    case 'custom':
+      // TODO: render <BlueprintRenderer blueprint={scene.blueprint} />
+      console.warn('[DSGS] BlueprintRenderer not yet implemented, rendering null for custom scene')
+      return null
     default:
       return null
   }

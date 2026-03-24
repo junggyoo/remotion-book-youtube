@@ -11,7 +11,8 @@
     "validate": "ts-node scripts/validate-content.ts",
     "tts": "ts-node scripts/run-tts.ts",
     "build": "remotion bundle",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -32,8 +33,10 @@
     "@remotion/renderer": "^4.0.438",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
+    "@vitest/ui": "^4.1.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.1"
   }
 }
