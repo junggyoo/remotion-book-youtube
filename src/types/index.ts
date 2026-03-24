@@ -648,3 +648,46 @@ export const QUALITY_GATE = {
   promotionMinQuality: 0.8,
   promotionMinStability: 0.95,
 } as const
+
+// ---------------------------------------------------------------------------
+// DSGS Stage 4-5: ScenePlanner + GapDetector types
+// ---------------------------------------------------------------------------
+
+/** DSGS Spec 6-1. Per-dimension score breakdown for HITL review & debugging. */
+export interface ScoreBreakdown {
+  delivery: number       // 0~1
+  structure: number      // 0~1
+  contentFit: number     // 0~1
+  layout: number         // 0~1
+  explanation: string    // human-readable reasoning
+}
+
+/** DSGS Spec 6-1. ScenePlanner output for each scene slot. */
+export interface PresetMatch {
+  segment: SegmentRole                 // spec field name
+  slotIndex: number                    // plan-level extension: 0-based within segment
+  sceneType: SceneType                 // best-matching preset
+  content: SceneContent                // draft content for this slot
+  confidence: number                   // 0~1
+  scoreBreakdown: ScoreBreakdown       // per-dimension breakdown
+  alternativeTypes?: SceneType[]       // runner-up matches
+}
+
+/** DSGS Spec 6-2. A scene slot where no preset adequately fits. */
+export interface SceneGap {
+  segment: SegmentRole
+  slotIndex: number
+  bestPresetMatch: PresetMatch         // the rejected match (for fallback reference)
+  gapReason: string                    // which of the 5 questions triggered this
+  requiredCapabilities: string[]       // what the gap needs (e.g., 'cyclic-flow', 'timeline')
+  priority: 'must' | 'nice'           // must = signature scene candidate
+  intent: string                       // what this scene should communicate
+}
+
+/** ScenePlanner full output. */
+export interface ScenePlan {
+  presetMatches: PresetMatch[]         // confidence >= threshold
+  gaps: SceneGap[]                     // confidence < threshold
+  policy: PlanningPolicy               // the policy used
+  totalSlots: number                   // sum of all scene slots across segments
+}
