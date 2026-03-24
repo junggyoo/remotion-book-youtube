@@ -1,0 +1,107 @@
+[
+  {
+    "sceneId": "cover-01",
+    "audioFile": "cover-01.mp3",
+    "captionsFile": "cover-01.json",
+    "durationMs": 6744,
+    "durationFrames": 203
+  },
+  {
+    "sceneId": "chapter-01",
+    "audioFile": "chapter-01.mp3",
+    "captionsFile": "chapter-01.json",
+    "durationMs": 5280,
+    "durationFrames": 159
+  },
+  {
+    "sceneId": "keyInsight-01",
+    "audioFile": "keyInsight-01.mp3",
+    "captionsFile": "keyInsight-01.json",
+    "durationMs": 6288,
+    "durationFrames": 189
+  },
+  {
+    "sceneId": "highlight-01",
+    "audioFile": "highlight-01.mp3",
+    "captionsFile": "highlight-01.json",
+    "durationMs": 5928,
+    "durationFrames": 178
+  },
+  {
+    "sceneId": "keyInsight-02",
+    "audioFile": "keyInsight-02.mp3",
+    "captionsFile": "keyInsight-02.json",
+    "durationMs": 6336,
+    "durationFrames": 191
+  },
+  {
+    "sceneId": "compare-01",
+    "audioFile": "compare-01.mp3",
+    "captionsFile": "compare-01.json",
+    "durationMs": 5016,
+    "durationFrames": 151
+  },
+  {
+    "sceneId": "framework-01",
+    "audioFile": "framework-01.mp3",
+    "captionsFile": "framework-01.json",
+    "durationMs": 5424,
+    "durationFrames": 163
+  },
+  {
+    "sceneId": "quote-01",
+    "audioFile": "quote-01.mp3",
+    "captionsFile": "quote-01.json",
+    "durationMs": 3312,
+    "durationFrames": 100
+  },
+  {
+    "sceneId": "chapter-02",
+    "audioFile": "chapter-02.mp3",
+    "captionsFile": "chapter-02.json",
+    "durationMs": 4944,
+    "durationFrames": 149
+  },
+  {
+    "sceneId": "application-01",
+    "audioFile": "application-01.mp3",
+    "captionsFile": "application-01.json",
+    "durationMs": 5016,
+    "durationFrames": 151
+  },
+  {
+    "sceneId": "data-01",
+    "audioFile": "data-01.mp3",
+    "captionsFile": "data-01.json",
+    "durationMs": 5832,
+    "durationFrames": 175
+  },
+  {
+    "sceneId": "timeline-01",
+    "audioFile": "timeline-01.mp3",
+    "captionsFile": "timeline-01.json",
+    "durationMs": 5880,
+    "durationFrames": 177
+  },
+  {
+    "sceneId": "splitQuote-01",
+    "audioFile": "splitQuote-01.mp3",
+    "captionsFile": "splitQuote-01.json",
+    "durationMs": 4104,
+    "durationFrames": 124
+  },
+  {
+    "sceneId": "listReveal-01",
+    "audioFile": "listReveal-01.mp3",
+    "captionsFile": "listReveal-01.json",
+    "durationMs": 5112,
+    "durationFrames": 154
+  },
+  {
+    "sceneId": "closing-01",
+    "audioFile": "closing-01.mp3",
+    "captionsFile": "closing-01.json",
+    "durationMs": 7464,
+    "durationFrames": 224
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "text": "치알디니가",
+    "startMs": 100,
+    "endMs": 868,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 제시한",
+    "startMs": 868,
+    "endMs": 1636,
+    "timestampMs": 868,
+    "confidence": null
+  },
+  {
+    "text": " 설득의",
+    "startMs": 1636,
+    "endMs": 2404,
+    "timestampMs": 1636,
+    "confidence": null
+  },
+  {
+    "text": " 6가지",
+    "startMs": 2404,
+    "endMs": 3171,
+    "timestampMs": 2404,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 3171,
+    "endMs": 3939,
+    "timestampMs": 3171,
+    "confidence": null
+  },
+  {
+    "text": " 원칙을",
+    "startMs": 3939,
+    "endMs": 4707,
+    "timestampMs": 3939,
+    "confidence": null
+  },
+  {
+    "text": " 정리합니다.",
+    "startMs": 4707,
+    "endMs": 5475,
+    "timestampMs": 4707,
+    "confidence": null
+  }
+]

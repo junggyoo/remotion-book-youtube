@@ -1,0 +1,65 @@
+[
+  {
+    "text": "이",
+    "startMs": 100,
+    "endMs": 662,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 책에서",
+    "startMs": 662,
+    "endMs": 1225,
+    "timestampMs": 662,
+    "confidence": null
+  },
+  {
+    "text": " 얻을",
+    "startMs": 1225,
+    "endMs": 1787,
+    "timestampMs": 1225,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 1787,
+    "endMs": 2350,
+    "timestampMs": 1787,
+    "confidence": null
+  },
+  {
+    "text": " 있는",
+    "startMs": 2350,
+    "endMs": 2912,
+    "timestampMs": 2350,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 2912,
+    "endMs": 3475,
+    "timestampMs": 2912,
+    "confidence": null
+  },
+  {
+    "text": " 교훈",
+    "startMs": 3475,
+    "endMs": 4037,
+    "timestampMs": 3475,
+    "confidence": null
+  },
+  {
+    "text": " 5가지를",
+    "startMs": 4037,
+    "endMs": 4600,
+    "timestampMs": 4037,
+    "confidence": null
+  },
+  {
+    "text": " 정리합니다.",
+    "startMs": 4600,
+    "endMs": 5162,
+    "timestampMs": 4600,
+    "confidence": null
+  }
+]

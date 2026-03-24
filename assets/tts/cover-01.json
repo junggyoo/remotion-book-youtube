@@ -1,0 +1,58 @@
+[
+  {
+    "text": "로버트",
+    "startMs": 100,
+    "endMs": 928,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 치알디니의",
+    "startMs": 928,
+    "endMs": 1756,
+    "timestampMs": 928,
+    "confidence": null
+  },
+  {
+    "text": " 설득의",
+    "startMs": 1756,
+    "endMs": 2584,
+    "timestampMs": 1756,
+    "confidence": null
+  },
+  {
+    "text": " 심리학,",
+    "startMs": 2584,
+    "endMs": 3413,
+    "timestampMs": 2584,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 3413,
+    "endMs": 4241,
+    "timestampMs": 3413,
+    "confidence": null
+  },
+  {
+    "text": " 인사이트를",
+    "startMs": 4241,
+    "endMs": 5069,
+    "timestampMs": 4241,
+    "confidence": null
+  },
+  {
+    "text": " 함께",
+    "startMs": 5069,
+    "endMs": 5897,
+    "timestampMs": 5069,
+    "confidence": null
+  },
+  {
+    "text": " 살펴보겠습니다.",
+    "startMs": 5897,
+    "endMs": 6725,
+    "timestampMs": 5897,
+    "confidence": null
+  }
+]

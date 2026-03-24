@@ -1,0 +1,58 @@
+[
+  {
+    "text": "일관성의",
+    "startMs": 100,
+    "endMs": 886,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 원칙은",
+    "startMs": 886,
+    "endMs": 1672,
+    "timestampMs": 886,
+    "confidence": null
+  },
+  {
+    "text": " 한번",
+    "startMs": 1672,
+    "endMs": 2458,
+    "timestampMs": 1672,
+    "confidence": null
+  },
+  {
+    "text": " 약속하면",
+    "startMs": 2458,
+    "endMs": 3244,
+    "timestampMs": 2458,
+    "confidence": null
+  },
+  {
+    "text": " 행동을",
+    "startMs": 3244,
+    "endMs": 4029,
+    "timestampMs": 3244,
+    "confidence": null
+  },
+  {
+    "text": " 맞추려는",
+    "startMs": 4029,
+    "endMs": 4815,
+    "timestampMs": 4029,
+    "confidence": null
+  },
+  {
+    "text": " 강력한",
+    "startMs": 4815,
+    "endMs": 5601,
+    "timestampMs": 4815,
+    "confidence": null
+  },
+  {
+    "text": " 심리입니다.",
+    "startMs": 5601,
+    "endMs": 6387,
+    "timestampMs": 5601,
+    "confidence": null
+  }
+]

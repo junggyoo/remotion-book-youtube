@@ -1,0 +1,58 @@
+[
+  {
+    "text": "상호성의",
+    "startMs": 100,
+    "endMs": 875,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 법칙은",
+    "startMs": 875,
+    "endMs": 1650,
+    "timestampMs": 875,
+    "confidence": null
+  },
+  {
+    "text": " 누군가에게",
+    "startMs": 1650,
+    "endMs": 2425,
+    "timestampMs": 1650,
+    "confidence": null
+  },
+  {
+    "text": " 받으면",
+    "startMs": 2425,
+    "endMs": 3200,
+    "timestampMs": 2425,
+    "confidence": null
+  },
+  {
+    "text": " 돌려주고",
+    "startMs": 3200,
+    "endMs": 3975,
+    "timestampMs": 3200,
+    "confidence": null
+  },
+  {
+    "text": " 싶어지는",
+    "startMs": 3975,
+    "endMs": 4750,
+    "timestampMs": 3975,
+    "confidence": null
+  },
+  {
+    "text": " 심리적",
+    "startMs": 4750,
+    "endMs": 5525,
+    "timestampMs": 4750,
+    "confidence": null
+  },
+  {
+    "text": " 원리입니다.",
+    "startMs": 5525,
+    "endMs": 6300,
+    "timestampMs": 5525,
+    "confidence": null
+  }
+]

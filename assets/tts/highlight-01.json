@@ -1,0 +1,51 @@
+[
+  {
+    "text": "놀랍게도",
+    "startMs": 100,
+    "endMs": 930,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 93%의",
+    "startMs": 930,
+    "endMs": 1761,
+    "timestampMs": 930,
+    "confidence": null
+  },
+  {
+    "text": " 사람들이",
+    "startMs": 1761,
+    "endMs": 2591,
+    "timestampMs": 1761,
+    "confidence": null
+  },
+  {
+    "text": " 호의를",
+    "startMs": 2591,
+    "endMs": 3421,
+    "timestampMs": 2591,
+    "confidence": null
+  },
+  {
+    "text": " 받으면",
+    "startMs": 3421,
+    "endMs": 4251,
+    "timestampMs": 3421,
+    "confidence": null
+  },
+  {
+    "text": " 돌려주고",
+    "startMs": 4251,
+    "endMs": 5082,
+    "timestampMs": 4251,
+    "confidence": null
+  },
+  {
+    "text": " 싶어합니다.",
+    "startMs": 5082,
+    "endMs": 5912,
+    "timestampMs": 5082,
+    "confidence": null
+  }
+]

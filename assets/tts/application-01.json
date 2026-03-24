@@ -1,0 +1,44 @@
+[
+  {
+    "text": "상호성의",
+    "startMs": 100,
+    "endMs": 927,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 원칙을",
+    "startMs": 927,
+    "endMs": 1754,
+    "timestampMs": 927,
+    "confidence": null
+  },
+  {
+    "text": " 실생활에",
+    "startMs": 1754,
+    "endMs": 2581,
+    "timestampMs": 1754,
+    "confidence": null
+  },
+  {
+    "text": " 적용하는",
+    "startMs": 2581,
+    "endMs": 3408,
+    "timestampMs": 2581,
+    "confidence": null
+  },
+  {
+    "text": " 4단계",
+    "startMs": 3408,
+    "endMs": 4235,
+    "timestampMs": 3408,
+    "confidence": null
+  },
+  {
+    "text": " 방법입니다.",
+    "startMs": 4235,
+    "endMs": 5062,
+    "timestampMs": 4235,
+    "confidence": null
+  }
+]

@@ -1,0 +1,377 @@
+import { z } from 'zod'
+import path from 'path'
+import fs from 'fs'
+import type { BookContent, ValidationResult } from '@/types'
+
+// --- Zod Schemas for all 9 content types ---
+
+const CoverContentSchema = z.object({
+  title: z.string().min(1),
+  subtitle: z.string().optional(),
+  author: z.string().min(1),
+  coverImageUrl: z.string().min(1), // REQUIRED. Spec §3.
+  brandLabel: z.string().optional(),
+  backgroundVariant: z.enum(['dark', 'light']).optional(),
+})
+
+const ChapterDividerContentSchema = z.object({
+  chapterNumber: z.number(),
+  chapterTitle: z.string().min(1),
+  chapterSubtitle: z.string().optional(),
+  useAltLayout: z.boolean().optional(),
+})
+
+const KeyInsightContentSchema = z.object({
+  headline: z.string().min(1).max(60), // hard limit
+  supportText: z.string().optional(),
+  underlineKeyword: z.string().optional(),
+  useSignalBar: z.boolean().optional(),
+})
+
+const CompareContrastContentSchema = z.object({
+  leftLabel: z.string().min(1),
+  leftContent: z.string().min(1),
+  rightLabel: z.string().min(1),
+  rightContent: z.string().min(1),
+  leftTag: z.enum(['before', 'myth', 'wrong', 'common', 'custom']).optional(),
+  rightTag: z.enum(['after', 'fact', 'right', 'author', 'custom']).optional(),
+  showConnector: z.boolean().optional(),
+  revealOrder: z.enum(['simultaneous', 'left-first', 'right-first']).optional(),
+})
+
+const QuoteContentSchema = z.object({
+  quoteText: z.string().min(1),
+  attribution: z.string().min(1),
+  useSerif: z.boolean().optional(),
+  showTexture: z.boolean().optional(),
+})
+
+const FrameworkItemSchema = z.object({
+  number: z.number(),
+  title: z.string().min(1),
+  description: z.string().optional(),
+  iconId: z.string().optional(),
+})
+
+const FrameworkContentSchema = z.object({
+  frameworkLabel: z.string().min(1),
+  items: z.array(FrameworkItemSchema).max(5),
+  showConnectors: z.boolean().optional(),
+  showDescriptions: z.boolean().optional(),
+})
+
+const ApplicationStepSchema = z.object({
+  title: z.string().min(1),
+  detail: z.string().optional(),
+  iconId: z.string().optional(),
+})
+
+const ApplicationContentSchema = z.object({
+  anchorStatement: z.string().min(1),
+  steps: z.array(ApplicationStepSchema).max(4),
+  showPaths: z.boolean().optional(),
+  showCheckmarks: z.boolean().optional(),
+})
+
+const DataPointSchema = z.object({
+  label: z.string().min(1),
+  value: z.number(),
+  highlight: z.boolean().optional(),
+})
+
+const DataContentSchema = z.object({
+  chartType: z.enum(['bar', 'line', 'compare', 'stepFlow', 'matrix']),
+  dataLabel: z.string().min(1),
+  data: z.array(DataPointSchema),
+  annotation: z.string().optional(),
+  sourceCredit: z.string().optional(),
+  unit: z.string().optional(),
+})
+
+const ClosingContentSchema = z.object({
+  recapStatement: z.string().min(1),
+  ctaText: z.string().optional(),
+  showBrandLabel: z.boolean().optional(),
+})
+
+// --- New Motion Graphic Scene Content Schemas ---
+
+const TimelineEventSchema = z.object({
+  year: z.string().min(1),
+  title: z.string().min(1),
+  description: z.string().optional(),
+})
+
+const TimelineContentSchema = z.object({
+  timelineLabel: z.string().min(1),
+  events: z.array(TimelineEventSchema).max(6),
+  showConnectors: z.boolean().optional(),
+})
+
+const HighlightContentSchema = z.object({
+  mainText: z.string().min(1),
+  subText: z.string().optional(),
+  highlightColor: z.enum(['signal', 'accent', 'premium']).optional(),
+  showPulse: z.boolean().optional(),
+})
+
+const TransitionContentSchema = z.object({
+  label: z.string().optional(),
+  style: z.enum(['fade', 'wipe', 'zoom']).optional(),
+  showBrandMark: z.boolean().optional(),
+})
+
+const ListRevealItemSchema = z.object({
+  title: z.string().min(1),
+  subtitle: z.string().optional(),
+  iconId: z.string().optional(),
+})
+
+const ListRevealContentSchema = z.object({
+  listLabel: z.string().min(1),
+  items: z.array(ListRevealItemSchema).max(7),
+  showNumbers: z.boolean().optional(),
+  revealStyle: z.enum(['stagger', 'cascade']).optional(),
+})
+
+const SplitQuoteContentSchema = z.object({
+  leftQuote: z.string().min(1),
+  leftAttribution: z.string().min(1),
+  rightQuote: z.string().min(1),
+  rightAttribution: z.string().min(1),
+  vsLabel: z.string().optional(),
+})
+
+// --- Scene Asset Refs (NO coverImage, NO bgm) ---
+
+const SceneAssetRefsSchema = z.object({
+  backgroundTexture: z.string().optional(),
+  icon: z.string().optional(),
+  sfx: z.string().optional(),
+})
+
+// --- Shorts Scene Config (NO 'enabled' field) ---
+
+const ShortsSceneConfigSchema = z.object({
+  skipForShorts: z.boolean().optional(),
+  durationFramesOverride: z.number().optional(),
+})
+
+// --- Scene Base ---
+
+const SceneBaseSchema = z.object({
+  id: z.string().min(1),
+  type: z.enum([
+    'cover', 'chapterDivider', 'keyInsight', 'compareContrast',
+    'quote', 'framework', 'application', 'data', 'closing',
+    'timeline', 'highlight', 'transition', 'listReveal', 'splitQuote',
+  ]),
+  layoutArchetypeOverride: z.enum([
+    'center-focus', 'left-anchor', 'split-compare', 'grid-expand',
+    'quote-hold', 'map-flow', 'top-anchor', 'band-divider',
+  ]).optional(),
+  durationFrames: z.number().optional(),
+  motionPresetOverride: z.enum(['gentle', 'smooth', 'snappy', 'heavy', 'dramatic']).optional(),
+  narrationText: z.string().optional(), // FLAT field. Never scene.narration.text.
+  assets: SceneAssetRefsSchema.optional(),
+  shorts: ShortsSceneConfigSchema.optional(),
+})
+
+// --- Discriminated union for typed scenes ---
+
+const TypedSceneSchema = z.discriminatedUnion('type', [
+  SceneBaseSchema.extend({ type: z.literal('cover'), content: CoverContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('chapterDivider'), content: ChapterDividerContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('keyInsight'), content: KeyInsightContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('compareContrast'), content: CompareContrastContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('quote'), content: QuoteContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('framework'), content: FrameworkContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('application'), content: ApplicationContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('data'), content: DataContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('closing'), content: ClosingContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('timeline'), content: TimelineContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('highlight'), content: HighlightContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('transition'), content: TransitionContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('listReveal'), content: ListRevealContentSchema }),
+  SceneBaseSchema.extend({ type: z.literal('splitQuote'), content: SplitQuoteContentSchema }),
+])
+
+// --- BookContent schema ---
+
+const BookMetadataSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  author: z.string().min(1),
+  originalTitle: z.string().optional(),
+  genre: z.enum(['selfHelp', 'psychology', 'business', 'philosophy', 'science', 'ai']),
+  isbn: z.string().optional(),
+  coverImageUrl: z.string().optional(),
+  publishYear: z.number().optional(),
+  tags: z.array(z.string()).optional(),
+  channelNote: z.string().optional(),
+})
+
+const ProductionConfigSchema = z.object({
+  format: z.enum(['longform', 'shorts', 'both']).optional(),
+  targetDurationSeconds: z.number().optional(),
+  fps: z.number().optional(),
+  themeMode: z.enum(['dark', 'light']).optional(),
+  genreOverride: z.enum(['selfHelp', 'psychology', 'business', 'philosophy', 'science', 'ai']).optional(),
+})
+
+const NarrationConfigSchema = z.object({
+  voice: z.string().min(1),
+  ttsEngine: z.enum(['edge-tts', 'elevenlabs', 'google-tts', 'minimax']).optional(),
+  speed: z.number().optional(),
+  pitch: z.string().optional(),
+  subtitleMaxCharsPerLine: z.number().optional(),
+  subtitleMaxLines: z.number().optional(),
+})
+
+const AudioConfigSchema = z.object({
+  bgmTrack: z.string().optional(),
+  bgmVolume: z.number().optional(),
+  sonicLogo: z.string().optional(),
+})
+
+const BookContentSchema = z.object({
+  $schema: z.string().optional(),
+  metadata: BookMetadataSchema,
+  production: ProductionConfigSchema.optional(),
+  narration: NarrationConfigSchema,
+  scenes: z.array(TypedSceneSchema).min(1),
+  audio: AudioConfigSchema.optional(),
+})
+
+// --- Constants ---
+
+export const MIN_SCENES = { longform: 5, shorts: 1, both: 5 } as const
+
+// --- Helpers ---
+
+function hasDuplicateIds(scenes: Array<{ id: string }>): boolean {
+  const ids = scenes.map((s) => s.id)
+  return new Set(ids).size !== ids.length
+}
+
+function fileExists(relativePath: string): boolean {
+  const absPath = path.resolve(process.cwd(), relativePath)
+  return fs.existsSync(absPath)
+}
+
+function hasLicensePendingAssets(book: BookContent): boolean {
+  // Check asset-manifest for any referenced assets with pending-check status
+  const manifestPath = path.resolve(process.cwd(), 'src/schema/asset-manifest.json')
+  if (!fs.existsSync(manifestPath)) return false
+
+  try {
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
+    const assets: Array<{ id: string; license: { status: string } }> = manifest.assets ?? []
+    const pendingIds = new Set(
+      assets.filter((a) => a.license.status === 'pending-check').map((a) => a.id),
+    )
+    if (pendingIds.size === 0) return false
+
+    // Check if any scene references a pending-check asset
+    for (const scene of book.scenes) {
+      if (scene.assets) {
+        const refs = [scene.assets.backgroundTexture, scene.assets.icon, scene.assets.sfx]
+        for (const ref of refs) {
+          if (ref && pendingIds.has(ref)) return true
+        }
+      }
+    }
+  } catch {
+    // If manifest can't be read, don't block
+  }
+
+  return false
+}
+
+// --- Main validation ---
+
+export async function validateBook(book: unknown): Promise<ValidationResult> {
+  const errors: string[] = []
+  const warnings: string[] = []
+
+  // Step 1: Zod structural validation
+  const parseResult = BookContentSchema.safeParse(book)
+  if (!parseResult.success) {
+    const zodErrors = parseResult.error.issues.map(
+      (issue) => `${issue.path.join('.')}: ${issue.message}`,
+    )
+    return { level: 'BLOCKED', errors: zodErrors, warnings: [] }
+  }
+
+  const parsed = parseResult.data as BookContent
+  const format = parsed.production?.format ?? 'both'
+  const isLongform = format === 'longform' || format === 'both'
+
+  // Step 2: Level 0 — BLOCKED checks
+
+  // Min scenes
+  const minRequired = MIN_SCENES[format]
+  if (parsed.scenes.length < minRequired) {
+    errors.push(
+      `Minimum ${minRequired} scenes required for format "${format}", got ${parsed.scenes.length}`,
+    )
+  }
+
+  // Duplicate IDs
+  if (hasDuplicateIds(parsed.scenes)) {
+    errors.push('Duplicate scene IDs detected')
+  }
+
+  // Longform: first scene must be 'cover', last must be 'closing'
+  if (isLongform) {
+    if (parsed.scenes[0]?.type !== 'cover') {
+      errors.push('Longform: first scene must be type "cover"')
+    }
+    if (parsed.scenes[parsed.scenes.length - 1]?.type !== 'closing') {
+      errors.push('Longform: last scene must be type "closing"')
+    }
+
+    // Cover image validation
+    const firstScene = parsed.scenes[0]
+    if (firstScene?.type === 'cover') {
+      const coverImageUrl = (firstScene.content as { coverImageUrl: string }).coverImageUrl
+      const coverPath = path.join('assets', coverImageUrl)
+      if (!fileExists(coverPath)) {
+        errors.push(`Cover image not found: ${coverPath}`)
+      }
+    }
+  }
+
+  // Headline hard limit (60 chars) and narrationText hard limit (200 chars)
+  for (const scene of parsed.scenes) {
+    if (scene.type === 'keyInsight') {
+      const headline = (scene.content as { headline: string }).headline
+      if (headline.length > 60) {
+        errors.push(`Scene ${scene.id}: headline exceeds 60 chars (${headline.length})`)
+      }
+    }
+
+    if (scene.narrationText && scene.narrationText.length > 200) {
+      errors.push(
+        `Scene ${scene.id}: narrationText exceeds 200 chars (${scene.narrationText.length})`,
+      )
+    }
+  }
+
+  // License pending-check assets
+  if (hasLicensePendingAssets(parsed)) {
+    errors.push('Cannot render: book references assets with license status "pending-check"')
+  }
+
+  // Step 3: Level 1 — WARN checks
+  for (const scene of parsed.scenes) {
+    if (scene.narrationText && scene.narrationText.length > 120 && scene.narrationText.length <= 200) {
+      warnings.push(`Scene ${scene.id}: narrationText > 120 chars (${scene.narrationText.length}), TTS may be long`)
+    }
+  }
+
+  const level = errors.length > 0 ? 'BLOCKED' : 'PASS'
+  return { level, errors, warnings }
+}
+
+export { BookContentSchema, TypedSceneSchema }

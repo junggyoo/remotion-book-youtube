@@ -1,0 +1,58 @@
+[
+  {
+    "text": "설득의",
+    "startMs": 100,
+    "endMs": 940,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 심리학",
+    "startMs": 940,
+    "endMs": 1780,
+    "timestampMs": 940,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 1780,
+    "endMs": 2620,
+    "timestampMs": 1780,
+    "confidence": null
+  },
+  {
+    "text": " 인사이트를",
+    "startMs": 2620,
+    "endMs": 3460,
+    "timestampMs": 2620,
+    "confidence": null
+  },
+  {
+    "text": " 정리했습니다.",
+    "startMs": 3460,
+    "endMs": 4300,
+    "timestampMs": 3460,
+    "confidence": null
+  },
+  {
+    "text": "구독과",
+    "startMs": 4250,
+    "endMs": 5308,
+    "timestampMs": 4250,
+    "confidence": null
+  },
+  {
+    "text": " 좋아요",
+    "startMs": 5308,
+    "endMs": 6367,
+    "timestampMs": 5308,
+    "confidence": null
+  },
+  {
+    "text": " 부탁드립니다.",
+    "startMs": 6367,
+    "endMs": 7425,
+    "timestampMs": 6367,
+    "confidence": null
+  }
+]

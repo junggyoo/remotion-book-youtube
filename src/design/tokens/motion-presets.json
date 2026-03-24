@@ -1,0 +1,107 @@
+{
+  "_notice": "모션 프리셋 원본 (JSON). src/design/tokens/motion.ts로 변환 후 .ts 파일이 런타임 기준.",
+  "version": "1.0.0",
+  "presets": {
+    "gentle": {
+      "type": "interpolate",
+      "easing": [0.25, 0.1, 0.25, 1.0],
+      "durationRange": [90, 180],
+      "overshootClamping": false,
+      "description": "ambient drift, texture movement"
+    },
+    "smooth": {
+      "type": "spring",
+      "config": {
+        "stiffness": 120,
+        "damping": 20,
+        "mass": 1
+      },
+      "durationRange": [24, 45],
+      "overshootClamping": false,
+      "description": "body reveal, pan, framework items"
+    },
+    "snappy": {
+      "type": "spring",
+      "config": {
+        "stiffness": 300,
+        "damping": 22,
+        "mass": 0.8
+      },
+      "durationRange": [12, 24],
+      "overshootClamping": true,
+      "description": "keyword, counter, chip, label"
+    },
+    "heavy": {
+      "type": "spring",
+      "config": {
+        "stiffness": 80,
+        "damping": 14,
+        "mass": 1.2
+      },
+      "durationRange": [30, 54],
+      "overshootClamping": false,
+      "description": "chapter title, key insight headline"
+    },
+    "dramatic": {
+      "type": "hybrid",
+      "springConfig": {
+        "stiffness": 60,
+        "damping": 12,
+        "mass": 1.5
+      },
+      "easing": [0.22, 1, 0.36, 1],
+      "durationRange": [45, 75],
+      "overshootClamping": false,
+      "description": "chapter shift, intro, cover reveal"
+    }
+  },
+  "motionRoles": {
+    "typography": {
+      "architecturalReveal": {
+        "preset": "heavy",
+        "translateY": 22,
+        "opacity": [0, 1]
+      },
+      "keywordEmphasis": {
+        "preset": "snappy",
+        "scale": [1.0, 1.04],
+        "opacity": [0.7, 1]
+      }
+    },
+    "layout": {
+      "panelSlide": {
+        "preset": "smooth",
+        "translateX": [-40, 0],
+        "opacity": [0, 1]
+      },
+      "gridExpand": {
+        "preset": "smooth",
+        "scale": [0.95, 1],
+        "opacity": [0, 1]
+      }
+    },
+    "transition": {
+      "chapterShift": {
+        "preset": "dramatic",
+        "translateY": [-60, 0],
+        "opacity": [0, 1]
+      },
+      "coverReveal": {
+        "preset": "dramatic",
+        "scale": [0.92, 1],
+        "opacity": [0, 1]
+      }
+    }
+  },
+  "defaults": {
+    "staggerFrames": 3,
+    "subtitleLeadFrames": 3,
+    "maxRevealYOffset": 24,
+    "maxScaleEmphasis": 1.06,
+    "constraints": {
+      "avoidExcessiveBounce": true,
+      "maxSimultaneousElements": 4,
+      "maxSimultaneousElementsShorts": 3
+    }
+  }
+}

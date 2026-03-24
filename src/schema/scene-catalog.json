@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "_notice": "씬 기본값 레지스트리. Claude Code 수정 불가 (초기 생성 후). 런타임에서 읽기 전용.",
+  "version": "1.0.0",
+  "baseFPS": 30,
+  "scenes": {
+    "cover": {
+      "durationFramesDefault": 120,
+      "motionPreset": "dramatic",
+      "layoutArchetype": "center-focus",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "baseContent": 20,
+        "coverImage": 25,
+        "title": 30,
+        "brandLabel": 40,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 90
+      }
+    },
+    "chapterDivider": {
+      "durationFramesDefault": 90,
+      "motionPreset": "heavy",
+      "layoutArchetype": "left-anchor",
+      "altLayoutArchetype": "band-divider",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "baseContent": 20,
+        "chapterNumber": 30,
+        "chapterTitle": 35,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": true
+      }
+    },
+    "keyInsight": {
+      "durationFramesDefault": 150,
+      "motionPreset": "heavy",
+      "layoutArchetype": "center-focus",
+      "altLayoutArchetype": "top-anchor",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "signalBar": 20,
+        "headline": 30,
+        "supportText": 25,
+        "emphasis": 40,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 90
+      }
+    },
+    "compareContrast": {
+      "durationFramesDefault": 180,
+      "motionPreset": "smooth",
+      "layoutArchetype": "split-compare",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "leftPanel": 20,
+        "rightPanel": 20,
+        "divider": 30,
+        "labels": 35,
+        "emphasis": 40,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 120
+      }
+    },
+    "quote": {
+      "durationFramesDefault": 150,
+      "motionPreset": "heavy",
+      "layoutArchetype": "quote-hold",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "quoteMark": 20,
+        "quoteText": 30,
+        "attribution": 25,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 90
+      }
+    },
+    "framework": {
+      "durationFramesDefault": 210,
+      "motionPreset": "smooth",
+      "layoutArchetype": "grid-expand",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "frameworkLabel": 20,
+        "items": 30,
+        "connectors": 25,
+        "emphasis": 40,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 120
+      }
+    },
+    "application": {
+      "durationFramesDefault": 180,
+      "motionPreset": "smooth",
+      "layoutArchetype": "map-flow",
+      "altLayoutArchetype": "left-anchor",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "anchorStatement": 20,
+        "steps": 30,
+        "paths": 25,
+        "emphasis": 40,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 120
+      }
+    },
+    "data": {
+      "durationFramesDefault": 180,
+      "motionPreset": "smooth",
+      "layoutArchetype": "grid-expand",
+      "altLayoutArchetype": "top-anchor",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "dataLabel": 20,
+        "chart": 30,
+        "annotation": 35,
+        "sourceCredit": 15,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": true
+      }
+    },
+    "closing": {
+      "durationFramesDefault": 120,
+      "motionPreset": "heavy",
+      "layoutArchetype": "center-focus",
+      "altLayoutArchetype": "quote-hold",
+      "layers": {
+        "background": 0,
+        "texture": 5,
+        "recapStatement": 30,
+        "brandLabel": 40,
+        "cta": 35,
+        "hud": 70
+      },
+      "shortsAdaptation": {
+        "skipForShorts": false,
+        "durationFramesOverride": 90
+      }
+    }
+  },
+  "defaults": {
+    "staggerFrames": 3,
+    "subtitleLeadFrames": 3,
+    "maxRevealYOffset": 24,
+    "maxScaleEmphasis": 1.06,
+    "maxSimultaneousAnimations": {
+      "longform": 4,
+      "shorts": 3
+    }
+  }
+}

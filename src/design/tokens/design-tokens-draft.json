@@ -1,0 +1,139 @@
+{
+  "_notice": "디자인 토큰 원본 (JSON). src/design/tokens/*.ts로 변환 후 .ts 파일이 런타임 기준.",
+  "version": "1.0.0",
+  "colors": {
+    "brand": {
+      "deepNavy": "#0F172A",
+      "ivoryWhite": "#F8F7F2",
+      "cobaltBlue": "#356DFF",
+      "softGold": "#D4A853"
+    },
+    "neutral": {
+      "900": "#0F172A",
+      "800": "#1E293B",
+      "700": "#334155",
+      "600": "#475569",
+      "500": "#64748B",
+      "400": "#94A3B8",
+      "300": "#CBD5E1",
+      "200": "#E2E8F0",
+      "100": "#F1F5F9",
+      "50": "#F8FAFC"
+    },
+    "semantic": {
+      "dark": {
+        "bg": "#0F172A",
+        "surface": "#1E293B",
+        "surfaceMuted": "#334155",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#94A3B8",
+        "lineSubtle": "#334155"
+      },
+      "light": {
+        "bg": "#F8F7F2",
+        "surface": "#FFFFFF",
+        "surfaceMuted": "#F1F5F9",
+        "textStrong": "#0F172A",
+        "textMuted": "#64748B",
+        "lineSubtle": "#E2E8F0"
+      }
+    },
+    "genreVariants": {
+      "selfHelp": {
+        "accent": "#10B981",
+        "tint": "rgba(16, 185, 129, 0.08)"
+      },
+      "psychology": {
+        "accent": "#8B5CF6",
+        "tint": "rgba(139, 92, 246, 0.08)"
+      },
+      "business": {
+        "accent": "#F59E0B",
+        "tint": "rgba(245, 158, 11, 0.08)"
+      },
+      "philosophy": {
+        "accent": "#6366F1",
+        "tint": "rgba(99, 102, 241, 0.08)"
+      },
+      "science": {
+        "accent": "#06B6D4",
+        "tint": "rgba(6, 182, 212, 0.08)"
+      },
+      "ai": {
+        "accent": "#EC4899",
+        "tint": "rgba(236, 72, 153, 0.08)"
+      }
+    },
+    "chart": {
+      "primary": "#356DFF",
+      "secondary": "#94A3B8",
+      "highlight": "#F59E0B",
+      "positive": "#10B981",
+      "negative": "#EF4444"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": "'Pretendard', 'Inter', system-ui, -apple-system, sans-serif",
+      "serif": "'Noto Serif KR', 'Georgia', serif",
+      "mono": "'JetBrains Mono', 'Fira Code', monospace"
+    },
+    "fontWeight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "tracking": {
+      "tight": "-0.02em",
+      "normal": "0em",
+      "wide": "0.04em",
+      "extraWide": "0.12em"
+    },
+    "lineHeight": {
+      "tight": 1.2,
+      "normal": 1.5,
+      "relaxed": 1.7
+    },
+    "scale": {
+      "longform": {
+        "headlineL": 56,
+        "headlineM": 42,
+        "headlineS": 32,
+        "bodyL": 24,
+        "bodyM": 20,
+        "bodyS": 16,
+        "caption": 14,
+        "label": 12
+      },
+      "shorts": {
+        "headlineL": 48,
+        "headlineM": 36,
+        "headlineS": 28,
+        "bodyL": 22,
+        "bodyM": 18,
+        "bodyS": 15,
+        "caption": 13,
+        "label": 11
+      }
+    }
+  },
+  "spacing": {
+    "base": 4,
+    "scale": [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128, 160]
+  },
+  "radius": {
+    "none": 0,
+    "sm": 4,
+    "md": 8,
+    "lg": 12,
+    "xl": 16,
+    "pill": 999
+  },
+  "shadow": {
+    "soft1": "0 1px 3px rgba(0,0,0,0.12)",
+    "soft2": "0 4px 12px rgba(0,0,0,0.15)",
+    "float": "0 8px 24px rgba(0,0,0,0.2)",
+    "focusRing": "0 0 0 3px rgba(53,109,255,0.4)"
+  }
+}

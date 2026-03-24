@@ -1,0 +1,44 @@
+[
+  {
+    "text": "두",
+    "startMs": 100,
+    "endMs": 913,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 번째",
+    "startMs": 913,
+    "endMs": 1725,
+    "timestampMs": 913,
+    "confidence": null
+  },
+  {
+    "text": " 파트,",
+    "startMs": 1725,
+    "endMs": 2538,
+    "timestampMs": 1725,
+    "confidence": null
+  },
+  {
+    "text": " 실전",
+    "startMs": 2538,
+    "endMs": 3350,
+    "timestampMs": 2538,
+    "confidence": null
+  },
+  {
+    "text": " 적용법을",
+    "startMs": 3350,
+    "endMs": 4163,
+    "timestampMs": 3350,
+    "confidence": null
+  },
+  {
+    "text": " 살펴봅니다.",
+    "startMs": 4163,
+    "endMs": 4975,
+    "timestampMs": 4163,
+    "confidence": null
+  }
+]

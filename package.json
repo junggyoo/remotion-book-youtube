@@ -1,0 +1,39 @@
+{
+  "name": "remotion-book-youtube",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "studio": "remotion studio",
+    "preview": "remotion studio",
+    "render:longform": "ts-node scripts/render-longform.ts",
+    "render:shorts": "ts-node scripts/render-shorts.ts",
+    "validate": "ts-node scripts/validate-content.ts",
+    "tts": "ts-node scripts/run-tts.ts",
+    "build": "remotion bundle",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.438",
+    "@remotion/captions": "4.0.438",
+    "@remotion/cli": "^4.0.438",
+    "@remotion/fonts": "4.0.438",
+    "@remotion/paths": "4.0.438",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "remotion": "^4.0.438",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@remotion/renderer": "^4.0.438",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "typescript": "^5.9.3"
+  }
+}

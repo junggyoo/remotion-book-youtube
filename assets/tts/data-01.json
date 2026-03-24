@@ -1,0 +1,65 @@
+[
+  {
+    "text": "각",
+    "startMs": 100,
+    "endMs": 736,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 설득",
+    "startMs": 736,
+    "endMs": 1372,
+    "timestampMs": 736,
+    "confidence": null
+  },
+  {
+    "text": " 원칙이",
+    "startMs": 1372,
+    "endMs": 2008,
+    "timestampMs": 1372,
+    "confidence": null
+  },
+  {
+    "text": " 실제로",
+    "startMs": 2008,
+    "endMs": 2644,
+    "timestampMs": 2008,
+    "confidence": null
+  },
+  {
+    "text": " 얼마나",
+    "startMs": 2644,
+    "endMs": 3281,
+    "timestampMs": 2644,
+    "confidence": null
+  },
+  {
+    "text": " 효과적인지",
+    "startMs": 3281,
+    "endMs": 3917,
+    "timestampMs": 3281,
+    "confidence": null
+  },
+  {
+    "text": " 데이터로",
+    "startMs": 3917,
+    "endMs": 4553,
+    "timestampMs": 3917,
+    "confidence": null
+  },
+  {
+    "text": " 확인해",
+    "startMs": 4553,
+    "endMs": 5189,
+    "timestampMs": 4553,
+    "confidence": null
+  },
+  {
+    "text": " 봅시다.",
+    "startMs": 5189,
+    "endMs": 5825,
+    "timestampMs": 5189,
+    "confidence": null
+  }
+]

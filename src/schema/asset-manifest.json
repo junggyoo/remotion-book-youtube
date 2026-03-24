@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "_notice": "에셋 레지스트리. Claude Code 수정 불가 (초기 생성 후). 사람만 수동 추가.",
+  "version": "1.0.0",
+  "assets": [
+    {
+      "id": "cover-test",
+      "role": "cover",
+      "source": {
+        "type": "local",
+        "path": "covers/test-cover.png"
+      },
+      "license": {
+        "status": "ready",
+        "type": "placeholder",
+        "note": "테스트용 placeholder 이미지"
+      },
+      "fallback": {
+        "strategy": "surfaceMuted-rect",
+        "description": "surfaceMuted 색상의 placeholder rect"
+      }
+    },
+    {
+      "id": "texture-paper-dark",
+      "role": "backgroundTexture",
+      "source": {
+        "type": "code-generated",
+        "path": "code-generated"
+      },
+      "license": {
+        "status": "ready",
+        "type": "generated",
+        "note": "코드로 생성되는 배경 텍스처"
+      },
+      "fallback": {
+        "strategy": "skip",
+        "description": "텍스처 없이 단색 배경 사용"
+      }
+    }
+  ],
+  "fallbackRules": {
+    "cover": "surfaceMuted-rect",
+    "backgroundTexture": "skip",
+    "icon": "visibility-hidden",
+    "sfx": "silent"
+  }
+}

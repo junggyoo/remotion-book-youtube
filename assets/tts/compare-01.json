@@ -1,0 +1,51 @@
+[
+  {
+    "text": "일반적인",
+    "startMs": 100,
+    "endMs": 809,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 설득과",
+    "startMs": 809,
+    "endMs": 1518,
+    "timestampMs": 809,
+    "confidence": null
+  },
+  {
+    "text": " 과학적",
+    "startMs": 1518,
+    "endMs": 2227,
+    "timestampMs": 1518,
+    "confidence": null
+  },
+  {
+    "text": " 설득의",
+    "startMs": 2227,
+    "endMs": 2935,
+    "timestampMs": 2227,
+    "confidence": null
+  },
+  {
+    "text": " 차이를",
+    "startMs": 2935,
+    "endMs": 3644,
+    "timestampMs": 2935,
+    "confidence": null
+  },
+  {
+    "text": " 비교해",
+    "startMs": 3644,
+    "endMs": 4353,
+    "timestampMs": 3644,
+    "confidence": null
+  },
+  {
+    "text": " 봅시다.",
+    "startMs": 4353,
+    "endMs": 5062,
+    "timestampMs": 4353,
+    "confidence": null
+  }
+]

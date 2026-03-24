@@ -1,0 +1,51 @@
+[
+  {
+    "text": "설득에",
+    "startMs": 100,
+    "endMs": 677,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 대한",
+    "startMs": 677,
+    "endMs": 1253,
+    "timestampMs": 677,
+    "confidence": null
+  },
+  {
+    "text": " 두",
+    "startMs": 1253,
+    "endMs": 1830,
+    "timestampMs": 1253,
+    "confidence": null
+  },
+  {
+    "text": " 가지",
+    "startMs": 1830,
+    "endMs": 2407,
+    "timestampMs": 1830,
+    "confidence": null
+  },
+  {
+    "text": " 관점을",
+    "startMs": 2407,
+    "endMs": 2984,
+    "timestampMs": 2407,
+    "confidence": null
+  },
+  {
+    "text": " 비교해",
+    "startMs": 2984,
+    "endMs": 3560,
+    "timestampMs": 2984,
+    "confidence": null
+  },
+  {
+    "text": " 봅시다.",
+    "startMs": 3560,
+    "endMs": 4137,
+    "timestampMs": 3560,
+    "confidence": null
+  }
+]
