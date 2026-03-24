@@ -1,0 +1,90 @@
+{
+  "bookInfo": {
+    "title": "미라클 모닝",
+    "originalTitle": "The Miracle Morning",
+    "author": "할 엘로드 (Hal Elrod)",
+    "genre": "selfHelp",
+    "summary": "매일 아침 6가지 습관(SAVERS: Silence, Affirmations, Visualization, Exercise, Reading, Scribing)을 실천하면 인생이 바뀐다는 자기계발서. 저자의 극적인 사고 회복 경험에서 출발하여, 아침 루틴의 힘을 체계적으로 설명한다.",
+    "targetDurationMin": 8
+  },
+
+  "analysisNotes": {
+    "Q1_structure": "framework — SAVERS 6단계 프레임워크가 책의 핵심 구조",
+    "Q2_relationship": "순차 — 6가지 습관을 순서대로 쌓아가는 변환 여정",
+    "Q3_numbers": "6 (SAVERS 습관 수), 30일 (습관 형성 기간), 3단계 (30일 챌린지 구간)",
+    "Q4_emotion": "uplifting + disciplined — 동기부여와 규율이 공존",
+    "Q5_visual": "sunrise(새벽), wheel(순환 루틴), ladder(단계적 성장)"
+  },
+
+  "bookFingerprint": {
+    "genre": "selfHelp",
+    "subGenre": "morning-routine",
+    "structure": "framework",
+    "coreFramework": "SAVERS (Silence, Affirmations, Visualization, Exercise, Reading, Scribing)",
+    "keyConceptCount": 6,
+    "emotionalTone": ["uplifting", "disciplined"],
+    "narrativeArcType": "transformation",
+    "urgencyLevel": "high",
+    "visualMotifs": ["sunrise", "wheel", "ladder", "mirror"],
+    "spatialMetaphors": ["순환", "상승", "층위"],
+    "hookStrategy": "transformation",
+    "entryAngle": "교통사고로 죽을 뻔한 남자가 발견한, 아침 1시간의 비밀",
+    "uniqueElements": [
+      "SAVERS 6단계 순환 바퀴 시각화",
+      "30일 챌린지 3구간 타임라인",
+      "사고 전후 극적 비교 (before/after)"
+    ],
+    "contentMode": "actionable"
+  },
+
+  "videoNarrativePlan": {
+    "totalDurationSec": 480,
+    "segments": [
+      {
+        "role": "opening",
+        "durationRatio": 0.06,
+        "intent": "transformation 전략으로 시청자 주의 확보",
+        "requiredDelivery": ["hook: transformation", "attention-grab"]
+      },
+      {
+        "role": "setup",
+        "durationRatio": 0.12,
+        "intent": "selfHelp 장르의 맥락 설정 — \"교통사고로 죽을 뻐한 남자가 발견한, 아침 1시간의 비밀\"",
+        "requiredDelivery": ["context-setting", "book-intro"]
+      },
+      {
+        "role": "core",
+        "durationRatio": 0.52,
+        "intent": "핵심 프레임워크(SAVERS (Silence, Affirmations, Visualization, Exercise, Reading, Scribing)) 설명",
+        "requiredDelivery": ["framework: SAVERS (Silence, Affirmations, Visualization, Exercise, Reading, Scribing)", "step-by-step"]
+      },
+      {
+        "role": "climax",
+        "durationRatio": 0.12,
+        "intent": "핵심 인사이트 강조 — actionable 모드",
+        "requiredDelivery": ["peak-insight", "emotional-peak"]
+      },
+      {
+        "role": "resolution",
+        "durationRatio": 0.13,
+        "intent": "적용 방법 및 실생활 연결",
+        "requiredDelivery": ["application", "real-life-example"]
+      },
+      {
+        "role": "closing",
+        "durationRatio": 0.05,
+        "intent": "요약 및 CTA",
+        "requiredDelivery": ["recap", "cta"]
+      }
+    ],
+    "emotionalCurve": [
+      { "timestamp": 0.00, "intensity": 0.22, "label": "opening-start" },
+      { "timestamp": 0.06, "intensity": 0.36, "label": "setup-start" },
+      { "timestamp": 0.18, "intensity": 0.43, "label": "core-start" },
+      { "timestamp": 0.70, "intensity": 0.58, "label": "climax-start" },
+      { "timestamp": 0.82, "intensity": 0.51, "label": "resolution-start" },
+      { "timestamp": 0.95, "intensity": 0.29, "label": "closing-start" },
+      { "timestamp": 1.00, "intensity": 0.22, "label": "end" }
+    ]
+  }
+}
