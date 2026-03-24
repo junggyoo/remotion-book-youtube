@@ -597,8 +597,8 @@ export interface SynthesizedBlueprint extends SceneBlueprint {
 
 /** DSGS Spec 3-5 */
 export interface OpeningPackage {
-  hook: SceneBlueprint
-  intro: SceneBlueprint
+  hook: SynthesizedBlueprint
+  intro: SynthesizedBlueprint
   transitionBridge: {
     transitionToBody: string
     carryKeyword?: string
