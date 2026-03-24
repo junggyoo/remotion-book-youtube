@@ -1,0 +1,142 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "miracle-morning-2024",
+    "title": "미라클 모닝",
+    "author": "할 엘로드",
+    "originalTitle": "The Miracle Morning",
+    "genre": "selfHelp",
+    "coverImageUrl": "covers/miracle-morning-cover.png",
+    "publishYear": 2012,
+    "tags": ["자기계발", "습관", "아침루틴", "SAVERS"]
+  },
+  "production": {
+    "format": "both",
+    "targetDurationSeconds": 420,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "edge-tts",
+    "speed": 1.0,
+    "pitch": "+0Hz"
+  },
+  "scenes": [
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "할 엘로드의 미라클 모닝, 당신의 아침을 바꾸는 6가지 습관을 알아봅니다.",
+      "content": {
+        "title": "미라클 모닝",
+        "subtitle": "아침을 바꾸면 인생이 바뀐다",
+        "author": "할 엘로드",
+        "coverImageUrl": "covers/miracle-morning-cover.png",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      }
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "첫 번째 파트, SAVERS 시스템의 핵심을 살펴봅니다.",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "SAVERS 시스템",
+        "chapterSubtitle": "아침을 지배하는 6가지 습관"
+      }
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "narrationText": "SAVERS는 Silence, Affirmations, Visualization, Exercise, Reading, Scribing의 약자로, 매일 아침 실천하는 6가지 습관 프레임워크입니다.",
+      "content": {
+        "frameworkLabel": "SAVERS",
+        "items": [
+          {
+            "number": 1,
+            "title": "Silence",
+            "description": "명상과 고요함으로 하루를 시작합니다"
+          },
+          {
+            "number": 2,
+            "title": "Affirmations",
+            "description": "긍정적 확언으로 마인드셋을 세팅합니다"
+          },
+          {
+            "number": 3,
+            "title": "Visualization",
+            "description": "목표 달성을 생생하게 시각화합니다"
+          },
+          {
+            "number": 4,
+            "title": "Exercise",
+            "description": "운동으로 에너지를 충전합니다"
+          },
+          {
+            "number": 5,
+            "title": "Reading",
+            "description": "독서로 지식을 쌓습니다"
+          },
+          {
+            "number": 6,
+            "title": "Scribing",
+            "description": "일기 쓰기로 생각을 정리합니다"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      }
+    },
+    {
+      "id": "keyInsight-01",
+      "type": "keyInsight",
+      "narrationText": "핵심은 이 6가지가 순환적으로 서로를 강화한다는 것입니다. 하나의 습관이 다음 습관의 효과를 높여줍니다.",
+      "content": {
+        "headline": "SAVERS는 순환하며 서로를 강화한다",
+        "supportText": "각 습관은 독립적이지만, 순서대로 실천하면 이전 습관이 다음 습관의 효과를 증폭시킵니다. 이것이 미라클 모닝의 진정한 힘입니다.",
+        "underlineKeyword": "순환",
+        "useSignalBar": true
+      }
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "실제 아침 루틴은 이렇게 구성됩니다. 5시 기상 후 각 활동에 10분씩 투자하면 6시에는 모든 SAVERS를 완료할 수 있습니다.",
+      "content": {
+        "anchorStatement": "미라클 모닝 타임라인",
+        "steps": [
+          { "title": "5:00 기상", "detail": "알람 후 즉시 일어나기" },
+          { "title": "5:10 Silence", "detail": "10분 명상" },
+          { "title": "5:20 Affirmations", "detail": "긍정 확언 읽기" },
+          { "title": "5:30 Visualization", "detail": "목표 시각화" },
+          { "title": "5:40 Exercise", "detail": "가벼운 운동" },
+          { "title": "5:50 Reading", "detail": "10분 독서" }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      }
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "할 엘로드는 이렇게 말합니다.",
+      "content": {
+        "quoteText": "당신의 아침 루틴이 곧 당신의 인생 수준을 결정합니다.",
+        "attribution": "할 엘로드",
+        "useSerif": true,
+        "showTexture": true
+      }
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "미라클 모닝의 핵심 인사이트였습니다. 내일 아침부터 시작해보세요.",
+      "content": {
+        "recapStatement": "아침을 바꾸면 인생이 바뀐다",
+        "ctaText": "구독과 좋아요 부탁드립니다",
+        "showBrandLabel": true
+      }
+    }
+  ]
+}
