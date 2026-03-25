@@ -213,6 +213,7 @@ const BeatEmphasisCaptionLayer: React.FC<{
   format: CompositionProps["format"];
   theme: CompositionProps["theme"];
   fps: number;
+  beatTimings?: BeatTimingResolution[];
 }> = ({
   beats,
   durationFrames,
@@ -221,16 +222,24 @@ const BeatEmphasisCaptionLayer: React.FC<{
   format,
   theme,
   fps,
+  beatTimings,
 }) => {
   const { currentEmphasis, activeBeat } = useBeatTimeline(
     beats,
     durationFrames,
   );
   const emphasisTimeRangeMs = activeBeat
-    ? {
-        startMs: ((activeBeat.startRatio * durationFrames) / fps) * 1000,
-        endMs: ((activeBeat.endRatio * durationFrames) / fps) * 1000,
-      }
+    ? (() => {
+        const timing = beatTimings?.find((t) => t.beatId === activeBeat.id);
+        return {
+          startMs: timing
+            ? (timing.resolvedStartFrame / fps) * 1000
+            : ((activeBeat.startRatio * durationFrames) / fps) * 1000,
+          endMs: timing
+            ? (timing.resolvedEndFrame / fps) * 1000
+            : ((activeBeat.endRatio * durationFrames) / fps) * 1000,
+        };
+      })()
     : undefined;
 
   return (
@@ -329,6 +338,7 @@ export const LongformComposition: React.FC<CompositionProps> = ({
                     format={format}
                     theme={theme}
                     fps={fps}
+                    beatTimings={ttsEntry.beatTimings}
                   />
                 ) : (
                   <CaptionLayer

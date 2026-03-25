@@ -5,6 +5,8 @@ import {
   useVideoConfig,
   staticFile,
   useDelayRender,
+  interpolate,
+  interpolateColors,
 } from "remotion";
 import { createTikTokStyleCaptions } from "@remotion/captions";
 import type { Caption } from "@remotion/captions";
@@ -14,6 +16,34 @@ import { sp } from "@/design/tokens/spacing";
 import { useFormat } from "@/design/themes/useFormat";
 
 const SWITCH_CAPTIONS_EVERY_MS = 2400;
+
+const KOREAN_SUFFIXES =
+  /(?:을|를|이|가|은|는|에|의|로|과|와|에서|까지|부터|만|도|조차|으로|이나|처럼|보다|라고|이라|한|된|하는|했던|으며|이며)$/;
+
+function matchesKoreanStem(tokenText: string, keyword: string): boolean {
+  const normalizedToken = tokenText.replace(/\s/g, "");
+  const normalizedKw = keyword.replace(/\s/g, "");
+
+  // 빈 문자열 guard
+  if (normalizedToken.length === 0 || normalizedKw.length === 0) return false;
+
+  // 1차: startsWith 우선 체크 (가장 안전)
+  if (normalizedToken.startsWith(normalizedKw) && normalizedKw.length >= 2) {
+    return true;
+  }
+
+  // 2차: suffix-strip 매칭
+  const strippedToken = normalizedToken.replace(KOREAN_SUFFIXES, "");
+  const strippedKw = normalizedKw.replace(KOREAN_SUFFIXES, "");
+
+  // 최소 stem 길이 guard: stripped 결과가 2자 미만이면 원본 includes로 fallback
+  if (strippedToken.length < 2 || strippedKw.length < 2) {
+    return normalizedToken.includes(normalizedKw);
+  }
+
+  // 단방향만: token이 keyword stem을 포함하는지 (역방향 제거)
+  return strippedToken.includes(strippedKw);
+}
 
 interface CaptionLayerProps {
   format: FormatKey;
@@ -127,15 +157,30 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
             const isEmphasized =
               !isActive &&
               (emphasisKeywords?.some((kw) =>
-                token.text.replace(/\s/g, "").includes(kw),
+                matchesKoreanStem(token.text, kw),
               ) ??
                 false) &&
               (!emphasisTimeRangeMs ||
                 (token.fromMs >= emphasisTimeRangeMs.startMs &&
                   token.fromMs < emphasisTimeRangeMs.endMs));
 
-            const tokenColor =
-              isActive || isEmphasized ? theme.signal : theme.textStrong;
+            // emphasis fade-in 계산
+            let tokenColor = isActive ? theme.signal : theme.textStrong;
+
+            if (isEmphasized && emphasisTimeRangeMs) {
+              const fadeOffset = token.fromMs - emphasisTimeRangeMs.startMs;
+              const fadeProgress = interpolate(fadeOffset, [0, 200], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+              });
+              tokenColor = interpolateColors(
+                fadeProgress,
+                [0, 1],
+                [theme.textStrong, theme.signal],
+              );
+            } else if (isActive) {
+              tokenColor = theme.signal;
+            }
 
             return (
               <span

@@ -411,12 +411,15 @@ function validateBeats(
     id: string;
     durationFrames?: number;
     shorts?: { beats?: unknown[] };
+    narrationText?: string;
   },
   beats: Array<{
     id: string;
     role: string;
     startRatio: number;
     endRatio: number;
+    narrationText?: string;
+    emphasisTargets?: string[];
   }>,
 ): BeatValidationResult {
   const errors: string[] = [];
@@ -503,6 +506,58 @@ function validateBeats(
     warnings.push(
       `[${scene.id}] scene is ${durationSec.toFixed(0)}s but has only 1 beat. Consider adding more beats.`,
     );
+  }
+
+  // B2: narrationText 합침 일치 검사
+  if (scene.narrationText) {
+    const combined = beats
+      .map((b) => b.narrationText)
+      .filter(Boolean)
+      .join(" ");
+    if (combined.length > 0) {
+      const prefix = combined.substring(0, Math.min(20, combined.length));
+      if (!scene.narrationText.includes(prefix)) {
+        warnings.push(
+          `[${scene.id}] beat narrationText 합침이 씬 narrationText와 불일치`,
+        );
+      }
+    }
+  }
+
+  // B3: emphasisTargets 자막 반영 가능성 검사
+  for (const beat of beats) {
+    if (beat.emphasisTargets && beat.narrationText) {
+      for (const target of beat.emphasisTargets) {
+        if (!beat.narrationText.includes(target)) {
+          warnings.push(
+            `[${scene.id}] emphasisTarget "${target}"가 beat "${beat.id}" narrationText에 없음`,
+          );
+        }
+      }
+    }
+  }
+
+  // B4: beat 전환 시점이 씬 경계에 너무 가까운 경우 경고
+  if (scene.durationFrames) {
+    for (const beat of beats) {
+      const transitionFrame = Math.round(
+        beat.startRatio * scene.durationFrames,
+      );
+      if (transitionFrame > 0 && transitionFrame < 5) {
+        warnings.push(
+          `[${scene.id}] beat "${beat.id}" 전환이 씬 시작에 너무 가까움 (${transitionFrame}f)`,
+        );
+      }
+      const endFrame = Math.round(beat.endRatio * scene.durationFrames);
+      if (
+        endFrame > scene.durationFrames - 5 &&
+        endFrame < scene.durationFrames
+      ) {
+        warnings.push(
+          `[${scene.id}] beat "${beat.id}" 종료가 씬 끝에 너무 가까움 (${scene.durationFrames - endFrame}f gap)`,
+        );
+      }
+    }
   }
 
   return { errors, warnings };
@@ -603,6 +658,18 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
 
   // Step 4: Beat validation (BEAT_SYSTEM_DESIGN_SPEC §10)
   for (const scene of parsed.scenes) {
+    // B1: 8초+ 씬에 beats 없음 경고
+    const FPS = 30;
+    if (
+      scene.durationFrames &&
+      scene.durationFrames / FPS >= 8 &&
+      (!scene.beats || scene.beats.length === 0)
+    ) {
+      warnings.push(
+        `[${scene.id}] 8초+ 씬(${(scene.durationFrames / FPS).toFixed(1)}s)에 beats가 없습니다`,
+      );
+    }
+
     if (scene.beats && scene.beats.length > 0) {
       const beatResult = validateBeats(scene, scene.beats);
       errors.push(...beatResult.errors);
