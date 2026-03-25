@@ -63,7 +63,29 @@
         "supportText": "할 엘로드는 20세에 정면충돌 교통사고를 당했습니다. 6분간 심정지, 11곳 골절. 의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건했습니다.",
         "underlineKeyword": "아침의 힘",
         "useSignalBar": true
-      }
+      },
+      "beats": [
+        {
+          "id": "intro-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "할 엘로드는 스무 살에 정면충돌 교통사고를 당했습니다. 6분간 심장이 멈췄고, 11곳이 골절되었습니다.",
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["정면충돌", "6분간"],
+          "transition": "enter"
+        },
+        {
+          "id": "intro-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1.0,
+          "narrationText": "의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건합니다. 그가 만든 시스템이 바로 미라클 모닝입니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["아침 루틴", "미라클 모닝"],
+          "transition": "enter"
+        }
+      ]
     },
     {
       "id": "chapter-01",
@@ -135,8 +157,48 @@
         "headline": "Silence — 고요함 속에서 하루가 시작된다",
         "supportText": "명상, 기도, 심호흡 등 어떤 형태든 좋습니다. 핵심은 하루를 반응 모드가 아닌 의도적 고요함으로 여는 것입니다.",
         "underlineKeyword": "고요함",
-        "useSignalBar": true
-      }
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "research",
+          "value": "하루 10분 명상 → 코르티솔 23% 감소",
+          "caption": "8주간 MBSR 프로그램 참가자 대상",
+          "source": "Harvard Medical School, 2018"
+        }
+      },
+      "beats": [
+        {
+          "id": "silence-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "첫 번째, Silence. 고요함입니다. 대부분의 사람들은 아침에 눈을 뜨자마자 핸드폰을 봅니다.",
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["고요함", "Silence"],
+          "transition": "enter"
+        },
+        {
+          "id": "silence-b2",
+          "role": "support",
+          "startRatio": 0.35,
+          "endRatio": 0.65,
+          "narrationText": "알림, 뉴스, 메시지에 반응하며 하루를 시작하죠. 하지만 미라클 모닝은 다릅니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["반응", "의도적"],
+          "transition": "enter"
+        },
+        {
+          "id": "silence-b3",
+          "role": "evidence",
+          "startRatio": 0.65,
+          "endRatio": 1.0,
+          "narrationText": "명상이든, 심호흡이든, 고요한 10분으로 하루를 여는 것. 이것이 나머지 5가지 습관의 토대입니다.",
+          "activates": ["evidenceCard"],
+          "deactivates": ["supportText"],
+          "emphasisTargets": ["10분", "코르티솔 23%"],
+          "motionPreset": "snappy",
+          "transition": "replace"
+        }
+      ]
     },
     {
       "id": "insight-viz",

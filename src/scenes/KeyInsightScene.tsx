@@ -1,25 +1,57 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame } from "remotion";
-import type { BaseSceneProps, KeyInsightContent } from "@/types";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  KeyInsightContent,
+  ElementBeatState,
+} from "@/types";
 import { useFormat } from "@/design/themes/useFormat";
-import { spacing, sp } from "@/design/tokens/spacing";
+import { sp } from "@/design/tokens/spacing";
+import { typography } from "@/design/tokens/typography";
 import { SafeArea } from "@/components/layout/SafeArea";
-import { ArchitecturalReveal } from "@/components/motion/ArchitecturalReveal";
+import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { SignalBar } from "@/components/primitives/SignalBar";
-import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
-import { typography } from "@/design/tokens/typography";
+import { EvidenceCard } from "@/components/primitives/EvidenceCard";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → keyInsight
 const LAYERS = {
   background: 0,
   texture: 5,
   signalBar: 20,
-  headline: 30,
   supportText: 25,
+  headline: 30,
+  evidenceCard: 35,
   emphasis: 40,
-  hud: 70,
 } as const;
+
+/**
+ * Wildcard stagger states — preserve existing ArchitecturalReveal delay={0,3,12}
+ * animation for scenes without explicit beats.
+ * BeatElement's "entering" path delegates to ArchitecturalReveal with delay={entryFrame}.
+ */
+const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
+  signalBar: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  headline: {
+    visibility: "entering",
+    entryFrame: 3,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  supportText: {
+    visibility: "entering",
+    entryFrame: 12,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+};
 
 interface KeyInsightSceneProps extends BaseSceneProps {
   content: KeyInsightContent;
@@ -50,7 +82,6 @@ const HeadlineWithEmphasis: React.FC<{
     );
   }
 
-  // Split text around the keyword for emphasis rendering
   const keywordIndex = text.indexOf(keyword);
   if (keywordIndex === -1) {
     return (
@@ -98,14 +129,32 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame();
   const isShorts = format === "shorts";
   const showSignalBar = content.useSignalBar !== false;
   const showSupportText = !isShorts && !!content.supportText;
+
+  // Beat resolution: explicit beats or implicit single beat (backward compat)
+  const resolvedBeats = resolveBeats(
+    {
+      id: `keyInsight-${from}`,
+      type: "keyInsight",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  // Helper: get beat state per element
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return WILDCARD_STAGGER[key];
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -150,14 +199,14 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                   paddingBottom: isShorts ? sp(6) : 0,
                 }}
               >
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="signalBar"
+                  beatState={getBeatState("signalBar")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={0}
                 >
                   <SignalBar format={format} theme={theme} />
-                </ArchitecturalReveal>
+                </BeatElement>
               </div>
             )}
 
@@ -174,11 +223,11 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
             >
               {/* Headline */}
               <div style={{ zIndex: LAYERS.headline }}>
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="headline"
+                  beatState={getBeatState("headline")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={3}
                 >
                   <HeadlineWithEmphasis
                     text={content.headline}
@@ -186,17 +235,17 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                     theme={theme}
                     format={format}
                   />
-                </ArchitecturalReveal>
+                </BeatElement>
               </div>
 
               {/* Support text — longform only */}
               {showSupportText && (
                 <div style={{ zIndex: LAYERS.supportText }}>
-                  <ArchitecturalReveal
+                  <BeatElement
+                    elementKey="supportText"
+                    beatState={getBeatState("supportText")}
                     format={format}
                     theme={theme}
-                    preset="heavy"
-                    delay={12}
                   >
                     <TextBlock
                       format={format}
@@ -206,7 +255,25 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                       color={theme.textMuted}
                       maxLines={4}
                     />
-                  </ArchitecturalReveal>
+                  </BeatElement>
+                </div>
+              )}
+
+              {/* Evidence Card — only visible when explicit beats activate it */}
+              {content.evidenceCard && (
+                <div style={{ zIndex: LAYERS.evidenceCard }}>
+                  <BeatElement
+                    elementKey="evidenceCard"
+                    beatState={elementStates.get("evidenceCard")}
+                    format={format}
+                    theme={theme}
+                  >
+                    <EvidenceCard
+                      data={content.evidenceCard}
+                      theme={theme}
+                      format={format}
+                    />
+                  </BeatElement>
                 </div>
               )}
             </div>
@@ -214,17 +281,8 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle.
+          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
   );
 };
