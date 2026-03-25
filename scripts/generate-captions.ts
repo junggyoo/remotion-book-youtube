@@ -14,12 +14,16 @@ import fs from "fs";
 import path from "path";
 import type { Caption } from "@remotion/captions";
 import { vttToCaptions } from "../src/tts/vttParser";
+import type { Beat, BeatTimingResolution } from "../src/types";
+import { resolveBeatNarration } from "../src/tts/beatNarrationResolver";
+import { resolveBeatTimings } from "../src/tts/beatTimingResolver";
 
 interface BookContent {
   scenes: Array<{
     id: string;
     type: string;
     narrationText?: string;
+    beats?: Beat[];
   }>;
   narration: {
     voice: string;
@@ -34,6 +38,7 @@ interface TTSManifestEntry {
   captionsFile: string;
   durationMs: number;
   durationFrames: number;
+  beatTimings?: BeatTimingResolution[];
 }
 
 const FPS = 30;
@@ -88,7 +93,11 @@ async function main() {
   const manifest: TTSManifestEntry[] = [];
 
   for (const scene of book.scenes) {
-    if (!scene.narrationText || scene.narrationText.trim().length === 0) {
+    const text = scene.beats?.length
+      ? resolveBeatNarration(scene)
+      : scene.narrationText;
+
+    if (!text || text.trim().length === 0) {
       console.log(`[SKIP] ${scene.id} — no narrationText`);
       continue;
     }
@@ -100,7 +109,7 @@ async function main() {
     const vttPath = path.join(OUTPUT_DIR, vttFile);
     const captionsPath = path.join(OUTPUT_DIR, captionsFile);
 
-    console.log(`[TTS] ${scene.id}: "${scene.narrationText.slice(0, 40)}..."`);
+    console.log(`[TTS] ${scene.id}: "${text.slice(0, 40)}..."`);
 
     // Generate with edge-tts
     const args: string[] = ["--voice", book.narration.voice];
@@ -113,7 +122,7 @@ async function main() {
       args.push("--pitch", book.narration.pitch);
     }
 
-    args.push("--text", scene.narrationText);
+    args.push("--text", text);
     args.push("--write-media", audioPath);
     args.push("--write-subtitles", vttPath);
 
@@ -133,13 +142,25 @@ async function main() {
     const durationMs = getAudioDurationMs(audioPath);
     const durationFrames = Math.ceil((durationMs / 1000) * FPS);
 
-    manifest.push({
+    const entry: TTSManifestEntry = {
       sceneId: scene.id,
       audioFile,
       captionsFile,
       durationMs,
       durationFrames,
-    });
+    };
+
+    if (scene.beats?.length) {
+      entry.beatTimings = resolveBeatTimings(
+        scene.beats,
+        captions,
+        durationFrames,
+        FPS,
+      );
+      console.log(`  🎵 ${entry.beatTimings.length} beat timings resolved`);
+    }
+
+    manifest.push(entry);
 
     console.log(
       `  ✓ ${durationMs}ms (${durationFrames}f), ${captions.length} words`,

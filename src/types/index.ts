@@ -869,6 +869,19 @@ export interface BeatTimelineState {
   currentEmphasis: string[];
 }
 
+/** Phase B: TTS-resolved beat timing. Maps ratio-based beats to actual audio frames. */
+export interface BeatTimingResolution {
+  beatId: string;
+  /** TTS audio-based resolved start frame */
+  resolvedStartFrame: number;
+  /** TTS audio-based resolved end frame */
+  resolvedEndFrame: number;
+  /** Original content JSON ratio (fallback reference) */
+  originalStartRatio: number;
+  /** Original content JSON ratio (fallback reference) */
+  originalEndRatio: number;
+}
+
 // ---------------------------------------------------------------------------
 // DSGS Stage 4-5: ScenePlanner + GapDetector types
 // ---------------------------------------------------------------------------

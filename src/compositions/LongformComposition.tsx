@@ -42,6 +42,8 @@ import { CaptionLayer } from "@/components/hud/CaptionLayer";
 import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
 import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
 import type { CustomScene } from "@/types";
+import type { Beat, BeatTimingResolution } from "../types";
+import { useBeatTimeline } from "../hooks/useBeatTimeline";
 
 interface TTSManifestEntry {
   sceneId: string;
@@ -49,6 +51,7 @@ interface TTSManifestEntry {
   captionsFile: string;
   durationMs: number;
   durationFrames: number;
+  beatTimings?: BeatTimingResolution[];
 }
 
 const SceneRenderer: React.FC<{
@@ -184,6 +187,66 @@ const SubtitleLayerWrapper: React.FC<{
   );
 };
 
+function applyResolvedTimings(
+  beats: Beat[],
+  beatTimings: BeatTimingResolution[],
+  sceneDurationFrames: number,
+): Beat[] {
+  return beats.map((beat) => {
+    const timing = beatTimings.find((t) => t.beatId === beat.id);
+    if (timing && sceneDurationFrames > 0) {
+      return {
+        ...beat,
+        startRatio: timing.resolvedStartFrame / sceneDurationFrames,
+        endRatio: timing.resolvedEndFrame / sceneDurationFrames,
+      };
+    }
+    return beat;
+  });
+}
+
+const BeatEmphasisCaptionLayer: React.FC<{
+  beats: Beat[];
+  durationFrames: number;
+  captionsFile: string;
+  sceneStartFrame: number;
+  format: CompositionProps["format"];
+  theme: CompositionProps["theme"];
+  fps: number;
+}> = ({
+  beats,
+  durationFrames,
+  captionsFile,
+  sceneStartFrame,
+  format,
+  theme,
+  fps,
+}) => {
+  const { currentEmphasis, activeBeat } = useBeatTimeline(
+    beats,
+    durationFrames,
+  );
+  const emphasisTimeRangeMs = activeBeat
+    ? {
+        startMs: ((activeBeat.startRatio * durationFrames) / fps) * 1000,
+        endMs: ((activeBeat.endRatio * durationFrames) / fps) * 1000,
+      }
+    : undefined;
+
+  return (
+    <CaptionLayer
+      format={format}
+      theme={theme}
+      captionsFile={captionsFile}
+      sceneStartFrame={sceneStartFrame}
+      emphasisKeywords={
+        currentEmphasis.length > 0 ? currentEmphasis : undefined
+      }
+      emphasisTimeRangeMs={emphasisTimeRangeMs}
+    />
+  );
+};
+
 const PREMOUNT_FRAMES = 30;
 
 export const LongformComposition: React.FC<CompositionProps> = ({
@@ -224,6 +287,16 @@ export const LongformComposition: React.FC<CompositionProps> = ({
       {scenes.map((scene) => {
         const ttsEntry = manifestMap.get(scene.id);
 
+        const resolvedBeats =
+          scene.beats && ttsEntry?.beatTimings
+            ? applyResolvedTimings(
+                scene.beats,
+                ttsEntry.beatTimings,
+                scene.resolvedDuration,
+              )
+            : scene.beats;
+        const sceneWithResolvedBeats = { ...scene, beats: resolvedBeats };
+
         return (
           <Sequence
             key={scene.id}
@@ -233,22 +306,38 @@ export const LongformComposition: React.FC<CompositionProps> = ({
             premountFor={PREMOUNT_FRAMES}
           >
             {/* Scene visual */}
-            <SceneRenderer scene={scene} format={format} theme={theme} />
+            <SceneRenderer
+              scene={sceneWithResolvedBeats}
+              format={format}
+              theme={theme}
+            />
 
             {/* TTS audio */}
             {ttsEntry && (
               <Audio src={staticFile(`tts/${ttsEntry.audioFile}`)} volume={1} />
             )}
 
-            {/* Word-highlight captions (legacy path) */}
+            {/* Word-highlight captions (beat-aware or legacy path) */}
             {ttsEntry && (
               <div style={{ position: "absolute", inset: 0, zIndex: 70 }}>
-                <CaptionLayer
-                  format={format}
-                  theme={theme}
-                  captionsFile={`tts/${ttsEntry.captionsFile}`}
-                  sceneStartFrame={scene.from}
-                />
+                {resolvedBeats && resolvedBeats.length > 0 ? (
+                  <BeatEmphasisCaptionLayer
+                    beats={resolvedBeats}
+                    durationFrames={scene.resolvedDuration}
+                    captionsFile={`tts/${ttsEntry.captionsFile}`}
+                    sceneStartFrame={scene.from}
+                    format={format}
+                    theme={theme}
+                    fps={fps}
+                  />
+                ) : (
+                  <CaptionLayer
+                    format={format}
+                    theme={theme}
+                    captionsFile={`tts/${ttsEntry.captionsFile}`}
+                    sceneStartFrame={scene.from}
+                  />
+                )}
               </div>
             )}
 
