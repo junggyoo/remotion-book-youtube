@@ -1,14 +1,18 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame, interpolate } from 'remotion'
-import type { BaseSceneProps, ListRevealContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { LabelChip } from '@/components/primitives/LabelChip'
-import { NumberBadge } from '@/components/primitives/NumberBadge'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
+import type {
+  BaseSceneProps,
+  ListRevealContent,
+  ElementBeatState,
+} from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { LabelChip } from "@/components/primitives/LabelChip";
+import { NumberBadge } from "@/components/primitives/NumberBadge";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
 const LAYERS = {
@@ -17,14 +21,36 @@ const LAYERS = {
   listLabel: 20,
   items: 30,
   emphasis: 40,
-  hud: 70,
-} as const
+} as const;
 
-const MAX_ITEMS_LONGFORM = 7
-const MAX_ITEMS_SHORTS = 5
+const MAX_ITEMS_LONGFORM = 7;
+const MAX_ITEMS_SHORTS = 5;
+
+const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
+  listLabel: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "smooth",
+  },
+};
+
+function getWildcardStagger(
+  key: string,
+  index: number,
+  staggerDelay: number,
+): ElementBeatState {
+  if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
+  return {
+    visibility: "entering",
+    entryFrame: index * staggerDelay,
+    emphasis: false,
+    motionPreset: "smooth",
+  };
+}
 
 interface ListRevealSceneProps extends BaseSceneProps {
-  content: ListRevealContent
+  content: ListRevealContent;
 }
 
 export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
@@ -32,20 +58,35 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const revealStyle = content.revealStyle ?? 'stagger'
-  const showNumbers = content.showNumbers ?? false
+  const frame = useCurrentFrame();
+  const isShorts = format === "shorts";
+  const revealStyle = content.revealStyle ?? "stagger";
+  const showNumbers = content.showNumbers ?? false;
 
-  const maxItems = isShorts ? MAX_ITEMS_SHORTS : MAX_ITEMS_LONGFORM
-  const visibleItems = content.items.slice(0, maxItems)
+  const maxItems = isShorts ? MAX_ITEMS_SHORTS : MAX_ITEMS_LONGFORM;
+  const visibleItems = content.items.slice(0, maxItems);
 
-  // Stagger delay per item
-  const staggerDelay = revealStyle === 'cascade' ? 4 : 6
+  const staggerDelay = revealStyle === "cascade" ? 4 : 6;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    { id: `listReveal-${from}`, type: "listReveal", beats, narrationText: "" },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (
+    key: string,
+    index: number,
+  ): ElementBeatState | undefined => {
+    if (isWildcard) return getWildcardStagger(key, index, staggerDelay);
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -67,24 +108,24 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.listLabel }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.listLabel }}>
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
             }}
           >
             {/* List label */}
             <div style={{ zIndex: LAYERS.listLabel }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="listLabel"
+                beatState={getBeatState("listLabel", 0)}
                 format={format}
                 theme={theme}
-                preset="smooth"
-                delay={0}
               >
                 <LabelChip
                   format={format}
@@ -92,57 +133,56 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                   label={content.listLabel}
                   variant="signal"
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Items list */}
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
+                display: "flex",
+                flexDirection: "column",
                 gap: sp(4),
                 zIndex: LAYERS.items,
               }}
             >
               {visibleItems.map((item, index) => {
-                const itemDelay = index * staggerDelay
-
                 // Cascade: items before current focus get reduced opacity
                 const itemOpacity = (() => {
-                  if (revealStyle !== 'cascade') return 1
-                  // Current "focus" index based on frame progression
+                  if (revealStyle !== "cascade") return 1;
                   const focusProgress = interpolate(
                     frame,
                     [0, durationFrames],
                     [0, visibleItems.length - 1],
-                    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-                  )
-                  const distanceFromFocus = index - focusProgress
-                  if (distanceFromFocus < -0.5) return 0.5
-                  return 1
-                })()
+                    {
+                      extrapolateLeft: "clamp",
+                      extrapolateRight: "clamp",
+                    },
+                  );
+                  const distanceFromFocus = index - focusProgress;
+                  if (distanceFromFocus < -0.5) return 0.5;
+                  return 1;
+                })();
 
+                const itemKey = `item-${index}`;
                 return (
                   <div
                     key={item.title + index}
                     style={{ opacity: itemOpacity }}
                   >
-                    <ArchitecturalReveal
+                    <BeatElement
+                      elementKey={itemKey}
+                      beatState={getBeatState(itemKey, index)}
                       format={format}
                       theme={theme}
-                      preset="smooth"
-                      delay={itemDelay}
-                      translateY={revealStyle === 'cascade' ? 24 : undefined}
                     >
                       <div
                         style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
                           gap: sp(3),
                         }}
                       >
-                        {/* Number badge */}
                         {showNumbers && (
                           <NumberBadge
                             format={format}
@@ -152,11 +192,10 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                           />
                         )}
 
-                        {/* Title + subtitle column */}
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
+                            display: "flex",
+                            flexDirection: "column",
                             gap: sp(1),
                             flex: 1,
                           }}
@@ -169,7 +208,6 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                             weight="bold"
                           />
 
-                          {/* Subtitle — longform only */}
                           {!isShorts && item.subtitle && (
                             <TextBlock
                               format={format}
@@ -181,28 +219,18 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                           )}
                         </div>
                       </div>
-                    </ArchitecturalReveal>
+                    </BeatElement>
                   </div>
-                )
+                );
               })}
             </div>
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default ListRevealScene
+export default ListRevealScene;

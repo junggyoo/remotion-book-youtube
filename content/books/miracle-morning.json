@@ -8,7 +8,12 @@
     "genre": "selfHelp",
     "coverImageUrl": "covers/miracle-morning-cover.png",
     "publishYear": 2012,
-    "tags": ["자기계발", "습관", "아침루틴", "SAVERS"]
+    "tags": [
+      "자기계발",
+      "습관",
+      "아침루틴",
+      "SAVERS"
+    ]
   },
   "production": {
     "format": "longform",
@@ -19,7 +24,7 @@
   "narration": {
     "voice": "ko-KR-SunHiNeural",
     "ttsEngine": "edge-tts",
-    "speed": 1.0,
+    "speed": 1,
     "pitch": "+0Hz"
   },
   "audio": {
@@ -71,18 +76,29 @@
           "startRatio": 0,
           "endRatio": 0.45,
           "narrationText": "할 엘로드는 스무 살에 정면충돌 교통사고를 당했습니다. 6분간 심장이 멈췄고, 11곳이 골절되었습니다.",
-          "activates": ["signalBar", "headline"],
-          "emphasisTargets": ["정면충돌", "6분간"],
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "정면충돌",
+            "6분간"
+          ],
           "transition": "enter"
         },
         {
           "id": "intro-b2",
           "role": "support",
           "startRatio": 0.45,
-          "endRatio": 1.0,
+          "endRatio": 1,
           "narrationText": "의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건합니다. 그가 만든 시스템이 바로 미라클 모닝입니다.",
-          "activates": ["supportText"],
-          "emphasisTargets": ["아침 루틴", "미라클 모닝"],
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "아침 루틴",
+            "미라클 모닝"
+          ],
           "transition": "enter"
         }
       ]
@@ -146,7 +162,75 @@
         ],
         "showConnectors": true,
         "showDescriptions": true
-      }
+      },
+      "beats": [
+        {
+          "id": "fw01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.18,
+          "narrationText": "SAVERS는 Silence, Affirmations, Visualization, Exercise, Reading, Scribing의 약자입니다.",
+          "activates": [
+            "frameworkLabel"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b2",
+          "role": "reveal",
+          "startRatio": 0.18,
+          "endRatio": 0.32,
+          "narrationText": "매일 아침 실천하는 6가지 습관 프레임워크죠.",
+          "activates": [
+            "item-0"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b3",
+          "role": "reveal",
+          "startRatio": 0.32,
+          "endRatio": 0.46,
+          "narrationText": "각각의 습관이 삶의 다른 영역을 담당합니다.",
+          "activates": [
+            "item-1"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b4",
+          "role": "reveal",
+          "startRatio": 0.46,
+          "endRatio": 0.6,
+          "narrationText": "마음, 생각, 목표,",
+          "activates": [
+            "item-2"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b5",
+          "role": "reveal",
+          "startRatio": 0.6,
+          "endRatio": 0.8,
+          "narrationText": "몸, 지식, 그리고 성찰.",
+          "activates": [
+            "item-3"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b6",
+          "role": "reveal",
+          "startRatio": 0.8,
+          "endRatio": 1,
+          "narrationText": "하나씩 살펴보겠습니다.",
+          "activates": [
+            "item-4"
+          ],
+          "transition": "enter"
+        }
+      ]
     },
     {
       "id": "insight-silence",
@@ -172,8 +256,14 @@
           "startRatio": 0,
           "endRatio": 0.35,
           "narrationText": "첫 번째, Silence. 고요함입니다. 대부분의 사람들은 아침에 눈을 뜨자마자 핸드폰을 봅니다.",
-          "activates": ["signalBar", "headline"],
-          "emphasisTargets": ["고요함", "Silence"],
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "고요함",
+            "Silence"
+          ],
           "transition": "enter"
         },
         {
@@ -182,19 +272,31 @@
           "startRatio": 0.35,
           "endRatio": 0.65,
           "narrationText": "알림, 뉴스, 메시지에 반응하며 하루를 시작하죠. 하지만 미라클 모닝은 다릅니다.",
-          "activates": ["supportText"],
-          "emphasisTargets": ["반응", "의도적"],
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "반응",
+            "의도적"
+          ],
           "transition": "enter"
         },
         {
           "id": "silence-b3",
           "role": "evidence",
           "startRatio": 0.65,
-          "endRatio": 1.0,
+          "endRatio": 1,
           "narrationText": "명상이든, 심호흡이든, 고요한 10분으로 하루를 여는 것. 이것이 나머지 5가지 습관의 토대입니다.",
-          "activates": ["evidenceCard"],
-          "deactivates": ["supportText"],
-          "emphasisTargets": ["10분", "코르티솔 23%"],
+          "activates": [
+            "evidenceCard"
+          ],
+          "deactivates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "10분",
+            "코르티솔 23%"
+          ],
           "motionPreset": "snappy",
           "transition": "replace"
         }
@@ -220,7 +322,11 @@
       "content": {
         "frameworkLabel": "SAVERS 순환 시스템",
         "items": [
-          { "number": 1, "title": "Silence", "description": "명상으로 시작" },
+          {
+            "number": 1,
+            "title": "Silence",
+            "description": "명상으로 시작"
+          },
           {
             "number": 2,
             "title": "Affirmations",
@@ -231,8 +337,16 @@
             "title": "Visualization",
             "description": "목표 시각화"
           },
-          { "number": 4, "title": "Exercise", "description": "에너지 충전" },
-          { "number": 5, "title": "Reading", "description": "지식 축적" }
+          {
+            "number": 4,
+            "title": "Exercise",
+            "description": "에너지 충전"
+          },
+          {
+            "number": 5,
+            "title": "Reading",
+            "description": "지식 축적"
+          }
         ],
         "showConnectors": true,
         "showDescriptions": true
@@ -251,7 +365,11 @@
             "title": "기상",
             "description": "알람 후 즉시 일어나기"
           },
-          { "year": "5:10", "title": "Silence", "description": "10분 명상" },
+          {
+            "year": "5:10",
+            "title": "Silence",
+            "description": "10분 명상"
+          },
           {
             "year": "5:20",
             "title": "Affirmations",
@@ -262,7 +380,11 @@
             "title": "Visualization",
             "description": "목표 시각화"
           },
-          { "year": "5:40", "title": "Exercise", "description": "가벼운 운동" },
+          {
+            "year": "5:40",
+            "title": "Exercise",
+            "description": "가벼운 운동"
+          },
           {
             "year": "5:50",
             "title": "Reading + Scribing",
@@ -286,7 +408,42 @@
         "rightTag": "after",
         "showConnector": true,
         "revealOrder": "left-first"
-      }
+      },
+      "beats": [
+        {
+          "id": "cc01-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.38,
+          "narrationText": "미라클 모닝 전과 후를 비교해보겠습니다. 이전에는 알람을 끄고 또 끄며, 급하게 준비하고, 지친 채로 하루를 보냈습니다.",
+          "activates": [
+            "leftPanel"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cc01-b2",
+          "role": "compare",
+          "startRatio": 0.38,
+          "endRatio": 0.75,
+          "narrationText": "하지만 미라클 모닝을 실천하면, 일찍 일어나 자기 개발에 시간을 투자하고, 에너지 넘치는 상태로 하루를 시작합니다.",
+          "activates": [
+            "rightPanel"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cc01-b3",
+          "role": "recap",
+          "startRatio": 0.75,
+          "endRatio": 1,
+          "narrationText": "아침의 작은 변화가 하루 전체를 바꿉니다.",
+          "activates": [
+            "connector"
+          ],
+          "transition": "enter"
+        }
+      ]
     },
     {
       "id": "quote-01",

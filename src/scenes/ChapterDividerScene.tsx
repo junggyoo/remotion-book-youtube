@@ -1,15 +1,19 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, ChapterDividerContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { typography } from '@/design/tokens/typography'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { DividerLine } from '@/components/primitives/DividerLine'
-import { Counter } from '@/components/primitives/Counter'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  ChapterDividerContent,
+  ElementBeatState,
+} from "@/types";
+import { useFormat } from "@/design/themes/useFormat";
+import { sp } from "@/design/tokens/spacing";
+import { typography } from "@/design/tokens/typography";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { DividerLine } from "@/components/primitives/DividerLine";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → chapterDivider
 const LAYERS = {
@@ -18,11 +22,31 @@ const LAYERS = {
   baseContent: 20,
   chapterNumber: 30,
   chapterTitle: 35,
-  hud: 70,
-} as const
+} as const;
+
+const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
+  chapterNumber: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  chapterTitle: {
+    visibility: "entering",
+    entryFrame: 6,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  chapterSubtitle: {
+    visibility: "entering",
+    entryFrame: 12,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+};
 
 interface ChapterDividerSceneProps extends BaseSceneProps {
-  content: ChapterDividerContent
+  content: ChapterDividerContent;
 }
 
 export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
@@ -30,14 +54,47 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const { typeScale } = useFormat(format)
-  const isShorts = format === 'shorts'
-  const useAltLayout = content.useAltLayout === true
+  const { typeScale } = useFormat(format);
+  const isShorts = format === "shorts";
+  const useAltLayout = content.useAltLayout === true;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    {
+      id: `chapterDivider-${from}`,
+      type: "chapterDivider",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return WILDCARD_STAGGER[key];
+    return elementStates.get(key);
+  };
+
+  const chapterNumberEl = (
+    <span
+      style={{
+        fontFamily: typography.fontFamily.mono,
+        fontSize: typeScale.headlineL,
+        fontWeight: typography.fontWeight.bold,
+        color: theme.signal,
+        lineHeight: typography.lineHeight.tight,
+        letterSpacing: typography.tracking.tight,
+        fontVariantNumeric: "tabular-nums",
+      }}
+    >
+      {String(content.chapterNumber).padStart(2, "0")}
+    </span>
+  );
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -59,68 +116,59 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.baseContent }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.baseContent,
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           {useAltLayout ? (
-            /* band-divider mode: full-width band, centered horizontal layout */
+            /* band-divider mode */
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
               }}
             >
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                   backgroundColor: theme.surfaceMuted,
                   opacity: 1,
-                  width: '100%',
+                  width: "100%",
                   padding: `${sp(7)}px ${sp(6)}px`,
                   gap: sp(6),
                 }}
               >
-                {/* Chapter number */}
                 <div style={{ zIndex: LAYERS.chapterNumber }}>
-                  <ArchitecturalReveal
+                  <BeatElement
+                    elementKey="chapterNumber"
+                    beatState={getBeatState("chapterNumber")}
                     format={format}
                     theme={theme}
-                    preset="heavy"
-                    delay={0}
                   >
-                    <span
-                      style={{
-                        fontFamily: typography.fontFamily.mono,
-                        fontSize: typeScale.headlineL,
-                        fontWeight: typography.fontWeight.bold,
-                        color: theme.signal,
-                        lineHeight: typography.lineHeight.tight,
-                        letterSpacing: typography.tracking.tight,
-                        fontVariantNumeric: 'tabular-nums',
-                      }}
-                    >
-                      {String(content.chapterNumber).padStart(2, '0')}
-                    </span>
-                  </ArchitecturalReveal>
+                    {chapterNumberEl}
+                  </BeatElement>
                 </div>
 
-                {/* Divider */}
                 <DividerLine
                   format={format}
                   theme={theme}
                   orientation="vertical"
                 />
 
-                {/* Chapter title */}
                 <div style={{ zIndex: LAYERS.chapterTitle }}>
-                  <ArchitecturalReveal
+                  <BeatElement
+                    elementKey="chapterTitle"
+                    beatState={getBeatState("chapterTitle")}
                     format={format}
                     theme={theme}
-                    preset="heavy"
-                    delay={6}
                   >
                     <TextBlock
                       format={format}
@@ -130,19 +178,19 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
                       weight="bold"
                       maxLines={2}
                     />
-                  </ArchitecturalReveal>
+                  </BeatElement>
                 </div>
               </div>
             </div>
           ) : (
-            /* left-anchor mode: left 1/3 number, right 2/3 title + subtitle */
+            /* left-anchor mode */
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'stretch',
-                justifyContent: 'center',
-                height: '100%',
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "stretch",
+                justifyContent: "center",
+                height: "100%",
                 gap: sp(6),
               }}
             >
@@ -150,40 +198,28 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
               <div
                 style={{
                   zIndex: LAYERS.chapterNumber,
-                  flex: '0 0 30%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  flex: "0 0 30%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                   paddingRight: sp(5),
                 }}
               >
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="chapterNumber"
+                  beatState={getBeatState("chapterNumber")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={0}
                 >
-                  <span
-                    style={{
-                      fontFamily: typography.fontFamily.mono,
-                      fontSize: typeScale.headlineL,
-                      fontWeight: typography.fontWeight.bold,
-                      color: theme.signal,
-                      lineHeight: typography.lineHeight.tight,
-                      letterSpacing: typography.tracking.tight,
-                      fontVariantNumeric: 'tabular-nums',
-                    }}
-                  >
-                    {String(content.chapterNumber).padStart(2, '0')}
-                  </span>
-                </ArchitecturalReveal>
+                  {chapterNumberEl}
+                </BeatElement>
               </div>
 
               {/* Vertical divider */}
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'stretch',
+                  display: "flex",
+                  alignItems: "stretch",
                   paddingTop: sp(5),
                   paddingBottom: sp(5),
                 }}
@@ -198,20 +234,20 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
               {/* Right column: title + subtitle */}
               <div
                 style={{
-                  flex: '1 1 0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  flex: "1 1 0",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                   gap: sp(4),
                   paddingLeft: sp(5),
                 }}
               >
                 <div style={{ zIndex: LAYERS.chapterTitle }}>
-                  <ArchitecturalReveal
+                  <BeatElement
+                    elementKey="chapterTitle"
+                    beatState={getBeatState("chapterTitle")}
                     format={format}
                     theme={theme}
-                    preset="heavy"
-                    delay={6}
                   >
                     <TextBlock
                       format={format}
@@ -221,15 +257,15 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
                       weight="bold"
                       maxLines={3}
                     />
-                  </ArchitecturalReveal>
+                  </BeatElement>
                 </div>
 
                 {content.chapterSubtitle && (
-                  <ArchitecturalReveal
+                  <BeatElement
+                    elementKey="chapterSubtitle"
+                    beatState={getBeatState("chapterSubtitle")}
                     format={format}
                     theme={theme}
-                    preset="heavy"
-                    delay={12}
                   >
                     <TextBlock
                       format={format}
@@ -239,7 +275,7 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
                       color={theme.textMuted}
                       maxLines={2}
                     />
-                  </ArchitecturalReveal>
+                  </BeatElement>
                 )}
               </div>
             </div>
@@ -247,19 +283,10 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle.
+          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default ChapterDividerScene
+export default ChapterDividerScene;

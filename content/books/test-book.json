@@ -8,7 +8,12 @@
     "genre": "psychology",
     "coverImageUrl": "covers/test-cover.png",
     "publishYear": 1984,
-    "tags": ["심리학", "설득", "마케팅", "사회심리학"]
+    "tags": [
+      "심리학",
+      "설득",
+      "마케팅",
+      "사회심리학"
+    ]
   },
   "production": {
     "format": "both",
@@ -19,7 +24,7 @@
   "narration": {
     "voice": "ko-KR-InJoonNeural",
     "ttsEngine": "edge-tts",
-    "speed": 1.0,
+    "speed": 1,
     "pitch": "+0Hz"
   },
   "scenes": [
@@ -101,11 +106,31 @@
       "content": {
         "frameworkLabel": "설득의 6가지 원칙",
         "items": [
-          { "number": 1, "title": "상호성", "description": "받으면 돌려주고 싶다" },
-          { "number": 2, "title": "일관성", "description": "약속한 것은 지킨다" },
-          { "number": 3, "title": "사회적 증거", "description": "다수가 하면 따른다" },
-          { "number": 4, "title": "호감", "description": "좋아하는 사람을 따른다" },
-          { "number": 5, "title": "권위", "description": "전문가를 신뢰한다" }
+          {
+            "number": 1,
+            "title": "상호성",
+            "description": "받으면 돌려주고 싶다"
+          },
+          {
+            "number": 2,
+            "title": "일관성",
+            "description": "약속한 것은 지킨다"
+          },
+          {
+            "number": 3,
+            "title": "사회적 증거",
+            "description": "다수가 하면 따른다"
+          },
+          {
+            "number": 4,
+            "title": "호감",
+            "description": "좋아하는 사람을 따른다"
+          },
+          {
+            "number": 5,
+            "title": "권위",
+            "description": "전문가를 신뢰한다"
+          }
         ],
         "showConnectors": false,
         "showDescriptions": true
@@ -120,7 +145,32 @@
         "attribution": "로버트 치알디니",
         "useSerif": true,
         "showTexture": true
-      }
+      },
+      "beats": [
+        {
+          "id": "q01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.6,
+          "narrationText": "치알디니는 이렇게 말합니다. 설득의 무기는 우리 안에 이미 장전되어 있다.",
+          "activates": [
+            "quoteText"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "q01-b2",
+          "role": "support",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "누군가가 방아쇠만 당기면 된다.",
+          "activates": [
+            "attribution",
+            "accentDivider"
+          ],
+          "transition": "enter"
+        }
+      ]
     },
     {
       "id": "chapter-02",
@@ -140,10 +190,22 @@
       "content": {
         "anchorStatement": "상호성 원칙의 4단계 적용법",
         "steps": [
-          { "title": "먼저 베풀기", "detail": "작은 호의부터 시작하여 상대방에게 먼저 가치를 제공한다" },
-          { "title": "진심 담기", "detail": "형식적이 아닌 진정성 있는 호의를 보여준다" },
-          { "title": "기다리기", "detail": "즉각적인 보답을 기대하지 않고 자연스럽게 기다린다" },
-          { "title": "요청하기", "detail": "적절한 타이밍에 필요한 것을 요청한다" }
+          {
+            "title": "먼저 베풀기",
+            "detail": "작은 호의부터 시작하여 상대방에게 먼저 가치를 제공한다"
+          },
+          {
+            "title": "진심 담기",
+            "detail": "형식적이 아닌 진정성 있는 호의를 보여준다"
+          },
+          {
+            "title": "기다리기",
+            "detail": "즉각적인 보답을 기대하지 않고 자연스럽게 기다린다"
+          },
+          {
+            "title": "요청하기",
+            "detail": "적절한 타이밍에 필요한 것을 요청한다"
+          }
         ],
         "showPaths": true,
         "showCheckmarks": false
@@ -157,11 +219,28 @@
         "chartType": "bar",
         "dataLabel": "설득 원칙별 효과 비율",
         "data": [
-          { "label": "상호성", "value": 93, "highlight": true },
-          { "label": "일관성", "value": 82 },
-          { "label": "사회적 증거", "value": 87, "highlight": true },
-          { "label": "호감", "value": 78 },
-          { "label": "권위", "value": 85 }
+          {
+            "label": "상호성",
+            "value": 93,
+            "highlight": true
+          },
+          {
+            "label": "일관성",
+            "value": 82
+          },
+          {
+            "label": "사회적 증거",
+            "value": 87,
+            "highlight": true
+          },
+          {
+            "label": "호감",
+            "value": 78
+          },
+          {
+            "label": "권위",
+            "value": 85
+          }
         ],
         "annotation": "미국 소비자 대상 실험 결과 (2019)",
         "sourceCredit": "Journal of Consumer Psychology",
@@ -175,11 +254,31 @@
       "content": {
         "timelineLabel": "치알디니 연구의 역사",
         "events": [
-          { "year": "1984", "title": "초판 출간", "description": "설득의 심리학 첫 번째 에디션 발표" },
-          { "year": "2001", "title": "개정판 출간", "description": "디지털 시대 사례 추가" },
-          { "year": "2006", "title": "50가지 설득의 비밀", "description": "실용적 적용 가이드 출간" },
-          { "year": "2016", "title": "Pre-Suasion 출간", "description": "설득 이전 단계의 심리학 연구" },
-          { "year": "2021", "title": "7번째 원칙 추가", "description": "Unity(유대감) 원칙 발표" }
+          {
+            "year": "1984",
+            "title": "초판 출간",
+            "description": "설득의 심리학 첫 번째 에디션 발표"
+          },
+          {
+            "year": "2001",
+            "title": "개정판 출간",
+            "description": "디지털 시대 사례 추가"
+          },
+          {
+            "year": "2006",
+            "title": "50가지 설득의 비밀",
+            "description": "실용적 적용 가이드 출간"
+          },
+          {
+            "year": "2016",
+            "title": "Pre-Suasion 출간",
+            "description": "설득 이전 단계의 심리학 연구"
+          },
+          {
+            "year": "2021",
+            "title": "7번째 원칙 추가",
+            "description": "Unity(유대감) 원칙 발표"
+          }
         ],
         "showConnectors": true
       }
@@ -203,11 +302,26 @@
       "content": {
         "listLabel": "이 책의 핵심 교훈 5가지",
         "items": [
-          { "title": "먼저 주는 사람이 이긴다", "subtitle": "상호성의 원칙 활용" },
-          { "title": "작은 약속이 큰 변화를 만든다", "subtitle": "일관성의 원칙 활용" },
-          { "title": "군중의 힘을 활용하라", "subtitle": "사회적 증거의 원칙" },
-          { "title": "진심 어린 호감을 쌓아라", "subtitle": "호감의 원칙 활용" },
-          { "title": "전문성으로 신뢰를 얻어라", "subtitle": "권위의 원칙 활용" }
+          {
+            "title": "먼저 주는 사람이 이긴다",
+            "subtitle": "상호성의 원칙 활용"
+          },
+          {
+            "title": "작은 약속이 큰 변화를 만든다",
+            "subtitle": "일관성의 원칙 활용"
+          },
+          {
+            "title": "군중의 힘을 활용하라",
+            "subtitle": "사회적 증거의 원칙"
+          },
+          {
+            "title": "진심 어린 호감을 쌓아라",
+            "subtitle": "호감의 원칙 활용"
+          },
+          {
+            "title": "전문성으로 신뢰를 얻어라",
+            "subtitle": "권위의 원칙 활용"
+          }
         ],
         "showNumbers": true,
         "revealStyle": "stagger"

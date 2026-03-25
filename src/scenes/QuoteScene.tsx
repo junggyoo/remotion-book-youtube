@@ -1,13 +1,13 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, QuoteContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { QuoteBlock } from '@/components/primitives/QuoteBlock'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type { BaseSceneProps, QuoteContent, ElementBeatState } from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { QuoteBlock } from "@/components/primitives/QuoteBlock";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → quote
 const LAYERS = {
@@ -16,11 +16,35 @@ const LAYERS = {
   quoteMark: 20,
   attribution: 25,
   quoteText: 30,
-  hud: 70,
-} as const
+} as const;
+
+/**
+ * Wildcard stagger — preserve existing ArchitecturalReveal delays:
+ * quoteText: delay=6, attribution: delay=15, accentDivider: delay=18
+ */
+const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
+  quoteText: {
+    visibility: "entering",
+    entryFrame: 6,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  attribution: {
+    visibility: "entering",
+    entryFrame: 15,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  accentDivider: {
+    visibility: "entering",
+    entryFrame: 18,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+};
 
 interface QuoteSceneProps extends BaseSceneProps {
-  content: QuoteContent
+  content: QuoteContent;
 }
 
 export const QuoteScene: React.FC<QuoteSceneProps> = ({
@@ -28,13 +52,30 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const textureOpacity = content.showTexture ? 0.08 : 0.04
+  const isShorts = format === "shorts";
+  const textureOpacity = content.showTexture ? 0.08 : 0.04;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    {
+      id: `quote-${from}`,
+      type: "quote",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return WILDCARD_STAGGER[key];
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -56,28 +97,28 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.quoteText }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.quoteText }}>
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
-              maxWidth: isShorts ? '100%' : 760,
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              maxWidth: isShorts ? "100%" : 760,
+              marginLeft: "auto",
+              marginRight: "auto",
             }}
           >
             {/* Quote block (includes decorative mark + text) */}
-            <div style={{ zIndex: LAYERS.quoteText, width: '100%' }}>
-              <ArchitecturalReveal
+            <div style={{ zIndex: LAYERS.quoteText, width: "100%" }}>
+              <BeatElement
+                elementKey="quoteText"
+                beatState={getBeatState("quoteText")}
                 format={format}
                 theme={theme}
-                preset="heavy"
-                delay={6}
               >
                 <QuoteBlock
                   format={format}
@@ -85,16 +126,16 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                   quoteText={content.quoteText}
                   useSerif={content.useSerif}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Attribution */}
-            <div style={{ zIndex: LAYERS.attribution, width: '100%' }}>
-              <ArchitecturalReveal
+            <div style={{ zIndex: LAYERS.attribution, width: "100%" }}>
+              <BeatElement
+                elementKey="attribution"
+                beatState={getBeatState("attribution")}
                 format={format}
                 theme={theme}
-                preset="heavy"
-                delay={15}
               >
                 <TextBlock
                   format={format}
@@ -104,15 +145,15 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                   color={theme.textMuted}
                   align="center"
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
-            {/* Bottom accent divider — 120px wide, accent color via wrapper override */}
-            <ArchitecturalReveal
+            {/* Bottom accent divider */}
+            <BeatElement
+              elementKey="accentDivider"
+              beatState={getBeatState("accentDivider")}
               format={format}
               theme={theme}
-              preset="heavy"
-              delay={18}
             >
               <div
                 style={{
@@ -121,24 +162,15 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                   backgroundColor: theme.accent,
                 }}
               />
-            </ArchitecturalReveal>
+            </BeatElement>
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle.
+          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default QuoteScene
+export default QuoteScene;

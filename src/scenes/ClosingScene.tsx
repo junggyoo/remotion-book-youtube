@@ -1,14 +1,14 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, ClosingContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { LabelChip } from '@/components/primitives/LabelChip'
-import { DividerLine } from '@/components/primitives/DividerLine'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type { BaseSceneProps, ClosingContent, ElementBeatState } from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { LabelChip } from "@/components/primitives/LabelChip";
+import { DividerLine } from "@/components/primitives/DividerLine";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → closing
 const LAYERS = {
@@ -17,11 +17,35 @@ const LAYERS = {
   recapStatement: 30,
   brandLabel: 40,
   cta: 35,
-  hud: 70,
-} as const
+} as const;
+
+function buildWildcardStagger(
+  isShorts: boolean,
+): Record<string, ElementBeatState> {
+  return {
+    recapStatement: {
+      visibility: "entering",
+      entryFrame: 0,
+      emphasis: false,
+      motionPreset: "heavy",
+    },
+    ctaText: {
+      visibility: "entering",
+      entryFrame: 9,
+      emphasis: false,
+      motionPreset: "heavy",
+    },
+    brandLabel: {
+      visibility: "entering",
+      entryFrame: isShorts ? 9 : 15,
+      emphasis: false,
+      motionPreset: "heavy",
+    },
+  };
+}
 
 interface ClosingSceneProps extends BaseSceneProps {
-  content: ClosingContent
+  content: ClosingContent;
 }
 
 export const ClosingScene: React.FC<ClosingSceneProps> = ({
@@ -29,14 +53,28 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const showBrandLabel = content.showBrandLabel !== false
-  const showCta = !isShorts && !!content.ctaText
+  const isShorts = format === "shorts";
+  const showBrandLabel = content.showBrandLabel !== false;
+  const showCta = !isShorts && !!content.ctaText;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    { id: `closing-${from}`, type: "closing", beats, narrationText: "" },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const wildcardStagger = buildWildcardStagger(isShorts);
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return wildcardStagger[key];
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -58,25 +96,31 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.recapStatement }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.recapStatement,
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
             }}
           >
             {/* Recap statement */}
             <div style={{ zIndex: LAYERS.recapStatement }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="recapStatement"
+                beatState={getBeatState("recapStatement")}
                 format={format}
                 theme={theme}
-                preset="heavy"
-                delay={0}
               >
                 <TextBlock
                   format={format}
@@ -87,17 +131,17 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                   align="center"
                   maxLines={4}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* CTA text — longform only */}
             {showCta && (
               <div style={{ zIndex: LAYERS.cta }}>
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="ctaText"
+                  beatState={getBeatState("ctaText")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={9}
                 >
                   <TextBlock
                     format={format}
@@ -107,7 +151,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                     color={theme.textMuted}
                     align="center"
                   />
-                </ArchitecturalReveal>
+                </BeatElement>
               </div>
             )}
 
@@ -116,33 +160,30 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               <div
                 style={{
                   zIndex: LAYERS.brandLabel,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                   gap: sp(4),
-                  width: '100%',
+                  width: "100%",
                   maxWidth: sp(10) * 10,
                 }}
               >
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="brandLabel"
+                  beatState={getBeatState("brandLabel")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={isShorts ? 9 : 15}
                 >
                   <div
                     style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
                       gap: sp(4),
-                      width: '100%',
+                      width: "100%",
                     }}
                   >
-                    <DividerLine
-                      format={format}
-                      theme={theme}
-                    />
+                    <DividerLine format={format} theme={theme} />
                     <LabelChip
                       format={format}
                       theme={theme}
@@ -150,26 +191,16 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                       variant="signal"
                     />
                   </div>
-                </ArchitecturalReveal>
+                </BeatElement>
               </div>
             )}
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default ClosingScene
+export default ClosingScene;

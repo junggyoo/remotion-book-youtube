@@ -1,6 +1,8 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate } from "remotion";
 import { ArchitecturalReveal } from "@/components/motion/ArchitecturalReveal";
+import { ScaleReveal } from "@/components/motion/ScaleReveal";
+import { SlideReveal } from "@/components/motion/SlideReveal";
 import type {
   ElementBeatState,
   FormatKey,
@@ -31,11 +33,22 @@ const EXITING_DURATION: Record<MotionPresetKey, number> = {
 /** 프리셋별 emphasis scale 최대값 (1.06 이하 제약) */
 const EMPHASIS_SCALE = 1.02;
 
+/** BeatElement가 entering 상태에서 사용할 모션 프리미티브 */
+type BeatMotionType = "architectural" | "scale" | "slide" | "none";
+
 interface BeatElementProps {
   elementKey: string;
   beatState: ElementBeatState | undefined;
   format: FormatKey;
   theme: Theme;
+  /** entering 모션 프리미티브 선택 (기본: architectural) */
+  motionType?: BeatMotionType;
+  /** SlideReveal 방향 (motionType="slide"일 때) */
+  slideDirection?: "left" | "right";
+  /** ScaleReveal 시작 스케일 (motionType="scale"일 때, 기본 0.95) */
+  scaleFrom?: number;
+  /** SlideReveal X 이동 거리 (motionType="slide"일 때) */
+  translateX?: number;
   children: React.ReactNode;
 }
 
@@ -52,6 +65,10 @@ export const BeatElement: React.FC<BeatElementProps> = ({
   beatState,
   format,
   theme,
+  motionType = "architectural",
+  slideDirection,
+  scaleFrom,
+  translateX,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -62,18 +79,54 @@ export const BeatElement: React.FC<BeatElementProps> = ({
     return <div style={{ opacity: 0, pointerEvents: "none" }}>{children}</div>;
   }
 
-  // entering: ArchitecturalReveal로 등장 애니메이션
+  // entering: motionType에 따라 모션 프리미티브 선택
   if (beatState.visibility === "entering") {
-    return (
-      <ArchitecturalReveal
-        format={format}
-        theme={theme}
-        preset={beatState.motionPreset}
-        delay={beatState.entryFrame}
-      >
-        {children}
-      </ArchitecturalReveal>
-    );
+    switch (motionType) {
+      case "scale":
+        return (
+          <ScaleReveal
+            format={format}
+            theme={theme}
+            preset={beatState.motionPreset}
+            delay={beatState.entryFrame}
+            scaleFrom={scaleFrom}
+          >
+            {children}
+          </ScaleReveal>
+        );
+      case "slide":
+        return (
+          <SlideReveal
+            format={format}
+            theme={theme}
+            preset={beatState.motionPreset}
+            delay={beatState.entryFrame}
+            direction={slideDirection}
+            translateX={translateX}
+          >
+            {children}
+          </SlideReveal>
+        );
+      case "none":
+        // 단일 프레임 opacity snap — 차트 등 자체 애니메이션이 있는 요소용
+        return (
+          <div style={{ opacity: frame >= beatState.entryFrame ? 1 : 0 }}>
+            {children}
+          </div>
+        );
+      case "architectural":
+      default:
+        return (
+          <ArchitecturalReveal
+            format={format}
+            theme={theme}
+            preset={beatState.motionPreset}
+            delay={beatState.entryFrame}
+          >
+            {children}
+          </ArchitecturalReveal>
+        );
+    }
   }
 
   // exiting: interpolate 기반 opacity fade out

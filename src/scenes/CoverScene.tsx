@@ -1,16 +1,16 @@
-import React from 'react'
-import { AbsoluteFill, Sequence, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, CoverContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { spacing, sp } from '@/design/tokens/spacing'
-import { radius } from '@/design/tokens/radius'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { StaggerContainer } from '@/components/motion/StaggerContainer'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { LabelChip } from '@/components/primitives/LabelChip'
-import { ImageMask } from '@/components/primitives/ImageMask'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type { BaseSceneProps, CoverContent, ElementBeatState } from "@/types";
+import { useFormat } from "@/design/themes/useFormat";
+import { sp } from "@/design/tokens/spacing";
+import { radius } from "@/design/tokens/radius";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { LabelChip } from "@/components/primitives/LabelChip";
+import { ImageMask } from "@/components/primitives/ImageMask";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → cover
 const LAYERS = {
@@ -20,11 +20,51 @@ const LAYERS = {
   coverImage: 25,
   title: 30,
   brandLabel: 40,
-  hud: 70,
-} as const
+} as const;
+
+/**
+ * Wildcard stagger — preserve existing ArchitecturalReveal delays.
+ * shorts에서는 subtitle이 없으므로 author/brandLabel 딜레이가 다름.
+ */
+function buildWildcardStagger(
+  isShorts: boolean,
+): Record<string, ElementBeatState> {
+  return {
+    coverImage: {
+      visibility: "entering",
+      entryFrame: 0,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    title: {
+      visibility: "entering",
+      entryFrame: 6,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    subtitle: {
+      visibility: "entering",
+      entryFrame: 12,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    author: {
+      visibility: "entering",
+      entryFrame: isShorts ? 12 : 18,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    brandLabel: {
+      visibility: "entering",
+      entryFrame: isShorts ? 18 : 24,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+  };
+}
 
 interface CoverSceneProps extends BaseSceneProps {
-  content: CoverContent
+  content: CoverContent;
 }
 
 export const CoverScene: React.FC<CoverSceneProps> = ({
@@ -32,18 +72,32 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const { typeScale } = useFormat(format)
-  const isShorts = format === 'shorts'
+  const { typeScale } = useFormat(format);
+  const isShorts = format === "shorts";
 
-  const bgOpacity = content.backgroundVariant === 'light' ? 0.6 : 0.85
+  const bgOpacity = content.backgroundVariant === "light" ? 0.6 : 0.85;
   const imageSize = isShorts
     ? { width: 200, height: 280 }
-    : { width: 280, height: 400 }
+    : { width: 280, height: 400 };
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    { id: `cover-${from}`, type: "cover", beats, narrationText: "" },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const wildcardStagger = buildWildcardStagger(isShorts);
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return wildcardStagger[key];
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -66,25 +120,31 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.baseContent }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.baseContent,
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
             }}
           >
             {/* Cover image */}
             <div style={{ zIndex: LAYERS.coverImage }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="coverImage"
+                beatState={getBeatState("coverImage")}
                 format={format}
                 theme={theme}
-                preset="dramatic"
-                delay={0}
               >
                 <ImageMask
                   format={format}
@@ -95,25 +155,25 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                   height={imageSize.height}
                   borderRadius={radius.lg}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Title block */}
             <div
               style={{
                 zIndex: LAYERS.title,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 gap: sp(3),
-                maxWidth: '100%',
+                maxWidth: "100%",
               }}
             >
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="title"
+                beatState={getBeatState("title")}
                 format={format}
                 theme={theme}
-                preset="dramatic"
-                delay={6}
               >
                 <TextBlock
                   format={format}
@@ -124,15 +184,15 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                   align="center"
                   maxLines={3}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
 
               {/* Subtitle — longform only */}
               {!isShorts && content.subtitle && (
-                <ArchitecturalReveal
+                <BeatElement
+                  elementKey="subtitle"
+                  beatState={getBeatState("subtitle")}
                   format={format}
                   theme={theme}
-                  preset="dramatic"
-                  delay={12}
                 >
                   <TextBlock
                     format={format}
@@ -143,15 +203,15 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                     align="center"
                     maxLines={2}
                   />
-                </ArchitecturalReveal>
+                </BeatElement>
               )}
 
               {/* Author */}
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="author"
+                beatState={getBeatState("author")}
                 format={format}
                 theme={theme}
-                preset="dramatic"
-                delay={isShorts ? 12 : 18}
               >
                 <TextBlock
                   format={format}
@@ -161,42 +221,33 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                   color={theme.textMuted}
                   align="center"
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Brand label */}
             <div style={{ zIndex: LAYERS.brandLabel }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="brandLabel"
+                beatState={getBeatState("brandLabel")}
                 format={format}
                 theme={theme}
-                preset="dramatic"
-                delay={isShorts ? 18 : 24}
               >
                 <LabelChip
                   format={format}
                   theme={theme}
-                  label={content.brandLabel ?? 'Editorial Signal'}
+                  label={content.brandLabel ?? "Editorial Signal"}
                   variant="signal"
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle.
+          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default CoverScene
+export default CoverScene;

@@ -31,16 +31,6 @@
         ]
       }
     ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Check if all planned scenes have been generated and all mediaPlan fields are complete. If not, respond with {\"ok\": false, \"reason\": \"what remains\"}."
-          }
-        ]
-      }
-    ],
     "SessionStart": [
       {
         "matcher": "compact",

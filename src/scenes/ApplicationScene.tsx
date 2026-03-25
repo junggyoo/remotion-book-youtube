@@ -1,13 +1,18 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, ApplicationContent } from '@/types'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { ProgressDot } from '@/components/primitives/ProgressDot'
-import { ConnectorLine } from '@/components/primitives/ConnectorLine'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  ApplicationContent,
+  ElementBeatState,
+} from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { ProgressDot } from "@/components/primitives/ProgressDot";
+import { ConnectorLine } from "@/components/primitives/ConnectorLine";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → application
 const LAYERS = {
@@ -17,11 +22,30 @@ const LAYERS = {
   paths: 25,
   steps: 30,
   emphasis: 40,
-  hud: 70,
-} as const
+} as const;
+
+const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
+  anchorStatement: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "smooth",
+  },
+};
+
+function getWildcardStagger(key: string, index?: number): ElementBeatState {
+  if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
+  // steps: delay = index * 9
+  return {
+    visibility: "entering",
+    entryFrame: (index ?? 0) * 9,
+    emphasis: false,
+    motionPreset: "smooth",
+  };
+}
 
 interface ApplicationSceneProps extends BaseSceneProps {
-  content: ApplicationContent
+  content: ApplicationContent;
 }
 
 export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
@@ -29,14 +53,34 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const showDetail = !isShorts
-  const showPaths = content.showPaths === true
+  const isShorts = format === "shorts";
+  const showDetail = !isShorts;
+  const showPaths = content.showPaths === true;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    {
+      id: `application-${from}`,
+      type: "application",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (
+    key: string,
+    index?: number,
+  ): ElementBeatState | undefined => {
+    if (isWildcard) return getWildcardStagger(key, index);
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -58,24 +102,30 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.anchorStatement }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.anchorStatement,
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(6),
             }}
           >
             {/* Anchor statement */}
             <div style={{ zIndex: LAYERS.anchorStatement }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="anchorStatement"
+                beatState={getBeatState("anchorStatement")}
                 format={format}
                 theme={theme}
-                preset="smooth"
-                delay={0}
               >
                 <TextBlock
                   format={format}
@@ -85,117 +135,110 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                   weight="bold"
                   maxLines={3}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Vertical step flow */}
             <div
               style={{
                 zIndex: LAYERS.steps,
-                display: 'flex',
-                flexDirection: 'column',
+                display: "flex",
+                flexDirection: "column",
                 gap: sp(5),
               }}
             >
-              {content.steps.map((step, index) => (
-                <React.Fragment key={index}>
-                  <ArchitecturalReveal
-                    format={format}
-                    theme={theme}
-                    preset="smooth"
-                    delay={index * 9}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                        gap: sp(4),
-                      }}
+              {content.steps.map((step, index) => {
+                const stepKey = `step-${index}`;
+                return (
+                  <React.Fragment key={index}>
+                    <BeatElement
+                      elementKey={stepKey}
+                      beatState={getBeatState(stepKey, index)}
+                      format={format}
+                      theme={theme}
                     >
-                      {/* ProgressDot + optional path connector column */}
                       <div
                         style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          flexShrink: 0,
-                          gap: 0,
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "flex-start",
+                          gap: sp(4),
                         }}
                       >
-                        <ProgressDot
-                          format={format}
-                          theme={theme}
-                          active
-                          size={12}
-                        />
-                        {showPaths && index < content.steps.length - 1 && (
-                          <div
-                            style={{
-                              zIndex: LAYERS.paths,
-                              marginTop: sp(2),
-                            }}
-                          >
-                            <ConnectorLine
-                              format={format}
-                              theme={theme}
-                              orientation="vertical"
-                              length={sp(6)}
-                            />
-                          </div>
-                        )}
-                      </div>
+                        {/* ProgressDot + optional path connector column */}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            flexShrink: 0,
+                            gap: 0,
+                          }}
+                        >
+                          <ProgressDot
+                            format={format}
+                            theme={theme}
+                            active
+                            size={12}
+                          />
+                          {showPaths && index < content.steps.length - 1 && (
+                            <div
+                              style={{
+                                zIndex: LAYERS.paths,
+                                marginTop: sp(2),
+                              }}
+                            >
+                              <ConnectorLine
+                                format={format}
+                                theme={theme}
+                                orientation="vertical"
+                                length={sp(6)}
+                              />
+                            </div>
+                          )}
+                        </div>
 
-                      {/* Step text */}
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: sp(2),
-                          flex: 1,
-                        }}
-                      >
-                        <TextBlock
-                          format={format}
-                          theme={theme}
-                          text={step.title}
-                          variant="bodyL"
-                          weight="bold"
-                        />
-
-                        {showDetail && step.detail && (
+                        {/* Step text */}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: sp(2),
+                            flex: 1,
+                          }}
+                        >
                           <TextBlock
                             format={format}
                             theme={theme}
-                            text={step.detail}
-                            variant="bodyS"
-                            color={theme.textMuted}
-                            maxLines={3}
+                            text={step.title}
+                            variant="bodyL"
+                            weight="bold"
                           />
-                        )}
+
+                          {showDetail && step.detail && (
+                            <TextBlock
+                              format={format}
+                              theme={theme}
+                              text={step.detail}
+                              variant="bodyS"
+                              color={theme.textMuted}
+                              maxLines={3}
+                            />
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </ArchitecturalReveal>
-                </React.Fragment>
-              ))}
+                    </BeatElement>
+                  </React.Fragment>
+                );
+              })}
             </div>
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default ApplicationScene
+export default ApplicationScene;

@@ -1,25 +1,52 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame, interpolate } from 'remotion'
-import type { BaseSceneProps, TransitionContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { ScaleReveal } from '@/components/motion/ScaleReveal'
-import { LabelChip } from '@/components/primitives/LabelChip'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill, useCurrentFrame, interpolate } from "remotion";
+import type {
+  BaseSceneProps,
+  TransitionContent,
+  ElementBeatState,
+} from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { LabelChip } from "@/components/primitives/LabelChip";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
 const LAYERS = {
   background: 0,
   transition: 80,
   label: 85,
-  hud: 70,
-} as const
+} as const;
+
+function buildWildcardStagger(
+  hasLabel: boolean,
+): Record<string, ElementBeatState> {
+  return {
+    label: {
+      visibility: "entering",
+      entryFrame: 6,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    brandMark: {
+      visibility: "entering",
+      entryFrame: hasLabel ? 12 : 6,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+    labelContainer: {
+      visibility: "entering",
+      entryFrame: 0,
+      emphasis: false,
+      motionPreset: "dramatic",
+    },
+  };
+}
 
 interface TransitionSceneProps extends BaseSceneProps {
-  content: TransitionContent
+  content: TransitionContent;
 }
 
 export const TransitionScene: React.FC<TransitionSceneProps> = ({
@@ -27,87 +54,97 @@ export const TransitionScene: React.FC<TransitionSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const style = content.style ?? 'fade'
+  const frame = useCurrentFrame();
+  const isShorts = format === "shorts";
+  const style = content.style ?? "fade";
 
-  // --- Fade overlay opacity: enter 25%, hold 50%, exit 25% ---
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    {
+      id: `transition-${from}`,
+      type: "transition",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const wildcardStagger = buildWildcardStagger(!!content.label);
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return wildcardStagger[key];
+    return elementStates.get(key);
+  };
+
+  // --- Overlay animations (NOT beat-controlled — scene-level continuous transitions) ---
+
   const fadeOpacity = interpolate(
     frame,
-    [
-      0,
-      durationFrames * 0.25,
-      durationFrames * 0.75,
-      durationFrames,
-    ],
+    [0, durationFrames * 0.25, durationFrames * 0.75, durationFrames],
     [0, 1, 1, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-  )
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
-  // --- Wipe: left-to-right clip progress ---
-  const wipeProgress = interpolate(
-    frame,
-    [0, durationFrames * 0.6],
-    [0, 1],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-  )
+  const wipeProgress = interpolate(frame, [0, durationFrames * 0.6], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
-  // --- Zoom: circle expand progress ---
-  const zoomProgress = interpolate(
-    frame,
-    [0, durationFrames * 0.5],
-    [0, 1],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' },
-  )
+  const zoomProgress = interpolate(frame, [0, durationFrames * 0.5], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   const overlayStyle: React.CSSProperties = (() => {
-    if (style === 'wipe') {
+    if (style === "wipe") {
       return {
-        position: 'absolute',
+        position: "absolute",
         inset: 0,
         zIndex: LAYERS.transition,
         backgroundColor: theme.surfaceMuted,
         clipPath: `inset(0 ${100 - wipeProgress * 100}% 0 0)`,
-      }
+      };
     }
-    if (style === 'zoom') {
+    if (style === "zoom") {
       return {
-        position: 'absolute',
+        position: "absolute",
         inset: 0,
         zIndex: LAYERS.transition,
         backgroundColor: theme.surfaceMuted,
         clipPath: `circle(${zoomProgress * 100}% at 50% 50%)`,
-      }
+      };
     }
     // fade (default)
     return {
-      position: 'absolute',
+      position: "absolute",
       inset: 0,
       zIndex: LAYERS.transition,
       backgroundColor: theme.surfaceMuted,
       opacity: fadeOpacity,
-    }
-  })()
+    };
+  })();
 
   const labelContent = (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         gap: sp(3),
       }}
     >
       {content.label && (
-        <ArchitecturalReveal
+        <BeatElement
+          elementKey="label"
+          beatState={getBeatState("label")}
           format={format}
           theme={theme}
-          preset="dramatic"
-          delay={6}
         >
           <TextBlock
             format={format}
@@ -117,15 +154,15 @@ export const TransitionScene: React.FC<TransitionSceneProps> = ({
             color={theme.textMuted}
             align="center"
           />
-        </ArchitecturalReveal>
+        </BeatElement>
       )}
 
       {content.showBrandMark && (
-        <ArchitecturalReveal
+        <BeatElement
+          elementKey="brandMark"
+          beatState={getBeatState("brandMark")}
           format={format}
           theme={theme}
-          preset="dramatic"
-          delay={content.label ? 12 : 6}
         >
           <LabelChip
             format={format}
@@ -133,10 +170,10 @@ export const TransitionScene: React.FC<TransitionSceneProps> = ({
             label="Editorial Signal"
             variant="signal"
           />
-        </ArchitecturalReveal>
+        </BeatElement>
       )}
     </div>
-  )
+  );
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -148,40 +185,41 @@ export const TransitionScene: React.FC<TransitionSceneProps> = ({
         }}
       />
 
-      {/* Transition overlay */}
+      {/* Transition overlay — scene-level animation, NOT beat-controlled */}
       <div style={overlayStyle} />
 
       {/* Label + brand mark */}
       {(content.label || content.showBrandMark) && (
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             inset: 0,
             zIndex: LAYERS.label,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <SafeArea format={format} theme={theme}>
             <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
               }}
             >
-              {style === 'zoom' ? (
-                <ScaleReveal
+              {style === "zoom" ? (
+                <BeatElement
+                  elementKey="labelContainer"
+                  beatState={getBeatState("labelContainer")}
                   format={format}
                   theme={theme}
-                  preset="dramatic"
-                  delay={0}
+                  motionType="scale"
                   scaleFrom={0.95}
                 >
                   {labelContent}
-                </ScaleReveal>
+                </BeatElement>
               ) : (
                 labelContent
               )}
@@ -190,19 +228,9 @@ export const TransitionScene: React.FC<TransitionSceneProps> = ({
         </div>
       )}
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default TransitionScene
+export default TransitionScene;

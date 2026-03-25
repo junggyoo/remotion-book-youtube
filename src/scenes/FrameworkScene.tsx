@@ -1,15 +1,18 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, FrameworkContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { ScaleReveal } from '@/components/motion/ScaleReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { NumberBadge } from '@/components/primitives/NumberBadge'
-import { ConnectorLine } from '@/components/primitives/ConnectorLine'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  FrameworkContent,
+  ElementBeatState,
+} from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { NumberBadge } from "@/components/primitives/NumberBadge";
+import { ConnectorLine } from "@/components/primitives/ConnectorLine";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers from scene-catalog.json → framework
 const LAYERS = {
@@ -19,11 +22,36 @@ const LAYERS = {
   connectors: 25,
   items: 30,
   emphasis: 40,
-  hud: 70,
-} as const
+} as const;
+
+/**
+ * Wildcard stagger states — preserve existing animation delays
+ * for scenes without explicit beats.
+ * frameworkLabel: delay=0 (ArchitecturalReveal)
+ * items: delay=index*6 (ScaleReveal)
+ */
+const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
+  frameworkLabel: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "smooth",
+  },
+};
+
+function getWildcardStagger(key: string, index?: number): ElementBeatState {
+  if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
+  // items: delay = index * 6
+  return {
+    visibility: "entering",
+    entryFrame: (index ?? 0) * 6,
+    emphasis: false,
+    motionPreset: "smooth",
+  };
+}
 
 interface FrameworkSceneProps extends BaseSceneProps {
-  content: FrameworkContent
+  content: FrameworkContent;
 }
 
 export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
@@ -31,16 +59,35 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const showDescriptions = !isShorts && content.showDescriptions !== false
-  const showConnectors = content.showConnectors === true
+  const isShorts = format === "shorts";
+  const showDescriptions = !isShorts && content.showDescriptions !== false;
+  const showConnectors = content.showConnectors === true;
+  const columns = isShorts ? 1 : 2;
 
-  const columns = isShorts ? 1 : 2
+  // Beat resolution: explicit beats or implicit single beat (backward compat)
+  const resolvedBeats = resolveBeats(
+    {
+      id: `framework-${from}`,
+      type: "framework",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (
+    key: string,
+    index?: number,
+  ): ElementBeatState | undefined => {
+    if (isWildcard) return getWildcardStagger(key, index);
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -62,24 +109,30 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.frameworkLabel }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.frameworkLabel,
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
             }}
           >
             {/* Framework label */}
             <div style={{ zIndex: LAYERS.frameworkLabel }}>
-              <ArchitecturalReveal
+              <BeatElement
+                elementKey="frameworkLabel"
+                beatState={getBeatState("frameworkLabel")}
                 format={format}
                 theme={theme}
-                preset="smooth"
-                delay={0}
               >
                 <TextBlock
                   format={format}
@@ -88,94 +141,104 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                   variant="headlineS"
                   color={theme.signal}
                 />
-              </ArchitecturalReveal>
+              </BeatElement>
             </div>
 
             {/* Items grid */}
             <div
               style={{
                 zIndex: LAYERS.items,
-                display: 'grid',
+                display: "grid",
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
                 gap: sp(5),
               }}
             >
-              {content.items.map((item, index) => (
-                <React.Fragment key={item.number}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: sp(3) }}>
-                    <ScaleReveal
-                      format={format}
-                      theme={theme}
-                      preset="smooth"
-                      delay={index * 6}
-                      scaleFrom={0.95}
+              {content.items.map((item, index) => {
+                const itemKey = `item-${index}`;
+                return (
+                  <React.Fragment key={item.number}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: sp(3),
+                      }}
                     >
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'flex-start',
-                          gap: sp(4),
-                        }}
+                      <BeatElement
+                        elementKey={itemKey}
+                        beatState={getBeatState(itemKey, index)}
+                        format={format}
+                        theme={theme}
+                        motionType="scale"
+                        scaleFrom={0.95}
                       >
-                        {/* Number badge */}
-                        <div style={{ flexShrink: 0, paddingTop: 2 }}>
-                          <NumberBadge
-                            format={format}
-                            theme={theme}
-                            number={item.number}
-                            variant="accent"
-                          />
-                        </div>
-
-                        {/* Title + description */}
                         <div
                           style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: sp(2),
-                            flex: 1,
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "flex-start",
+                            gap: sp(4),
                           }}
                         >
-                          <TextBlock
-                            format={format}
-                            theme={theme}
-                            text={item.title}
-                            variant="bodyL"
-                            weight="bold"
-                          />
+                          {/* Number badge */}
+                          <div style={{ flexShrink: 0, paddingTop: 2 }}>
+                            <NumberBadge
+                              format={format}
+                              theme={theme}
+                              number={item.number}
+                              variant="accent"
+                            />
+                          </div>
 
-                          {showDescriptions && item.description && (
+                          {/* Title + description */}
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: sp(2),
+                              flex: 1,
+                            }}
+                          >
                             <TextBlock
                               format={format}
                               theme={theme}
-                              text={item.description}
-                              variant="bodyS"
-                              color={theme.textMuted}
-                              maxLines={3}
+                              text={item.title}
+                              variant="bodyL"
+                              weight="bold"
                             />
-                          )}
-                        </div>
-                      </div>
-                    </ScaleReveal>
-                  </div>
 
-                  {/* Horizontal connector between items (same row, not last in row) */}
-                  {showConnectors &&
-                    !isShorts &&
-                    columns === 2 &&
-                    index % 2 === 0 &&
-                    index + 1 < content.items.length && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          zIndex: LAYERS.connectors,
-                          display: 'none',
-                        }}
-                      />
-                    )}
-                </React.Fragment>
-              ))}
+                            {showDescriptions && item.description && (
+                              <TextBlock
+                                format={format}
+                                theme={theme}
+                                text={item.description}
+                                variant="bodyS"
+                                color={theme.textMuted}
+                                maxLines={3}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </BeatElement>
+                    </div>
+
+                    {/* Horizontal connector between items (same row, not last in row) */}
+                    {showConnectors &&
+                      !isShorts &&
+                      columns === 2 &&
+                      index % 2 === 0 &&
+                      index + 1 < content.items.length && (
+                        <div
+                          style={{
+                            position: "absolute",
+                            zIndex: LAYERS.connectors,
+                            display: "none",
+                          }}
+                        />
+                      )}
+                  </React.Fragment>
+                );
+              })}
             </div>
 
             {/* Horizontal dotted connectors between grid rows */}
@@ -183,14 +246,16 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
               <div
                 style={{
                   zIndex: LAYERS.connectors,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
                   gap: sp(4),
                 }}
               >
-                {Array.from({ length: Math.max(0, content.items.length - 1) }).map((_, i) => (
+                {Array.from({
+                  length: Math.max(0, content.items.length - 1),
+                }).map((_, i) => (
                   <ConnectorLine
                     key={i}
                     format={format}
@@ -206,19 +271,10 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle.
+          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default FrameworkScene
+export default FrameworkScene;

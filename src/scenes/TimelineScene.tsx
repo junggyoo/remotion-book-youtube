@@ -1,16 +1,20 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, TimelineContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { typography } from '@/design/tokens/typography'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { ScaleReveal } from '@/components/motion/ScaleReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { ConnectorLine } from '@/components/primitives/ConnectorLine'
-import { ProgressDot } from '@/components/primitives/ProgressDot'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  TimelineContent,
+  ElementBeatState,
+} from "@/types";
+import { useFormat } from "@/design/themes/useFormat";
+import { sp } from "@/design/tokens/spacing";
+import { typography } from "@/design/tokens/typography";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { ConnectorLine } from "@/components/primitives/ConnectorLine";
+import { ProgressDot } from "@/components/primitives/ProgressDot";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // Custom layers for TimelineScene
 const LAYERS = {
@@ -19,13 +23,42 @@ const LAYERS = {
   timelineLine: 20,
   dots: 25,
   events: 30,
-  hud: 70,
-} as const
+} as const;
 
-const MAX_EVENTS_SHORTS = 4
+const MAX_EVENTS_SHORTS = 4;
+
+const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
+  timelineLabel: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "smooth",
+  },
+};
+
+function getWildcardStagger(key: string, index?: number): ElementBeatState {
+  if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
+  const i = index ?? 0;
+  if (key.startsWith("dot-")) {
+    // dots: delay = i * 9 - 3 (min 0), preset snappy
+    return {
+      visibility: "entering",
+      entryFrame: Math.max(0, i * 9 - 3),
+      emphasis: false,
+      motionPreset: "snappy",
+    };
+  }
+  // events: delay = i * 9
+  return {
+    visibility: "entering",
+    entryFrame: i * 9,
+    emphasis: false,
+    motionPreset: "smooth",
+  };
+}
 
 interface TimelineSceneProps extends BaseSceneProps {
-  content: TimelineContent
+  content: TimelineContent;
 }
 
 export const TimelineScene: React.FC<TimelineSceneProps> = ({
@@ -33,18 +66,33 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const { typeScale } = useFormat(format)
-  const isShorts = format === 'shorts'
+  const { typeScale } = useFormat(format);
+  const isShorts = format === "shorts";
 
-  const showConnectors = content.showConnectors !== false
+  const showConnectors = content.showConnectors !== false;
   const events = isShorts
     ? content.events.slice(0, MAX_EVENTS_SHORTS)
-    : content.events
+    : content.events;
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    { id: `timeline-${from}`, type: "timeline", beats, narrationText: "" },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (
+    key: string,
+    index?: number,
+  ): ElementBeatState | undefined => {
+    if (isWildcard) return getWildcardStagger(key, index);
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -66,18 +114,23 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.events }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.events }}>
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100%',
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
               gap: sp(5),
             }}
           >
             {/* Timeline label */}
-            <ArchitecturalReveal format={format} theme={theme} preset="smooth" delay={0}>
+            <BeatElement
+              elementKey="timelineLabel"
+              beatState={getBeatState("timelineLabel")}
+              format={format}
+              theme={theme}
+            >
               <TextBlock
                 format={format}
                 theme={theme}
@@ -87,16 +140,16 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                 color={theme.signal}
                 maxLines={2}
               />
-            </ArchitecturalReveal>
+            </BeatElement>
 
             {/* Events area */}
             <div
               style={{
                 flex: 1,
-                display: 'flex',
-                flexDirection: 'row',
+                display: "flex",
+                flexDirection: "row",
                 gap: sp(4),
-                position: 'relative',
+                position: "relative",
               }}
             >
               {/* Left: vertical connector line + dots */}
@@ -104,10 +157,10 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                 <div
                   style={{
                     zIndex: LAYERS.timelineLine,
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    position: "relative",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                     paddingTop: sp(1),
                     paddingBottom: sp(1),
                     flexShrink: 0,
@@ -117,11 +170,11 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                   {/* Vertical line behind dots */}
                   <div
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: sp(1),
                       bottom: sp(1),
-                      left: '50%',
-                      transform: 'translateX(-50%)',
+                      left: "50%",
+                      transform: "translateX(-50%)",
                     }}
                   >
                     <ConnectorLine
@@ -137,23 +190,24 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                   {/* Dots per event — evenly distributed */}
                   <div
                     style={{
-                      position: 'absolute',
+                      position: "absolute",
                       top: 0,
                       bottom: 0,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-around',
-                      alignItems: 'center',
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-around",
+                      alignItems: "center",
                       zIndex: LAYERS.dots,
                     }}
                   >
                     {events.map((_, i) => (
-                      <ScaleReveal
+                      <BeatElement
                         key={i}
+                        elementKey={`dot-${i}`}
+                        beatState={getBeatState(`dot-${i}`, i)}
                         format={format}
                         theme={theme}
-                        preset="snappy"
-                        delay={Math.max(0, i * 9 - 3)}
+                        motionType="scale"
                       >
                         <ProgressDot
                           format={format}
@@ -162,7 +216,7 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                           size={10}
                           color={theme.signal}
                         />
-                      </ScaleReveal>
+                      </BeatElement>
                     ))}
                   </div>
                 </div>
@@ -172,24 +226,24 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
               <div
                 style={{
                   flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-around',
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-around",
                   gap: sp(5),
                 }}
               >
                 {events.map((event, i) => (
-                  <ArchitecturalReveal
+                  <BeatElement
                     key={i}
+                    elementKey={`event-${i}`}
+                    beatState={getBeatState(`event-${i}`, i)}
                     format={format}
                     theme={theme}
-                    preset="smooth"
-                    delay={i * 9}
                   >
                     <div
                       style={{
-                        display: 'flex',
-                        flexDirection: 'column',
+                        display: "flex",
+                        flexDirection: "column",
                         gap: sp(1),
                       }}
                     >
@@ -202,7 +256,7 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                           color: theme.signal,
                           lineHeight: typography.lineHeight.tight,
                           letterSpacing: typography.tracking.tight,
-                          fontVariantNumeric: 'tabular-nums',
+                          fontVariantNumeric: "tabular-nums",
                         }}
                       >
                         {event.year}
@@ -230,7 +284,7 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
                         />
                       )}
                     </div>
-                  </ArchitecturalReveal>
+                  </BeatElement>
                 ))}
               </div>
             </div>
@@ -238,19 +292,9 @@ export const TimelineScene: React.FC<TimelineSceneProps> = ({
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default TimelineScene
+export default TimelineScene;

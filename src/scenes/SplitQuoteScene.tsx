@@ -1,15 +1,18 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, SplitQuoteContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { SlideReveal } from '@/components/motion/SlideReveal'
-import { ScaleReveal } from '@/components/motion/ScaleReveal'
-import { QuoteBlock } from '@/components/primitives/QuoteBlock'
-import { LabelChip } from '@/components/primitives/LabelChip'
-import { DividerLine } from '@/components/primitives/DividerLine'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
+import React from "react";
+import { AbsoluteFill } from "remotion";
+import type {
+  BaseSceneProps,
+  SplitQuoteContent,
+  ElementBeatState,
+} from "@/types";
+import { sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { BeatElement } from "@/components/motion/BeatElement";
+import { QuoteBlock } from "@/components/primitives/QuoteBlock";
+import { LabelChip } from "@/components/primitives/LabelChip";
+import { DividerLine } from "@/components/primitives/DividerLine";
+import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
 const LAYERS = {
@@ -19,11 +22,31 @@ const LAYERS = {
   rightQuote: 20,
   divider: 30,
   vsLabel: 35,
-  hud: 70,
-} as const
+} as const;
+
+const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
+  leftQuote: {
+    visibility: "entering",
+    entryFrame: 0,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  rightQuote: {
+    visibility: "entering",
+    entryFrame: 9,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+  vsLabel: {
+    visibility: "entering",
+    entryFrame: 18,
+    emphasis: false,
+    motionPreset: "heavy",
+  },
+};
 
 interface SplitQuoteSceneProps extends BaseSceneProps {
-  content: SplitQuoteContent
+  content: SplitQuoteContent;
 }
 
 export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
@@ -31,13 +54,30 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
   theme,
   from,
   durationFrames,
-  tts,
-  subtitles,
   content,
+  beats,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const vsLabel = content.vsLabel ?? 'VS'
+  const isShorts = format === "shorts";
+  const vsLabel = content.vsLabel ?? "VS";
+
+  // Beat resolution
+  const resolvedBeats = resolveBeats(
+    {
+      id: `splitQuote-${from}`,
+      type: "splitQuote",
+      beats,
+      narrationText: "",
+    },
+    format,
+  );
+  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const isWildcard =
+    resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  const getBeatState = (key: string): ElementBeatState | undefined => {
+    if (isWildcard) return WILDCARD_STAGGER[key];
+    return elementStates.get(key);
+  };
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -59,34 +99,35 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.leftQuote }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.leftQuote }}>
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: isShorts ? 'column' : 'row',
-              alignItems: isShorts ? 'stretch' : 'center',
-              justifyContent: 'center',
-              height: '100%',
-              position: 'relative',
+              display: "flex",
+              flexDirection: isShorts ? "column" : "row",
+              alignItems: isShorts ? "stretch" : "center",
+              justifyContent: "center",
+              height: "100%",
+              position: "relative",
             }}
           >
             {/* Left / Top quote */}
             <div
               style={{
                 flex: 1,
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 paddingRight: isShorts ? 0 : sp(5),
                 paddingBottom: isShorts ? sp(4) : 0,
               }}
             >
-              <SlideReveal
+              <BeatElement
+                elementKey="leftQuote"
+                beatState={getBeatState("leftQuote")}
                 format={format}
                 theme={theme}
-                preset="heavy"
-                delay={0}
-                direction="left"
+                motionType="slide"
+                slideDirection="left"
               >
                 <QuoteBlock
                   format={format}
@@ -95,39 +136,40 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
                   attribution={content.leftAttribution}
                   useSerif
                 />
-              </SlideReveal>
+              </BeatElement>
             </div>
 
             {/* Center / Horizontal divider + VS label */}
             <div
               style={{
                 zIndex: LAYERS.divider,
-                display: 'flex',
-                flexDirection: isShorts ? 'row' : 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "flex",
+                flexDirection: isShorts ? "row" : "column",
+                alignItems: "center",
+                justifyContent: "center",
                 flexShrink: 0,
-                position: 'relative',
+                position: "relative",
               }}
             >
               <DividerLine
                 format={format}
                 theme={theme}
-                orientation={isShorts ? 'horizontal' : 'vertical'}
+                orientation={isShorts ? "horizontal" : "vertical"}
               />
 
               {/* VS label centered on divider */}
               <div
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   zIndex: LAYERS.vsLabel,
                 }}
               >
-                <ScaleReveal
+                <BeatElement
+                  elementKey="vsLabel"
+                  beatState={getBeatState("vsLabel")}
                   format={format}
                   theme={theme}
-                  preset="heavy"
-                  delay={18}
+                  motionType="scale"
                   scaleFrom={0.92}
                 >
                   <LabelChip
@@ -136,7 +178,7 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
                     label={vsLabel}
                     variant="signal"
                   />
-                </ScaleReveal>
+                </BeatElement>
               </div>
             </div>
 
@@ -144,18 +186,19 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
             <div
               style={{
                 flex: 1,
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
                 paddingLeft: isShorts ? 0 : sp(5),
                 paddingTop: isShorts ? sp(4) : 0,
               }}
             >
-              <SlideReveal
+              <BeatElement
+                elementKey="rightQuote"
+                beatState={getBeatState("rightQuote")}
                 format={format}
                 theme={theme}
-                preset="heavy"
-                delay={9}
-                direction="right"
+                motionType="slide"
+                slideDirection="right"
               >
                 <QuoteBlock
                   format={format}
@@ -164,25 +207,15 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
                   attribution={content.rightAttribution}
                   useSerif
                 />
-              </SlideReveal>
+              </BeatElement>
             </div>
           </div>
         </SafeArea>
       </div>
 
-      {/* HUD: Subtitles */}
-      {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
-          <SubtitleLayer
-            format={format}
-            theme={theme}
-            subtitles={subtitles}
-            currentFrame={frame}
-          />
-        </div>
-      )}
+      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default SplitQuoteScene
+export default SplitQuoteScene;
