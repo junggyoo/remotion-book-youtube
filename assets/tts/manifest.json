@@ -3,49 +3,441 @@
     "sceneId": "cover-01",
     "audioFile": "cover-01.mp3",
     "captionsFile": "cover-01.json",
-    "durationMs": 19368,
-    "durationFrames": 582
+    "durationMs": 6456,
+    "durationFrames": 194,
+    "beatTimings": [
+      {
+        "beatId": "cover-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 79,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.55
+      },
+      {
+        "beatId": "cover-b2",
+        "resolvedStartFrame": 79,
+        "resolvedEndFrame": 193,
+        "originalStartRatio": 0.55,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "hook-01",
+    "audioFile": "hook-01.mp3",
+    "captionsFile": "hook-01.json",
+    "durationMs": 13080,
+    "durationFrames": 393,
+    "beatTimings": [
+      {
+        "beatId": "hook-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 195,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.4
+      },
+      {
+        "beatId": "hook-b2",
+        "resolvedStartFrame": 194,
+        "resolvedEndFrame": 293,
+        "originalStartRatio": 0.4,
+        "originalEndRatio": 0.72
+      },
+      {
+        "beatId": "hook-b3",
+        "resolvedStartFrame": 293,
+        "resolvedEndFrame": 391,
+        "originalStartRatio": 0.72,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "intro-01",
+    "audioFile": "intro-01.mp3",
+    "captionsFile": "intro-01.json",
+    "durationMs": 21096,
+    "durationFrames": 633,
+    "beatTimings": [
+      {
+        "beatId": "intro-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 292,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.45
+      },
+      {
+        "beatId": "intro-b2",
+        "resolvedStartFrame": 292,
+        "resolvedEndFrame": 631,
+        "originalStartRatio": 0.45,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
     "sceneId": "chapter-01",
     "audioFile": "chapter-01.mp3",
     "captionsFile": "chapter-01.json",
-    "durationMs": 15696,
-    "durationFrames": 471
+    "durationMs": 5232,
+    "durationFrames": 157,
+    "beatTimings": [
+      {
+        "beatId": "ch01-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 69,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.45
+      },
+      {
+        "beatId": "ch01-b2",
+        "resolvedStartFrame": 69,
+        "resolvedEndFrame": 157,
+        "originalStartRatio": 0.45,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "insight-01",
+    "audioFile": "insight-01.mp3",
+    "captionsFile": "insight-01.json",
+    "durationMs": 19536,
+    "durationFrames": 587,
+    "beatTimings": [
+      {
+        "beatId": "ins01-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 202,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.42
+      },
+      {
+        "beatId": "ins01-b2",
+        "resolvedStartFrame": 202,
+        "resolvedEndFrame": 584,
+        "originalStartRatio": 0.42,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
     "sceneId": "framework-01",
     "audioFile": "framework-01.mp3",
     "captionsFile": "framework-01.json",
-    "durationMs": 39960,
-    "durationFrames": 1199
+    "durationMs": 26400,
+    "durationFrames": 792,
+    "beatTimings": [
+      {
+        "beatId": "fw01-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 293,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.18
+      },
+      {
+        "beatId": "fw01-b2",
+        "resolvedStartFrame": 291,
+        "resolvedEndFrame": 419,
+        "originalStartRatio": 0.18,
+        "originalEndRatio": 0.32
+      },
+      {
+        "beatId": "fw01-b3",
+        "resolvedStartFrame": 419,
+        "resolvedEndFrame": 540,
+        "originalStartRatio": 0.32,
+        "originalEndRatio": 0.46
+      },
+      {
+        "beatId": "fw01-b4",
+        "resolvedStartFrame": 540,
+        "resolvedEndFrame": 613,
+        "originalStartRatio": 0.46,
+        "originalEndRatio": 0.6
+      },
+      {
+        "beatId": "fw01-b5",
+        "resolvedStartFrame": 613,
+        "resolvedEndFrame": 712,
+        "originalStartRatio": 0.6,
+        "originalEndRatio": 0.8
+      },
+      {
+        "beatId": "fw01-b6",
+        "resolvedStartFrame": 712,
+        "resolvedEndFrame": 790,
+        "originalStartRatio": 0.8,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
-    "sceneId": "keyInsight-01",
-    "audioFile": "keyInsight-01.mp3",
-    "captionsFile": "keyInsight-01.json",
-    "durationMs": 27432,
-    "durationFrames": 823
+    "sceneId": "insight-silence",
+    "audioFile": "insight-silence.mp3",
+    "captionsFile": "insight-silence.json",
+    "durationMs": 25656,
+    "durationFrames": 770,
+    "beatTimings": [
+      {
+        "beatId": "silence-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 288,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.35
+      },
+      {
+        "beatId": "silence-b2",
+        "resolvedStartFrame": 288,
+        "resolvedEndFrame": 526,
+        "originalStartRatio": 0.35,
+        "originalEndRatio": 0.65
+      },
+      {
+        "beatId": "silence-b3",
+        "resolvedStartFrame": 526,
+        "resolvedEndFrame": 768,
+        "originalStartRatio": 0.65,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
-    "sceneId": "application-01",
-    "audioFile": "application-01.mp3",
-    "captionsFile": "application-01.json",
-    "durationMs": 34488,
-    "durationFrames": 1035
+    "sceneId": "insight-viz",
+    "audioFile": "insight-viz.mp3",
+    "captionsFile": "insight-viz.json",
+    "durationMs": 24984,
+    "durationFrames": 750,
+    "beatTimings": [
+      {
+        "beatId": "viz-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 235,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.3
+      },
+      {
+        "beatId": "viz-b2",
+        "resolvedStartFrame": 235,
+        "resolvedEndFrame": 572,
+        "originalStartRatio": 0.3,
+        "originalEndRatio": 0.65
+      },
+      {
+        "beatId": "viz-b3",
+        "resolvedStartFrame": 572,
+        "resolvedEndFrame": 747,
+        "originalStartRatio": 0.65,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "synth-savers-wheel",
+    "audioFile": "synth-savers-wheel.mp3",
+    "captionsFile": "synth-savers-wheel.json",
+    "durationMs": 16872,
+    "durationFrames": 507,
+    "beatTimings": [
+      {
+        "beatId": "sw-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 149,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.18
+      },
+      {
+        "beatId": "sw-b2",
+        "resolvedStartFrame": 147,
+        "resolvedEndFrame": 225,
+        "originalStartRatio": 0.18,
+        "originalEndRatio": 0.34
+      },
+      {
+        "beatId": "sw-b3",
+        "resolvedStartFrame": 225,
+        "resolvedEndFrame": 303,
+        "originalStartRatio": 0.34,
+        "originalEndRatio": 0.5
+      },
+      {
+        "beatId": "sw-b4",
+        "resolvedStartFrame": 303,
+        "resolvedEndFrame": 380,
+        "originalStartRatio": 0.5,
+        "originalEndRatio": 0.66
+      },
+      {
+        "beatId": "sw-b5",
+        "resolvedStartFrame": 380,
+        "resolvedEndFrame": 430,
+        "originalStartRatio": 0.66,
+        "originalEndRatio": 0.82
+      },
+      {
+        "beatId": "sw-b6",
+        "resolvedStartFrame": 430,
+        "resolvedEndFrame": 504,
+        "originalStartRatio": 0.82,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "synth-morning-timeline",
+    "audioFile": "synth-morning-timeline.mp3",
+    "captionsFile": "synth-morning-timeline.json",
+    "durationMs": 19872,
+    "durationFrames": 597,
+    "beatTimings": [
+      {
+        "beatId": "tl-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 111,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.14
+      },
+      {
+        "beatId": "tl-b2",
+        "resolvedStartFrame": 109,
+        "resolvedEndFrame": 247,
+        "originalStartRatio": 0.14,
+        "originalEndRatio": 0.2833
+      },
+      {
+        "beatId": "tl-b3",
+        "resolvedStartFrame": 247,
+        "resolvedEndFrame": 308,
+        "originalStartRatio": 0.2833,
+        "originalEndRatio": 0.4267
+      },
+      {
+        "beatId": "tl-b4",
+        "resolvedStartFrame": 308,
+        "resolvedEndFrame": 369,
+        "originalStartRatio": 0.4267,
+        "originalEndRatio": 0.57
+      },
+      {
+        "beatId": "tl-b5",
+        "resolvedStartFrame": 369,
+        "resolvedEndFrame": 451,
+        "originalStartRatio": 0.57,
+        "originalEndRatio": 0.7133
+      },
+      {
+        "beatId": "tl-b6",
+        "resolvedStartFrame": 451,
+        "resolvedEndFrame": 523,
+        "originalStartRatio": 0.7133,
+        "originalEndRatio": 0.8567
+      },
+      {
+        "beatId": "tl-b7",
+        "resolvedStartFrame": 523,
+        "resolvedEndFrame": 594,
+        "originalStartRatio": 0.8567,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "compare-01",
+    "audioFile": "compare-01.mp3",
+    "captionsFile": "compare-01.json",
+    "durationMs": 22920,
+    "durationFrames": 688,
+    "beatTimings": [
+      {
+        "beatId": "cc01-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 313,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.38
+      },
+      {
+        "beatId": "cc01-b2",
+        "resolvedStartFrame": 313,
+        "resolvedEndFrame": 574,
+        "originalStartRatio": 0.38,
+        "originalEndRatio": 0.75
+      },
+      {
+        "beatId": "cc01-b3",
+        "resolvedStartFrame": 574,
+        "resolvedEndFrame": 686,
+        "originalStartRatio": 0.75,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
     "sceneId": "quote-01",
     "audioFile": "quote-01.mp3",
     "captionsFile": "quote-01.json",
-    "durationMs": 9216,
-    "durationFrames": 277
+    "durationMs": 7992,
+    "durationFrames": 240,
+    "beatTimings": [
+      {
+        "beatId": "qt01-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 238,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.7
+      },
+      {
+        "beatId": "qt01-b2",
+        "resolvedStartFrame": 168,
+        "resolvedEndFrame": 240,
+        "originalStartRatio": 0.7,
+        "originalEndRatio": 1
+      }
+    ]
+  },
+  {
+    "sceneId": "insight-recap",
+    "audioFile": "insight-recap.mp3",
+    "captionsFile": "insight-recap.json",
+    "durationMs": 21288,
+    "durationFrames": 639,
+    "beatTimings": [
+      {
+        "beatId": "recap-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 281,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.42
+      },
+      {
+        "beatId": "recap-b2",
+        "resolvedStartFrame": 281,
+        "resolvedEndFrame": 637,
+        "originalStartRatio": 0.42,
+        "originalEndRatio": 1
+      }
+    ]
   },
   {
     "sceneId": "closing-01",
     "audioFile": "closing-01.mp3",
     "captionsFile": "closing-01.json",
-    "durationMs": 19080,
-    "durationFrames": 573
+    "durationMs": 15168,
+    "durationFrames": 456,
+    "beatTimings": [
+      {
+        "beatId": "close-b1",
+        "resolvedStartFrame": 3,
+        "resolvedEndFrame": 303,
+        "originalStartRatio": 0,
+        "originalEndRatio": 0.58
+      },
+      {
+        "beatId": "close-b2",
+        "resolvedStartFrame": 303,
+        "resolvedEndFrame": 453,
+        "originalStartRatio": 0.58,
+        "originalEndRatio": 1
+      }
+    ]
   }
 ]

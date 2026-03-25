@@ -8,12 +8,7 @@
     "genre": "selfHelp",
     "coverImageUrl": "covers/miracle-morning-cover.png",
     "publishYear": 2012,
-    "tags": [
-      "자기계발",
-      "습관",
-      "아침루틴",
-      "SAVERS"
-    ]
+    "tags": ["자기계발", "습관", "아침루틴", "SAVERS"]
   },
   "production": {
     "format": "longform",
@@ -44,6 +39,34 @@
         "coverImageUrl": "covers/miracle-morning-cover.png",
         "brandLabel": "Editorial Signal",
         "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "할 엘로드의 미라클 모닝,",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["미라클 모닝"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "당신의 아침을 바꾸는 6가지 습관을 알아봅니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["6가지"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "쉼표 뒤 시점 전환 (3인칭→2인칭 '당신의')",
+        "evidenceDecision": "해당 없음 — cover 씬",
+        "densityDecision": "2-beat — 14초, 정보 밀도 낮음, cover는 시각 임팩트 중심",
+        "riskFlags": []
       }
     },
     {
@@ -56,6 +79,44 @@
         "subText": "당신의 아침이 인생 수준을 결정합니다",
         "highlightColor": "signal",
         "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.4,
+          "narrationText": "놀라운 사실 하나. 세계 인구의 95%는 매일 아침을 그냥 흘려보냅니다.",
+          "activates": ["mainText"],
+          "emphasisTargets": ["95%", "아침"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "compare",
+          "startRatio": 0.4,
+          "endRatio": 0.72,
+          "narrationText": "하지만 상위 5%는 다릅니다.",
+          "activates": ["subText"],
+          "emphasisTargets": ["상위 5%", "다릅니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "cta",
+          "startRatio": 0.72,
+          "endRatio": 1,
+          "narrationText": "그들에겐 하나의 시스템이 있습니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["시스템"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "'하지만' 화제 전환 접속사에서 분리. 3-beat는 25초 highlight 씬에서 3초 이상 시각 변화 없는 구간 방지",
+        "evidenceDecision": "해당 없음 — highlight 씬",
+        "densityDecision": "3-beat — 25초로 8초의 3배. 2-beat 시 각 12.5초로 단조로움 위험",
+        "riskFlags": []
       }
     },
     {
@@ -76,14 +137,8 @@
           "startRatio": 0,
           "endRatio": 0.45,
           "narrationText": "할 엘로드는 스무 살에 정면충돌 교통사고를 당했습니다. 6분간 심장이 멈췄고, 11곳이 골절되었습니다.",
-          "activates": [
-            "signalBar",
-            "headline"
-          ],
-          "emphasisTargets": [
-            "정면충돌",
-            "6분간"
-          ],
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["정면충돌", "6분간"],
           "transition": "enter"
         },
         {
@@ -92,13 +147,8 @@
           "startRatio": 0.45,
           "endRatio": 1,
           "narrationText": "의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건합니다. 그가 만든 시스템이 바로 미라클 모닝입니다.",
-          "activates": [
-            "supportText"
-          ],
-          "emphasisTargets": [
-            "아침 루틴",
-            "미라클 모닝"
-          ],
+          "activates": ["supportText"],
+          "emphasisTargets": ["아침 루틴", "미라클 모닝"],
           "transition": "enter"
         }
       ]
@@ -112,6 +162,34 @@
         "chapterNumber": 1,
         "chapterTitle": "SAVERS 시스템",
         "chapterSubtitle": "아침을 지배하는 6가지 습관"
+      },
+      "beats": [
+        {
+          "id": "ch01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "첫 번째 파트,",
+          "activates": ["chapterNumber"],
+          "emphasisTargets": ["첫 번째"],
+          "transition": "enter"
+        },
+        {
+          "id": "ch01-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "SAVERS 시스템의 핵심을 살펴봅니다.",
+          "activates": ["chapterTitle", "chapterSubtitle"],
+          "emphasisTargets": ["SAVERS"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "쉼표 뒤 화제 전환 (번호 → 제목)",
+        "evidenceDecision": "해당 없음 — chapterDivider 씬",
+        "densityDecision": "2-beat — 12초, 정보 밀도 낮음",
+        "riskFlags": []
       }
     },
     {
@@ -124,6 +202,34 @@
         "supportText": "할 엘로드에 따르면, 하루의 첫 1시간에 어떤 습관을 실천하느냐가 그날 전체의 생산성, 에너지, 마인드셋을 좌우합니다.",
         "underlineKeyword": "1시간",
         "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "ins01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.42,
+          "narrationText": "할 엘로드는 단언합니다. 아침 1시간이 나머지 23시간을 결정한다고.",
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["1시간", "23시간"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b2",
+          "role": "support",
+          "startRatio": 0.42,
+          "endRatio": 1,
+          "narrationText": "하루의 첫 1시간에 어떤 습관을 실천하느냐가 그날 전체의 생산성, 에너지, 마인드셋을 좌우합니다. 이것은 의지력의 문제가 아니라 시스템의 문제입니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["시스템", "의지력"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "선언문('단언합니다') 뒤 부연 설명으로 전환",
+        "evidenceDecision": "C등급 — '아침 1시간' 주장은 저자 개인 견해, 구체적 수치나 학술 출처 없음",
+        "densityDecision": "2-beat — C등급으로 evidenceCard 없음, 32초이지만 evidence beat 불필요",
+        "riskFlags": []
       }
     },
     {
@@ -170,9 +276,7 @@
           "startRatio": 0,
           "endRatio": 0.18,
           "narrationText": "SAVERS는 Silence, Affirmations, Visualization, Exercise, Reading, Scribing의 약자입니다.",
-          "activates": [
-            "frameworkLabel"
-          ],
+          "activates": ["frameworkLabel"],
           "transition": "enter"
         },
         {
@@ -181,9 +285,7 @@
           "startRatio": 0.18,
           "endRatio": 0.32,
           "narrationText": "매일 아침 실천하는 6가지 습관 프레임워크죠.",
-          "activates": [
-            "item-0"
-          ],
+          "activates": ["item-0"],
           "transition": "enter"
         },
         {
@@ -192,9 +294,7 @@
           "startRatio": 0.32,
           "endRatio": 0.46,
           "narrationText": "각각의 습관이 삶의 다른 영역을 담당합니다.",
-          "activates": [
-            "item-1"
-          ],
+          "activates": ["item-1"],
           "transition": "enter"
         },
         {
@@ -203,9 +303,7 @@
           "startRatio": 0.46,
           "endRatio": 0.6,
           "narrationText": "마음, 생각, 목표,",
-          "activates": [
-            "item-2"
-          ],
+          "activates": ["item-2"],
           "transition": "enter"
         },
         {
@@ -214,9 +312,7 @@
           "startRatio": 0.6,
           "endRatio": 0.8,
           "narrationText": "몸, 지식, 그리고 성찰.",
-          "activates": [
-            "item-3"
-          ],
+          "activates": ["item-3"],
           "transition": "enter"
         },
         {
@@ -225,9 +321,7 @@
           "startRatio": 0.8,
           "endRatio": 1,
           "narrationText": "하나씩 살펴보겠습니다.",
-          "activates": [
-            "item-4"
-          ],
+          "activates": ["item-4"],
           "transition": "enter"
         }
       ]
@@ -256,14 +350,8 @@
           "startRatio": 0,
           "endRatio": 0.35,
           "narrationText": "첫 번째, Silence. 고요함입니다. 대부분의 사람들은 아침에 눈을 뜨자마자 핸드폰을 봅니다.",
-          "activates": [
-            "signalBar",
-            "headline"
-          ],
-          "emphasisTargets": [
-            "고요함",
-            "Silence"
-          ],
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["고요함", "Silence"],
           "transition": "enter"
         },
         {
@@ -272,13 +360,8 @@
           "startRatio": 0.35,
           "endRatio": 0.65,
           "narrationText": "알림, 뉴스, 메시지에 반응하며 하루를 시작하죠. 하지만 미라클 모닝은 다릅니다.",
-          "activates": [
-            "supportText"
-          ],
-          "emphasisTargets": [
-            "반응",
-            "의도적"
-          ],
+          "activates": ["supportText"],
+          "emphasisTargets": ["반응", "의도적"],
           "transition": "enter"
         },
         {
@@ -287,16 +370,9 @@
           "startRatio": 0.65,
           "endRatio": 1,
           "narrationText": "명상이든, 심호흡이든, 고요한 10분으로 하루를 여는 것. 이것이 나머지 5가지 습관의 토대입니다.",
-          "activates": [
-            "evidenceCard"
-          ],
-          "deactivates": [
-            "supportText"
-          ],
-          "emphasisTargets": [
-            "10분",
-            "코르티솔 23%"
-          ],
+          "activates": ["evidenceCard"],
+          "deactivates": ["supportText"],
+          "emphasisTargets": ["10분", "코르티솔 23%"],
           "motionPreset": "snappy",
           "transition": "replace"
         }
@@ -311,7 +387,53 @@
         "headline": "Visualization — 뇌는 상상과 현실을 구분 못한다",
         "supportText": "올림픽 선수의 73%가 시각화 훈련을 합니다. 목표를 생생하게 그리면 뇌는 이미 그 경로를 준비하기 시작합니다.",
         "underlineKeyword": "시각화",
-        "useSignalBar": false
+        "useSignalBar": false,
+        "evidenceCard": {
+          "type": "research",
+          "value": "올림픽 선수 73%가 시각화 훈련 실천",
+          "caption": "경기 전 멘탈 리허설 수행 비율",
+          "source": "Journal of Applied Sport Psychology"
+        }
+      },
+      "beats": [
+        {
+          "id": "viz-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "세 번째, Visualization. 시각화입니다. 흥미로운 연구가 있습니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["Visualization", "시각화"],
+          "transition": "enter"
+        },
+        {
+          "id": "viz-b2",
+          "role": "support",
+          "startRatio": 0.3,
+          "endRatio": 0.65,
+          "narrationText": "올림픽 선수의 73%가 경기 전 시각화 훈련을 합니다. 뇌는 생생하게 상상한 경험을 실제 경험과 거의 동일하게 처리합니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["73%", "동일하게"],
+          "transition": "enter"
+        },
+        {
+          "id": "viz-b3",
+          "role": "evidence",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "매일 아침 10분, 목표를 달성한 자신의 모습을 구체적으로 그려보세요.",
+          "activates": ["evidenceCard"],
+          "deactivates": ["supportText"],
+          "emphasisTargets": ["10분", "구체적으로"],
+          "motionPreset": "snappy",
+          "transition": "replace"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "'흥미로운 연구가 있습니다' 근거 도입구에서 headline→support 전환. '매일 아침' 시점 전환(2인칭)에서 evidence 전환",
+        "evidenceDecision": "A등급 — '올림픽 선수 73%' 대규모 조사 결과, Journal of Applied Sport Psychology 출처",
+        "densityDecision": "3-beat — A등급 evidenceCard 보유, 40초 씬으로 충분한 시간",
+        "riskFlags": []
       }
     },
     {
@@ -350,6 +472,74 @@
         ],
         "showConnectors": true,
         "showDescriptions": true
+      },
+      "beats": [
+        {
+          "id": "sw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.18,
+          "narrationText": "핵심은 이 6가지가 순환적으로 서로를 강화한다는 것입니다.",
+          "activates": ["frameworkLabel"],
+          "emphasisTargets": ["6가지", "순환"],
+          "transition": "enter"
+        },
+        {
+          "id": "sw-b2",
+          "role": "reveal",
+          "startRatio": 0.18,
+          "endRatio": 0.34,
+          "narrationText": "고요함이 확언의 집중력을 높이고,",
+          "activates": ["item-0"],
+          "emphasisTargets": ["고요함", "집중력"],
+          "transition": "enter"
+        },
+        {
+          "id": "sw-b3",
+          "role": "reveal",
+          "startRatio": 0.34,
+          "endRatio": 0.5,
+          "narrationText": "시각화가 운동의 동기를 만들고,",
+          "activates": ["item-1"],
+          "emphasisTargets": ["시각화", "동기"],
+          "transition": "enter"
+        },
+        {
+          "id": "sw-b4",
+          "role": "reveal",
+          "startRatio": 0.5,
+          "endRatio": 0.66,
+          "narrationText": "독서가 기록의 깊이를 더합니다.",
+          "activates": ["item-2"],
+          "emphasisTargets": ["독서", "깊이"],
+          "transition": "enter"
+        },
+        {
+          "id": "sw-b5",
+          "role": "reveal",
+          "startRatio": 0.66,
+          "endRatio": 0.82,
+          "narrationText": "하나의 톱니바퀴가",
+          "activates": ["item-3"],
+          "emphasisTargets": ["톱니바퀴"],
+          "transition": "enter"
+        },
+        {
+          "id": "sw-b6",
+          "role": "reveal",
+          "startRatio": 0.82,
+          "endRatio": 1,
+          "narrationText": "다음 톱니바퀴를 돌립니다.",
+          "activates": ["item-4"],
+          "emphasisTargets": ["돌립니다"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "Framework N+1 패턴. 나레이션의 3개 짝(Silence↔Affirmations, Visualization↔Exercise, Reading↔Scribing) + 비유 마무리를 5개 item reveal에 매핑",
+        "evidenceDecision": "해당 없음 — framework 씬",
+        "densityDecision": "6-beat (N+1) — 5개 items + 1 headline. 49초로 각 beat ~8초, 충분한 여유",
+        "riskFlags": []
       }
     },
     {
@@ -392,6 +582,86 @@
           }
         ],
         "showConnectors": true
+      },
+      "beats": [
+        {
+          "id": "tl-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.14,
+          "narrationText": "실제 아침 루틴은 이렇게 구성됩니다.",
+          "activates": ["timelineLabel"],
+          "emphasisTargets": ["아침 루틴"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b2",
+          "role": "reveal",
+          "startRatio": 0.14,
+          "endRatio": 0.2833,
+          "narrationText": "5시에 기상하고, 각 활동에 10분씩 투자합니다.",
+          "activates": ["event-0"],
+          "emphasisTargets": ["5시", "10분"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b3",
+          "role": "reveal",
+          "startRatio": 0.2833,
+          "endRatio": 0.4267,
+          "narrationText": "명상으로 마음을 가라앉히고,",
+          "activates": ["event-1"],
+          "emphasisTargets": ["명상"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b4",
+          "role": "reveal",
+          "startRatio": 0.4267,
+          "endRatio": 0.57,
+          "narrationText": "확언으로 방향을 잡고,",
+          "activates": ["event-2"],
+          "emphasisTargets": ["확언"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b5",
+          "role": "reveal",
+          "startRatio": 0.57,
+          "endRatio": 0.7133,
+          "narrationText": "시각화로 목표를 선명하게 합니다.",
+          "activates": ["event-3"],
+          "emphasisTargets": ["시각화"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b6",
+          "role": "reveal",
+          "startRatio": 0.7133,
+          "endRatio": 0.8567,
+          "narrationText": "운동으로 몸을 깨우고,",
+          "activates": ["event-4"],
+          "emphasisTargets": ["운동"],
+          "transition": "enter"
+        },
+        {
+          "id": "tl-b7",
+          "role": "reveal",
+          "startRatio": 0.8567,
+          "endRatio": 1,
+          "narrationText": "독서와 기록으로 마무리합니다.",
+          "activates": ["event-5"],
+          "emphasisTargets": ["독서", "기록"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "Timeline N+1 패턴 (framework 차용). 6개 events + 1 headline. 나레이션이 각 활동을 순차 언급하므로 자연스러운 1:1 매핑",
+        "evidenceDecision": "해당 없음 — timeline 씬",
+        "densityDecision": "7-beat (N+1) — 6개 events. 각 beat ~6.4초, 0.12 이상 확보",
+        "riskFlags": [
+          "7-beat에서 각 ratio 0.1433, 최소 0.12 대비 여유 0.023. 비율 조정 시 주의"
+        ]
       }
     },
     {
@@ -416,9 +686,7 @@
           "startRatio": 0,
           "endRatio": 0.38,
           "narrationText": "미라클 모닝 전과 후를 비교해보겠습니다. 이전에는 알람을 끄고 또 끄며, 급하게 준비하고, 지친 채로 하루를 보냈습니다.",
-          "activates": [
-            "leftPanel"
-          ],
+          "activates": ["leftPanel"],
           "transition": "enter"
         },
         {
@@ -427,9 +695,7 @@
           "startRatio": 0.38,
           "endRatio": 0.75,
           "narrationText": "하지만 미라클 모닝을 실천하면, 일찍 일어나 자기 개발에 시간을 투자하고, 에너지 넘치는 상태로 하루를 시작합니다.",
-          "activates": [
-            "rightPanel"
-          ],
+          "activates": ["rightPanel"],
           "transition": "enter"
         },
         {
@@ -438,9 +704,7 @@
           "startRatio": 0.75,
           "endRatio": 1,
           "narrationText": "아침의 작은 변화가 하루 전체를 바꿉니다.",
-          "activates": [
-            "connector"
-          ],
+          "activates": ["connector"],
           "transition": "enter"
         }
       ]
@@ -455,6 +719,32 @@
         "attribution": "할 엘로드",
         "useSerif": true,
         "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "qt01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.7,
+          "narrationText": "할 엘로드는 이렇게 말합니다. 당신의 아침 루틴이 곧 당신의 인생 수준을 결정합니다.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["아침 루틴", "인생 수준"],
+          "transition": "enter"
+        },
+        {
+          "id": "qt01-b2",
+          "role": "support",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "activates": ["attribution"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "인용문 전체를 하나의 beat로 유지하여 여운 극대화. beat2는 시각 전용 (attribution 등장)",
+        "evidenceDecision": "해당 없음 — quote 씬",
+        "densityDecision": "2-beat — quote 기본 패턴. 70/30 분할로 quoteText에 여운",
+        "riskFlags": []
       }
     },
     {
@@ -467,6 +757,34 @@
         "supportText": "미라클 모닝은 단순한 아침 루틴이 아닙니다. 삶의 모든 영역을 동시에 업그레이드하는 통합 시스템입니다. SAVERS 하나하나가 당신을 더 나은 버전으로 만듭니다.",
         "underlineKeyword": "인생",
         "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.42,
+          "narrationText": "미라클 모닝은 단순한 아침 루틴이 아닙니다. 마음, 생각, 목표, 몸, 지식, 성찰.",
+          "activates": ["signalBar", "headline"],
+          "emphasisTargets": ["미라클 모닝", "성찰"],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "support",
+          "startRatio": 0.42,
+          "endRatio": 1,
+          "narrationText": "삶의 6가지 영역을 매일 아침 동시에 업그레이드하는 통합 시스템입니다. SAVERS 하나하나가 당신을 어제보다 더 나은 버전으로 만들어갑니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["6가지", "SAVERS", "통합 시스템"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "나열 구간('마음, 생각, 목표...') 완료 후 결론으로 전환",
+        "evidenceDecision": "C등급 — 종합 요약 씬, 저자 개인 주장 및 일반적 재진술",
+        "densityDecision": "2-beat — C등급으로 evidenceCard 없음",
+        "riskFlags": []
       }
     },
     {
@@ -478,6 +796,34 @@
         "recapStatement": "내일 아침, 알람이 울리면 SAVERS를 시작하세요",
         "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
         "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "close-b1",
+          "role": "recap",
+          "startRatio": 0,
+          "endRatio": 0.58,
+          "narrationText": "내일 아침, 알람이 울릴 때 스누즈 대신 SAVERS를 시작해보세요. 단 1시간이 당신의 인생을 바꿀 수 있습니다.",
+          "activates": ["recapStatement"],
+          "emphasisTargets": ["SAVERS", "1시간"],
+          "transition": "enter"
+        },
+        {
+          "id": "close-b2",
+          "role": "cta",
+          "startRatio": 0.58,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다.",
+          "activates": ["ctaText", "brandLabel"],
+          "emphasisTargets": ["구독", "좋아요"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "메타 발화 전환('이 영상이') — 내용 요약에서 채널 행동 유도로 전환",
+        "evidenceDecision": "해당 없음 — closing 씬",
+        "densityDecision": "2-beat — closing 기본 패턴 (recap → cta)",
+        "riskFlags": []
       }
     }
   ]

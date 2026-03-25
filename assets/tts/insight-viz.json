@@ -1,0 +1,233 @@
+[
+  {
+    "text": "세",
+    "startMs": 100,
+    "endMs": 1150,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 번째,",
+    "startMs": 1150,
+    "endMs": 2200,
+    "timestampMs": 1150,
+    "confidence": null
+  },
+  {
+    "text": " Visualization.",
+    "startMs": 2200,
+    "endMs": 3250,
+    "timestampMs": 2200,
+    "confidence": null
+  },
+  {
+    "text": "시각화입니다.",
+    "startMs": 3200,
+    "endMs": 5137,
+    "timestampMs": 3200,
+    "confidence": null
+  },
+  {
+    "text": "흥미로운",
+    "startMs": 5137,
+    "endMs": 6037,
+    "timestampMs": 5137,
+    "confidence": null
+  },
+  {
+    "text": " 연구가",
+    "startMs": 6037,
+    "endMs": 6937,
+    "timestampMs": 6037,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 6937,
+    "endMs": 7837,
+    "timestampMs": 6937,
+    "confidence": null
+  },
+  {
+    "text": "올림픽",
+    "startMs": 7837,
+    "endMs": 8512,
+    "timestampMs": 7837,
+    "confidence": null
+  },
+  {
+    "text": " 선수의",
+    "startMs": 8512,
+    "endMs": 9187,
+    "timestampMs": 8512,
+    "confidence": null
+  },
+  {
+    "text": " 73%가",
+    "startMs": 9187,
+    "endMs": 9862,
+    "timestampMs": 9187,
+    "confidence": null
+  },
+  {
+    "text": " 경기",
+    "startMs": 9862,
+    "endMs": 10537,
+    "timestampMs": 9862,
+    "confidence": null
+  },
+  {
+    "text": " 전",
+    "startMs": 10537,
+    "endMs": 11212,
+    "timestampMs": 10537,
+    "confidence": null
+  },
+  {
+    "text": " 시각화",
+    "startMs": 11212,
+    "endMs": 11887,
+    "timestampMs": 11212,
+    "confidence": null
+  },
+  {
+    "text": " 훈련을",
+    "startMs": 11887,
+    "endMs": 12562,
+    "timestampMs": 11887,
+    "confidence": null
+  },
+  {
+    "text": " 합니다.",
+    "startMs": 12562,
+    "endMs": 13237,
+    "timestampMs": 12562,
+    "confidence": null
+  },
+  {
+    "text": "뇌는",
+    "startMs": 13237,
+    "endMs": 13884,
+    "timestampMs": 13237,
+    "confidence": null
+  },
+  {
+    "text": " 생생하게",
+    "startMs": 13884,
+    "endMs": 14531,
+    "timestampMs": 13884,
+    "confidence": null
+  },
+  {
+    "text": " 상상한",
+    "startMs": 14531,
+    "endMs": 15179,
+    "timestampMs": 14531,
+    "confidence": null
+  },
+  {
+    "text": " 경험을",
+    "startMs": 15179,
+    "endMs": 15826,
+    "timestampMs": 15179,
+    "confidence": null
+  },
+  {
+    "text": " 실제",
+    "startMs": 15826,
+    "endMs": 16473,
+    "timestampMs": 15826,
+    "confidence": null
+  },
+  {
+    "text": " 경험과",
+    "startMs": 16473,
+    "endMs": 17120,
+    "timestampMs": 16473,
+    "confidence": null
+  },
+  {
+    "text": " 거의",
+    "startMs": 17120,
+    "endMs": 17768,
+    "timestampMs": 17120,
+    "confidence": null
+  },
+  {
+    "text": " 동일하게",
+    "startMs": 17768,
+    "endMs": 18415,
+    "timestampMs": 17768,
+    "confidence": null
+  },
+  {
+    "text": " 처리합니다.",
+    "startMs": 18415,
+    "endMs": 19062,
+    "timestampMs": 18415,
+    "confidence": null
+  },
+  {
+    "text": "매일",
+    "startMs": 19062,
+    "endMs": 19712,
+    "timestampMs": 19062,
+    "confidence": null
+  },
+  {
+    "text": " 아침",
+    "startMs": 19712,
+    "endMs": 20362,
+    "timestampMs": 19712,
+    "confidence": null
+  },
+  {
+    "text": " 10분,",
+    "startMs": 20362,
+    "endMs": 21012,
+    "timestampMs": 20362,
+    "confidence": null
+  },
+  {
+    "text": " 목표를",
+    "startMs": 21012,
+    "endMs": 21662,
+    "timestampMs": 21012,
+    "confidence": null
+  },
+  {
+    "text": " 달성한",
+    "startMs": 21662,
+    "endMs": 22312,
+    "timestampMs": 21662,
+    "confidence": null
+  },
+  {
+    "text": " 자신의",
+    "startMs": 22312,
+    "endMs": 22962,
+    "timestampMs": 22312,
+    "confidence": null
+  },
+  {
+    "text": " 모습을",
+    "startMs": 22962,
+    "endMs": 23612,
+    "timestampMs": 22962,
+    "confidence": null
+  },
+  {
+    "text": " 구체적으로",
+    "startMs": 23612,
+    "endMs": 24262,
+    "timestampMs": 23612,
+    "confidence": null
+  },
+  {
+    "text": " 그려보세요.",
+    "startMs": 24262,
+    "endMs": 24912,
+    "timestampMs": 24262,
+    "confidence": null
+  }
+]

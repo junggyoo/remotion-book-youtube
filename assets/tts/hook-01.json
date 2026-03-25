@@ -1,0 +1,121 @@
+[
+  {
+    "text": "놀라운",
+    "startMs": 100,
+    "endMs": 811,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 사실",
+    "startMs": 811,
+    "endMs": 1522,
+    "timestampMs": 811,
+    "confidence": null
+  },
+  {
+    "text": " 하나,세계",
+    "startMs": 1522,
+    "endMs": 2233,
+    "timestampMs": 1522,
+    "confidence": null
+  },
+  {
+    "text": " 인구의",
+    "startMs": 2233,
+    "endMs": 2944,
+    "timestampMs": 2233,
+    "confidence": null
+  },
+  {
+    "text": " 95%는",
+    "startMs": 2944,
+    "endMs": 3656,
+    "timestampMs": 2944,
+    "confidence": null
+  },
+  {
+    "text": " 매일",
+    "startMs": 3656,
+    "endMs": 4367,
+    "timestampMs": 3656,
+    "confidence": null
+  },
+  {
+    "text": " 아침을",
+    "startMs": 4367,
+    "endMs": 5078,
+    "timestampMs": 4367,
+    "confidence": null
+  },
+  {
+    "text": " 그냥",
+    "startMs": 5078,
+    "endMs": 5789,
+    "timestampMs": 5078,
+    "confidence": null
+  },
+  {
+    "text": " 흘려보냅니다.",
+    "startMs": 5789,
+    "endMs": 6500,
+    "timestampMs": 5789,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 6450,
+    "endMs": 7275,
+    "timestampMs": 6450,
+    "confidence": null
+  },
+  {
+    "text": " 상위",
+    "startMs": 7275,
+    "endMs": 8100,
+    "timestampMs": 7275,
+    "confidence": null
+  },
+  {
+    "text": " 5%는",
+    "startMs": 8100,
+    "endMs": 8925,
+    "timestampMs": 8100,
+    "confidence": null
+  },
+  {
+    "text": " 다릅니다.",
+    "startMs": 8925,
+    "endMs": 9750,
+    "timestampMs": 8925,
+    "confidence": null
+  },
+  {
+    "text": "그들에겐",
+    "startMs": 9750,
+    "endMs": 10569,
+    "timestampMs": 9750,
+    "confidence": null
+  },
+  {
+    "text": " 하나의",
+    "startMs": 10569,
+    "endMs": 11388,
+    "timestampMs": 10569,
+    "confidence": null
+  },
+  {
+    "text": " 시스템이",
+    "startMs": 11388,
+    "endMs": 12206,
+    "timestampMs": 11388,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 12206,
+    "endMs": 13025,
+    "timestampMs": 12206,
+    "confidence": null
+  }
+]

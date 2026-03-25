@@ -1,51 +1,261 @@
 [
   {
-    "text": "일반적인",
+    "text": "미라클",
     "startMs": 100,
-    "endMs": 809,
+    "endMs": 830,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 설득과",
-    "startMs": 809,
-    "endMs": 1518,
-    "timestampMs": 809,
+    "text": " 모닝",
+    "startMs": 830,
+    "endMs": 1560,
+    "timestampMs": 830,
     "confidence": null
   },
   {
-    "text": " 과학적",
-    "startMs": 1518,
-    "endMs": 2227,
-    "timestampMs": 1518,
+    "text": " 전과",
+    "startMs": 1560,
+    "endMs": 2290,
+    "timestampMs": 1560,
     "confidence": null
   },
   {
-    "text": " 설득의",
-    "startMs": 2227,
-    "endMs": 2935,
-    "timestampMs": 2227,
+    "text": " 후를",
+    "startMs": 2290,
+    "endMs": 3020,
+    "timestampMs": 2290,
     "confidence": null
   },
   {
-    "text": " 차이를",
-    "startMs": 2935,
-    "endMs": 3644,
-    "timestampMs": 2935,
+    "text": " 비교해보겠습니다.",
+    "startMs": 3020,
+    "endMs": 3750,
+    "timestampMs": 3020,
     "confidence": null
   },
   {
-    "text": " 비교해",
-    "startMs": 3644,
-    "endMs": 4353,
-    "timestampMs": 3644,
+    "text": "이전에는",
+    "startMs": 3700,
+    "endMs": 4312,
+    "timestampMs": 3700,
     "confidence": null
   },
   {
-    "text": " 봅시다.",
-    "startMs": 4353,
-    "endMs": 5062,
-    "timestampMs": 4353,
+    "text": " 알람을",
+    "startMs": 4312,
+    "endMs": 4925,
+    "timestampMs": 4312,
+    "confidence": null
+  },
+  {
+    "text": " 끄고",
+    "startMs": 4925,
+    "endMs": 5537,
+    "timestampMs": 4925,
+    "confidence": null
+  },
+  {
+    "text": " 또",
+    "startMs": 5537,
+    "endMs": 6150,
+    "timestampMs": 5537,
+    "confidence": null
+  },
+  {
+    "text": " 끄며,",
+    "startMs": 6150,
+    "endMs": 6762,
+    "timestampMs": 6150,
+    "confidence": null
+  },
+  {
+    "text": " 급하게",
+    "startMs": 6762,
+    "endMs": 7375,
+    "timestampMs": 6762,
+    "confidence": null
+  },
+  {
+    "text": " 준비하고,",
+    "startMs": 7375,
+    "endMs": 7987,
+    "timestampMs": 7375,
+    "confidence": null
+  },
+  {
+    "text": " 지친",
+    "startMs": 7987,
+    "endMs": 8600,
+    "timestampMs": 7987,
+    "confidence": null
+  },
+  {
+    "text": " 채로",
+    "startMs": 8600,
+    "endMs": 9212,
+    "timestampMs": 8600,
+    "confidence": null
+  },
+  {
+    "text": " 하루를",
+    "startMs": 9212,
+    "endMs": 9825,
+    "timestampMs": 9212,
+    "confidence": null
+  },
+  {
+    "text": " 보냈습니다.",
+    "startMs": 9825,
+    "endMs": 10437,
+    "timestampMs": 9825,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 10437,
+    "endMs": 11016,
+    "timestampMs": 10437,
+    "confidence": null
+  },
+  {
+    "text": " 미라클",
+    "startMs": 11016,
+    "endMs": 11595,
+    "timestampMs": 11016,
+    "confidence": null
+  },
+  {
+    "text": " 모닝을",
+    "startMs": 11595,
+    "endMs": 12175,
+    "timestampMs": 11595,
+    "confidence": null
+  },
+  {
+    "text": " 실천하면,",
+    "startMs": 12175,
+    "endMs": 12754,
+    "timestampMs": 12175,
+    "confidence": null
+  },
+  {
+    "text": " 일찍",
+    "startMs": 12754,
+    "endMs": 13333,
+    "timestampMs": 12754,
+    "confidence": null
+  },
+  {
+    "text": " 일어나",
+    "startMs": 13333,
+    "endMs": 13912,
+    "timestampMs": 13333,
+    "confidence": null
+  },
+  {
+    "text": " 자기",
+    "startMs": 13912,
+    "endMs": 14491,
+    "timestampMs": 13912,
+    "confidence": null
+  },
+  {
+    "text": " 개발에",
+    "startMs": 14491,
+    "endMs": 15071,
+    "timestampMs": 14491,
+    "confidence": null
+  },
+  {
+    "text": " 시간을",
+    "startMs": 15071,
+    "endMs": 15650,
+    "timestampMs": 15071,
+    "confidence": null
+  },
+  {
+    "text": " 투자하고,",
+    "startMs": 15650,
+    "endMs": 16229,
+    "timestampMs": 15650,
+    "confidence": null
+  },
+  {
+    "text": " 에너지",
+    "startMs": 16229,
+    "endMs": 16808,
+    "timestampMs": 16229,
+    "confidence": null
+  },
+  {
+    "text": " 넘치는",
+    "startMs": 16808,
+    "endMs": 17387,
+    "timestampMs": 16808,
+    "confidence": null
+  },
+  {
+    "text": " 상태로",
+    "startMs": 17387,
+    "endMs": 17967,
+    "timestampMs": 17387,
+    "confidence": null
+  },
+  {
+    "text": " 하루를",
+    "startMs": 17967,
+    "endMs": 18546,
+    "timestampMs": 17967,
+    "confidence": null
+  },
+  {
+    "text": " 시작합니다.",
+    "startMs": 18546,
+    "endMs": 19125,
+    "timestampMs": 18546,
+    "confidence": null
+  },
+  {
+    "text": "아침의",
+    "startMs": 19125,
+    "endMs": 19748,
+    "timestampMs": 19125,
+    "confidence": null
+  },
+  {
+    "text": " 작은",
+    "startMs": 19748,
+    "endMs": 20371,
+    "timestampMs": 19748,
+    "confidence": null
+  },
+  {
+    "text": " 변화가",
+    "startMs": 20371,
+    "endMs": 20994,
+    "timestampMs": 20371,
+    "confidence": null
+  },
+  {
+    "text": " 하루",
+    "startMs": 20994,
+    "endMs": 21616,
+    "timestampMs": 20994,
+    "confidence": null
+  },
+  {
+    "text": " 전체를",
+    "startMs": 21616,
+    "endMs": 22239,
+    "timestampMs": 21616,
+    "confidence": null
+  },
+  {
+    "text": " 바꿉니다.",
+    "startMs": 22239,
+    "endMs": 22862,
+    "timestampMs": 22239,
     "confidence": null
   }
 ]

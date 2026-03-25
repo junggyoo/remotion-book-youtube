@@ -26,5 +26,61 @@
     "endMs": 3062,
     "timestampMs": 2322,
     "confidence": null
+  },
+  {
+    "text": "당신의",
+    "startMs": 3012,
+    "endMs": 3628,
+    "timestampMs": 3012,
+    "confidence": null
+  },
+  {
+    "text": " 아침",
+    "startMs": 3628,
+    "endMs": 4243,
+    "timestampMs": 3628,
+    "confidence": null
+  },
+  {
+    "text": " 루틴이",
+    "startMs": 4243,
+    "endMs": 4859,
+    "timestampMs": 4243,
+    "confidence": null
+  },
+  {
+    "text": " 곧",
+    "startMs": 4859,
+    "endMs": 5475,
+    "timestampMs": 4859,
+    "confidence": null
+  },
+  {
+    "text": " 당신의",
+    "startMs": 5475,
+    "endMs": 6090,
+    "timestampMs": 5475,
+    "confidence": null
+  },
+  {
+    "text": " 인생",
+    "startMs": 6090,
+    "endMs": 6706,
+    "timestampMs": 6090,
+    "confidence": null
+  },
+  {
+    "text": " 수준을",
+    "startMs": 6706,
+    "endMs": 7321,
+    "timestampMs": 6706,
+    "confidence": null
+  },
+  {
+    "text": " 결정합니다.",
+    "startMs": 7321,
+    "endMs": 7937,
+    "timestampMs": 7321,
+    "confidence": null
   }
 ]

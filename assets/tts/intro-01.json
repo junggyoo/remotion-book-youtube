@@ -1,0 +1,219 @@
+[
+  {
+    "text": "할",
+    "startMs": 100,
+    "endMs": 800,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 엘로드는",
+    "startMs": 800,
+    "endMs": 1500,
+    "timestampMs": 800,
+    "confidence": null
+  },
+  {
+    "text": " 스무",
+    "startMs": 1500,
+    "endMs": 2200,
+    "timestampMs": 1500,
+    "confidence": null
+  },
+  {
+    "text": " 살에",
+    "startMs": 2200,
+    "endMs": 2900,
+    "timestampMs": 2200,
+    "confidence": null
+  },
+  {
+    "text": " 정면충돌",
+    "startMs": 2900,
+    "endMs": 3600,
+    "timestampMs": 2900,
+    "confidence": null
+  },
+  {
+    "text": " 교통사고를",
+    "startMs": 3600,
+    "endMs": 4300,
+    "timestampMs": 3600,
+    "confidence": null
+  },
+  {
+    "text": " 당했습니다.",
+    "startMs": 4300,
+    "endMs": 5000,
+    "timestampMs": 4300,
+    "confidence": null
+  },
+  {
+    "text": "6분간",
+    "startMs": 4950,
+    "endMs": 5907,
+    "timestampMs": 4950,
+    "confidence": null
+  },
+  {
+    "text": " 심장이",
+    "startMs": 5907,
+    "endMs": 6865,
+    "timestampMs": 5907,
+    "confidence": null
+  },
+  {
+    "text": " 멈췄고,",
+    "startMs": 6865,
+    "endMs": 7822,
+    "timestampMs": 6865,
+    "confidence": null
+  },
+  {
+    "text": " 11곳이",
+    "startMs": 7822,
+    "endMs": 8780,
+    "timestampMs": 7822,
+    "confidence": null
+  },
+  {
+    "text": " 골절되었습니다.",
+    "startMs": 8780,
+    "endMs": 9737,
+    "timestampMs": 8780,
+    "confidence": null
+  },
+  {
+    "text": "의사는",
+    "startMs": 9737,
+    "endMs": 10293,
+    "timestampMs": 9737,
+    "confidence": null
+  },
+  {
+    "text": " 다시",
+    "startMs": 10293,
+    "endMs": 10849,
+    "timestampMs": 10293,
+    "confidence": null
+  },
+  {
+    "text": " 걸을",
+    "startMs": 10849,
+    "endMs": 11404,
+    "timestampMs": 10849,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 11404,
+    "endMs": 11960,
+    "timestampMs": 11404,
+    "confidence": null
+  },
+  {
+    "text": " 없다고",
+    "startMs": 11960,
+    "endMs": 12516,
+    "timestampMs": 11960,
+    "confidence": null
+  },
+  {
+    "text": " 했지만,",
+    "startMs": 12516,
+    "endMs": 13072,
+    "timestampMs": 12516,
+    "confidence": null
+  },
+  {
+    "text": " 그는",
+    "startMs": 13072,
+    "endMs": 13627,
+    "timestampMs": 13072,
+    "confidence": null
+  },
+  {
+    "text": " 아침",
+    "startMs": 13627,
+    "endMs": 14183,
+    "timestampMs": 13627,
+    "confidence": null
+  },
+  {
+    "text": " 루틴",
+    "startMs": 14183,
+    "endMs": 14739,
+    "timestampMs": 14183,
+    "confidence": null
+  },
+  {
+    "text": " 하나로",
+    "startMs": 14739,
+    "endMs": 15295,
+    "timestampMs": 14739,
+    "confidence": null
+  },
+  {
+    "text": " 인생을",
+    "startMs": 15295,
+    "endMs": 15850,
+    "timestampMs": 15295,
+    "confidence": null
+  },
+  {
+    "text": " 완전히",
+    "startMs": 15850,
+    "endMs": 16406,
+    "timestampMs": 15850,
+    "confidence": null
+  },
+  {
+    "text": " 재건합니다.",
+    "startMs": 16406,
+    "endMs": 16962,
+    "timestampMs": 16406,
+    "confidence": null
+  },
+  {
+    "text": "그가",
+    "startMs": 16962,
+    "endMs": 17641,
+    "timestampMs": 16962,
+    "confidence": null
+  },
+  {
+    "text": " 만든",
+    "startMs": 17641,
+    "endMs": 18320,
+    "timestampMs": 17641,
+    "confidence": null
+  },
+  {
+    "text": " 시스템이",
+    "startMs": 18320,
+    "endMs": 19000,
+    "timestampMs": 18320,
+    "confidence": null
+  },
+  {
+    "text": " 바로",
+    "startMs": 19000,
+    "endMs": 19679,
+    "timestampMs": 19000,
+    "confidence": null
+  },
+  {
+    "text": " 미라클",
+    "startMs": 19679,
+    "endMs": 20358,
+    "timestampMs": 19679,
+    "confidence": null
+  },
+  {
+    "text": " 모닝입니다.",
+    "startMs": 20358,
+    "endMs": 21037,
+    "timestampMs": 20358,
+    "confidence": null
+  }
+]

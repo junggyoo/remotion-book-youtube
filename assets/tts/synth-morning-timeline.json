@@ -1,0 +1,191 @@
+[
+  {
+    "text": "실제",
+    "startMs": 100,
+    "endMs": 817,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 아침",
+    "startMs": 817,
+    "endMs": 1535,
+    "timestampMs": 817,
+    "confidence": null
+  },
+  {
+    "text": " 루틴은",
+    "startMs": 1535,
+    "endMs": 2252,
+    "timestampMs": 1535,
+    "confidence": null
+  },
+  {
+    "text": " 이렇게",
+    "startMs": 2252,
+    "endMs": 2970,
+    "timestampMs": 2252,
+    "confidence": null
+  },
+  {
+    "text": " 구성됩니다.",
+    "startMs": 2970,
+    "endMs": 3687,
+    "timestampMs": 2970,
+    "confidence": null
+  },
+  {
+    "text": "5시에",
+    "startMs": 3637,
+    "endMs": 4402,
+    "timestampMs": 3637,
+    "confidence": null
+  },
+  {
+    "text": " 기상하고,",
+    "startMs": 4402,
+    "endMs": 5166,
+    "timestampMs": 4402,
+    "confidence": null
+  },
+  {
+    "text": " 각",
+    "startMs": 5166,
+    "endMs": 5931,
+    "timestampMs": 5166,
+    "confidence": null
+  },
+  {
+    "text": " 활동에",
+    "startMs": 5931,
+    "endMs": 6696,
+    "timestampMs": 5931,
+    "confidence": null
+  },
+  {
+    "text": " 10분씩",
+    "startMs": 6696,
+    "endMs": 7460,
+    "timestampMs": 6696,
+    "confidence": null
+  },
+  {
+    "text": " 투자합니다.",
+    "startMs": 7460,
+    "endMs": 8225,
+    "timestampMs": 7460,
+    "confidence": null
+  },
+  {
+    "text": "명상으로",
+    "startMs": 8225,
+    "endMs": 8905,
+    "timestampMs": 8225,
+    "confidence": null
+  },
+  {
+    "text": " 마음을",
+    "startMs": 8905,
+    "endMs": 9585,
+    "timestampMs": 8905,
+    "confidence": null
+  },
+  {
+    "text": " 가라앉히고,",
+    "startMs": 9585,
+    "endMs": 10265,
+    "timestampMs": 9585,
+    "confidence": null
+  },
+  {
+    "text": " 확언으로",
+    "startMs": 10265,
+    "endMs": 10945,
+    "timestampMs": 10265,
+    "confidence": null
+  },
+  {
+    "text": " 방향을",
+    "startMs": 10945,
+    "endMs": 11625,
+    "timestampMs": 10945,
+    "confidence": null
+  },
+  {
+    "text": " 잡고,",
+    "startMs": 11625,
+    "endMs": 12305,
+    "timestampMs": 11625,
+    "confidence": null
+  },
+  {
+    "text": " 시각화로",
+    "startMs": 12305,
+    "endMs": 12985,
+    "timestampMs": 12305,
+    "confidence": null
+  },
+  {
+    "text": " 목표를",
+    "startMs": 12985,
+    "endMs": 13665,
+    "timestampMs": 12985,
+    "confidence": null
+  },
+  {
+    "text": " 선명하게",
+    "startMs": 13665,
+    "endMs": 14345,
+    "timestampMs": 13665,
+    "confidence": null
+  },
+  {
+    "text": " 합니다.",
+    "startMs": 14345,
+    "endMs": 15025,
+    "timestampMs": 14345,
+    "confidence": null
+  },
+  {
+    "text": "운동으로",
+    "startMs": 15025,
+    "endMs": 15823,
+    "timestampMs": 15025,
+    "confidence": null
+  },
+  {
+    "text": " 몸을",
+    "startMs": 15823,
+    "endMs": 16621,
+    "timestampMs": 15823,
+    "confidence": null
+  },
+  {
+    "text": " 깨우고,",
+    "startMs": 16621,
+    "endMs": 17419,
+    "timestampMs": 16621,
+    "confidence": null
+  },
+  {
+    "text": " 독서와",
+    "startMs": 17419,
+    "endMs": 18216,
+    "timestampMs": 17419,
+    "confidence": null
+  },
+  {
+    "text": " 기록으로",
+    "startMs": 18216,
+    "endMs": 19014,
+    "timestampMs": 18216,
+    "confidence": null
+  },
+  {
+    "text": " 마무리합니다.",
+    "startMs": 19014,
+    "endMs": 19812,
+    "timestampMs": 19014,
+    "confidence": null
+  }
+]

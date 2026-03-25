@@ -1,0 +1,233 @@
+[
+  {
+    "text": "첫",
+    "startMs": 100,
+    "endMs": 1058,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 번째,",
+    "startMs": 1058,
+    "endMs": 2017,
+    "timestampMs": 1058,
+    "confidence": null
+  },
+  {
+    "text": " Silence.",
+    "startMs": 2017,
+    "endMs": 2975,
+    "timestampMs": 2017,
+    "confidence": null
+  },
+  {
+    "text": "고요함입니다.",
+    "startMs": 2925,
+    "endMs": 4787,
+    "timestampMs": 2925,
+    "confidence": null
+  },
+  {
+    "text": "대부분의",
+    "startMs": 4787,
+    "endMs": 5475,
+    "timestampMs": 4787,
+    "confidence": null
+  },
+  {
+    "text": " 사람들은",
+    "startMs": 5475,
+    "endMs": 6162,
+    "timestampMs": 5475,
+    "confidence": null
+  },
+  {
+    "text": " 아침에",
+    "startMs": 6162,
+    "endMs": 6850,
+    "timestampMs": 6162,
+    "confidence": null
+  },
+  {
+    "text": " 눈을",
+    "startMs": 6850,
+    "endMs": 7537,
+    "timestampMs": 6850,
+    "confidence": null
+  },
+  {
+    "text": " 뜨자마자",
+    "startMs": 7537,
+    "endMs": 8225,
+    "timestampMs": 7537,
+    "confidence": null
+  },
+  {
+    "text": " 핸드폰을",
+    "startMs": 8225,
+    "endMs": 8912,
+    "timestampMs": 8225,
+    "confidence": null
+  },
+  {
+    "text": " 봅니다.",
+    "startMs": 8912,
+    "endMs": 9600,
+    "timestampMs": 8912,
+    "confidence": null
+  },
+  {
+    "text": "알림,",
+    "startMs": 9600,
+    "endMs": 10433,
+    "timestampMs": 9600,
+    "confidence": null
+  },
+  {
+    "text": " 뉴스,",
+    "startMs": 10433,
+    "endMs": 11267,
+    "timestampMs": 10433,
+    "confidence": null
+  },
+  {
+    "text": " 메시지에",
+    "startMs": 11267,
+    "endMs": 12100,
+    "timestampMs": 11267,
+    "confidence": null
+  },
+  {
+    "text": " 반응하며",
+    "startMs": 12100,
+    "endMs": 12933,
+    "timestampMs": 12100,
+    "confidence": null
+  },
+  {
+    "text": " 하루를",
+    "startMs": 12933,
+    "endMs": 13767,
+    "timestampMs": 12933,
+    "confidence": null
+  },
+  {
+    "text": " 시작하죠.",
+    "startMs": 13767,
+    "endMs": 14600,
+    "timestampMs": 13767,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 14600,
+    "endMs": 15334,
+    "timestampMs": 14600,
+    "confidence": null
+  },
+  {
+    "text": " 미라클",
+    "startMs": 15334,
+    "endMs": 16069,
+    "timestampMs": 15334,
+    "confidence": null
+  },
+  {
+    "text": " 모닝은",
+    "startMs": 16069,
+    "endMs": 16803,
+    "timestampMs": 16069,
+    "confidence": null
+  },
+  {
+    "text": " 다릅니다.",
+    "startMs": 16803,
+    "endMs": 17537,
+    "timestampMs": 16803,
+    "confidence": null
+  },
+  {
+    "text": "명상이든,",
+    "startMs": 17537,
+    "endMs": 18208,
+    "timestampMs": 17537,
+    "confidence": null
+  },
+  {
+    "text": " 심호흡이든,",
+    "startMs": 18208,
+    "endMs": 18879,
+    "timestampMs": 18208,
+    "confidence": null
+  },
+  {
+    "text": " 고요한",
+    "startMs": 18879,
+    "endMs": 19550,
+    "timestampMs": 18879,
+    "confidence": null
+  },
+  {
+    "text": " 10분으로",
+    "startMs": 19550,
+    "endMs": 20220,
+    "timestampMs": 19550,
+    "confidence": null
+  },
+  {
+    "text": " 하루를",
+    "startMs": 20220,
+    "endMs": 20891,
+    "timestampMs": 20220,
+    "confidence": null
+  },
+  {
+    "text": " 여는",
+    "startMs": 20891,
+    "endMs": 21562,
+    "timestampMs": 20891,
+    "confidence": null
+  },
+  {
+    "text": " 것.",
+    "startMs": 21562,
+    "endMs": 22233,
+    "timestampMs": 21562,
+    "confidence": null
+  },
+  {
+    "text": " 이것이",
+    "startMs": 22233,
+    "endMs": 22904,
+    "timestampMs": 22233,
+    "confidence": null
+  },
+  {
+    "text": " 나머지",
+    "startMs": 22904,
+    "endMs": 23575,
+    "timestampMs": 22904,
+    "confidence": null
+  },
+  {
+    "text": " 5가지",
+    "startMs": 23575,
+    "endMs": 24245,
+    "timestampMs": 23575,
+    "confidence": null
+  },
+  {
+    "text": " 습관의",
+    "startMs": 24245,
+    "endMs": 24916,
+    "timestampMs": 24245,
+    "confidence": null
+  },
+  {
+    "text": " 토대입니다.",
+    "startMs": 24916,
+    "endMs": 25587,
+    "timestampMs": 24916,
+    "confidence": null
+  }
+]
