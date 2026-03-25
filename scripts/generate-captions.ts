@@ -4,9 +4,9 @@
  * Usage: npx ts-node scripts/generate-captions.ts content/books/test-book.json
  *
  * Output:
- *   public/tts/{sceneId}.mp3       — audio file
- *   public/tts/{sceneId}.json      — Caption[] JSON (compatible with @remotion/captions)
- *   public/tts/manifest.json       — all scene TTS results
+ *   assets/tts/{sceneId}.mp3       — audio file
+ *   assets/tts/{sceneId}.json      — Caption[] JSON (compatible with @remotion/captions)
+ *   assets/tts/manifest.json       — all scene TTS results
  */
 
 import { execFileSync } from "child_process";

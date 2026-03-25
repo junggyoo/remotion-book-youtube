@@ -1,14 +1,14 @@
-import React from 'react'
-import { AbsoluteFill, useCurrentFrame } from 'remotion'
-import type { BaseSceneProps, KeyInsightContent } from '@/types'
-import { useFormat } from '@/design/themes/useFormat'
-import { spacing, sp } from '@/design/tokens/spacing'
-import { SafeArea } from '@/components/layout/SafeArea'
-import { ArchitecturalReveal } from '@/components/motion/ArchitecturalReveal'
-import { TextBlock } from '@/components/primitives/TextBlock'
-import { SignalBar } from '@/components/primitives/SignalBar'
-import { SubtitleLayer } from '@/components/hud/SubtitleLayer'
-import { typography } from '@/design/tokens/typography'
+import React from "react";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
+import type { BaseSceneProps, KeyInsightContent } from "@/types";
+import { useFormat } from "@/design/themes/useFormat";
+import { spacing, sp } from "@/design/tokens/spacing";
+import { SafeArea } from "@/components/layout/SafeArea";
+import { ArchitecturalReveal } from "@/components/motion/ArchitecturalReveal";
+import { TextBlock } from "@/components/primitives/TextBlock";
+import { SignalBar } from "@/components/primitives/SignalBar";
+import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
+import { typography } from "@/design/tokens/typography";
 
 // zIndex layers from scene-catalog.json → keyInsight
 const LAYERS = {
@@ -19,10 +19,10 @@ const LAYERS = {
   supportText: 25,
   emphasis: 40,
   hud: 70,
-} as const
+} as const;
 
 interface KeyInsightSceneProps extends BaseSceneProps {
-  content: KeyInsightContent
+  content: KeyInsightContent;
 }
 
 /**
@@ -30,12 +30,12 @@ interface KeyInsightSceneProps extends BaseSceneProps {
  * If underlineKeyword is set, the matching word is rendered in signal color with bold weight.
  */
 const HeadlineWithEmphasis: React.FC<{
-  text: string
-  keyword?: string
-  theme: KeyInsightSceneProps['theme']
-  format: KeyInsightSceneProps['format']
+  text: string;
+  keyword?: string;
+  theme: KeyInsightSceneProps["theme"];
+  format: KeyInsightSceneProps["format"];
 }> = ({ text, keyword, theme, format }) => {
-  const { typeScale } = useFormat(format)
+  const { typeScale } = useFormat(format);
 
   if (!keyword) {
     return (
@@ -47,11 +47,11 @@ const HeadlineWithEmphasis: React.FC<{
         weight="bold"
         maxLines={3}
       />
-    )
+    );
   }
 
   // Split text around the keyword for emphasis rendering
-  const keywordIndex = text.indexOf(keyword)
+  const keywordIndex = text.indexOf(keyword);
   if (keywordIndex === -1) {
     return (
       <TextBlock
@@ -62,11 +62,11 @@ const HeadlineWithEmphasis: React.FC<{
         weight="bold"
         maxLines={3}
       />
-    )
+    );
   }
 
-  const before = text.slice(0, keywordIndex)
-  const after = text.slice(keywordIndex + keyword.length)
+  const before = text.slice(0, keywordIndex);
+  const after = text.slice(keywordIndex + keyword.length);
 
   return (
     <div
@@ -90,8 +90,8 @@ const HeadlineWithEmphasis: React.FC<{
       </span>
       {after}
     </div>
-  )
-}
+  );
+};
 
 export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   format,
@@ -102,10 +102,10 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   subtitles,
   content,
 }) => {
-  const frame = useCurrentFrame()
-  const isShorts = format === 'shorts'
-  const showSignalBar = content.useSignalBar !== false
-  const showSupportText = !isShorts && !!content.supportText
+  const frame = useCurrentFrame();
+  const isShorts = format === "shorts";
+  const showSignalBar = content.useSignalBar !== false;
+  const showSupportText = !isShorts && !!content.supportText;
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -127,15 +127,15 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
       />
 
       {/* Main content */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.headline }}>
+      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.headline }}>
         <SafeArea format={format} theme={theme}>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: isShorts ? 'center' : 'flex-start',
-              justifyContent: 'center',
-              height: '100%',
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
               gap: sp(5),
             }}
           >
@@ -144,8 +144,8 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
               <div
                 style={{
                   zIndex: LAYERS.signalBar,
-                  alignSelf: 'stretch',
-                  display: 'flex',
+                  alignSelf: "stretch",
+                  display: "flex",
                   paddingTop: isShorts ? sp(6) : 0,
                   paddingBottom: isShorts ? sp(6) : 0,
                 }}
@@ -156,10 +156,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                   preset="heavy"
                   delay={0}
                 >
-                  <SignalBar
-                    format={format}
-                    theme={theme}
-                  />
+                  <SignalBar format={format} theme={theme} />
                 </ArchitecturalReveal>
               </div>
             )}
@@ -167,11 +164,12 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
             {/* Text content column */}
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
                 flex: 1,
                 gap: sp(4),
+                maxWidth: isShorts ? "100%" : "760px",
               }}
             >
               {/* Headline */}
@@ -218,7 +216,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
 
       {/* HUD: Subtitles */}
       {subtitles && subtitles.length > 0 && (
-        <div style={{ position: 'absolute', inset: 0, zIndex: LAYERS.hud }}>
+        <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.hud }}>
           <SubtitleLayer
             format={format}
             theme={theme}
@@ -228,7 +226,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         </div>
       )}
     </AbsoluteFill>
-  )
-}
+  );
+};
 
-export default KeyInsightScene
+export default KeyInsightScene;

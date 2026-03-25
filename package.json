@@ -6,10 +6,12 @@
   "scripts": {
     "studio": "remotion studio",
     "preview": "remotion studio",
+    "tts": "ts-node scripts/generate-captions.ts",
+    "make:video": "ts-node scripts/make-video.ts",
+    "qa:check": "ts-node scripts/qa-check.ts",
     "render:longform": "ts-node scripts/render-longform.ts",
     "render:shorts": "ts-node scripts/render-shorts.ts",
     "validate": "ts-node scripts/validate-content.ts",
-    "tts": "ts-node scripts/run-tts.ts",
     "build": "remotion bundle",
     "test": "vitest run",
     "test:watch": "vitest"

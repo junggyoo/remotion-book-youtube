@@ -1,10 +1,12 @@
 # CLAUDE.md — Editorial Signal Remotion Project
 
 ## DSGS (Dynamic Scene Generation System)
+
 이 프로젝트는 동적 씬 생성 시스템으로 확장 중이다.
+
 - 시스템 설계: docs/dsgs/DSGS_CANONICAL_SPEC_v1.md
 - 오케스트레이션: docs/dsgs/DSGS_CLAUDE_CODE_ORCHESTRATION.md
-위 두 문서가 동적 씬 생성의 기준이다.
+  위 두 문서가 동적 씬 생성의 기준이다.
 
 > **Claude Code가 이 프로젝트에서 작업할 때 반드시 먼저 읽는 파일이다.**
 > 모든 규칙은 이 파일이 기준이다. 모르는 부분이 있으면 추측하지 말고 이 파일을 먼저 참조하라.
@@ -17,7 +19,7 @@
 **핵심 메타포:** Editorial Continuous Canvas  
 **목적:** 한국어 책 요약 / 핵심 인사이트 YouTube 채널용 Remotion 영상 자동 생산 시스템  
 **포맷:** Longform (1920×1080, 16:9) + Shorts (1080×1920, 9:16)  
-**스택:** React + Remotion + TypeScript  
+**스택:** React + Remotion + TypeScript
 
 **핵심 원칙 한 줄:**  
 데이터(`content/books/*.json`)만 바꾸면 새 영상이 나오는 구조.  
@@ -73,48 +75,48 @@ editorial-signal/
 
 ```typescript
 // 토큰에서 가져온다
-import { tokens } from '@/design/tokens'
-import { useTheme } from '@/design/themes/useTheme'
-import { useFormat } from '@/design/themes/useFormat'
+import { tokens } from "@/design/tokens";
+import { useTheme } from "@/design/themes/useTheme";
+import { useFormat } from "@/design/themes/useFormat";
 
-const theme = useTheme('dark', 'psychology')
-const { safeArea, typeScale } = useFormat('longform')
+const theme = useTheme("dark", "psychology");
+const { safeArea, typeScale } = useFormat("longform");
 
 // 색상
-color: theme.textStrong
-backgroundColor: theme.bg
-borderColor: theme.lineSubtle
+color: theme.textStrong;
+backgroundColor: theme.bg;
+borderColor: theme.lineSubtle;
 
 // 타이포
-fontSize: typeScale.headlineL    // 56
-fontFamily: tokens.typography.fontFamily.sans
+fontSize: typeScale.headlineL; // 56
+fontFamily: tokens.typography.fontFamily.sans;
 
 // 간격
-padding: `${tokens.spacing[6]}px`  // 24px
+padding: `${tokens.spacing[6]}px`; // 24px
 ```
 
 ### ❌ 절대 하지 않는다
 
 ```typescript
 // 하드코딩 금지
-color: '#F8F7F2'          // ❌
-fontSize: 56              // ❌ (토큰 참조 없이)
-padding: '24px'           // ❌
-fontFamily: 'Pretendard'  // ❌
-spring({ stiffness: 100 }) // ❌ (preset 없이)
+color: "#F8F7F2"; // ❌
+fontSize: 56; // ❌ (토큰 참조 없이)
+padding: "24px"; // ❌
+fontFamily: "Pretendard"; // ❌
+spring({ stiffness: 100 }); // ❌ (preset 없이)
 ```
 
 ### 모션 토큰 참조
 
 ```typescript
-import motionPresets from '@/design/tokens/motion-presets.json'
+import motionPresets from "@/design/tokens/motion-presets.json";
 
 // preset 사용
-const config = motionPresets.presets.heavy.config
-spring(config)  // ✅
+const config = motionPresets.presets.heavy.config;
+spring(config); // ✅
 
 // role 사용
-const { translateY } = motionPresets.motionRoles.typography.architecturalReveal
+const { translateY } = motionPresets.motionRoles.typography.architecturalReveal;
 ```
 
 ---
@@ -136,10 +138,10 @@ primitives  →  layout / motion  →  scenes  →  compositions
 
 ```typescript
 interface BaseSceneProps {
-  format: 'longform' | 'shorts'   // 절대 생략 금지
-  theme: Theme
-  from: number
-  durationFrames: number
+  format: "longform" | "shorts"; // 절대 생략 금지
+  theme: Theme;
+  from: number;
+  durationFrames: number;
 }
 ```
 
@@ -187,48 +189,52 @@ export default KeyInsightScene
 ### 표준 enter 패턴
 
 ```typescript
-import { spring, useCurrentFrame, useVideoConfig } from 'remotion'
-import motionPresets from '@/design/tokens/motion-presets.json'
+import { spring, useCurrentFrame, useVideoConfig } from "remotion";
+import motionPresets from "@/design/tokens/motion-presets.json";
 
 // ✅ preset에서 config 참조
-const { fps } = useVideoConfig()
-const frame = useCurrentFrame()
+const { fps } = useVideoConfig();
+const frame = useCurrentFrame();
 
 const enterProgress = spring({
   frame,
   fps,
   config: motionPresets.presets.heavy.config,
   durationInFrames: 36,
-})
+});
 
-const opacity = interpolate(enterProgress, [0, 1], [0, 1])
-const translateY = interpolate(enterProgress, [0, 1], [22, 0])  // maxRevealYOffset = 24
+const opacity = interpolate(enterProgress, [0, 1], [0, 1]);
+const translateY = interpolate(enterProgress, [0, 1], [22, 0]); // maxRevealYOffset = 24
 ```
 
 ### stagger 패턴
 
 ```typescript
 // staggerFrames 토큰 참조
-const STAGGER = motionPresets.defaults.staggerFrames  // 3
+const STAGGER = motionPresets.defaults.staggerFrames; // 3
 
 items.map((item, i) => {
-  const itemFrame = Math.max(0, frame - i * STAGGER)
-  const progress = spring({ frame: itemFrame, fps, config: presets.smooth.config })
+  const itemFrame = Math.max(0, frame - i * STAGGER);
+  const progress = spring({
+    frame: itemFrame,
+    fps,
+    config: presets.smooth.config,
+  });
   // ...
-})
+});
 ```
 
 ### 금지 패턴
 
 ```typescript
 // ❌ 임의 spring config
-spring({ frame, fps, config: { stiffness: 999, damping: 5, mass: 0.1 } })
+spring({ frame, fps, config: { stiffness: 999, damping: 5, mass: 0.1 } });
 
 // ❌ 과한 scale
-scale: interpolate(progress, [0, 1], [0, 2.5])
+scale: interpolate(progress, [0, 1], [0, 2.5]);
 
 // ❌ 랜덤 rotation
-transform: `rotate(${Math.random() * 360}deg)`
+transform: `rotate(${Math.random() * 360}deg)`;
 
 // ❌ 화면 전체 shake
 // ❌ 파티클/불꽃 효과
@@ -272,12 +278,12 @@ globalOverlay:  90
 ### Shorts 분기 방법
 
 ```typescript
-const { safeArea, typeScale } = useFormat(format)
+const { safeArea, typeScale } = useFormat(format);
 
 // format에 따라 자동으로 올바른 값 반환
 // 추가 분기가 필요한 경우만 명시
-const maxItems = format === 'shorts' ? 3 : 5
-const showSupportText = format === 'longform'
+const maxItems = format === "shorts" ? 3 : 5;
+const showSupportText = format === "longform";
 ```
 
 ### 씬 duration 처리
@@ -330,19 +336,19 @@ src/schema/asset-manifest.json     ← 수정 금지
 
 ```typescript
 // 1. React
-import React, { useState } from 'react'
+import React, { useState } from "react";
 // 2. Remotion
-import { useCurrentFrame, spring, interpolate } from 'remotion'
+import { useCurrentFrame, spring, interpolate } from "remotion";
 // 3. 외부 라이브러리
 // 4. 내부 타입
-import type { KeyInsightSceneProps } from '@/types'
+import type { KeyInsightSceneProps } from "@/types";
 // 5. 내부 토큰/테마
-import { tokens } from '@/design/tokens'
-import { useTheme } from '@/design/themes/useTheme'
+import { tokens } from "@/design/tokens";
+import { useTheme } from "@/design/themes/useTheme";
 // 6. 내부 컴포넌트 (하위 계층만)
-import { TextBlock } from '@/components/primitives/TextBlock'
+import { TextBlock } from "@/components/primitives/TextBlock";
 // 7. 에셋 (staticFile 사용)
-import { staticFile } from 'remotion'
+import { staticFile } from "remotion";
 ```
 
 ### Naming 규칙
@@ -400,15 +406,53 @@ npm run qa -- output/my-book-longform.mp4
 
 모든 외부 의존 요소에 fallback을 구현한다.
 
-| 상황 | 구현 위치 | 처리 |
-|------|-----------|------|
-| 이미지 누락 | `ImageMask.tsx` | `onError` → surfaceMuted 컬러 rect |
-| 폰트 실패 | `typography.ts` | `Pretendard → Inter → system-ui → sans-serif` |
-| TTS 실패 | `ttsClient.ts` | silent + 자막만 |
-| 텍스트 오버플로 | `TextBlock.tsx` | 폰트 1단계 축소 → `bodyS` 최소. 이후 말줄임표 |
-| 아이콘 누락 | `IconWrapper.tsx` | `visibility: hidden` (공간 보존) |
-| 렌더 실패 | `render-longform.ts` | 3회 재시도 → FAIL_FAST (process.exit(1)) + render-errors.log |
-| 자막 길이 초과 | `subtitleGen.ts` | 28자 강제 줄바꿈, 2줄 초과분 잘림 |
+| 상황            | 구현 위치            | 처리                                                         |
+| --------------- | -------------------- | ------------------------------------------------------------ |
+| 이미지 누락     | `ImageMask.tsx`      | `onError` → surfaceMuted 컬러 rect                           |
+| 폰트 실패       | `typography.ts`      | `Pretendard → Inter → system-ui → sans-serif`                |
+| TTS 실패        | `ttsClient.ts`       | silent + 자막만                                              |
+| 텍스트 오버플로 | `TextBlock.tsx`      | 폰트 1단계 축소 → `bodyS` 최소. 이후 말줄임표                |
+| 아이콘 누락     | `IconWrapper.tsx`    | `visibility: hidden` (공간 보존)                             |
+| 렌더 실패       | `render-longform.ts` | 3회 재시도 → FAIL_FAST (process.exit(1)) + render-errors.log |
+| 자막 길이 초과  | `subtitleGen.ts`     | 28자 강제 줄바꿈, 2줄 초과분 잘림                            |
+
+---
+
+## Asset Path Policy
+
+### TTS 산출물 경로 규칙
+
+**단일 진실 소스: `assets/tts/`**
+
+| 파일      | 경로                        | git 여부     |
+| --------- | --------------------------- | ------------ |
+| 오디오    | `assets/tts/{sceneId}.mp3`  | ❌ gitignore |
+| 자막 JSON | `assets/tts/{sceneId}.json` | ❌ gitignore |
+| manifest  | `assets/tts/manifest.json`  | ❌ gitignore |
+
+**`remotion.config.ts`에 `Config.setPublicDir('assets')` 설정됨.**
+따라서 `staticFile('tts/X')` = `assets/tts/X`.
+
+### 금지 사항
+
+- ❌ `public/tts/` 경로 사용 금지 (잘못된 경로)
+- ❌ manifest에 `public/tts/` 문자열 포함 금지
+- ❌ `*.mp3`를 git에 커밋하지 않는다 (재생성 보장이 정책)
+
+### TTS 재생성 정책
+
+TTS 산출물은 항상 재생성 가능해야 한다.
+
+```bash
+# 영상 전체 생성 (TTS 포함)
+npm run make:video content/books/miracle-morning.json
+
+# TTS/자막만 재생성
+npm run tts content/books/miracle-morning.json
+```
+
+MP3가 없으면 `npm run make:video`가 자동 생성한다.
+렌더 전 `qa-check.ts`가 asset 존재를 자동 검사한다.
 
 ---
 
