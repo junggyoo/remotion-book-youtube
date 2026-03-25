@@ -326,6 +326,10 @@ src/schema/content-schema.json     ← 수정 금지
 src/schema/asset-manifest.json     ← 수정 금지
 ```
 
+**예외:** `docs/dsgs/BEAT_SYSTEM_DESIGN_SPEC_v0.2.md`에 명시된 스키마 변경은 
+해당 문서의 §4를 정확히 따르는 경우에 한해 Claude Code가 수행할 수 있다.
+```
+
 에셋 추가는 **사람이 직접** `asset-manifest.json`에 `status: "draft"` 항목을 수동 추가한 후 테스트 → `"ready"` 승격 절차를 따른다. Claude Code는 이 파일을 수정할 수 없다.
 
 ---
