@@ -63,6 +63,7 @@ const SceneRenderer: React.FC<{
     durationFrames: scene.resolvedDuration,
     tts: scene.tts,
     subtitles: scene.subtitles,
+    beats: scene.beats,
   };
 
   switch (scene.type) {

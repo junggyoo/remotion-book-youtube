@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "_notice": "이 파일은 IDE 자동완성 전용. runtime validate.ts에서 실행되지 않음. 실제 검증은 src/pipeline/validate.ts (Zod)가 담당. canonical 규칙은 REVISED_CANONICAL_SPEC.md 참조.",
+  "_notice": "이 파일은 IDE 자동완성 전용. runtime validate.ts에서 실행되지 않음. 실제 검증은 src/pipeline/validate.ts (Zod)가 담당. canonical 규칙은 REVISED_CANONICAL_SPEC.md 참조. v1.1.0 — Beat system + EvidenceCard 추가.",
   "title": "BookContent",
   "description": "Editorial Signal — 책 1권을 표현하는 콘텐츠 스키마. IDE 자동완성 전용. runtime 검증 기준이 아님.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "object",
   "required": ["metadata", "narration", "scenes"],
 
@@ -22,7 +22,14 @@
         "originalTitle": { "type": "string", "example": "Influence" },
         "genre": {
           "type": "string",
-          "enum": ["selfHelp", "psychology", "business", "philosophy", "science", "ai"]
+          "enum": [
+            "selfHelp",
+            "psychology",
+            "business",
+            "philosophy",
+            "science",
+            "ai"
+          ]
         },
         "isbn": { "type": "string" },
         "coverImageUrl": {
@@ -83,7 +90,12 @@
           "enum": ["edge-tts", "elevenlabs", "google-tts", "minimax"],
           "default": "edge-tts"
         },
-        "speed": { "type": "number", "default": 1.0, "minimum": 0.7, "maximum": 1.4 },
+        "speed": {
+          "type": "number",
+          "default": 1.0,
+          "minimum": 0.7,
+          "maximum": 1.4
+        },
         "pitch": { "type": "string", "default": "+0Hz" },
         "subtitleMaxCharsPerLine": { "type": "integer", "default": 28 },
         "subtitleMaxLines": { "type": "integer", "default": 2 }
@@ -105,12 +117,31 @@
           },
           "type": {
             "type": "string",
-            "enum": ["cover", "chapterDivider", "keyInsight", "compareContrast", "quote", "framework", "application", "data", "closing"]
+            "enum": [
+              "cover",
+              "chapterDivider",
+              "keyInsight",
+              "compareContrast",
+              "quote",
+              "framework",
+              "application",
+              "data",
+              "closing"
+            ]
           },
           "layoutArchetypeOverride": {
             "type": "string",
             "description": "기본 layout archetype 대신 alt를 사용하고 싶을 때",
-            "enum": ["center-focus", "left-anchor", "split-compare", "grid-expand", "quote-hold", "map-flow", "top-anchor", "band-divider"]
+            "enum": [
+              "center-focus",
+              "left-anchor",
+              "split-compare",
+              "grid-expand",
+              "quote-hold",
+              "map-flow",
+              "top-anchor",
+              "band-divider"
+            ]
           },
           "durationFrames": {
             "type": "integer",
@@ -123,6 +154,11 @@
           "narrationText": {
             "type": "string",
             "description": "이 씬의 VO 텍스트. TTS 입력값. 없으면 무음 씬."
+          },
+          "beats": {
+            "type": "array",
+            "description": "씬 내부 시간 구간 배열. 없으면 암묵적 단일 beat (기존 동작 유지).",
+            "items": { "$ref": "#/definitions/BeatDefinition" }
           },
           "content": {
             "type": "object",
@@ -156,7 +192,12 @@
             "properties": {
               "enabled": { "type": "boolean", "default": true },
               "skipForShorts": { "type": "boolean", "default": false },
-              "durationFramesOverride": { "type": "integer" }
+              "durationFramesOverride": { "type": "integer" },
+              "beats": {
+                "type": "array",
+                "description": "Shorts 전용 beat 오버라이드. 없으면 longform beats 자동 압축.",
+                "items": { "$ref": "#/definitions/BeatDefinition" }
+              }
             }
           }
         }
@@ -171,7 +212,12 @@
           "description": "assets/sounds/ 파일명",
           "example": "sounds/bgm-editorial-01.mp3"
         },
-        "bgmVolume": { "type": "number", "default": 0.12, "minimum": 0, "maximum": 1 },
+        "bgmVolume": {
+          "type": "number",
+          "default": 0.12,
+          "minimum": 0,
+          "maximum": 1
+        },
         "sonicLogo": {
           "type": "string",
           "description": "아웃트로 브랜드 사운드 파일명"
@@ -188,9 +234,16 @@
         "title": { "type": "string" },
         "subtitle": { "type": "string" },
         "author": { "type": "string" },
-        "coverImageUrl": { "type": "string", "description": "assets/ 기준 상대경로. 예: covers/influence.png (assets/ prefix 없이)" },
+        "coverImageUrl": {
+          "type": "string",
+          "description": "assets/ 기준 상대경로. 예: covers/influence.png (assets/ prefix 없이)"
+        },
         "brandLabel": { "type": "string", "example": "Editorial Signal" },
-        "backgroundVariant": { "type": "string", "enum": ["dark", "light"], "default": "dark" }
+        "backgroundVariant": {
+          "type": "string",
+          "enum": ["dark", "light"],
+          "default": "dark"
+        }
       }
     },
 
@@ -221,7 +274,8 @@
           "type": "string",
           "description": "headline 내에서 강조할 키워드"
         },
-        "useSignalBar": { "type": "boolean", "default": true }
+        "useSignalBar": { "type": "boolean", "default": true },
+        "evidenceCard": { "$ref": "#/definitions/EvidenceCard" }
       }
     },
 
@@ -233,10 +287,20 @@
         "leftContent": { "type": "string" },
         "rightLabel": { "type": "string", "example": "저자의 주장" },
         "rightContent": { "type": "string" },
-        "leftTag": { "type": "string", "enum": ["before", "myth", "wrong", "common", "custom"] },
-        "rightTag": { "type": "string", "enum": ["after", "fact", "right", "author", "custom"] },
+        "leftTag": {
+          "type": "string",
+          "enum": ["before", "myth", "wrong", "common", "custom"]
+        },
+        "rightTag": {
+          "type": "string",
+          "enum": ["after", "fact", "right", "author", "custom"]
+        },
         "showConnector": { "type": "boolean", "default": false },
-        "revealOrder": { "type": "string", "enum": ["simultaneous", "left-first", "right-first"], "default": "left-first" }
+        "revealOrder": {
+          "type": "string",
+          "enum": ["simultaneous", "left-first", "right-first"],
+          "default": "left-first"
+        }
       }
     },
 
@@ -349,6 +413,82 @@
         },
         "ctaText": { "type": "string" },
         "showBrandLabel": { "type": "boolean", "default": true }
+      }
+    },
+
+    "BeatDefinition": {
+      "type": "object",
+      "required": ["id", "role", "startRatio", "endRatio", "activates"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "beat 고유 ID. 씬 내 유일."
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "hook",
+            "headline",
+            "support",
+            "evidence",
+            "reveal",
+            "compare",
+            "transition",
+            "recap"
+          ],
+          "description": "의미론적 역할"
+        },
+        "startRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "endRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "narrationText": { "type": "string" },
+        "activates": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "deactivates": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "emphasisTargets": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "강조할 단어/구. activates와 별개 네임스페이스."
+        },
+        "motionPreset": {
+          "type": "string",
+          "enum": ["gentle", "smooth", "snappy", "heavy", "dramatic"]
+        },
+        "transition": {
+          "type": "string",
+          "enum": ["enter", "replace", "emphasis"],
+          "default": "enter"
+        }
+      }
+    },
+
+    "EvidenceCard": {
+      "type": "object",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["statistic", "quote", "case", "research"],
+          "description": "근거 카드 유형"
+        },
+        "value": {
+          "type": "string",
+          "description": "핵심 수치 또는 인용문"
+        },
+        "caption": { "type": "string" },
+        "source": { "type": "string" }
       }
     }
   },

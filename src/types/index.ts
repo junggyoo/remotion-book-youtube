@@ -87,11 +87,19 @@ export interface ChapterDividerContent {
   useAltLayout?: boolean;
 }
 
+export interface EvidenceCard {
+  type: "statistic" | "quote" | "case" | "research";
+  value: string;
+  caption?: string;
+  source?: string;
+}
+
 export interface KeyInsightContent {
   headline: string; // hard limit: 60 chars
   supportText?: string;
   underlineKeyword?: string;
   useSignalBar?: boolean;
+  evidenceCard?: EvidenceCard;
 }
 
 export interface CompareContrastContent {
@@ -214,6 +222,7 @@ export interface ShortsSceneConfig {
   skipForShorts?: boolean; // default: false
   durationFramesOverride?: number;
   // NOTE: 'enabled' field is REMOVED. Use skipForShorts only. Spec §3.
+  beats?: Beat[];
 }
 
 export interface SceneAssetRefs {
@@ -233,6 +242,7 @@ export interface SceneBase {
   narrationText?: string; // FLAT field. Never scene.narration.text. Spec §4.
   assets?: SceneAssetRefs;
   shorts?: ShortsSceneConfig;
+  beats?: Beat[];
 }
 
 // --- CustomScene ---
@@ -382,6 +392,7 @@ export interface BaseSceneProps {
   durationFrames: number;
   tts?: TTSResult;
   subtitles?: SubtitleEntry[];
+  beats?: Beat[];
 }
 
 // --- Format Layout ---
@@ -736,6 +747,127 @@ export const QUALITY_GATE = {
   promotionMinQuality: 0.8,
   promotionMinStability: 0.95,
 } as const;
+
+// ---------------------------------------------------------------------------
+// Beat System Types — P2 Extension (BEAT_SYSTEM_DESIGN_SPEC_v0.2.md)
+// ---------------------------------------------------------------------------
+
+/**
+ * Beat role — 씬 타입에 독립적인 의미론적 역할.
+ * 씬 컴포넌트가 role을 기준으로 렌더 로직을 분기할 수 있다.
+ */
+export type BeatRole =
+  | "hook" // 시선을 끄는 첫 요소
+  | "headline" // 핵심 주장
+  | "support" // 보조 설명
+  | "evidence" // 근거/데이터
+  | "reveal" // 순차 공개 (framework items, list items)
+  | "compare" // 비교 대상 등장
+  | "transition" // 다음 씬으로의 전환 준비
+  | "recap" // 요약/마무리
+  | (string & {}); // 확장 가능
+
+/**
+ * Beat = 씬 내부의 시간 구간.
+ * 각 beat는 시각 요소의 활성화 시점과 나레이션 구간을 정의한다.
+ *
+ * 설계 규칙:
+ * - beats 배열은 startRatio 오름차순 정렬이어야 한다
+ * - beats는 겹칠 수 없다 (gap은 허용 — gap에서는 마지막 상태 hold)
+ * - 모든 beat의 합이 반드시 0~1 전체를 커버할 필요는 없다
+ */
+export interface Beat {
+  /** beat 고유 ID. 씬 내에서 유일. */
+  id: string;
+
+  /** beat의 역할. 씬 타입별로 의미가 다르다. */
+  role: BeatRole;
+
+  /**
+   * 씬 duration 대비 시작 비율 (0~1).
+   * 실제 프레임 = Math.round(scene.durationFrames * startRatio)
+   */
+  startRatio: number;
+
+  /**
+   * 씬 duration 대비 종료 비율 (0~1).
+   * endRatio > startRatio 필수.
+   * 최소 beat 길이: endRatio - startRatio >= 0.12
+   */
+  endRatio: number;
+
+  /**
+   * 이 beat 구간에서 재생될 나레이션 텍스트.
+   * 설정하면 씬의 narrationText를 beat 단위로 분할한 것.
+   * 미설정이면 이 beat 구간에는 나레이션 없음 (시각 전용 beat).
+   */
+  narrationText?: string;
+
+  /**
+   * 이 beat에서 활성화(등장)할 시각 요소 키 목록.
+   * 프리셋 씬: content 필드 이름 (예: "headline", "supportText")
+   * VCL 씬: VCLElement.id (예: "headline-01")
+   * 빈 배열이면 시각 변화 없이 나레이션만 진행.
+   */
+  activates: string[];
+
+  /**
+   * 이 beat에서 비활성화(퇴장)할 요소 키 목록.
+   * 미설정이면 이전 beat의 요소는 계속 보인다 (누적 모드).
+   */
+  deactivates?: string[];
+
+  /**
+   * 이 beat에서 강조할 단어/구 목록.
+   * activates와 별개 네임스페이스. 자막 하이라이트 등에 사용.
+   */
+  emphasisTargets?: string[];
+
+  /** beat 진입 시 사용할 모션 프리셋 오버라이드. */
+  motionPreset?: MotionPresetKey;
+
+  /**
+   * beat-level 모션 스타일. 기본: "enter" (등장).
+   * "replace"는 이전 요소를 교체하며 등장.
+   * "emphasis"는 이미 visible인 요소에 강조 효과만 추가.
+   */
+  transition?: "enter" | "replace" | "emphasis";
+}
+
+/**
+ * 요소의 beat 기반 애니메이션 상태.
+ * 요소는 항상 마운트 상태를 유지하고, state만 전이한다.
+ */
+export type ElementVisibility =
+  | "hidden" // 아직 어떤 beat에서도 활성화되지 않음
+  | "entering" // 활성화 beat에 진입한 직후 (모션 재생 중)
+  | "visible" // 모션 완료, 계속 보이는 상태
+  | "exiting" // deactivates에 의해 퇴장 모션 진행 중
+  | "emphasized"; // 이미 visible인 요소에 강조 효과 적용 중
+
+export interface ElementBeatState {
+  visibility: ElementVisibility;
+  /** 이 요소가 entering 상태가 된 프레임 */
+  entryFrame: number;
+  /** exiting이면 퇴장이 시작된 프레임 */
+  exitFrame?: number;
+  /** 현재 beat의 emphasisTargets에 해당하는 강조가 활성인지 */
+  emphasis: boolean;
+  /** entering/exiting 모션에 사용할 preset */
+  motionPreset: MotionPresetKey;
+}
+
+/** useBeatTimeline 훅의 반환 타입 */
+export interface BeatTimelineState {
+  /** 현재 활성 beat (없으면 null = beat 사이 gap, 마지막 상태 hold) */
+  activeBeat: Beat | null;
+  /** 요소별 상태 */
+  elementStates: Map<string, ElementBeatState>;
+  /** 현재 beat의 진행률 0~1 */
+  beatProgress: number;
+  /** 현재 beat의 emphasisTargets */
+  currentEmphasis: string[];
+}
 
 // ---------------------------------------------------------------------------
 // DSGS Stage 4-5: ScenePlanner + GapDetector types
