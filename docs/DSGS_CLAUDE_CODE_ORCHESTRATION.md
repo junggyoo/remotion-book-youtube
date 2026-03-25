@@ -40,8 +40,8 @@ hook이 실행하는 **스크립트 파일**만 별도 경로(예: `.claude/scri
 │                                                      │
 │  CLAUDE.md     — 항상 켜진 규칙                        │
 │  rules/        — 파일/영역별 세부 규칙                  │
-│  skills/       — 단계별 플레이북 (6개)                  │
-│  agents/       — 무거운 역할 분담 (5개)                 │
+│  skills/       — 단계별 플레이북 (7개)                  │
+│  agents/       — 무거운 역할 분담 (6개)                 │
 │  settings.json — hook 설정 + 정책                     │
 │  scripts/      — hook이 실행하는 검증 스크립트            │
 ├─────────────────────────────────────────────────────┤
@@ -76,10 +76,12 @@ hook이 실행하는 **스크립트 파일**만 별도 경로(예: `.claude/scri
 # CLAUDE.md — Editorial Signal DSGS
 
 ## 프로젝트 개요
+
 한국어 책 요약 YouTube 채널용 Remotion 영상 자동화 시스템.
 스택: React 18 + Remotion 4 + TypeScript 5 + Zod
 
 ## 절대 규칙
+
 - Opening preset은 일반 경로에서 사용 금지 (fallback-only)
 - 모든 synthesized scene에 fallbackPreset 필수
 - custom blueprint는 design token / motion preset 범위 밖 금지
@@ -89,23 +91,27 @@ hook이 실행하는 **스크립트 파일**만 별도 경로(예: `.claude/scri
 - accent 색상 씬당 최대 2개
 
 ## 빌드 명령
-npm run preview          # Remotion Studio 미리보기
-npm run validate         # content JSON 검증
-npm run render:longform  # longform 렌더
-npm run render:shorts    # shorts 렌더
+
+npm run preview # Remotion Studio 미리보기
+npm run validate # content JSON 검증
+npm run render:longform # longform 렌더
+npm run render:shorts # shorts 렌더
 
 ## 파이프라인 순서 (반드시 이 순서)
+
 1.BookAnalyzer → 2.NarrativePlanner → 3.OpeningComposer
 → 4.ScenePlanner → 5.GapDetector → 6.SceneSynthesizer
 → 6.5.AssetPlanner → 7.BlueprintValidator → 8.BlueprintRenderer
 → 9.ScenePromoter
 
 ## HITL 체크포인트 (review 모드)
+
 A: Opening 승인 (3단계 후)
 B: Signature Scene 승인 (6단계 후)
 C: Final QA 승인 (8단계 후)
 
 ## 참조 (상세 내용은 skill 참조)
+
 - 디자인 토큰: src/design/tokens/
 - 모션 프리셋: src/design/tokens/motion-presets.json
 - 씬 카탈로그: src/schema/scene-catalog.json
@@ -113,7 +119,7 @@ C: Final QA 승인 (8단계 후)
 - Hook 전략: /opening-composer skill 참조
 ```
 
-약 50줄. 500줄 한도 대비 충분한 여유. 
+약 50줄. 500줄 한도 대비 충분한 여유.
 구체적 절차와 참조자료는 전부 skill로 분리.
 
 ---
@@ -140,7 +146,6 @@ paths:
   - src/validator/openingValidator.ts
   - src/renderer/presetBlueprints/fallback/**
 ---
-
 # Opening 규칙
 - Opening(Hook + Intro)은 반드시 동적 생성. 프리셋 사용 금지 (일반 경로)
 - 동적 생성 실패 시에만 fallback/ 프리셋 사용 가능
@@ -153,7 +158,7 @@ paths:
 
 ---
 
-## 4. Skills (단계별 플레이북 6개)
+## 4. Skills (단계별 플레이북 7개)
 
 공식 문서: "`.claude/skills/<name>/SKILL.md` — 재사용 가능한 지식/워크플로우.
 frontmatter로 호출 방식 제어. 지원 파일은 같은 디렉토리에."
@@ -191,10 +196,27 @@ frontmatter로 호출 방식 제어. 지원 파일은 같은 디렉토리에."
 │   ├── license-guide.md
 │   └── asset-spec.md
 │
-└── render-qa/
+├── render-qa/
+│   ├── SKILL.md
+│   ├── quality-gates.md
+│   └── promotion-rubric.md
+│
+└── beat-compose/
     ├── SKILL.md
-    ├── quality-gates.md
-    └── promotion-rubric.md
+    ├── beat-patterns.md
+    ├── narration-segmentation.md
+    ├── evidence-rubric.md
+    ├── emphasis-guide.md
+    ├── beat-quality-checklist.md
+    └── examples/
+        ├── keyInsight-3beat.json
+        ├── keyInsight-2beat.json
+        ├── framework-sequential.json
+        ├── compare-3beat.json
+        ├── quote-2beat.json
+        ├── bad-beat-too-short.json
+        ├── bad-beat-overloaded.json
+        └── bad-beat-no-rhythm.json
 ```
 
 ### 4-2. 각 Skill의 SKILL.md
@@ -380,22 +402,53 @@ disable-model-invocation: true
 5. 합성 씬 중 promotable 후보 판별
 ```
 
+#### Skill 7: beat-compose
+
+```yaml
+---
+name: beat-compose
+description: >
+  씬의 시간 구조(beat 배열)를 설계한다. 나레이션 분절, 시각 요소 배치,
+  emphasisTargets 선정, evidenceCard 적격성 판단을 수행한다.
+  editorial heuristics에 기반하며, 모든 판단에 근거 문서를 참조한다.
+  "beat", "리듬", "pacing", "시간 구조", "beat 나눠줘" 등에 자동 활성화.
+context: fork
+agent: beat-composer
+---
+# Beat Composer
+
+## 입력
+- 씬 배열 (scene-architect 출력): type, content, narrationText, durationFrames
+- BookFingerprint: emotionalTone, urgencyLevel, contentMode
+- VideoNarrativePlan: segments, emotionalCurve
+
+## 출력
+- 각 씬에 beats 배열이 추가된 씬 배열
+- 각 씬에 BeatDesignRationale (설계 근거)
+- evidenceCard가 추가된 keyInsight content (해당되는 경우)
+
+## 근거 문서
+- beat-patterns.md, narration-segmentation.md, evidence-rubric.md
+- emphasis-guide.md, beat-quality-checklist.md
+```
+
 ### 4-3. Skill 호출 방식 전략
 
 공식 문서 기준으로 분류:
 
-| Skill | 자동 호출 | 수동 호출 | context: fork | 이유 |
-|-------|----------|----------|---------------|------|
-| book-analyze | ✅ | `/book-analyze` | ✅ fork | 많은 파일 읽기, 컨텍스트 격리 필요 |
-| opening-compose | ✅ | `/opening-compose` | ❌ inline | 대화 컨텍스트 필요 |
-| scene-architect | ✅ | `/scene-architect` | ✅ fork | VCL 참조 많음, 격리 유리 |
-| subtitle-audio | ✅ | `/subtitle-audio` | ❌ inline | 대화 흐름에서 바로 처리 |
-| asset-research | ✅ | `/asset-research` | ❌ inline | 브라우저 연동 시 대화 필요 |
-| render-qa | ❌ 금지 | `/render-qa` 전용 | ❌ inline | 부작용 있음, 사람이 트리거 |
+| Skill           | 자동 호출 | 수동 호출          | context: fork | 이유                                          |
+| --------------- | --------- | ------------------ | ------------- | --------------------------------------------- |
+| book-analyze    | ✅        | `/book-analyze`    | ✅ fork       | 많은 파일 읽기, 컨텍스트 격리 필요            |
+| opening-compose | ✅        | `/opening-compose` | ❌ inline     | 대화 컨텍스트 필요                            |
+| scene-architect | ✅        | `/scene-architect` | ✅ fork       | VCL 참조 많음, 격리 유리                      |
+| subtitle-audio  | ✅        | `/subtitle-audio`  | ❌ inline     | 대화 흐름에서 바로 처리                       |
+| asset-research  | ✅        | `/asset-research`  | ❌ inline     | 브라우저 연동 시 대화 필요                    |
+| render-qa       | ❌ 금지   | `/render-qa` 전용  | ❌ inline     | 부작용 있음, 사람이 트리거                    |
+| beat-compose    | ✅        | `/beat-compose`    | ✅ fork       | editorial heuristics 기반, 컨텍스트 격리 필요 |
 
 ---
 
-## 5. Agents (Subagents 5개)
+## 5. Agents (Subagents 6개)
 
 공식 문서: "`.claude/agents/<name>.md` — YAML frontmatter + markdown 시스템 프롬프트.
 tools, model, skills, hooks, memory 설정 가능."
@@ -407,6 +460,7 @@ tools, model, skills, hooks, memory 설정 가능."
 ├── book-analyst.md
 ├── opening-designer.md
 ├── scene-designer.md
+├── beat-composer.md
 ├── media-planner.md
 └── qa-validator.md
 ```
@@ -427,7 +481,6 @@ skills:
   - book-analyze
 memory: project
 ---
-
 너는 Editorial Signal 채널의 콘텐츠 분석가다.
 책의 구조, 감정, 메타포, 시각적 가능성을 분석하여
 BookFingerprint와 VideoNarrativePlan을 생성한다.
@@ -496,6 +549,34 @@ memory: project
 새로 만든 좋은 패턴은 memory에 기록하라.
 ```
 
+#### beat-composer.md
+
+```yaml
+---
+name: beat-composer
+description: >
+  씬의 시간 구조를 설계한다. 나레이션을 의미 단위로 분할하고,
+  각 구간에서 어떤 시각 요소가 등장/퇴장/강조되는지 결정한다.
+  editorial heuristics에 기반한 판단이며, 모든 결정에 근거 문서를 명시한다.
+tools: Read, Grep, Glob, Write
+model: sonnet
+skills:
+  - beat-compose
+memory: project
+---
+
+너는 Editorial Signal 채널의 편집 감독(Editorial Director)이다.
+씬 아키텍트가 "어떤 씬을 쓸지"를 결정했다면,
+너는 "그 씬의 시간을 어떻게 나눌지"를 결정한다.
+
+editorial heuristics(편집적 휴리스틱) 기반 판단.
+6가지 핵심 판단 영역: 나레이션 분절, 정보 밀도, 시각 사건 밀도,
+감정 곡선 연동, evidence 적격성, emphasis 키워드 선택.
+
+모든 판단에 근거 문서(beat-compose skill)를 참조한다.
+BeatDesignRationale 구조화된 출력으로 설계 근거를 명시한다.
+```
+
 #### media-planner.md
 
 ```yaml
@@ -557,6 +638,7 @@ skills:
 공식 문서: "`memory: project` — `.claude/agent-memory/<name>/`에 교차 세션 지식 저장."
 
 `book-analyst`와 `scene-designer`에 memory를 설정하는 이유:
+
 - 100권의 책을 분석하면서 장르별 패턴을 축적
 - 승격된 씬 패턴을 기억하여 유사한 책에서 재활용
 - 이것이 ChatGPT가 말한 "시스템이 학습하는" 구조를 실현
@@ -671,7 +753,7 @@ Hook은 "생각"을 시키는 게 아니라 "위반을 막는 게이트"
 │   ├── design-token-rules.md
 │   └── validation-rules.md
 │
-├── skills/                                ← 단계별 플레이북 (6개)
+├── skills/                                ← 단계별 플레이북 (7개)
 │   ├── book-analyze/
 │   │   ├── SKILL.md
 │   │   ├── fingerprint-template.md
@@ -694,15 +776,24 @@ Hook은 "생각"을 시키는 게 아니라 "위반을 막는 게이트"
 │   │   ├── SKILL.md
 │   │   ├── license-guide.md
 │   │   └── asset-spec.md
-│   └── render-qa/
+│   ├── render-qa/
+│   │   ├── SKILL.md
+│   │   ├── quality-gates.md
+│   │   └── promotion-rubric.md
+│   └── beat-compose/
 │       ├── SKILL.md
-│       ├── quality-gates.md
-│       └── promotion-rubric.md
+│       ├── beat-patterns.md
+│       ├── narration-segmentation.md
+│       ├── evidence-rubric.md
+│       ├── emphasis-guide.md
+│       ├── beat-quality-checklist.md
+│       └── examples/
 │
-├── agents/                                ← 무거운 역할 분담 (5개)
+├── agents/                                ← 무거운 역할 분담 (6개)
 │   ├── book-analyst.md
 │   ├── opening-designer.md
 │   ├── scene-designer.md
+│   ├── beat-composer.md
 │   ├── media-planner.md
 │   └── qa-validator.md
 │
@@ -739,6 +830,7 @@ editorial-signal-plugin/
 ```
 
 이렇게 하면:
+
 - `youtube-book-summary-system` plugin
 - `ai-news-channel-system` plugin
 - `motivation-shorts-system` plugin
@@ -752,6 +844,7 @@ editorial-signal-plugin/
 기존 DSGS_CANONICAL_SPEC_v1.md의 Phase A~E에 추가:
 
 ### Phase F: Claude Code 오케스트레이션 (Phase C와 병행)
+
 - [ ] CLAUDE.md 작성 (50줄 이내)
 - [ ] `.claude/rules/` 5개 작성
 - [ ] Skills 6개의 SKILL.md + 지원 파일 작성

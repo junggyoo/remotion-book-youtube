@@ -1,0 +1,40 @@
+{
+  "_description": "quote 2-beat — 인용문 + 출처",
+  "scene": {
+    "id": "quote-hal",
+    "type": "quote",
+    "durationFrames": 720,
+    "content": {
+      "quoteText": "당신의 아침이 당신의 하루를 결정합니다. 하루가 모여 인생이 됩니다.",
+      "attribution": "할 엘로드, 《미라클 모닝》"
+    },
+    "beats": [
+      {
+        "id": "hal-quote-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.70,
+        "narrationText": "당신의 아침이 당신의 하루를 결정합니다. 하루가 모여 인생이 됩니다.",
+        "activates": ["quoteText"],
+        "emphasisTargets": ["아침", "인생"],
+        "transition": "enter"
+      },
+      {
+        "id": "hal-quote-b2",
+        "role": "support",
+        "startRatio": 0.70,
+        "endRatio": 1.0,
+        "narrationText": "할 엘로드가 남긴 이 한 마디가, 미라클 모닝의 전부를 담고 있습니다.",
+        "activates": ["attribution"],
+        "emphasisTargets": ["할 엘로드"],
+        "transition": "enter"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "인용문 본문(70%)과 저자 소개(30%)로 자연 분절. quote 2-beat 기본 패턴.",
+    "evidenceDecision": "not-applicable",
+    "densityDecision": "beat당 1개 시각 사건. 적정.",
+    "riskFlags": []
+  }
+}

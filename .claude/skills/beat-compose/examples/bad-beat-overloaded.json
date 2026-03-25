@@ -1,0 +1,50 @@
+{
+  "_description": "나쁜 예시 — 하나의 beat에 시각 사건이 너무 많음",
+  "_problem": "beat-1에서 3개 요소가 동시에 activates. 시청자가 어디를 봐야 할지 모름.",
+  "scene": {
+    "id": "bad-overloaded",
+    "type": "keyInsight",
+    "durationFrames": 900,
+    "content": {
+      "headline": "확언은 자기 암시의 과학적 방법이다",
+      "supportText": "매일 반복하면 뇌의 신경 경로가 바뀝니다.",
+      "underlineKeyword": "확언",
+      "useSignalBar": true,
+      "evidenceCard": {
+        "type": "research",
+        "value": "긍정 확언 실천자의 자존감 31% 향상",
+        "caption": "6개월 추적 연구",
+        "source": "Journal of Personality, 2015"
+      }
+    },
+    "beats": [
+      {
+        "id": "bad-over-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.50,
+        "narrationText": "확언은 자기 암시의 과학적 방법입니다. 매일 반복하면 뇌의 신경 경로가 실제로 바뀝니다.",
+        "activates": ["signalBar", "headline", "supportText"],
+        "emphasisTargets": ["확언", "과학적", "신경 경로"],
+        "transition": "enter"
+      },
+      {
+        "id": "bad-over-b2",
+        "role": "evidence",
+        "startRatio": 0.50,
+        "endRatio": 1.0,
+        "narrationText": "실제로 긍정 확언을 6개월간 실천한 사람들의 자존감이 31% 향상되었습니다.",
+        "activates": ["evidenceCard"],
+        "deactivates": ["supportText"],
+        "emphasisTargets": ["31%", "자존감"],
+        "transition": "replace"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "분절 자체는 적절하나 beat-1에 시각 사건이 과다.",
+    "evidenceDecision": "included-A",
+    "densityDecision": "FAIL: beat-1에 3개 activates(signalBar, headline, supportText). 최대 2개 권장.",
+    "riskFlags": ["FAIL: beat-1 activates 3개 — signalBar+headline은 한 쌍이지만 supportText는 별도 beat로 분리해야 함", "emphasisTargets도 3개로 과다"]
+  }
+}

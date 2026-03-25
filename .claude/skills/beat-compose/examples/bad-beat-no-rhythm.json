@@ -1,0 +1,63 @@
+{
+  "_description": "나쁜 예시 — 모든 beat가 동일한 길이 (균등 분배)",
+  "_problem": "3개 beat가 정확히 33.3%씩. 단조로운 리듬. 정보 밀도 차이를 반영하지 않음.",
+  "scene": {
+    "id": "bad-no-rhythm",
+    "type": "keyInsight",
+    "durationFrames": 900,
+    "content": {
+      "headline": "시각화는 뇌를 속이는 기술이다",
+      "supportText": "뇌는 실제 경험과 상상을 구분하지 못합니다.",
+      "underlineKeyword": "시각화",
+      "useSignalBar": true,
+      "evidenceCard": {
+        "type": "statistic",
+        "value": "올림픽 선수 73%가 시각화 훈련 실시",
+        "caption": "스포츠 심리학 조사",
+        "source": "Olympic Training Center, 2012"
+      }
+    },
+    "beats": [
+      {
+        "id": "bad-rhythm-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.333,
+        "narrationText": "시각화는 뇌를 속이는 기술입니다.",
+        "activates": ["signalBar", "headline"],
+        "emphasisTargets": ["시각화"],
+        "transition": "enter"
+      },
+      {
+        "id": "bad-rhythm-b2",
+        "role": "support",
+        "startRatio": 0.333,
+        "endRatio": 0.666,
+        "narrationText": "뇌는 실제 경험과 상상을 구분하지 못합니다.",
+        "activates": ["supportText"],
+        "emphasisTargets": ["실제 경험", "상상"],
+        "transition": "enter"
+      },
+      {
+        "id": "bad-rhythm-b3",
+        "role": "evidence",
+        "startRatio": 0.666,
+        "endRatio": 1.0,
+        "narrationText": "실제로 올림픽 선수의 73%가 시각화 훈련을 실시합니다.",
+        "activates": ["evidenceCard"],
+        "deactivates": ["supportText"],
+        "emphasisTargets": ["73%", "올림픽"],
+        "transition": "replace"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "분절 위치는 적절하나 비율이 기계적 균등 분배.",
+    "evidenceDecision": "included-A",
+    "densityDecision": "beat당 사건 수는 적정하나 리듬이 단조로움.",
+    "riskFlags": [
+      "FAIL: 모든 beat가 33.3%로 동일 — headline(짧은 문장)은 25~30%, evidence(읽기 시간 필요)는 35~40%가 적절",
+      "리듬 변화 없이 기계적 분배는 시청자 집중도 저하"
+    ]
+  }
+}

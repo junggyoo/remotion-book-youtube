@@ -1,0 +1,42 @@
+{
+  "_description": "2-beat가 더 나은 keyInsight — evidence 불필요(C등급), 짧은 씬",
+  "scene": {
+    "id": "insight-intention",
+    "type": "keyInsight",
+    "durationFrames": 360,
+    "content": {
+      "headline": "의도를 가지고 하루를 시작하라",
+      "supportText": "무의식적 반응이 아닌, 의식적 선택으로 아침을 여는 것이 핵심입니다.",
+      "underlineKeyword": "의도",
+      "useSignalBar": true
+    },
+    "beats": [
+      {
+        "id": "intention-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.45,
+        "narrationText": "의도를 가지고 하루를 시작하라. 이것이 미라클 모닝의 핵심입니다.",
+        "activates": ["signalBar", "headline"],
+        "emphasisTargets": ["의도", "미라클 모닝"],
+        "transition": "enter"
+      },
+      {
+        "id": "intention-b2",
+        "role": "support",
+        "startRatio": 0.45,
+        "endRatio": 1.0,
+        "narrationText": "무의식적 반응이 아닌, 의식적 선택으로 아침을 여는 것.",
+        "activates": ["supportText"],
+        "emphasisTargets": ["무의식적 반응", "의식적 선택"],
+        "transition": "enter"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "'이것이'에서 결론 도입 감지. 2-beat 분절. 12초 씬이므로 evidence 불필요.",
+    "evidenceDecision": "excluded-C",
+    "densityDecision": "beat당 평균 1개 시각 사건. 적정.",
+    "riskFlags": []
+  }
+}

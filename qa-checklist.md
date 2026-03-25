@@ -1,4 +1,5 @@
 # QA Checklist — Editorial Signal
+
 **Version:** 1.0.0  
 **위치:** 이 파일이 QA 기준의 단일 소스다. `src/pipeline/qa.ts`는 이 파일을 코드로 구현한 것이다.  
 **사용법:** 렌더 전/후 아래 항목을 순서대로 체크한다.
@@ -23,6 +24,11 @@
 [ ] (longform/both) 모든 headline <= 60자
 [ ] TTS 생성이 완료됐거나 skipTTS: true가 명시됐다
 [ ] license: "pending-check" 에셋이 scenes에 포함되지 않는다
+[ ] 8초+ 씬에 beats 배열이 존재한다
+[ ] 모든 beat의 endRatio - startRatio >= 0.12
+[ ] beat 간 overlap 없음 (beat[n].endRatio === beat[n+1].startRatio)
+[ ] beat.activates가 해당 씬 content의 실제 필드명이다
+[ ] beat.emphasisTargets에 UI 요소 키가 혼입되지 않았다
 ```
 
 ---
@@ -35,9 +41,13 @@
 [ ] totalFrames = fps × 목표 영상 길이 ±5%
 [ ] TTS duration이 있는 씬은 durationFrames >= TTS durationFrames다
 [ ] chapterDivider가 있다면 씬 흐름에서 논리적 위치에 있다
+[ ] beat.narrationText를 이어붙이면 원본 narrationText와 글자 수 일치 (±5자)
+[ ] 8초+ 씬에서 단일 beat만 있지 않다
+[ ] 첫 beat가 전체의 20% 이상이고, evidence beat가 35% 이하다
 ```
 
 **자동 체크 명령:**
+
 ```bash
 npm run qa:structure -- content/books/{book-id}.json
 ```
@@ -49,6 +59,7 @@ npm run qa:structure -- content/books/{book-id}.json
 씬 타입별로 체크한다.
 
 ### cover
+
 ```
 [ ] title과 author가 화면에 보인다
 [ ] 책 표지 이미지가 로드됐다 (또는 fallback rect가 보인다)
@@ -56,14 +67,18 @@ npm run qa:structure -- content/books/{book-id}.json
 ```
 
 ### keyInsight
+
 ```
 [ ] headline이 화면에서 잘린 곳 없이 보인다
 [ ] headline <= 60자 (hard limit)
 [ ] signal bar가 있다 (cobalt blue)
 [ ] 지나치게 빠르거나 느리지 않다 (75~150f 범위)
+[ ] 3-beat 패턴 적용 시 evidence beat에 evidenceCard가 있다
+[ ] evidenceCard가 있다면 evidence-rubric.md 기준 A/B등급이다
 ```
 
 ### compareContrast
+
 ```
 [ ] 좌/우 패널 모두 텍스트가 보인다
 [ ] divider line이 있다
@@ -72,6 +87,7 @@ npm run qa:structure -- content/books/{book-id}.json
 ```
 
 ### quote
+
 ```
 [ ] quoteMark가 있다
 [ ] quoteText가 3줄 이하다
@@ -80,6 +96,7 @@ npm run qa:structure -- content/books/{book-id}.json
 ```
 
 ### framework
+
 ```
 [ ] 항목 수 <= 5개
 [ ] 각 항목에 number와 title이 있다
@@ -88,9 +105,21 @@ npm run qa:structure -- content/books/{book-id}.json
 ```
 
 ### closing
+
 ```
 [ ] recapStatement가 있다
 [ ] brand label이 있다 (showBrandLabel: false가 명시된 경우 제외)
+```
+
+### beat 공통
+
+```
+[ ] activates/deactivates/emphasisTargets 역할이 혼용되지 않았다
+[ ] beat당 activates 요소가 2개 이하다
+[ ] emphasisTargets가 beat당 1~3개다
+[ ] 모든 beat가 동일한 길이가 아니다 (균등 분배 금지)
+[ ] hook 씬에서 3초 이상 시각 변화 없는 구간이 없다
+[ ] BeatDesignRationale.riskFlags에 미해결 항목이 없다
 ```
 
 ---
@@ -105,6 +134,7 @@ npm run qa:structure -- content/books/{book-id}.json
 [ ] Y 오프셋 <= 24px
 [ ] 세리프 폰트가 quote/chapter/cover에만 사용됐다
 [ ] SaaS 카드 스타일 없음 (과도한 border-radius + shadow 조합 없음)
+[ ] beat가 있는 씬에서 BeatElement의 모션이 motion-presets.json 토큰을 참조한다
 ```
 
 ---
@@ -152,6 +182,7 @@ npm run qa:structure -- content/books/{book-id}.json
 ## Level 7 — Shorts 전용 (포맷: shorts일 때만)
 
 **Shorts format 특이사항:**
+
 - cover / closing 씬 없어도 PASS
 - 씬 1개도 PASS (shorts 최솟값 = 1)
 - `skipForShorts: true` 씬 제외 후 1개 이상이면 PASS
@@ -195,11 +226,12 @@ npm run qa:structure -- content/books/{book-id}.json
 
 ## 최종 판정 기준
 
-| 판정 | 조건 |
-|------|------|
-| **READY_TO_PUBLISH** | Level 0~5 전 항목 PASS. Shorts는 Level 7도 PASS |
-| **NEEDS_REVISION** | Level 1~6 중 FAIL 있음. Level 0은 PASS |
-| **BLOCKED** | Level 0 중 하나라도 FAIL. 렌더 시작 불가. |
+| 판정                 | 조건                                                   |
+| -------------------- | ------------------------------------------------------ |
+| **READY_TO_PUBLISH** | Level 0~5 전 항목 PASS. Shorts는 Level 7도 PASS        |
+| **NEEDS_REVISION**   | Level 1~6 중 FAIL 있음. Level 0은 PASS                 |
+| **BLOCKED**          | Level 0 중 하나라도 FAIL. 렌더 시작 불가.              |
+| **BEAT_FAIL**        | beat 구조(Level 0/1 beat 항목) FAIL. beat 재설계 필요. |
 
 ---
 
@@ -211,18 +243,22 @@ npm run qa:structure -- content/books/{book-id}.json
 ## 판정: READY_TO_PUBLISH | NEEDS_REVISION | BLOCKED
 
 ## Level 0
+
 - [x] content JSON 스키마 통과
 - [x] scenes[0] cover
-...
+      ...
 
 ## Level 1
+
 ...
 
 ## FAIL 항목
-| Level | 항목 | 원인 | 수정 방법 |
-|-------|------|------|-----------|
-| 3 | 색상 하드코딩 | KeyInsightScene.tsx:42 | tokens 참조로 교체 |
+
+| Level | 항목          | 원인                   | 수정 방법          |
+| ----- | ------------- | ---------------------- | ------------------ |
+| 3     | 색상 하드코딩 | KeyInsightScene.tsx:42 | tokens 참조로 교체 |
 
 ## 수정 후 재체크 결과
+
 {수정 완료 후 FAIL 항목 재체크}
 ```

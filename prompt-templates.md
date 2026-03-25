@@ -1,4 +1,5 @@
 # Prompt Templates — Editorial Signal Video Production
+
 **Version:** 1.0.0  
 **워크플로:** Step 1 콘텐츠 구조화 → Step 2 영상 빌드 → Step 3 검수/폴리시
 
@@ -7,6 +8,7 @@
 ## Step 1. 콘텐츠 구조화 프롬프트
 
 ### 역할
+
 책 정보와 핵심 요약을 받아 `content-schema.json` 형식의 `book.json` 파일을 생성한다.  
 Claude가 책 내용을 분석하고 씬 구조까지 직접 설계한다.
 
@@ -70,6 +72,16 @@ Claude가 책 내용을 분석하고 씬 구조까지 직접 설계한다.
 6. shorts용 씬:
    - shorts 단독 제작 시: 1~3개 씬 (cover/closing 강제 없음)
    - both 제작 시: 임팩트 있는 2~3개 씬의 `shorts.skipForShorts`를 false로 유지 (나머지는 true 설정)
+7. Beat 설계 규칙:
+   - 8초+ 씬에는 beats 배열 필수
+   - 씬 타입별 beat 패턴:
+     * keyInsight: 3-beat (headline → support → evidence) 또는 2-beat
+     * framework: N+1 beat (label + 항목별 순차 reveal)
+     * compareContrast: 3-beat (hook → compare → recap)
+     * quote: 2-beat (quoteText → attribution)
+   - emphasisTargets는 자막 하이라이트용 "단어"만 (UI 요소 키 금지)
+   - activates/deactivates는 UI 요소 키만 (강조 단어 금지)
+   - shorts: shorts.beats가 있으면 우선 적용
 
 # 출력 형식
 반드시 아래 형식으로 출력해줘:
@@ -105,21 +117,31 @@ Claude가 책 내용을 분석하고 씬 구조까지 직접 설계한다.
 - [ ] CoverContent.coverImageUrl 지정됨 (assets/covers/ 파일 존재 확인)
 - [ ] framework items <= 5개
 - [ ] `npm run validate` 통과
+- [ ] 8초+ 씬에 beats 배열이 있다
+- [ ] 모든 beat의 endRatio - startRatio >= 0.12
+- [ ] beat 간 overlap 없음 (이전 beat.endRatio === 다음 beat.startRatio)
+- [ ] beat.activates의 요소가 해당 씬 content의 실제 필드명이다
+- [ ] beat.emphasisTargets의 모든 단어가 해당 beat.narrationText에 존재한다
+- [ ] activates/deactivates/emphasisTargets가 혼용되지 않는다
 
 ### 에러 처리
 
-| 문제 | 조치 |
-|------|------|
-| JSON 스키마 오류 | validate 결과를 붙여넣고 수정 요청 |
-| 씬 수 부족 (longform <5) | "씬이 부족합니다. keyInsight와 quote를 추가로 설계해주세요" |
-| headline 초과 | "다음 headline들이 60자를 초과합니다. 줄여주세요: [목록]" |
-| 특정 씬 타입 과다 | "keyInsight가 너무 많습니다. 일부를 quote나 application으로 변환해주세요" |
+| 문제                     | 조치                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------- |
+| JSON 스키마 오류         | validate 결과를 붙여넣고 수정 요청                                                    |
+| 씬 수 부족 (longform <5) | "씬이 부족합니다. keyInsight와 quote를 추가로 설계해주세요"                           |
+| headline 초과            | "다음 headline들이 60자를 초과합니다. 줄여주세요: [목록]"                             |
+| 특정 씬 타입 과다        | "keyInsight가 너무 많습니다. 일부를 quote나 application으로 변환해주세요"             |
+| beat 누락 (8초+ 씬)      | "이 씬은 8초 이상입니다. beats 배열을 추가해주세요"                                   |
+| beat duration 부족       | "다음 beat의 duration이 0.12 미만입니다. beat를 합치거나 비율을 조정해주세요: [목록]" |
+| emphasisTargets 혼용     | "emphasisTargets에 UI 요소 키가 들어있습니다. 단어만 넣어주세요: [목록]"              |
 
 ---
 
 ## Step 2. 영상 빌드 프롬프트
 
 ### 역할
+
 Step 1에서 생성한 `book.json`을 기반으로 Remotion 프로젝트를 빌드한다.  
 씬 컴포넌트 작성, 에셋 연결, composition 조립까지 수행.
 
@@ -164,6 +186,8 @@ book.json 파일명: {파일명}
 5. 모든 외부 에셋에 fallback 처리
 6. TTS narrationText는 src/tts/ttsClient.ts를 통해 처리
 7. 구현 불확실한 부분은 TODO 주석으로 표시 후 최선의 버전 구현
+8. beat가 있는 씬은 BeatElement + useBeatTimeline으로 시간 구조 적용
+9. beat.activates/deactivates는 BeatElement의 entering/exiting 상태로 매핑
 
 # 빌드 순서
 Phase 1: 토큰 파일 확인 및 누락된 토큰 보완
@@ -203,19 +227,20 @@ Phase 6: 로컬 preview 확인용 코드 완성
 
 ### 에러 처리
 
-| 문제 | 조치 |
-|------|------|
-| 타입 오류 | `src/types/index.ts` 확인 후 타입 정의 추가 |
-| 토큰 참조 오류 | `design-tokens-draft.json` 경로/키 확인 |
-| 에셋 없음 | `asset-manifest.json`에 항목 추가 + fallback 구현 |
-| TTS 실패 | silent mode 활성화 + 자막 파일만 사용 |
-| Remotion 렌더 오류 | `durationFrames` 연속성 확인 (gap/overlap) |
+| 문제               | 조치                                              |
+| ------------------ | ------------------------------------------------- |
+| 타입 오류          | `src/types/index.ts` 확인 후 타입 정의 추가       |
+| 토큰 참조 오류     | `design-tokens-draft.json` 경로/키 확인           |
+| 에셋 없음          | `asset-manifest.json`에 항목 추가 + fallback 구현 |
+| TTS 실패           | silent mode 활성화 + 자막 파일만 사용             |
+| Remotion 렌더 오류 | `durationFrames` 연속성 확인 (gap/overlap)        |
 
 ---
 
 ## Step 3. 검수 / 폴리시 프롬프트
 
 ### 역할
+
 빌드된 영상을 검수하고 품질을 개선한다.  
 QA 체크리스트 기준으로 문제를 찾고 수정한다.
 
@@ -295,6 +320,9 @@ READY_TO_PUBLISH | NEEDS_REVISION | BLOCKED
 - [ ] 영상 길이 목표 ±5% 이내
 - [ ] 자막 전 씬 커버
 - [ ] `npm run qa` 자동 체크 통과
+- [ ] beat 전환 타이밍이 나레이션과 동기화됨
+- [ ] emphasisTargets가 자막 하이라이트에 반영됨
+- [ ] BeatDesignRationale의 riskFlags가 해결됨
 
 ---
 
@@ -321,6 +349,7 @@ scripts/                  ← 커맨드 변경 시에만 수정
 ### Claude Code 세션 운영 팁
 
 **세션 시작 시 컨텍스트 로드 순서:**
+
 ```
 1. CLAUDE.md
 2. src/types/index.ts
@@ -328,23 +357,30 @@ scripts/                  ← 커맨드 변경 시에만 수정
 ```
 
 **세션이 길어지면 컨텍스트가 희석된다:**
+
 - 3~4개 이상 파일 수정 후에는 새 세션 시작 권장
 - 새 세션 시작 전 현재 상태를 `progress-log.md`에 기록
 
 **컨텍스트 유지 전략:**
+
 ```markdown
 # progress-log.md (세션 간 인수인계 파일)
+
 ## 완료된 작업
+
 - [x] CoverScene.tsx
 - [x] KeyInsightScene.tsx
 
 ## 진행 중
+
 - [ ] FrameworkScene.tsx — items 5개 stagger 구현 중
 
 ## 알려진 이슈
+
 - SubtitleLayer zIndex 겹침 (hud:70 vs emphasis:40 확인 필요)
 
 ## 다음 세션에서 할 것
+
 - FrameworkScene 완성
 - LongformComposition 조립
 ```

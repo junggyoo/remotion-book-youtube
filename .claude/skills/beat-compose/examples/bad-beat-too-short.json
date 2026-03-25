@@ -1,0 +1,54 @@
+{
+  "_description": "나쁜 예시 — beat duration이 너무 짧음 (endRatio - startRatio < 0.12)",
+  "_problem": "beat-2의 duration이 0.08로 최소 0.12 미만. 시청자가 읽을 시간 부족.",
+  "scene": {
+    "id": "bad-too-short",
+    "type": "keyInsight",
+    "durationFrames": 600,
+    "content": {
+      "headline": "운동은 체력만이 아니라 정신력도 키운다",
+      "supportText": "단 20분의 유산소 운동이 집중력을 높입니다.",
+      "underlineKeyword": "정신력",
+      "useSignalBar": true
+    },
+    "beats": [
+      {
+        "id": "bad-short-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.60,
+        "narrationText": "운동은 체력만이 아니라 정신력도 키운다. 이것은 많은 연구가 증명하고 있습니다.",
+        "activates": ["signalBar", "headline"],
+        "emphasisTargets": ["정신력"],
+        "transition": "enter"
+      },
+      {
+        "id": "bad-short-b2",
+        "role": "support",
+        "startRatio": 0.60,
+        "endRatio": 0.68,
+        "narrationText": "특히",
+        "activates": ["supportText"],
+        "emphasisTargets": [],
+        "transition": "enter"
+      },
+      {
+        "id": "bad-short-b3",
+        "role": "evidence",
+        "startRatio": 0.68,
+        "endRatio": 1.0,
+        "narrationText": "단 20분의 유산소 운동만으로도 집중력이 크게 향상됩니다.",
+        "activates": ["evidenceCard"],
+        "deactivates": ["supportText"],
+        "emphasisTargets": ["20분", "집중력"],
+        "transition": "replace"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "잘못된 분절: '특히'는 약한 경계인데 별도 beat로 분리함.",
+    "evidenceDecision": "included-A",
+    "densityDecision": "beat-2가 0.08 비율로 너무 짧음. 최소 0.12 필요.",
+    "riskFlags": ["FAIL: beat-2 duration 0.08 < 최소 0.12", "약한 경계에서 불필요 분절"]
+  }
+}

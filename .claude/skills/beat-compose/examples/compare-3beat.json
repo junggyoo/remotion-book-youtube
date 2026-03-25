@@ -1,0 +1,54 @@
+{
+  "_description": "compareContrast 3-beat — 오해 vs 실제 비교",
+  "scene": {
+    "id": "compare-morning-myth",
+    "type": "compareContrast",
+    "durationFrames": 900,
+    "content": {
+      "leftLabel": "흔한 오해",
+      "leftContent": "아침형 인간은 타고나는 것이다",
+      "rightLabel": "실제",
+      "rightContent": "누구나 훈련으로 아침형 인간이 될 수 있다",
+      "connector": "→"
+    },
+    "beats": [
+      {
+        "id": "morning-myth-b1",
+        "role": "hook",
+        "startRatio": 0,
+        "endRatio": 0.35,
+        "narrationText": "많은 사람들이 아침형 인간은 타고난다고 생각합니다.",
+        "activates": ["leftLabel", "leftContent"],
+        "emphasisTargets": ["타고난다"],
+        "transition": "enter"
+      },
+      {
+        "id": "morning-myth-b2",
+        "role": "compare",
+        "startRatio": 0.35,
+        "endRatio": 0.70,
+        "narrationText": "하지만 할 엘로드는 말합니다. 누구나 훈련으로 바뀔 수 있다고.",
+        "activates": ["rightLabel", "rightContent"],
+        "emphasisTargets": ["훈련", "바뀔 수 있다"],
+        "transition": "enter"
+      },
+      {
+        "id": "morning-myth-b3",
+        "role": "recap",
+        "startRatio": 0.70,
+        "endRatio": 1.0,
+        "narrationText": "결국 아침은 선택의 문제이지, 유전의 문제가 아닙니다.",
+        "activates": ["connector"],
+        "deactivates": ["leftContent"],
+        "emphasisTargets": ["선택", "유전"],
+        "transition": "replace"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "'하지만'(강한 경계)에서 b1→b2 분절. '결국'(결론 도입)에서 b2→b3 분절.",
+    "evidenceDecision": "not-applicable",
+    "densityDecision": "beat당 평균 1.7개 시각 사건. 적정 범위.",
+    "riskFlags": []
+  }
+}

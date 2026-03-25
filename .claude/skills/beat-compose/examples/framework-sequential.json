@@ -1,0 +1,97 @@
+{
+  "_description": "framework 씬 N+1 beat — SAVERS 6단계 순차 reveal",
+  "scene": {
+    "id": "framework-savers",
+    "type": "framework",
+    "durationFrames": 1800,
+    "content": {
+      "frameworkLabel": "SAVERS 프레임워크",
+      "items": [
+        { "number": 1, "title": "Silence", "description": "명상·기도·심호흡" },
+        { "number": 2, "title": "Affirmations", "description": "긍정 확언" },
+        { "number": 3, "title": "Visualization", "description": "시각화" },
+        { "number": 4, "title": "Exercise", "description": "운동" },
+        { "number": 5, "title": "Reading", "description": "독서" },
+        { "number": 6, "title": "Scribing", "description": "일기 쓰기" }
+      ]
+    },
+    "beats": [
+      {
+        "id": "savers-b1",
+        "role": "headline",
+        "startRatio": 0,
+        "endRatio": 0.15,
+        "narrationText": "할 엘로드는 이 여섯 가지를 SAVERS라고 이름 붙였습니다.",
+        "activates": ["frameworkLabel"],
+        "emphasisTargets": ["SAVERS"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b2",
+        "role": "reveal",
+        "startRatio": 0.15,
+        "endRatio": 0.29,
+        "narrationText": "첫 번째, Silence. 고요함으로 하루를 시작합니다.",
+        "activates": ["items[0]"],
+        "emphasisTargets": ["Silence"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b3",
+        "role": "reveal",
+        "startRatio": 0.29,
+        "endRatio": 0.43,
+        "narrationText": "두 번째, Affirmations. 자신에게 긍정적인 메시지를 반복합니다.",
+        "activates": ["items[1]"],
+        "emphasisTargets": ["Affirmations"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b4",
+        "role": "reveal",
+        "startRatio": 0.43,
+        "endRatio": 0.57,
+        "narrationText": "세 번째, Visualization. 원하는 미래를 생생하게 그립니다.",
+        "activates": ["items[2]"],
+        "emphasisTargets": ["Visualization"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b5",
+        "role": "reveal",
+        "startRatio": 0.57,
+        "endRatio": 0.71,
+        "narrationText": "네 번째, Exercise. 몸을 움직여 에너지를 깨웁니다.",
+        "activates": ["items[3]"],
+        "emphasisTargets": ["Exercise"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b6",
+        "role": "reveal",
+        "startRatio": 0.71,
+        "endRatio": 0.85,
+        "narrationText": "다섯 번째, Reading. 10분이라도 성장을 위한 독서를 합니다.",
+        "activates": ["items[4]"],
+        "emphasisTargets": ["Reading"],
+        "transition": "enter"
+      },
+      {
+        "id": "savers-b7",
+        "role": "reveal",
+        "startRatio": 0.85,
+        "endRatio": 1.0,
+        "narrationText": "마지막, Scribing. 생각과 감사를 글로 남깁니다.",
+        "activates": ["items[5]"],
+        "emphasisTargets": ["Scribing"],
+        "transition": "enter"
+      }
+    ]
+  },
+  "rationale": {
+    "segmentationReason": "framework 6개 항목 → N+1(7) beat. '첫 번째'~'마지막' 나열 구조에서 각 항목별 자연 분절.",
+    "evidenceDecision": "not-applicable",
+    "densityDecision": "beat당 1개 시각 사건(항목 등장). 적정.",
+    "riskFlags": ["7 beat로 많지만 framework 순차 reveal 패턴이므로 허용"]
+  }
+}

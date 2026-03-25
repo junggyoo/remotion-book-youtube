@@ -22,7 +22,7 @@ npm run render:shorts    # shorts 렌더
 ## 파이프라인 순서 (반드시 이 순서)
 1.BookAnalyzer → 2.NarrativePlanner → 3.OpeningComposer
 → 4.ScenePlanner → 5.GapDetector → 6.SceneSynthesizer
-→ 6.5.AssetPlanner → 7.BlueprintValidator → 8.BlueprintRenderer
+→ 6.3.BeatComposer → 6.5.AssetPlanner → 7.BlueprintValidator → 8.BlueprintRenderer
 → 9.ScenePromoter
 
 ## HITL 체크포인트 (review 모드)
@@ -30,9 +30,20 @@ A: Opening 승인 (3단계 후)
 B: Signature Scene 승인 (6단계 후)
 C: Final QA 승인 (8단계 후)
 
+## Beat 시스템 규칙
+- 8초+ 씬에는 beats 배열 필수
+- beat.activates = UI 요소 키, beat.emphasisTargets = 자막 하이라이트 단어 (혼용 금지)
+- beat 최소 duration: endRatio - startRatio >= 0.12
+- beat 간 overlap 금지 (beat[n].endRatio === beat[n+1].startRatio)
+- evidenceCard는 evidence-rubric.md A/B등급만 사용 (C등급 금지)
+- BeatDesignRationale 구조화된 근거 필수 출력
+- beat가 있는 씬은 BeatElement + useBeatTimeline으로 렌더링
+
 ## 참조 (상세 내용은 skill 참조)
 - 디자인 토큰: src/design/tokens/
 - 모션 프리셋: src/design/tokens/motion-presets.json
 - 씬 카탈로그: src/schema/scene-catalog.json
 - DSGS 정규 스펙: docs/DSGS_CANONICAL_SPEC_v1.md
 - 오케스트레이션: docs/DSGS_CLAUDE_CODE_ORCHESTRATION.md
+- Beat 시스템 설계: docs/BEAT_SYSTEM_DESIGN_SPEC_v0.2.md
+- Beat Composer Agent/Skill: docs/BEAT_COMPOSER_AGENT_SKILL_DESIGN_v0.2.md
