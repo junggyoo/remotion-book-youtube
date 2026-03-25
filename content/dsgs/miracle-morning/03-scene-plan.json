@@ -1,0 +1,334 @@
+{
+  "_stage": "4-5-ScenePlanner+GapDetector",
+  "_book": "miracle-morning",
+  "_generatedAt": "2026-03-25",
+
+  "policy": {
+    "presetConfidenceThreshold": 0.7,
+    "minSignatureScenes": 2,
+    "maxSynthesizedScenes": 5,
+    "openingMustBeDynamic": true,
+    "formatPolicy": {
+      "format": "longform",
+      "maxElementsPerScene": 6,
+      "captionDensity": "medium",
+      "openingDurationSecRange": [20, 35],
+      "sceneCountRange": [10, 16]
+    }
+  },
+
+  "totalSlots": 14,
+
+  "presetMatches": [
+    {
+      "segment": "opening",
+      "slotIndex": 0,
+      "sceneType": "highlight",
+      "note": "→ OpeningPackage.hook으로 대체됨 (dynamic)",
+      "confidence": 0.0,
+      "scoreBreakdown": {
+        "delivery": 0,
+        "structure": 0,
+        "contentFit": 0,
+        "layout": 0,
+        "explanation": "Opening은 OpeningComposer에서 생성. ScenePlanner 스킵."
+      }
+    },
+    {
+      "segment": "opening",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "note": "→ OpeningPackage.intro로 대체됨 (dynamic)",
+      "confidence": 0.0,
+      "scoreBreakdown": {
+        "delivery": 0,
+        "structure": 0,
+        "contentFit": 0,
+        "layout": 0,
+        "explanation": "Opening은 OpeningComposer에서 생성. ScenePlanner 스킵."
+      }
+    },
+    {
+      "segment": "setup",
+      "slotIndex": 0,
+      "sceneType": "chapterDivider",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "SAVERS 시스템",
+        "chapterSubtitle": "아침을 지배하는 6가지 습관"
+      },
+      "confidence": 0.92,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.9,
+        "contentFit": 0.9,
+        "layout": 0.92,
+        "explanation": "챕터 전환 역할에 chapterDivider가 완벽히 적합"
+      }
+    },
+    {
+      "segment": "setup",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "아침 1시간이 나머지 23시간을 결정한다",
+        "supportText": "할 엘로드에 따르면, 하루의 첫 1시간에 어떤 습관을 실천하느냐가 그날 전체의 생산성, 에너지, 마인드셋을 좌우합니다.",
+        "underlineKeyword": "1시간",
+        "useSignalBar": true
+      },
+      "confidence": 0.88,
+      "scoreBreakdown": {
+        "delivery": 0.9,
+        "structure": 0.85,
+        "contentFit": 0.9,
+        "layout": 0.88,
+        "explanation": "단일 핵심 메시지 전달에 keyInsight가 적합"
+      }
+    },
+    {
+      "segment": "core",
+      "slotIndex": 0,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "SAVERS",
+        "items": [
+          {
+            "number": 1,
+            "title": "Silence",
+            "description": "명상과 고요함으로 하루를 시작합니다"
+          },
+          {
+            "number": 2,
+            "title": "Affirmations",
+            "description": "긍정적 확언으로 마인드셋을 세팅합니다"
+          },
+          {
+            "number": 3,
+            "title": "Visualization",
+            "description": "목표 달성을 생생하게 시각화합니다"
+          },
+          {
+            "number": 4,
+            "title": "Exercise",
+            "description": "운동으로 에너지를 충전합니다"
+          },
+          {
+            "number": 5,
+            "title": "Reading",
+            "description": "독서로 지식을 쌓습니다"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "confidence": 0.85,
+      "scoreBreakdown": {
+        "delivery": 0.9,
+        "structure": 0.8,
+        "contentFit": 0.85,
+        "layout": 0.85,
+        "explanation": "5개 항목 grid-expand. 단, SAVERS는 6개라 items 5개 제한에 Scribing이 빠짐"
+      },
+      "alternativeTypes": ["listReveal"]
+    },
+    {
+      "segment": "core",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "Silence — 고요함 속에서 하루가 시작된다",
+        "supportText": "명상, 기도, 심호흡 등 어떤 형태든 좋습니다. 핵심은 하루를 반응 모드가 아닌 의도적 고요함으로 여는 것입니다.",
+        "underlineKeyword": "고요함",
+        "useSignalBar": true
+      },
+      "confidence": 0.82,
+      "scoreBreakdown": {
+        "delivery": 0.85,
+        "structure": 0.8,
+        "contentFit": 0.82,
+        "layout": 0.8,
+        "explanation": "개별 SAVERS 요소 심화. keyInsight로 충분히 전달 가능"
+      }
+    },
+    {
+      "segment": "core",
+      "slotIndex": 2,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "Visualization — 뇌는 상상과 현실을 구분하지 못한다",
+        "supportText": "올림픽 선수의 73%가 시각화 훈련을 합니다. 목표를 생생하게 그리면 뇌는 이미 그 경로를 준비하기 시작합니다.",
+        "underlineKeyword": "시각화",
+        "useSignalBar": false
+      },
+      "confidence": 0.8,
+      "scoreBreakdown": {
+        "delivery": 0.82,
+        "structure": 0.78,
+        "contentFit": 0.8,
+        "layout": 0.8,
+        "explanation": "데이터(73%) 포함이지만 단일 수치라 data 씬보다 keyInsight가 적합"
+      }
+    },
+    {
+      "segment": "core",
+      "slotIndex": 3,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "SAVERS는 순환하며 서로를 강화한다",
+        "supportText": "각 습관은 독립적이지만, 순서대로 실천하면 이전 습관이 다음 습관의 효과를 증폭시킵니다. 이것이 미라클 모닝의 진정한 힘입니다.",
+        "underlineKeyword": "순환",
+        "useSignalBar": true
+      },
+      "confidence": 0.55,
+      "scoreBreakdown": {
+        "delivery": 0.6,
+        "structure": 0.4,
+        "contentFit": 0.55,
+        "layout": 0.5,
+        "explanation": "★ GAP: 순환 구조를 keyInsight의 선형 레이아웃으로는 표현 불가. cyclic-flow 필요"
+      },
+      "alternativeTypes": ["framework"]
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 0,
+      "sceneType": "application",
+      "content": {
+        "anchorStatement": "미라클 모닝 60분 타임라인",
+        "steps": [
+          { "title": "5:00 기상", "detail": "알람 후 즉시 일어나기" },
+          { "title": "5:10 Silence", "detail": "10분 명상" },
+          { "title": "5:20 Affirmations", "detail": "긍정 확언 읽기" },
+          { "title": "5:40 Exercise", "detail": "가벼운 운동" }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "confidence": 0.62,
+      "scoreBreakdown": {
+        "delivery": 0.7,
+        "structure": 0.55,
+        "contentFit": 0.6,
+        "layout": 0.6,
+        "explanation": "★ GAP: 6단계 타임라인인데 steps 4개 제한. 시간축 시각화가 더 적합"
+      },
+      "alternativeTypes": ["timeline"]
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 1,
+      "sceneType": "compareContrast",
+      "content": {
+        "leftLabel": "미라클 모닝 이전",
+        "leftContent": "알람 스누즈 반복, 급하게 출근, 늘 피곤한 하루, 목표 없는 반복",
+        "rightLabel": "미라클 모닝 이후",
+        "rightContent": "의도적 기상, 에너지 충전, 명확한 목표, 성장하는 매일",
+        "leftTag": "before",
+        "rightTag": "after",
+        "showConnector": true,
+        "revealOrder": "left-first"
+      },
+      "confidence": 0.9,
+      "scoreBreakdown": {
+        "delivery": 0.92,
+        "structure": 0.88,
+        "contentFit": 0.9,
+        "layout": 0.9,
+        "explanation": "Before/After 대비에 compareContrast가 완벽 매칭"
+      }
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 0,
+      "sceneType": "quote",
+      "content": {
+        "quoteText": "당신의 아침 루틴이 곧 당신의 인생 수준을 결정합니다.",
+        "attribution": "할 엘로드",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "confidence": 0.95,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.95,
+        "contentFit": 0.95,
+        "layout": 0.95,
+        "explanation": "저자 명언 전달에 quote 프리셋이 완벽"
+      }
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "아침을 바꾸면 인생이 바뀐다",
+        "supportText": "미라클 모닝은 단순한 아침 루틴이 아닙니다. 삶의 모든 영역을 동시에 업그레이드하는 통합 시스템입니다. SAVERS 하나하나가 당신을 더 나은 버전으로 만듭니다.",
+        "underlineKeyword": "인생",
+        "useSignalBar": true
+      },
+      "confidence": 0.86,
+      "scoreBreakdown": {
+        "delivery": 0.88,
+        "structure": 0.85,
+        "contentFit": 0.86,
+        "layout": 0.85,
+        "explanation": "핵심 메시지 요약에 keyInsight 적합"
+      }
+    },
+    {
+      "segment": "closing",
+      "slotIndex": 0,
+      "sceneType": "closing",
+      "content": {
+        "recapStatement": "내일 아침, 알람이 울리면 SAVERS를 시작하세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "confidence": 0.95,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.95,
+        "contentFit": 0.95,
+        "layout": 0.95,
+        "explanation": "closing 프리셋 완벽 매칭"
+      }
+    }
+  ],
+
+  "gaps": [
+    {
+      "segment": "core",
+      "slotIndex": 3,
+      "bestPresetMatch": {
+        "sceneType": "keyInsight",
+        "confidence": 0.55
+      },
+      "gapReason": "SAVERS 6요소의 순환적 상호 강화를 선형 레이아웃으로 표현 불가. cyclic-flow + orbit/radial 레이아웃 필요",
+      "requiredCapabilities": [
+        "cyclic-flow",
+        "radial-layout",
+        "connection-lines",
+        "6-element-display"
+      ],
+      "priority": "must",
+      "intent": "SAVERS 6가지가 순환하며 서로를 강화한다는 핵심 메시지를 시각적으로 전달"
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 0,
+      "bestPresetMatch": {
+        "sceneType": "application",
+        "confidence": 0.62
+      },
+      "gapReason": "60분 타임라인 6단계를 application의 steps 4개 제한으로 표현 불가. 시간축 시각화 필요",
+      "requiredCapabilities": [
+        "timeline-horizontal",
+        "6-step-display",
+        "time-markers",
+        "progress-indicator"
+      ],
+      "priority": "must",
+      "intent": "SAVERS 실천 타임라인(5:00~6:00)을 시간축으로 직관적 표현"
+    }
+  ]
+}

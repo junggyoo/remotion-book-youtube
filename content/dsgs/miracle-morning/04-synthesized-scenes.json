@@ -1,0 +1,330 @@
+{
+  "_stage": "6-SceneSynthesizer",
+  "_book": "miracle-morning",
+  "_generatedAt": "2026-03-25",
+
+  "synthesizedBlueprints": [
+    {
+      "id": "synth-savers-wheel",
+      "intent": "SAVERS 6가지가 순환하며 서로를 강화한다는 핵심 메시지를 순환 휠로 시각화",
+      "origin": "synthesized",
+      "lifecycle": "candidate-promotable",
+      "fallbackPreset": "framework",
+      "fallbackContent": {
+        "frameworkLabel": "SAVERS 순환 시스템",
+        "items": [
+          { "number": 1, "title": "Silence", "description": "명상으로 시작" },
+          {
+            "number": 2,
+            "title": "Affirmations",
+            "description": "확언으로 세팅"
+          },
+          {
+            "number": 3,
+            "title": "Visualization",
+            "description": "목표 시각화"
+          },
+          { "number": 4, "title": "Exercise", "description": "에너지 충전" },
+          { "number": 5, "title": "Reading", "description": "지식 축적" }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "layout": "radial",
+      "layoutConfig": {
+        "centerLabel": "SAVERS",
+        "radius": 280,
+        "startAngle": -90,
+        "direction": "clockwise"
+      },
+      "elements": [
+        {
+          "id": "wheel-center",
+          "type": "label",
+          "props": {
+            "text": "SAVERS",
+            "style": "accent",
+            "fontSize": "headlineM"
+          }
+        },
+        {
+          "id": "wheel-s",
+          "type": "label",
+          "props": { "text": "S\nSilence", "angle": 0, "color": "accent" }
+        },
+        {
+          "id": "wheel-a",
+          "type": "label",
+          "props": { "text": "A\nAffirmations", "angle": 60, "color": "accent" }
+        },
+        {
+          "id": "wheel-v",
+          "type": "label",
+          "props": {
+            "text": "V\nVisualization",
+            "angle": 120,
+            "color": "accent"
+          }
+        },
+        {
+          "id": "wheel-e",
+          "type": "label",
+          "props": { "text": "E\nExercise", "angle": 180, "color": "signal" }
+        },
+        {
+          "id": "wheel-r",
+          "type": "label",
+          "props": { "text": "R\nReading", "angle": 240, "color": "signal" }
+        },
+        {
+          "id": "wheel-sc",
+          "type": "label",
+          "props": { "text": "S\nScribing", "angle": 300, "color": "signal" }
+        },
+        {
+          "id": "wheel-connectors",
+          "type": "shape",
+          "props": {
+            "type": "circular-arrows",
+            "color": "lineSubtle",
+            "strokeWidth": 2
+          }
+        },
+        {
+          "id": "wheel-headline",
+          "type": "headline",
+          "props": {
+            "text": "순환하며 서로를 강화한다",
+            "level": "headlineS",
+            "position": "bottom",
+            "delayFrames": 54
+          }
+        }
+      ],
+      "choreography": "stagger-clockwise",
+      "motionPreset": "smooth",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 0,
+      "durationFrames": 300,
+      "mediaPlan": {
+        "narrationText": "핵심은 이 6가지가 순환적으로 서로를 강화한다는 것입니다. 고요함이 확언의 집중력을 높이고, 시각화가 운동의 동기를 만들고, 독서가 기록의 깊이를 더합니다. 하나의 톱니바퀴가 다음 톱니바퀴를 돌립니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["순환", "강화", "톱니바퀴"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 0, "ms": 300 },
+            { "afterSentence": 2, "ms": 200 }
+          ]
+        },
+        "assetPlan": {
+          "required": [],
+          "fallbackMode": "shape-placeholder"
+        }
+      },
+      "synthesisConfidence": 0.76
+    },
+    {
+      "id": "synth-morning-timeline",
+      "intent": "SAVERS 실천 타임라인(5:00~6:00)을 수평 시간축으로 직관적 표현",
+      "origin": "synthesized",
+      "lifecycle": "candidate-promotable",
+      "fallbackPreset": "timeline",
+      "fallbackContent": {
+        "timelineLabel": "미라클 모닝 60분",
+        "events": [
+          {
+            "year": "5:00",
+            "title": "기상",
+            "description": "알람 후 즉시 일어나기"
+          },
+          { "year": "5:10", "title": "Silence", "description": "10분 명상" },
+          {
+            "year": "5:20",
+            "title": "Affirmations",
+            "description": "긍정 확언"
+          },
+          {
+            "year": "5:30",
+            "title": "Visualization",
+            "description": "목표 시각화"
+          },
+          { "year": "5:40", "title": "Exercise", "description": "가벼운 운동" },
+          {
+            "year": "5:50",
+            "title": "Reading + Scribing",
+            "description": "독서와 기록"
+          }
+        ],
+        "showConnectors": true
+      },
+      "layout": "timeline-h",
+      "layoutConfig": {
+        "startTime": "5:00",
+        "endTime": "6:00",
+        "intervalMinutes": 10,
+        "showProgressBar": true,
+        "progressColor": "accent"
+      },
+      "elements": [
+        {
+          "id": "tl-title",
+          "type": "headline",
+          "props": {
+            "text": "미라클 모닝 60분",
+            "level": "headlineS",
+            "position": "top"
+          }
+        },
+        {
+          "id": "tl-5-00",
+          "type": "stat-card",
+          "props": {
+            "time": "5:00",
+            "label": "기상",
+            "icon": "alarm",
+            "color": "signal"
+          }
+        },
+        {
+          "id": "tl-5-10",
+          "type": "stat-card",
+          "props": {
+            "time": "5:10",
+            "label": "Silence",
+            "icon": "meditation",
+            "color": "accent"
+          }
+        },
+        {
+          "id": "tl-5-20",
+          "type": "stat-card",
+          "props": {
+            "time": "5:20",
+            "label": "Affirmations",
+            "icon": "speech",
+            "color": "accent"
+          }
+        },
+        {
+          "id": "tl-5-30",
+          "type": "stat-card",
+          "props": {
+            "time": "5:30",
+            "label": "Visualization",
+            "icon": "eye",
+            "color": "accent"
+          }
+        },
+        {
+          "id": "tl-5-40",
+          "type": "stat-card",
+          "props": {
+            "time": "5:40",
+            "label": "Exercise",
+            "icon": "running",
+            "color": "signal"
+          }
+        },
+        {
+          "id": "tl-5-50",
+          "type": "stat-card",
+          "props": {
+            "time": "5:50",
+            "label": "Reading + Scribing",
+            "icon": "book",
+            "color": "signal"
+          }
+        },
+        {
+          "id": "tl-progress",
+          "type": "shape",
+          "props": {
+            "type": "horizontal-progress-bar",
+            "color": "accent",
+            "animateToPercent": 100,
+            "durationFrames": 180
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "smooth",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 0,
+      "durationFrames": 270,
+      "mediaPlan": {
+        "narrationText": "실제 아침 루틴은 이렇게 구성됩니다. 5시에 기상하고, 각 활동에 10분씩 투자합니다. 명상으로 마음을 가라앉히고, 확언으로 방향을 잡고, 시각화로 목표를 선명하게 합니다. 운동으로 몸을 깨우고, 독서와 기록으로 마무리합니다. 6시면 이미 하루의 승리를 거둔 셈입니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["5시", "10분", "6시"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 0, "ms": 200 },
+            { "afterSentence": 3, "ms": 300 }
+          ]
+        },
+        "assetPlan": {
+          "required": [
+            {
+              "role": "icon",
+              "description": "6개 SAVERS 아이콘 (명상, 확언, 시각화, 운동, 독서, 기록)",
+              "optional": true
+            }
+          ],
+          "searchQueries": [
+            "morning routine icons",
+            "meditation exercise reading icons minimal"
+          ],
+          "fallbackMode": "shape-placeholder"
+        }
+      },
+      "synthesisConfidence": 0.8
+    }
+  ]
+}

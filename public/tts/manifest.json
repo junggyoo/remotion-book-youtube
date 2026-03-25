@@ -1,0 +1,100 @@
+[
+  {
+    "sceneId": "cover-01",
+    "audioFile": "cover-01.mp3",
+    "captionsFile": "cover-01.vtt",
+    "durationMs": 6456,
+    "durationFrames": 209
+  },
+  {
+    "sceneId": "hook-01",
+    "audioFile": "hook-01.mp3",
+    "captionsFile": "hook-01.vtt",
+    "durationMs": 13080,
+    "durationFrames": 408
+  },
+  {
+    "sceneId": "intro-01",
+    "audioFile": "intro-01.mp3",
+    "captionsFile": "intro-01.vtt",
+    "durationMs": 21096,
+    "durationFrames": 648
+  },
+  {
+    "sceneId": "chapter-01",
+    "audioFile": "chapter-01.mp3",
+    "captionsFile": "chapter-01.vtt",
+    "durationMs": 5232,
+    "durationFrames": 172
+  },
+  {
+    "sceneId": "insight-01",
+    "audioFile": "insight-01.mp3",
+    "captionsFile": "insight-01.vtt",
+    "durationMs": 19536,
+    "durationFrames": 602
+  },
+  {
+    "sceneId": "framework-01",
+    "audioFile": "framework-01.mp3",
+    "captionsFile": "framework-01.vtt",
+    "durationMs": 26400,
+    "durationFrames": 807
+  },
+  {
+    "sceneId": "insight-silence",
+    "audioFile": "insight-silence.mp3",
+    "captionsFile": "insight-silence.vtt",
+    "durationMs": 25656,
+    "durationFrames": 785
+  },
+  {
+    "sceneId": "insight-viz",
+    "audioFile": "insight-viz.mp3",
+    "captionsFile": "insight-viz.vtt",
+    "durationMs": 24984,
+    "durationFrames": 765
+  },
+  {
+    "sceneId": "synth-savers-wheel",
+    "audioFile": "synth-savers-wheel.mp3",
+    "captionsFile": "synth-savers-wheel.vtt",
+    "durationMs": 16872,
+    "durationFrames": 522
+  },
+  {
+    "sceneId": "synth-morning-timeline",
+    "audioFile": "synth-morning-timeline.mp3",
+    "captionsFile": "synth-morning-timeline.vtt",
+    "durationMs": 19872,
+    "durationFrames": 612
+  },
+  {
+    "sceneId": "compare-01",
+    "audioFile": "compare-01.mp3",
+    "captionsFile": "compare-01.vtt",
+    "durationMs": 19152,
+    "durationFrames": 590
+  },
+  {
+    "sceneId": "quote-01",
+    "audioFile": "quote-01.mp3",
+    "captionsFile": "quote-01.vtt",
+    "durationMs": 7992,
+    "durationFrames": 255
+  },
+  {
+    "sceneId": "insight-recap",
+    "audioFile": "insight-recap.mp3",
+    "captionsFile": "insight-recap.vtt",
+    "durationMs": 21288,
+    "durationFrames": 654
+  },
+  {
+    "sceneId": "closing-01",
+    "audioFile": "closing-01.mp3",
+    "captionsFile": "closing-01.vtt",
+    "durationMs": 15168,
+    "durationFrames": 471
+  }
+]

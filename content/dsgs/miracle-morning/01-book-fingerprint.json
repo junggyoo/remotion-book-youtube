@@ -1,0 +1,97 @@
+{
+  "_stage": "1-BookAnalyzer",
+  "_book": "miracle-morning",
+  "_generatedAt": "2026-03-25",
+
+  "bookFingerprint": {
+    "genre": "selfHelp",
+    "subGenre": "morning-routine",
+    "structure": "framework",
+    "coreFramework": "SAVERS 6단계 (Silence, Affirmations, Visualization, Exercise, Reading, Scribing)",
+    "keyConceptCount": 6,
+    "emotionalTone": ["uplifting", "disciplined", "hopeful"],
+    "narrativeArcType": "transformation",
+    "urgencyLevel": "high",
+    "visualMotifs": ["sunrise", "wheel", "clock", "loop", "morning-light"],
+    "spatialMetaphors": ["순환", "시간축", "상승", "반복 루프"],
+    "hookStrategy": "system",
+    "entryAngle": "매일 아침 1시간이 인생 전체의 궤적을 바꾼다는 시스템적 관점",
+    "uniqueElements": [
+      "SAVERS 6요소 순환 휠 — 기존 framework grid로는 순환성 표현 불가",
+      "시간축 타임라인 — application steps보다 시각적 시간 흐름이 필요",
+      "Before/After 변환 — 미라클 모닝 전후 삶의 대비"
+    ],
+    "contentMode": "actionable"
+  },
+
+  "videoNarrativePlan": {
+    "totalDurationSec": 480,
+    "segments": [
+      {
+        "role": "opening",
+        "durationRatio": 0.06,
+        "intent": "95%의 사람들이 아침을 낭비한다는 충격적 사실로 시청자를 잡고, SAVERS 시스템의 존재를 암시",
+        "requiredDelivery": ["hook-pain", "system-tease", "credibility"]
+      },
+      {
+        "role": "setup",
+        "durationRatio": 0.12,
+        "intent": "할 엘로드의 교통사고 생존 스토리와 미라클 모닝 탄생 배경. 왜 아침이 중요한지 맥락 제공",
+        "requiredDelivery": [
+          "author-credibility",
+          "origin-story",
+          "why-morning"
+        ]
+      },
+      {
+        "role": "core",
+        "durationRatio": 0.5,
+        "intent": "SAVERS 6가지 습관을 각각 설명. 순환 구조와 상호 강화 효과 강조. 프레임워크의 핵심",
+        "requiredDelivery": [
+          "framework-reveal",
+          "each-element-detail",
+          "synergy-explanation",
+          "cyclic-flow"
+        ]
+      },
+      {
+        "role": "climax",
+        "durationRatio": 0.15,
+        "intent": "실제 아침 타임라인으로 실행 가능성 증명. Before/After 대비로 변환 효과 시각화",
+        "requiredDelivery": [
+          "timeline-application",
+          "before-after-contrast",
+          "transformation-proof"
+        ]
+      },
+      {
+        "role": "resolution",
+        "durationRatio": 0.1,
+        "intent": "할 엘로드의 핵심 명언과 함께 SAVERS의 본질 요약. 감정적 마무리",
+        "requiredDelivery": [
+          "author-quote",
+          "essence-recap",
+          "emotional-landing"
+        ]
+      },
+      {
+        "role": "closing",
+        "durationRatio": 0.07,
+        "intent": "내일 아침부터 시작하라는 행동 촉구. 채널 CTA",
+        "requiredDelivery": ["action-cta", "channel-cta", "brand-close"]
+      }
+    ],
+    "emotionalCurve": [
+      { "timestamp": 0, "intensity": 0.8, "label": "hook-shock" },
+      { "timestamp": 30, "intensity": 0.5, "label": "setup-calm" },
+      { "timestamp": 60, "intensity": 0.4, "label": "context-build" },
+      { "timestamp": 120, "intensity": 0.6, "label": "framework-reveal" },
+      { "timestamp": 240, "intensity": 0.75, "label": "synergy-peak" },
+      { "timestamp": 300, "intensity": 0.7, "label": "application-energy" },
+      { "timestamp": 360, "intensity": 0.85, "label": "transformation-climax" },
+      { "timestamp": 420, "intensity": 0.6, "label": "quote-reflection" },
+      { "timestamp": 450, "intensity": 0.5, "label": "resolution" },
+      { "timestamp": 480, "intensity": 0.4, "label": "closing-warmth" }
+    ]
+  }
+}

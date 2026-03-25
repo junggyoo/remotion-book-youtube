@@ -1,0 +1,107 @@
+{
+  "_stage": "6.5-TTS",
+  "_generatedAt": "2026-03-25",
+  "totalFrames": 7500,
+  "totalSeconds": 250,
+  "targetSeconds": 480,
+  "scenes": [
+    {
+      "sceneId": "cover-01",
+      "durationFrames": 209,
+      "durationSec": 6.97,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/cover-01.mp3"
+    },
+    {
+      "sceneId": "hook-01",
+      "durationFrames": 408,
+      "durationSec": 13.6,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/hook-01.mp3"
+    },
+    {
+      "sceneId": "intro-01",
+      "durationFrames": 648,
+      "durationSec": 21.6,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/intro-01.mp3"
+    },
+    {
+      "sceneId": "chapter-01",
+      "durationFrames": 172,
+      "durationSec": 5.73,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/chapter-01.mp3"
+    },
+    {
+      "sceneId": "insight-01",
+      "durationFrames": 602,
+      "durationSec": 20.07,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/insight-01.mp3"
+    },
+    {
+      "sceneId": "framework-01",
+      "durationFrames": 807,
+      "durationSec": 26.9,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/framework-01.mp3"
+    },
+    {
+      "sceneId": "insight-silence",
+      "durationFrames": 785,
+      "durationSec": 26.17,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/insight-silence.mp3"
+    },
+    {
+      "sceneId": "insight-viz",
+      "durationFrames": 765,
+      "durationSec": 25.5,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/insight-viz.mp3"
+    },
+    {
+      "sceneId": "synth-savers-wheel",
+      "durationFrames": 522,
+      "durationSec": 17.4,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/synth-savers-wheel.mp3"
+    },
+    {
+      "sceneId": "synth-morning-timeline",
+      "durationFrames": 612,
+      "durationSec": 20.4,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/synth-morning-timeline.mp3"
+    },
+    {
+      "sceneId": "compare-01",
+      "durationFrames": 590,
+      "durationSec": 19.67,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/compare-01.mp3"
+    },
+    {
+      "sceneId": "quote-01",
+      "durationFrames": 255,
+      "durationSec": 8.5,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/quote-01.mp3"
+    },
+    {
+      "sceneId": "insight-recap",
+      "durationFrames": 654,
+      "durationSec": 21.8,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/insight-recap.mp3"
+    },
+    {
+      "sceneId": "closing-01",
+      "durationFrames": 471,
+      "durationSec": 15.7,
+      "ttsSuccess": true,
+      "audioPath": "/Users/jungq/Study/remotion-book-youtube/output/tts/miracle-morning/closing-01.mp3"
+    }
+  ]
+}

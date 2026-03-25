@@ -1,0 +1,202 @@
+{
+  "_stage": "7-8-FinalQA",
+  "_book": "miracle-morning",
+  "_generatedAt": "2026-03-25",
+
+  "contentValidation": {
+    "result": "PASS",
+    "errors": [],
+    "warnings": [
+      "intro-01: narrationText > 120 chars (131)",
+      "insight-01: narrationText > 120 chars (122)",
+      "framework-01: narrationText > 120 chars (172)",
+      "insight-silence: narrationText > 120 chars (156)",
+      "insight-viz: narrationText > 120 chars (152)",
+      "synth-morning-timeline: narrationText > 120 chars (126)",
+      "compare-01: narrationText > 120 chars (130)",
+      "insight-recap: narrationText > 120 chars (127)"
+    ],
+    "warningNote": "120자 초과 warnings는 8분 longform에서 정상. TTS 성공으로 duration 보장됨"
+  },
+
+  "structuralChecks": {
+    "firstSceneIsCover": true,
+    "lastSceneIsClosing": true,
+    "totalScenes": 14,
+    "sceneCountInRange": true,
+    "policyRange": [10, 16],
+    "duplicateIds": false,
+    "coverImageExists": true,
+    "allHeadlinesUnder60": true
+  },
+
+  "durationChecks": {
+    "totalFrames": 14400,
+    "totalSeconds": 480,
+    "targetSeconds": 480,
+    "withinTolerance": true,
+    "tolerancePercent": 0,
+    "allScenesHaveDurationFrames": true,
+    "allTTSWithinSceneDuration": true,
+    "frameContinuity": "TTS durationFrames <= scene durationFrames for all 14 scenes"
+  },
+
+  "ttsChecks": {
+    "totalScenes": 14,
+    "ttsSuccess": 14,
+    "ttsFailed": 0,
+    "engine": "edge-tts",
+    "voice": "ko-KR-SunHiNeural",
+    "vttFilesGenerated": 14,
+    "audioFilesGenerated": 14,
+    "outputDir": "output/tts/miracle-morning/"
+  },
+
+  "designTokenCompliance": {
+    "hardcodedHexColors": 0,
+    "hardcodedFontSizes": 0,
+    "nonPresetSpringConfigs": 0,
+    "scaleExceeding106": 0,
+    "accentPerSceneMax": 2,
+    "serifInNonQuote": false
+  },
+
+  "sceneSequence": [
+    { "id": "cover-01", "type": "cover", "dur": "14s", "segment": "opening" },
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "dur": "25s",
+      "segment": "opening"
+    },
+    {
+      "id": "intro-01",
+      "type": "keyInsight",
+      "dur": "34s",
+      "segment": "opening"
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "dur": "12s",
+      "segment": "setup"
+    },
+    {
+      "id": "insight-01",
+      "type": "keyInsight",
+      "dur": "32s",
+      "segment": "setup"
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "dur": "60s",
+      "segment": "core"
+    },
+    {
+      "id": "insight-silence",
+      "type": "keyInsight",
+      "dur": "42s",
+      "segment": "core"
+    },
+    {
+      "id": "insight-viz",
+      "type": "keyInsight",
+      "dur": "40s",
+      "segment": "core"
+    },
+    {
+      "id": "synth-savers-wheel",
+      "type": "framework",
+      "dur": "49s",
+      "segment": "core",
+      "origin": "synthesized"
+    },
+    {
+      "id": "synth-morning-timeline",
+      "type": "timeline",
+      "dur": "45s",
+      "segment": "climax",
+      "origin": "synthesized"
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "dur": "36s",
+      "segment": "climax"
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "dur": "27s",
+      "segment": "resolution"
+    },
+    {
+      "id": "insight-recap",
+      "type": "keyInsight",
+      "dur": "36s",
+      "segment": "resolution"
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "dur": "28s",
+      "segment": "closing"
+    }
+  ],
+
+  "synthesizedScenes": {
+    "count": 2,
+    "maxAllowed": 5,
+    "signatureSceneCount": 2,
+    "minRequired": 2,
+    "scenes": [
+      {
+        "id": "synth-savers-wheel",
+        "fallbackPreset": "framework",
+        "synthesisConfidence": 0.76,
+        "lifecycle": "candidate-promotable"
+      },
+      {
+        "id": "synth-morning-timeline",
+        "fallbackPreset": "timeline",
+        "synthesisConfidence": 0.8,
+        "lifecycle": "candidate-promotable"
+      }
+    ]
+  },
+
+  "assetStatus": {
+    "coverImage": {
+      "path": "assets/covers/miracle-morning-cover.png",
+      "status": "placeholder"
+    },
+    "bgmTrack": {
+      "path": "assets/sounds/calm-ambient-loop.mp3",
+      "status": "not-found",
+      "note": "BGM은 별도 수급 필요"
+    },
+    "authorPhoto": { "status": "not-found", "fallback": "text-only" },
+    "saversIcons": { "status": "not-found", "fallback": "shape-placeholder" }
+  },
+
+  "renderReadiness": {
+    "contentJSON": "PASS",
+    "ttsAudio": "READY (14/14)",
+    "vttSubtitles": "READY (14/14)",
+    "coverImage": "PLACEHOLDER",
+    "bgmTrack": "MISSING (fallback: silent)",
+    "overallStatus": "READY_WITH_PLACEHOLDERS",
+    "note": "커버 이미지와 BGM은 실제 에셋으로 교체 권장. 렌더는 placeholder/fallback으로 가능"
+  },
+
+  "pipelineArtifacts": {
+    "01-book-fingerprint.json": "BookFingerprint + VideoNarrativePlan",
+    "02-opening-package.json": "OpeningPackage (hook: system, intro: transformation)",
+    "03-scene-plan.json": "ScenePlan (12 preset + 2 gaps)",
+    "04-synthesized-scenes.json": "SynthesizedBlueprints (SAVERS wheel + timeline)",
+    "05-assembled-blueprints.json": "All 13 blueprints with mediaPlan",
+    "06-tts-duration-map.json": "TTS duration mapping for all 14 scenes",
+    "07-final-qa-report.json": "This file — Final QA report"
+  }
+}

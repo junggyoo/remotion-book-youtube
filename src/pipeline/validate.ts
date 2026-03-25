@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import path from 'path'
 import fs from 'fs'
-import type { BookContent, ValidationResult } from '@/types'
+import type { BookContent, ValidationResult, SceneType } from '@/types'
 
 // --- Zod Schemas for all 9 content types ---
 
@@ -375,3 +375,20 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
 }
 
 export { BookContentSchema, TypedSceneSchema }
+
+export const ContentSchemaMap: Record<Exclude<SceneType, 'custom'>, z.ZodSchema> = {
+  cover: CoverContentSchema,
+  chapterDivider: ChapterDividerContentSchema,
+  keyInsight: KeyInsightContentSchema,
+  compareContrast: CompareContrastContentSchema,
+  quote: QuoteContentSchema,
+  framework: FrameworkContentSchema,
+  application: ApplicationContentSchema,
+  data: DataContentSchema,
+  closing: ClosingContentSchema,
+  timeline: TimelineContentSchema,
+  highlight: HighlightContentSchema,
+  transition: TransitionContentSchema,
+  listReveal: ListRevealContentSchema,
+  splitQuote: SplitQuoteContentSchema,
+}

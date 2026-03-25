@@ -1,0 +1,210 @@
+{
+  "_stage": "2-3-OpeningComposer",
+  "_book": "miracle-morning",
+  "_generatedAt": "2026-03-25",
+  "_hookStrategy": ["system", "transformation"],
+
+  "openingPackage": {
+    "hookStrategy": "system",
+    "introFraming": "할 엘로드가 교통사고 후 발견한 아침 시스템 — SAVERS가 삶을 통째로 바꿀 수 있다는 프레이밍",
+    "packageDurationSec": 29,
+
+    "hook": {
+      "id": "hook-01",
+      "intent": "95%의 사람이 아침을 낭비한다는 수치로 충격을 주고, '시스템'이라는 키워드로 해결책 암시",
+      "origin": "synthesized",
+      "lifecycle": "ephemeral",
+      "fallbackPreset": "highlight",
+      "fallbackContent": {
+        "mainText": "95%가 아침을 낭비한다",
+        "subText": "당신의 아침이 인생 수준을 결정합니다",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "layout": "center-focus",
+      "elements": [
+        {
+          "id": "hook-stat",
+          "type": "number-display",
+          "props": {
+            "value": "95%",
+            "label": "아침을 낭비하는 사람들",
+            "color": "signal",
+            "countUp": true,
+            "countUpDurationFrames": 36
+          }
+        },
+        {
+          "id": "hook-question",
+          "type": "headline",
+          "props": {
+            "text": "당신의 아침은 어떤가요?",
+            "level": "headlineM",
+            "delayFrames": 42
+          }
+        },
+        {
+          "id": "hook-tease",
+          "type": "label",
+          "props": {
+            "text": "하나의 시스템이 모든 것을 바꿉니다",
+            "style": "accent",
+            "delayFrames": 66
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "dramatic",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 0,
+      "durationFrames": 420,
+      "mediaPlan": {
+        "narrationText": "놀라운 사실 하나. 세계 인구의 95%는 매일 아침을 그냥 흘려보냅니다. 하지만 상위 5%는 다릅니다. 그들에겐 하나의 시스템이 있습니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["95%", "시스템"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 0, "ms": 400 },
+            { "afterSentence": 2, "ms": 300 }
+          ]
+        },
+        "assetPlan": {
+          "required": [
+            {
+              "role": "texture",
+              "description": "dark grain texture overlay for hook atmosphere",
+              "optional": true
+            }
+          ],
+          "searchQueries": ["dark morning silhouette", "alarm clock dawn"],
+          "fallbackMode": "text-only"
+        }
+      },
+      "synthesisConfidence": 0.82
+    },
+
+    "intro": {
+      "id": "intro-01",
+      "intent": "할 엘로드의 교통사고 생존 스토리로 저자 신뢰를 확보하고, 미라클 모닝 탄생 배경 전달",
+      "origin": "synthesized",
+      "lifecycle": "ephemeral",
+      "fallbackPreset": "keyInsight",
+      "fallbackContent": {
+        "headline": "죽음의 문턱에서 발견한 아침의 힘",
+        "supportText": "할 엘로드는 20세에 정면충돌 교통사고를 당했습니다. 6분간 심정지, 11곳 골절. 의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건했습니다.",
+        "underlineKeyword": "아침의 힘",
+        "useSignalBar": true
+      },
+      "layout": "left-anchor",
+      "elements": [
+        {
+          "id": "intro-headline",
+          "type": "headline",
+          "props": {
+            "text": "죽음의 문턱에서 발견한 아침의 힘",
+            "level": "headlineL"
+          }
+        },
+        {
+          "id": "intro-body",
+          "type": "body-text",
+          "props": {
+            "text": "할 엘로드는 20세에 정면충돌 교통사고를 당했습니다. 6분간 심정지, 11곳 골절. 의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건했습니다.",
+            "delayFrames": 18
+          }
+        },
+        {
+          "id": "intro-author-label",
+          "type": "label",
+          "props": {
+            "text": "할 엘로드 — The Miracle Morning 저자",
+            "style": "muted",
+            "delayFrames": 36
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "heavy",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 420,
+      "durationFrames": 450,
+      "mediaPlan": {
+        "narrationText": "할 엘로드는 스무 살에 정면충돌 교통사고를 당했습니다. 6분간 심장이 멈췄고, 11곳이 골절되었습니다. 의사는 다시 걸을 수 없다고 했지만, 그는 아침 루틴 하나로 인생을 완전히 재건합니다. 그가 만든 시스템이 바로 미라클 모닝입니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["미라클 모닝", "아침 루틴"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 1, "ms": 500 },
+            { "afterSentence": 3, "ms": 400 }
+          ]
+        },
+        "assetPlan": {
+          "required": [
+            {
+              "role": "author-photo",
+              "description": "할 엘로드 저자 사진 또는 실루엣",
+              "optional": true
+            }
+          ],
+          "searchQueries": ["Hal Elrod portrait", "miracle morning author"],
+          "fallbackMode": "text-only"
+        }
+      },
+      "synthesisConfidence": 0.78
+    },
+
+    "transitionBridge": {
+      "transitionToBody": "그렇다면 미라클 모닝의 핵심, SAVERS 시스템을 하나씩 살펴보겠습니다.",
+      "carryKeyword": "시스템",
+      "audioCrossfadeMs": 300
+    }
+  }
+}
