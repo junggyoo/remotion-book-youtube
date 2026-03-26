@@ -19,6 +19,7 @@ export type {
 
 export { resolvePlanBridge } from "./plan-bridge";
 export { resolveBookTheme } from "./theme-resolver";
+export type { ResolvedArtInfluence } from "./theme-resolver";
 export { resolveBlueprint, listBlueprints } from "./blueprint-resolver";
 export { loadBookPlan } from "./loaders/load-book-plan";
 export {

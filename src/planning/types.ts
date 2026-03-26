@@ -173,6 +173,7 @@ export interface PlanBridgeResult {
   theme: Theme;
   resolvedScenes: ResolvedScene[];
   hasPlan: boolean;
+  artInfluence?: import("./theme-resolver").ResolvedArtInfluence;
 }
 
 // ============================================================

@@ -2,6 +2,7 @@ import type { BookContent, Theme, FormatKey } from "@/types";
 import type { PlanBridgeResult, ResolvedScene, StoryboardScene } from "./types";
 import { loadBookPlan } from "./loaders/load-book-plan";
 import { resolveBookTheme } from "./theme-resolver";
+import type { ResolvedArtInfluence } from "./theme-resolver";
 import { resolveBlueprint } from "./blueprint-resolver";
 import { resolveBaseTheme } from "@/design/themes/resolveBaseTheme";
 
@@ -45,8 +46,8 @@ export function resolvePlanBridge(
     storyboardMap.set(entry.sceneId, entry);
   }
 
-  // Theme with book overrides
-  const theme = resolveBookTheme(themeMode, genre, plan.artDirection);
+  // Theme + art influence with book overrides
+  const artInfluence = resolveBookTheme(themeMode, genre, plan.artDirection);
 
   // Resolve each scene from content JSON order (source of truth)
   const resolvedScenes: ResolvedScene[] = book.scenes.map((scene, i) => {
@@ -57,7 +58,11 @@ export function resolvePlanBridge(
       storyEntry.renderMode === "blueprint" &&
       storyEntry.blueprintId
     ) {
-      const blueprint = resolveBlueprint(bookId, storyEntry.blueprintId);
+      const blueprint = resolveBlueprint(
+        bookId,
+        storyEntry.blueprintId,
+        artInfluence,
+      );
       return {
         sceneId: scene.id,
         renderMode: "blueprint" as const,
@@ -78,5 +83,11 @@ export function resolvePlanBridge(
     };
   });
 
-  return { bookId, theme, resolvedScenes, hasPlan: true };
+  return {
+    bookId,
+    theme: artInfluence.theme,
+    resolvedScenes,
+    hasPlan: true,
+    artInfluence,
+  };
 }
