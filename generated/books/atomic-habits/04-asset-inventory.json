@@ -1,0 +1,30 @@
+{
+  "bookId": "atomic-habits",
+  "required": [
+    {
+      "id": "hook-bg-texture",
+      "type": "texture",
+      "description": "Hook scene dark grain background texture",
+      "usedInScenes": ["hook-01"],
+      "status": "placeholder",
+      "fallbackStrategy": "shape-placeholder"
+    },
+    {
+      "id": "framework-number-badges",
+      "type": "icon",
+      "description": "Number badges (1-4) for 4 Laws framework items",
+      "usedInScenes": ["framework-01"],
+      "status": "placeholder",
+      "fallbackStrategy": "text-only"
+    },
+    {
+      "id": "book-cover-image",
+      "type": "cover",
+      "description": "Atomic Habits book cover image",
+      "usedInScenes": ["cover-01"],
+      "status": "placeholder",
+      "fallbackStrategy": "shape-placeholder"
+    }
+  ],
+  "reusable": []
+}

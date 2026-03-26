@@ -1,0 +1,76 @@
+{
+  "id": "hook-01",
+  "intent": "Contrarian hook: challenge goal-setting with a bold statement, provide Olympic evidence, then reveal the system keyword",
+  "origin": "synthesized",
+  "layout": "center-focus",
+  "layoutConfig": {},
+  "elements": [
+    {
+      "id": "mainText",
+      "type": "headline",
+      "props": {
+        "text": "목표를 세우지 마세요",
+        "weight": "bold",
+        "align": "center"
+      }
+    },
+    {
+      "id": "subText",
+      "type": "body-text",
+      "props": {
+        "text": "승자와 패자의 목표는 같습니다",
+        "tokenRef": "bodyL",
+        "weight": "regular",
+        "align": "center",
+        "color": "textMuted"
+      }
+    },
+    {
+      "id": "signalBar",
+      "type": "divider",
+      "props": {
+        "orientation": "horizontal"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "dramatic",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 150,
+  "mediaPlan": {
+    "narrationText": "목표를 세우지 마세요. 이게 무슨 말일까요? 올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 모두가 이기고 싶어했죠. 하지만 차이를 만든 건 목표가 아닙니다. 매일의 훈련 시스템입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 5,
+      "highlightKeywords": ["목표", "시스템"],
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "bookId": "atomic-habits",
+  "palette": {
+    "primary": "#10B981",
+    "secondary": "#356DFF",
+    "contrast": "high"
+  },
+  "signalColor": "#356DFF",
+  "shapeLanguage": "geometric",
+  "textureMood": "grain",
+  "visualMetaphors": [
+    {
+      "concept": "compound growth",
+      "metaphor": "exponential curve rising from flat baseline",
+      "usage": "keyInsight scenes — 1% 복리 효과 시각화"
+    },
+    {
+      "concept": "identity iceberg",
+      "metaphor": "iceberg with visible tip (outcome) and hidden mass (identity)",
+      "usage": "keyInsight identity scene — 정체성 vs 결과 대비"
+    },
+    {
+      "concept": "habit loop",
+      "metaphor": "circular 4-step cycle with directional arrows",
+      "usage": "framework scene — 4법칙 순환 구조"
+    }
+  ],
+  "layoutBias": "centered",
+  "motionCharacter": "precise",
+  "typographyMood": "editorial"
+}

@@ -1,0 +1,28 @@
+{
+  "genre": "selfHelp",
+  "subGenre": "behavioral-science",
+  "structure": "framework",
+  "coreFramework": "4 Laws of Behavior Change",
+  "keyConceptCount": 5,
+  "emotionalTone": "uplifting",
+  "narrativeArcType": "instruction",
+  "urgencyLevel": "medium",
+  "visualMotifs": [
+    "compound growth curve",
+    "1% improvement arrow",
+    "identity loop circle",
+    "habit stacking chain"
+  ],
+  "spatialMetaphors": [
+    "iceberg (identity beneath surface)",
+    "compound curve (exponential growth)"
+  ],
+  "hookStrategy": "contrarian",
+  "entryAngle": "Goal-setting is overrated; systems matter more",
+  "uniqueElements": [
+    "1.01^365 = 37.78 statistic",
+    "identity-based habits vs outcome-based habits",
+    "2-minute rule"
+  ],
+  "contentMode": "actionable"
+}
