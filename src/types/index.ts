@@ -883,6 +883,46 @@ export interface BeatTimingResolution {
 }
 
 // ---------------------------------------------------------------------------
+// DSGS Stage 6.3: BeatComposer types
+// ---------------------------------------------------------------------------
+
+/** BeatComposer의 구조화된 설계 근거. 각 씬의 beat 설계 판단을 문서화한다. */
+export interface BeatDesignRationale {
+  /** 나레이션 분절 근거 (narration-segmentation.md 기반) */
+  segmentationReason: string;
+  /** evidenceCard 사용 판단 (evidence-rubric.md 기반) */
+  evidenceDecision:
+    | "included-A"
+    | "included-B"
+    | "excluded-C"
+    | "not-applicable";
+  /** 정보 밀도 판단 (beat당 평균 시각 사건 수) */
+  densityDecision: string;
+  /** 잠재적 위험 플래그 */
+  riskFlags: string[];
+}
+
+/** BeatComposer Stage 6.3 출력: 씬별 beats + rationale */
+export interface BeatPlanEntry {
+  sceneId: string;
+  sceneType: string;
+  beats: Beat[];
+  rationale: BeatDesignRationale;
+  skipped: boolean;
+  skipReason?: string;
+}
+
+/** 06.3-beat-plan.json artifact 전체 구조 */
+export interface BeatPlanArtifact {
+  bookId: string;
+  generatedAt: string;
+  totalScenes: number;
+  processedScenes: number;
+  skippedScenes: number;
+  entries: BeatPlanEntry[];
+}
+
+// ---------------------------------------------------------------------------
 // DSGS Stage 4-5: ScenePlanner + GapDetector types
 // ---------------------------------------------------------------------------
 

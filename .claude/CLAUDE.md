@@ -59,3 +59,7 @@ C: Final QA 승인 (8단계 후)
 - 오케스트레이션: docs/DSGS_CLAUDE_CODE_ORCHESTRATION.md
 - Beat 시스템 설계: docs/BEAT_SYSTEM_DESIGN_SPEC_v0.2.md
 - Beat Composer Agent/Skill: docs/BEAT_COMPOSER_AGENT_SKILL_DESIGN_v0.2.md
+
+## 현재 로드맵
+docs/roadmap/NEXT_PHASE_ROADMAP_v5.md 참조.
+P0(자동화 엔진) → P1(렌더 품질) → P2(전문가급) 순서로 진행 중.

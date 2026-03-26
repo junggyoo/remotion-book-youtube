@@ -20,6 +20,7 @@ import type { PlanBridgeResult } from "../src/planning/types";
 import { analyzeBook } from "./stages/book-analyzer";
 import { planNarrative } from "./stages/narrative-planner";
 import { planAssets } from "./stages/asset-planner";
+import { composeBeat } from "./stages/beat-composer";
 
 // ============================================================
 // Core Types
@@ -237,12 +238,7 @@ const STAGES: DsgsStage[] = [
     "/scene-architect synthesize <bookPath>",
     "B", // Checkpoint B: after synthesis
   ),
-  createGenerationStub(
-    "6.3-beat-composer",
-    "BeatComposer",
-    "06-blueprints",
-    "/beat-compose <bookPath>",
-  ),
+  composeBeat,
   planAssets,
   validatePlanStage,
   renderStage,
