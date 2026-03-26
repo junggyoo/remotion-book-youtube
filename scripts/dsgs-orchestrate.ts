@@ -17,6 +17,8 @@ import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import path from "path";
 import type { BookContent, FormatKey } from "../src/types";
 import type { PlanBridgeResult } from "../src/planning/types";
+import { analyzeBook } from "./stages/book-analyzer";
+import { planNarrative } from "./stages/narrative-planner";
 
 // ============================================================
 // Core Types
@@ -206,18 +208,8 @@ const promoteStage: DsgsStage = {
 // ============================================================
 
 const STAGES: DsgsStage[] = [
-  createGenerationStub(
-    "1-analyzer",
-    "BookAnalyzer",
-    "00-fingerprint.json",
-    "/book-analyze <bookPath>",
-  ),
-  createGenerationStub(
-    "2-planner",
-    "NarrativePlanner",
-    "01-editorial-outline.json",
-    "/scene-architect plan <bookPath>",
-  ),
+  analyzeBook,
+  planNarrative,
   createGenerationStub(
     "3-opening",
     "OpeningComposer",

@@ -1,35 +1,33 @@
-# Editorial Outline: Atomic Habits
+# Editorial outline
 
-**Book ID:** atomic-habits
+**bookId:** atomic-habits-2024
 
-## One-Liner
+**oneLiner:** 아주 작은 습관의 힘의 핵심 인사이트를 체계적으로 정리한다
 
-목표가 아닌 시스템을 설계하면 매일 1%의 변화가 복리로 쌓여 인생을 바꾼다
+**targetAudience:** 자기계발과 습관 형성에 관심 있는 20-40대 한국어 유튜브 시청자
 
-## Target Audience
+**hookAngle:** 반직관적 선언으로 시작하여 목표를 세우지 마세요
 
-자기계발과 습관 형성에 관심 있는 20-40대 한국어 유튜브 시청자
+## coreMessages
 
-## Hook Angle
+- 목표를 세우지 마세요
+- 매일 1%만 나아지면 1년 뒤 37배
+- 정체성이 바뀌면 습관이 바뀐다
+- 작은 습관이 큰 결과를 만든다
 
-목표를 세우지 말라는 반직관적 선언으로 시작해 시스템 사고로 전환
+## excludedTopics
 
-## Core Messages
 
-1. 매일 1%의 개선이 복리처럼 쌓여 1년 뒤 37배의 차이를 만든다
-2. 습관의 4법칙: 분명하게, 매력적으로, 쉽게, 만족스럽게
-3. 진정한 변화는 결과가 아닌 정체성에서 시작된다
-4. 2분 규칙, 환경 설계, 습관 쌓기로 오늘부터 실천할 수 있다
-5. 목표 수준이 아닌 시스템 수준으로 떨어진다
+**targetDurationSeconds:** 300
 
-## Excluded Topics
+## toneKeywords
 
-- 습관 추적 앱 비교
-- 타 자기계발서와의 상세 비교
-- 저자 개인 부상 회복 스토리 상세
+- 구어체
+- 정보 밀도
+- 동기 부여
+- 실용적
 
-## Production
+**narrativeArc:** framework-driven
 
-- **Target Duration:** 300s (5min)
-- **Tone:** 구어체, 정보 밀도, 동기 부여, 실용적
-- **Narrative Arc:** framework-driven
+---
+> Auto-generated from 01-editorial-outline.json. JSON is source of truth.

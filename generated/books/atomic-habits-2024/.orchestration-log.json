@@ -1,7 +1,7 @@
 {
   "bookId": "atomic-habits-2024",
   "mode": "auto",
-  "startedAt": "2026-03-26T12:01:26.434Z",
+  "startedAt": "2026-03-26T12:34:25.129Z",
   "stageResults": [
     {
       "stageId": "1-analyzer",
@@ -136,6 +136,93 @@
       "status": "halted",
       "artifacts": [],
       "durationMs": 2404,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/atomic-habits.json --format longform"
+    },
+    {
+      "stageId": "1-analyzer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/00-fingerprint.json"
+      ],
+      "durationMs": 1,
+      "message": "Fingerprint: genre=selfHelp, structure=framework, hook=contrarian"
+    },
+    {
+      "stageId": "2-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/01-editorial-outline.json"
+      ],
+      "durationMs": 1,
+      "message": "Outline: framework-driven, 300s, 4 messages"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/02-art-direction.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 02-art-direction.json"
+    },
+    {
+      "stageId": "4-scene-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/03-storyboard.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 03-storyboard.json"
+    },
+    {
+      "stageId": "5-gap-detector",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/04-asset-inventory.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 04-asset-inventory.json"
+    },
+    {
+      "stageId": "6-synthesizer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/05-motion-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 05-motion-plan.json"
+    },
+    {
+      "stageId": "6.3-beat-composer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/06-blueprints"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 06-blueprints"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/04-asset-inventory.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 04-asset-inventory.json"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/.validation"
+      ],
+      "durationMs": 608
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 2299,
       "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/atomic-habits.json --format longform"
     }
   ],
