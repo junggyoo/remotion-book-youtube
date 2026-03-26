@@ -6,26 +6,29 @@ import type {
   FormatKey,
   FormatConfig,
   SubtitleEntry,
-} from '@/types'
-import { planScenes } from '@/pipeline/planScenes'
-import { useTheme } from '@/design/themes/useTheme'
-import { useFormat } from '@/design/themes/useFormat'
+  SceneBlueprint,
+} from "@/types";
+import { planScenes } from "@/pipeline/planScenes";
+import { useTheme } from "@/design/themes/useTheme";
+import { useFormat } from "@/design/themes/useFormat";
+import { resolvePlanBridge } from "@/planning/plan-bridge";
+import type { StoryboardScene } from "@/planning/types";
 
 export type PlannedScene = TypedScene & {
-  from: number
-  resolvedDuration: number
-  tts?: TTSResult
-  subtitles?: SubtitleEntry[]
-}
+  from: number;
+  resolvedDuration: number;
+  tts?: TTSResult;
+  subtitles?: SubtitleEntry[];
+};
 
 export interface CompositionProps {
-  scenes: PlannedScene[]
-  totalDurationFrames: number
-  fps: number
-  format: FormatKey
-  theme: Theme
-  width: number
-  height: number
+  scenes: PlannedScene[];
+  totalDurationFrames: number;
+  fps: number;
+  format: FormatKey;
+  theme: Theme;
+  width: number;
+  height: number;
 }
 
 /**
@@ -38,38 +41,60 @@ export function buildCompositionProps(
   ttsResults?: Map<string, TTSResult>,
   subtitleMap?: Map<string, SubtitleEntry[]>,
 ): CompositionProps {
-  const fps = book.production?.fps ?? 30
-  const themeMode = book.production?.themeMode ?? 'dark'
-  const genre = book.production?.genreOverride ?? book.metadata.genre
+  const fps = book.production?.fps ?? 30;
+  const planResult = resolvePlanBridge(
+    book,
+    format === "both" ? "longform" : format,
+  );
+  const theme = planResult.theme;
+  const formatConfig: FormatConfig = useFormat(
+    format === "both" ? "longform" : format,
+  );
 
-  const theme = useTheme(themeMode, genre)
-  const formatConfig: FormatConfig = useFormat(format === 'both' ? 'longform' : format)
-
-  const planned = planScenes(book.scenes, format, ttsResults)
+  const planned = planScenes(book.scenes, format, ttsResults);
 
   // Attach TTS and subtitle data to each planned scene
   const scenes: PlannedScene[] = planned.map((scene) => {
-    const tts = ttsResults?.get(scene.id)
-    const subtitles = subtitleMap?.get(scene.id)
+    const tts = ttsResults?.get(scene.id);
+    const subtitles = subtitleMap?.get(scene.id);
     return {
       ...scene,
       tts,
       subtitles,
+    };
+  });
+
+  // Attach blueprint meta from planning layer
+  const scenesWithBlueprints = scenes.map((scene) => {
+    if (!planResult.hasPlan) return scene;
+
+    const resolved = planResult.resolvedScenes.find(
+      (r) => r.sceneId === scene.id,
+    );
+
+    if (resolved?.renderMode === "blueprint" && resolved.blueprint) {
+      return {
+        ...scene,
+        _blueprint: resolved.blueprint,
+        _storyboard: resolved.storyboardEntry,
+      };
     }
-  })
+    return scene;
+  });
 
   const totalDurationFrames =
-    scenes.length > 0
-      ? scenes[scenes.length - 1].from + scenes[scenes.length - 1].resolvedDuration
-      : 0
+    scenesWithBlueprints.length > 0
+      ? scenesWithBlueprints[scenesWithBlueprints.length - 1].from +
+        scenesWithBlueprints[scenesWithBlueprints.length - 1].resolvedDuration
+      : 0;
 
   return {
-    scenes,
+    scenes: scenesWithBlueprints,
     totalDurationFrames,
     fps,
     format,
     theme,
     width: formatConfig.width,
     height: formatConfig.height,
-  }
+  };
 }

@@ -59,6 +59,11 @@ const SceneRenderer: React.FC<{
   format: CompositionProps["format"];
   theme: CompositionProps["theme"];
 }> = ({ scene, format, theme }) => {
+  // Blueprint guard: plan-bridge attached _blueprint → use BlueprintRenderer
+  if ("_blueprint" in scene && (scene as any)._blueprint) {
+    return <BlueprintRenderer blueprint={(scene as any)._blueprint} />;
+  }
+
   const baseProps = {
     format,
     theme,
