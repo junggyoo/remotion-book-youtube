@@ -8,6 +8,7 @@ import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
 import miracleMorningBook from "../content/books/miracle-morning.json";
 import atomicHabitsBook from "../content/books/atomic-habits.json";
+import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -37,6 +38,13 @@ const mmLongformProps: CompositionProps = buildCompositionProps(
 const ahBook = atomicHabitsBook as unknown as BookContent;
 const ahLongformProps: CompositionProps = buildCompositionProps(
   ahBook,
+  "longform",
+);
+
+// Millionaire Fastlane — 5min longform
+const mfBook = millionaireFastlaneBook as unknown as BookContent;
+const mfLongformProps: CompositionProps = buildCompositionProps(
+  mfBook,
   "longform",
 );
 
@@ -107,6 +115,16 @@ export const RemotionRoot: React.FC = () => {
         width={ahLongformProps.width}
         height={ahLongformProps.height}
         defaultProps={ahLongformProps as any}
+      />
+      <Composition
+        id="MillionaireFastlane"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        component={LongformComposition as any}
+        durationInFrames={mfLongformProps.totalDurationFrames}
+        fps={mfLongformProps.fps}
+        width={mfLongformProps.width}
+        height={mfLongformProps.height}
+        defaultProps={mfLongformProps as any}
       />
       <Composition
         id="SynthesizedPreview"
