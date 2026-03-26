@@ -43,5 +43,8 @@ voice/output/
 # Planning validation results (ephemeral)
 generated/books/**/.validation/
 
+# Pre-resolved planning data for Remotion (derived from generated/)
+assets/planning/
+
 # oh-my-claudecode state
 .omc/

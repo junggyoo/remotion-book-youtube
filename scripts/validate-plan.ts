@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync } from "fs";
+import "tsconfig-paths/register";
+import { existsSync, readFileSync, readdirSync } from "fs";
 import path from "path";
 import { validateFingerprint } from "../src/planning/validators/validate-fingerprint";
 import { validateOutline } from "../src/planning/validators/validate-outline";
@@ -48,9 +49,28 @@ async function main() {
   }
 
   const bookId = path.basename(bookDir);
-  const contentPath = path.join("content/books", `${bookId}.json`);
+
+  // Find content JSON: try --content flag, then bookId match, then scan by metadata.id
+  const contentIdx = process.argv.indexOf("--content");
+  let contentPath = contentIdx !== -1 ? process.argv[contentIdx + 1] : "";
+  if (!contentPath || !existsSync(contentPath)) {
+    contentPath = path.join("content/books", `${bookId}.json`);
+  }
   if (!existsSync(contentPath)) {
-    console.error(`Content not found: ${contentPath}`);
+    // Scan content/books/ for matching metadata.id
+    const booksDir = path.join("content/books");
+    const found = readdirSync(booksDir)
+      .filter((f: string) => f.endsWith(".json"))
+      .find((f: string) => {
+        const data = JSON.parse(readFileSync(path.join(booksDir, f), "utf-8"));
+        return data?.metadata?.id === bookId;
+      });
+    if (found) contentPath = path.join(booksDir, found);
+  }
+  if (!existsSync(contentPath)) {
+    console.error(
+      `Content not found for bookId "${bookId}". Use --content <path>`,
+    );
     process.exit(1);
   }
 

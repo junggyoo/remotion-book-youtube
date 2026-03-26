@@ -49,6 +49,15 @@ function main() {
   console.log(`Book: ${bookPath}`);
   console.log(`Format: ${FORMAT}`);
 
+  // Step 0: prepare planning data (if exists)
+  step("0/6 Planning 데이터 준비", () => {
+    try {
+      run("npx", ["ts-node", "scripts/prepare-plan.ts", bookPath]);
+    } catch {
+      console.log("  (planning 산출물 없음 — 기존 경로 사용)");
+    }
+  });
+
   // Step 1: validate
   step("1/6 콘텐츠 JSON 검증", () => {
     run("npx", ["ts-node", "scripts/validate-content.ts", bookPath]);

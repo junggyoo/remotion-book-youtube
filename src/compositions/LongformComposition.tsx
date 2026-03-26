@@ -61,6 +61,7 @@ const SceneRenderer: React.FC<{
 }> = ({ scene, format, theme }) => {
   // Blueprint guard: plan-bridge attached _blueprint → use BlueprintRenderer
   if ("_blueprint" in scene && (scene as any)._blueprint) {
+    console.log(`[render] ${scene.id} → BlueprintRenderer`);
     return <BlueprintRenderer blueprint={(scene as any)._blueprint} />;
   }
 

@@ -21,6 +21,7 @@ export type PlannedScene = TypedScene & {
 };
 
 export interface CompositionProps {
+  bookId: string;
   scenes: PlannedScene[];
   totalDurationFrames: number;
   fps: number;
@@ -90,6 +91,7 @@ export function buildCompositionProps(
       : 0;
 
   return {
+    bookId: book.metadata.id,
     scenes: scenesWithBlueprints,
     totalDurationFrames,
     fps,
