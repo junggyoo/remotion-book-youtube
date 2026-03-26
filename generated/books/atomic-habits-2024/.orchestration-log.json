@@ -1,7 +1,7 @@
 {
   "bookId": "atomic-habits-2024",
   "mode": "auto",
-  "startedAt": "2026-03-26T12:34:25.129Z",
+  "startedAt": "2026-03-26T13:08:21.084Z",
   "stageResults": [
     {
       "stageId": "1-analyzer",
@@ -223,6 +223,30 @@
       "status": "halted",
       "artifacts": [],
       "durationMs": 2299,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/atomic-habits.json --format longform"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/asset-requirements.json"
+      ],
+      "durationMs": 1,
+      "message": "Assets: 3 total (placeholder:3)"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/.validation"
+      ],
+      "durationMs": 618
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 2305,
       "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/atomic-habits.json --format longform"
     }
   ],

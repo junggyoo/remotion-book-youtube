@@ -19,6 +19,7 @@ import type { BookContent, FormatKey } from "../src/types";
 import type { PlanBridgeResult } from "../src/planning/types";
 import { analyzeBook } from "./stages/book-analyzer";
 import { planNarrative } from "./stages/narrative-planner";
+import { planAssets } from "./stages/asset-planner";
 
 // ============================================================
 // Core Types
@@ -242,12 +243,7 @@ const STAGES: DsgsStage[] = [
     "06-blueprints",
     "/beat-compose <bookPath>",
   ),
-  createGenerationStub(
-    "6.5-asset-planner",
-    "AssetPlanner",
-    "04-asset-inventory.json",
-    "/scene-architect assets <bookPath>",
-  ),
+  planAssets,
   validatePlanStage,
   renderStage,
   promoteStage,
