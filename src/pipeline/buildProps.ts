@@ -11,8 +11,7 @@ import type {
 import { planScenes } from "@/pipeline/planScenes";
 import { useTheme } from "@/design/themes/useTheme";
 import { useFormat } from "@/design/themes/useFormat";
-import { resolvePlanBridge } from "@/planning/plan-bridge";
-import type { StoryboardScene } from "@/planning/types";
+import type { PlanBridgeResult, StoryboardScene } from "@/planning/types";
 
 export type PlannedScene = TypedScene & {
   from: number;
@@ -33,20 +32,22 @@ export interface CompositionProps {
 
 /**
  * Build full composition props from BookContent.
- * Orchestrates planScenes, theme, and format resolution.
+ *
+ * planResult is optional — when provided (from scripts running in Node.js),
+ * book theme overrides and blueprint meta are applied.
+ * When omitted (Remotion Studio webpack bundle), uses base theme with no planning.
  */
 export function buildCompositionProps(
   book: BookContent,
   format: FormatKey,
   ttsResults?: Map<string, TTSResult>,
   subtitleMap?: Map<string, SubtitleEntry[]>,
+  planResult?: PlanBridgeResult,
 ): CompositionProps {
   const fps = book.production?.fps ?? 30;
-  const planResult = resolvePlanBridge(
-    book,
-    format === "both" ? "longform" : format,
-  );
-  const theme = planResult.theme;
+  const themeMode = book.production?.themeMode ?? "dark";
+  const genre = book.production?.genreOverride ?? book.metadata.genre;
+  const theme = planResult?.theme ?? useTheme(themeMode, genre);
   const formatConfig: FormatConfig = useFormat(
     format === "both" ? "longform" : format,
   );
@@ -66,7 +67,7 @@ export function buildCompositionProps(
 
   // Attach blueprint meta from planning layer
   const scenesWithBlueprints = scenes.map((scene) => {
-    if (!planResult.hasPlan) return scene;
+    if (!planResult?.hasPlan) return scene;
 
     const resolved = planResult.resolvedScenes.find(
       (r) => r.sceneId === scene.id,
