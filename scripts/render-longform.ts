@@ -15,6 +15,7 @@ import path from "path";
 const COMPOSITION_MAP: Record<string, string> = {
   "miracle-morning": "MiracleMorning",
   "test-book": "LongformComposition",
+  "atomic-habits": "AtomicHabits",
 };
 
 function main() {

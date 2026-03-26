@@ -1,0 +1,97 @@
+{
+  "_stage": "1-BookAnalyzer",
+  "_book": "atomic-habits",
+  "_generatedAt": "2026-03-26",
+
+  "bookFingerprint": {
+    "genre": "selfHelp",
+    "subGenre": "habit-formation",
+    "structure": "framework",
+    "coreFramework": "습관의 4법칙 (신호 → 열망 → 반응 → 보상)",
+    "keyConceptCount": 4,
+    "emotionalTone": ["disciplined", "hopeful"],
+    "narrativeArcType": "instruction",
+    "urgencyLevel": "medium",
+    "visualMotifs": ["compound-curve", "loop", "layers", "stacking", "1%"],
+    "spatialMetaphors": ["복리", "순환", "층위", "쌓기"],
+    "hookStrategy": "contrarian",
+    "entryAngle": "목표가 아닌 시스템, 결과가 아닌 정체성이 습관의 핵심이라는 반전",
+    "uniqueElements": [
+      "1% 복리 곡선 — 0.99^365 vs 1.01^365 대비 그래프",
+      "Habit Loop 4단계 순환 다이어그램 (신호→열망→반응→보상)",
+      "정체성 레이어 3중 원 (결과 → 과정 → 정체성)"
+    ],
+    "contentMode": "actionable"
+  },
+
+  "videoNarrativePlan": {
+    "totalDurationSec": 300,
+    "segments": [
+      {
+        "role": "opening",
+        "durationRatio": 0.06,
+        "intent": "'목표를 세우지 마세요'라는 반전 훅으로 시선을 잡고, 시스템의 존재를 암시",
+        "requiredDelivery": ["hook-contrarian", "system-tease", "credibility"]
+      },
+      {
+        "role": "setup",
+        "durationRatio": 0.12,
+        "intent": "매일 1%의 복리 효과로 습관의 위력을 수치화. 왜 작은 습관이 중요한지 과학적 맥락 제공",
+        "requiredDelivery": [
+          "compound-effect",
+          "data-proof",
+          "why-small-habits"
+        ]
+      },
+      {
+        "role": "core",
+        "durationRatio": 0.52,
+        "intent": "습관의 4법칙을 각각 설명하고, 정체성 기반 습관 변화의 핵심 전달",
+        "requiredDelivery": [
+          "framework-reveal",
+          "identity-shift",
+          "each-law-detail",
+          "practical-methods"
+        ]
+      },
+      {
+        "role": "climax",
+        "durationRatio": 0.12,
+        "intent": "결과 기반 vs 정체성 기반 대비로 핵심 반전 시각화. 2분 규칙으로 실행 가능성 증명",
+        "requiredDelivery": [
+          "identity-contrast",
+          "two-minute-rule",
+          "environment-design"
+        ]
+      },
+      {
+        "role": "resolution",
+        "durationRatio": 0.13,
+        "intent": "제임스 클리어의 핵심 명언과 함께 습관의 본질 요약",
+        "requiredDelivery": [
+          "author-quote",
+          "essence-recap",
+          "emotional-landing"
+        ]
+      },
+      {
+        "role": "closing",
+        "durationRatio": 0.05,
+        "intent": "오늘부터 2분만 시작하라는 행동 촉구. 채널 CTA",
+        "requiredDelivery": ["action-cta", "channel-cta", "brand-close"]
+      }
+    ],
+    "emotionalCurve": [
+      { "timestamp": 0, "intensity": 0.75, "label": "hook-contrarian" },
+      { "timestamp": 18, "intensity": 0.5, "label": "setup-calm" },
+      { "timestamp": 36, "intensity": 0.6, "label": "compound-reveal" },
+      { "timestamp": 54, "intensity": 0.5, "label": "framework-intro" },
+      { "timestamp": 120, "intensity": 0.7, "label": "identity-shift" },
+      { "timestamp": 192, "intensity": 0.8, "label": "contrast-climax" },
+      { "timestamp": 228, "intensity": 0.75, "label": "application-energy" },
+      { "timestamp": 264, "intensity": 0.6, "label": "quote-reflection" },
+      { "timestamp": 285, "intensity": 0.5, "label": "resolution" },
+      { "timestamp": 300, "intensity": 0.4, "label": "closing-warmth" }
+    ]
+  }
+}

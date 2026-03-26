@@ -1,0 +1,286 @@
+{
+  "_stage": "4-5-ScenePlanner+GapDetector",
+  "_book": "atomic-habits",
+  "_generatedAt": "2026-03-26",
+
+  "policy": {
+    "presetConfidenceThreshold": 0.7,
+    "minSignatureScenes": 2,
+    "maxSynthesizedScenes": 5,
+    "openingMustBeDynamic": true,
+    "formatPolicy": {
+      "format": "longform",
+      "maxElementsPerScene": 6,
+      "captionDensity": "medium",
+      "openingDurationSecRange": [20, 35],
+      "sceneCountRange": [8, 13]
+    }
+  },
+
+  "totalSlots": 11,
+
+  "presetMatches": [
+    {
+      "segment": "opening",
+      "slotIndex": 0,
+      "sceneType": "highlight",
+      "note": "-> OpeningPackage.hook으로 대체됨 (dynamic)",
+      "confidence": 0.0,
+      "scoreBreakdown": {
+        "delivery": 0,
+        "structure": 0,
+        "contentFit": 0,
+        "layout": 0,
+        "explanation": "Opening은 OpeningComposer에서 생성. ScenePlanner 스킵."
+      }
+    },
+    {
+      "segment": "opening",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "note": "-> OpeningPackage.intro로 대체됨 (dynamic)",
+      "confidence": 0.0,
+      "scoreBreakdown": {
+        "delivery": 0,
+        "structure": 0,
+        "contentFit": 0,
+        "layout": 0,
+        "explanation": "Opening은 OpeningComposer에서 생성. ScenePlanner 스킵."
+      }
+    },
+    {
+      "segment": "setup",
+      "slotIndex": 0,
+      "sceneType": "data",
+      "content": {
+        "chartType": "line",
+        "dataLabel": "1% 복리 효과",
+        "data": [
+          { "label": "1개월", "value": 1.35 },
+          { "label": "3개월", "value": 2.45 },
+          { "label": "6개월", "value": 6.02 },
+          { "label": "1년", "value": 37.78, "highlight": true }
+        ],
+        "annotation": "매일 1% 성장 시 1년 뒤 결과",
+        "sourceCredit": "1.01^365 = 37.78",
+        "unit": "배"
+      },
+      "confidence": 0.58,
+      "scoreBreakdown": {
+        "delivery": 0.65,
+        "structure": 0.5,
+        "contentFit": 0.6,
+        "layout": 0.55,
+        "explanation": "★ GAP: 1.01^365 vs 0.99^365 두 곡선 대비가 핵심인데, data 씬은 단일 차트만 지원. 복리 곡선 비교 시각화 필요"
+      },
+      "alternativeTypes": ["keyInsight"]
+    },
+    {
+      "segment": "setup",
+      "slotIndex": 1,
+      "sceneType": "chapterDivider",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "습관의 4법칙",
+        "chapterSubtitle": "행동 변화를 만드는 과학적 프레임워크"
+      },
+      "confidence": 0.93,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.92,
+        "contentFit": 0.93,
+        "layout": 0.92,
+        "explanation": "챕터 전환 역할에 chapterDivider가 완벽 적합"
+      }
+    },
+    {
+      "segment": "core",
+      "slotIndex": 0,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "습관의 4법칙",
+        "items": [
+          {
+            "number": 1,
+            "title": "분명하게 만들어라",
+            "description": "신호를 눈에 보이게 설계합니다"
+          },
+          {
+            "number": 2,
+            "title": "매력적으로 만들어라",
+            "description": "열망을 유발하는 보상을 연결합니다"
+          },
+          {
+            "number": 3,
+            "title": "쉽게 만들어라",
+            "description": "반응의 저항을 최소화합니다"
+          },
+          {
+            "number": 4,
+            "title": "만족스럽게 만들어라",
+            "description": "즉각적 보상으로 반복을 강화합니다"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "confidence": 0.91,
+      "scoreBreakdown": {
+        "delivery": 0.92,
+        "structure": 0.9,
+        "contentFit": 0.92,
+        "layout": 0.9,
+        "explanation": "4개 항목 grid-expand. framework 5개 제한 내. 완벽 매칭"
+      }
+    },
+    {
+      "segment": "core",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "정체성이 바뀌면 습관이 바뀐다",
+        "supportText": "대부분의 사람은 결과에서 시작합니다. '살을 빼겠어.' 하지만 진정한 변화는 정체성에서 시작됩니다. '나는 건강한 사람이야.' 습관은 정체성의 투표입니다.",
+        "underlineKeyword": "정체성",
+        "useSignalBar": true
+      },
+      "confidence": 0.84,
+      "scoreBreakdown": {
+        "delivery": 0.88,
+        "structure": 0.82,
+        "contentFit": 0.84,
+        "layout": 0.82,
+        "explanation": "정체성 전환 메시지에 keyInsight가 적합. 3중 원 시각화는 GAP으로 분리"
+      }
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 0,
+      "sceneType": "compareContrast",
+      "content": {
+        "leftLabel": "결과 기반 습관",
+        "leftContent": "살을 빼겠어, 책을 읽겠어, 운동을 하겠어 → 의지력 고갈 → 포기",
+        "rightLabel": "정체성 기반 습관",
+        "rightContent": "나는 건강한 사람이야 → 건강한 사람의 선택 → 자연스러운 반복",
+        "leftTag": "before",
+        "rightTag": "after",
+        "showConnector": true,
+        "revealOrder": "left-first"
+      },
+      "confidence": 0.92,
+      "scoreBreakdown": {
+        "delivery": 0.93,
+        "structure": 0.9,
+        "contentFit": 0.92,
+        "layout": 0.92,
+        "explanation": "결과 vs 정체성 대비에 compareContrast가 완벽 매칭"
+      }
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 1,
+      "sceneType": "application",
+      "content": {
+        "anchorStatement": "오늘부터 시작하는 3가지 실천법",
+        "steps": [
+          {
+            "title": "2분 규칙",
+            "detail": "새 습관은 2분 안에 끝나는 버전으로 시작하세요"
+          },
+          {
+            "title": "환경 설계",
+            "detail": "좋은 습관의 신호를 눈에 보이게 배치하세요"
+          },
+          {
+            "title": "습관 쌓기",
+            "detail": "[현재 습관] 후에 [새 습관]을 한다"
+          }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "confidence": 0.88,
+      "scoreBreakdown": {
+        "delivery": 0.9,
+        "structure": 0.86,
+        "contentFit": 0.88,
+        "layout": 0.88,
+        "explanation": "3단계 실천법에 application이 적합. steps 4개 제한 내"
+      }
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 0,
+      "sceneType": "quote",
+      "content": {
+        "quoteText": "당신은 목표 수준으로 올라가지 않습니다. 시스템 수준으로 떨어집니다.",
+        "attribution": "제임스 클리어",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "confidence": 0.95,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.95,
+        "contentFit": 0.95,
+        "layout": 0.95,
+        "explanation": "저자 명언 전달에 quote 프리셋 완벽"
+      }
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 1,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "작은 습관이 큰 결과를 만든다",
+        "supportText": "아주 작은 습관의 힘은 단순한 자기계발서가 아닙니다. 행동 변화의 과학적 프레임워크입니다. 1%의 변화가 복리로 쌓이고, 정체성이 습관을 이끕니다.",
+        "underlineKeyword": "작은 습관",
+        "useSignalBar": true
+      },
+      "confidence": 0.87,
+      "scoreBreakdown": {
+        "delivery": 0.88,
+        "structure": 0.86,
+        "contentFit": 0.87,
+        "layout": 0.86,
+        "explanation": "핵심 요약에 keyInsight 적합"
+      }
+    },
+    {
+      "segment": "closing",
+      "slotIndex": 0,
+      "sceneType": "closing",
+      "content": {
+        "recapStatement": "오늘, 2분짜리 습관 하나를 시작하세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "confidence": 0.95,
+      "scoreBreakdown": {
+        "delivery": 0.95,
+        "structure": 0.95,
+        "contentFit": 0.95,
+        "layout": 0.95,
+        "explanation": "closing 프리셋 완벽 매칭"
+      }
+    }
+  ],
+
+  "gaps": [
+    {
+      "segment": "setup",
+      "slotIndex": 0,
+      "bestPresetMatch": {
+        "sceneType": "data",
+        "confidence": 0.58
+      },
+      "gapReason": "1.01^365 vs 0.99^365 두 곡선의 극적 대비가 핵심. data 씬은 단일 차트만 지원하여 비교 곡선 시각화 불가",
+      "requiredCapabilities": [
+        "dual-curve-comparison",
+        "animated-count-up",
+        "divergence-visualization"
+      ],
+      "priority": "must",
+      "intent": "매일 1% 성장 vs 1% 퇴보의 극적 차이를 시각적으로 전달"
+    }
+  ]
+}

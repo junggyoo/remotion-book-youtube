@@ -1,0 +1,123 @@
+{
+  "_stage": "6-SceneSynthesizer",
+  "_book": "atomic-habits",
+  "_generatedAt": "2026-03-26",
+
+  "synthesizedBlueprints": [
+    {
+      "id": "synth-compound-curve",
+      "intent": "1.01^365 vs 0.99^365 두 곡선의 극적 분기를 애니메이션으로 시각화",
+      "origin": "synthesized",
+      "lifecycle": "candidate-promotable",
+      "fallbackPreset": "data",
+      "fallbackContent": {
+        "chartType": "line",
+        "dataLabel": "1% 복리 효과",
+        "data": [
+          { "label": "1개월", "value": 1.35 },
+          { "label": "3개월", "value": 2.45 },
+          { "label": "6개월", "value": 6.02 },
+          { "label": "1년", "value": 37.78, "highlight": true }
+        ],
+        "annotation": "매일 1% 성장 시 1년 뒤 결과",
+        "sourceCredit": "1.01^365 = 37.78",
+        "unit": "배"
+      },
+      "layout": "center-focus",
+      "layoutConfig": {
+        "chartArea": { "width": "80%", "height": "60%" },
+        "showGrid": true,
+        "showLabels": true
+      },
+      "elements": [
+        {
+          "id": "curve-title",
+          "type": "headline",
+          "props": {
+            "text": "매일 1%의 차이",
+            "level": "headlineS",
+            "position": "top"
+          }
+        },
+        {
+          "id": "curve-growth",
+          "type": "shape",
+          "props": {
+            "type": "animated-line",
+            "data": "exponential-growth",
+            "color": "accent",
+            "label": "매일 1% 성장 → 37.78배",
+            "animateDurationFrames": 120
+          }
+        },
+        {
+          "id": "curve-decline",
+          "type": "shape",
+          "props": {
+            "type": "animated-line",
+            "data": "exponential-decline",
+            "color": "signal",
+            "label": "매일 1% 퇴보 → 0.03배",
+            "animateDurationFrames": 120
+          }
+        },
+        {
+          "id": "curve-divergence",
+          "type": "number-display",
+          "props": {
+            "value": "37.78x",
+            "label": "1년 뒤 차이: 1,259배",
+            "color": "premium",
+            "countUp": true,
+            "delayFrames": 130
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "smooth",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 0,
+      "durationFrames": 360,
+      "mediaPlan": {
+        "narrationText": "이 그래프를 보세요. 매일 1%씩 성장하면 1년 뒤 37.78배가 됩니다. 반대로 매일 1%씩 퇴보하면 0.03, 거의 제로에 수렴합니다. 그 차이는 1,259배. 습관은 자기 개선의 복리입니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["37.78배", "0.03", "1,259배", "복리"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 1, "ms": 400 },
+            { "afterSentence": 2, "ms": 300 }
+          ]
+        },
+        "assetPlan": {
+          "required": [],
+          "fallbackMode": "shape-placeholder"
+        }
+      },
+      "synthesisConfidence": 0.78
+    }
+  ]
+}

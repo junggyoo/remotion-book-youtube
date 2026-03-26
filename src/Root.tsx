@@ -7,6 +7,7 @@ import { buildCompositionProps } from "@/pipeline/buildProps";
 import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
 import miracleMorningBook from "../content/books/miracle-morning.json";
+import atomicHabitsBook from "../content/books/atomic-habits.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -29,6 +30,13 @@ const shortsProps: CompositionProps = buildCompositionProps(book, "shorts");
 // Miracle Morning — TTS audio + captions loaded at render time via manifest
 const mmLongformProps: CompositionProps = buildCompositionProps(
   mmBook,
+  "longform",
+);
+
+// Atomic Habits — 5min longform
+const ahBook = atomicHabitsBook as unknown as BookContent;
+const ahLongformProps: CompositionProps = buildCompositionProps(
+  ahBook,
   "longform",
 );
 
@@ -89,6 +97,16 @@ export const RemotionRoot: React.FC = () => {
         width={mmLongformProps.width}
         height={mmLongformProps.height}
         defaultProps={mmLongformProps as any}
+      />
+      <Composition
+        id="AtomicHabits"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        component={LongformComposition as any}
+        durationInFrames={ahLongformProps.totalDurationFrames}
+        fps={ahLongformProps.fps}
+        width={ahLongformProps.width}
+        height={ahLongformProps.height}
+        defaultProps={ahLongformProps as any}
       />
       <Composition
         id="SynthesizedPreview"

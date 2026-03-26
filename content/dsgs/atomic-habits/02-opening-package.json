@@ -1,0 +1,191 @@
+{
+  "_stage": "2-3-OpeningComposer",
+  "_book": "atomic-habits",
+  "_generatedAt": "2026-03-26",
+  "_hookStrategy": ["contrarian", "identity"],
+
+  "openingPackage": {
+    "hookStrategy": "contrarian",
+    "introFraming": "'목표 대신 시스템'이라는 반전으로 시작해, 매일 1%의 복리 효과가 인생을 바꾼다는 프레이밍",
+    "packageDurationSec": 28,
+
+    "hook": {
+      "id": "hook-01",
+      "intent": "'목표를 세우지 마세요'라는 반전으로 충격을 주고, '시스템'이라는 키워드로 해결책 암시",
+      "origin": "synthesized",
+      "lifecycle": "ephemeral",
+      "fallbackPreset": "highlight",
+      "fallbackContent": {
+        "mainText": "목표를 세우지 마세요",
+        "subText": "승자와 패자의 목표는 같습니다",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "layout": "center-focus",
+      "elements": [
+        {
+          "id": "hook-contrarian",
+          "type": "headline",
+          "props": {
+            "text": "목표를 세우지 마세요",
+            "level": "headlineL",
+            "color": "signal"
+          }
+        },
+        {
+          "id": "hook-subtext",
+          "type": "body-text",
+          "props": {
+            "text": "승자와 패자의 목표는 같습니다",
+            "delayFrames": 36
+          }
+        },
+        {
+          "id": "hook-tease",
+          "type": "label",
+          "props": {
+            "text": "차이를 만드는 건 시스템입니다",
+            "style": "accent",
+            "delayFrames": 60
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "dramatic",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 0,
+      "durationFrames": 480,
+      "mediaPlan": {
+        "narrationText": "목표를 세우지 마세요. 올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 차이를 만든 건 목표가 아닙니다. 시스템입니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["목표", "시스템"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 0, "ms": 500 },
+            { "afterSentence": 2, "ms": 300 }
+          ]
+        },
+        "assetPlan": {
+          "required": [
+            {
+              "role": "texture",
+              "description": "dark grain texture overlay for hook atmosphere",
+              "optional": true
+            }
+          ],
+          "searchQueries": ["dark minimal abstract", "habit loop abstract"],
+          "fallbackMode": "text-only"
+        }
+      },
+      "synthesisConfidence": 0.85
+    },
+
+    "intro": {
+      "id": "intro-01",
+      "intent": "1% 복리 효과로 작은 습관의 위력을 수치화하여 설득",
+      "origin": "synthesized",
+      "lifecycle": "ephemeral",
+      "fallbackPreset": "keyInsight",
+      "fallbackContent": {
+        "headline": "매일 1%만 나아지면 1년 뒤 37배",
+        "supportText": "1.01의 365승은 37.78입니다. 반대로 매일 1%씩 나빠지면 0.03까지 떨어집니다. 습관은 자기 개선의 복리입니다.",
+        "underlineKeyword": "37배",
+        "useSignalBar": true
+      },
+      "layout": "center-focus",
+      "elements": [
+        {
+          "id": "intro-headline",
+          "type": "headline",
+          "props": {
+            "text": "매일 1%만 나아지면 1년 뒤 37배",
+            "level": "headlineL"
+          }
+        },
+        {
+          "id": "intro-body",
+          "type": "body-text",
+          "props": {
+            "text": "1.01의 365승은 37.78입니다. 반대로 매일 1%씩 나빠지면 0.03까지 떨어집니다. 습관은 자기 개선의 복리입니다.",
+            "delayFrames": 18
+          }
+        }
+      ],
+      "choreography": "reveal-sequence",
+      "motionPreset": "heavy",
+      "format": "longform",
+      "theme": {
+        "mode": "dark",
+        "genre": "selfHelp",
+        "bg": "#0D0D0F",
+        "surface": "#1A1A1F",
+        "surfaceMuted": "#2A2A30",
+        "textStrong": "#F8F7F2",
+        "textMuted": "#A0A0A8",
+        "lineSubtle": "#333340",
+        "signal": "#3B82F6",
+        "accent": "#10B981",
+        "premium": "#D4AF37"
+      },
+      "from": 480,
+      "durationFrames": 360,
+      "mediaPlan": {
+        "narrationText": "제임스 클리어는 놀라운 수치를 제시합니다. 매일 1%만 나아지면 1년 뒤 37배가 됩니다. 반대로 매일 1%씩 나빠지면 거의 0에 수렴하죠. 습관은 자기 개선의 복리입니다. 이것이 아주 작은 습관의 힘입니다.",
+        "captionPlan": {
+          "mode": "sentence-by-sentence",
+          "maxCharsPerLine": 28,
+          "maxLines": 2,
+          "leadFrames": 3,
+          "trailFrames": 3,
+          "highlightKeywords": ["1%", "37배", "복리"],
+          "transitionStyle": "fade-slide"
+        },
+        "audioPlan": {
+          "ttsEngine": "edge-tts",
+          "voiceKey": "ko-KR-SunHiNeural",
+          "speed": 1.0,
+          "pitch": "+0Hz",
+          "pauses": [
+            { "afterSentence": 1, "ms": 400 },
+            { "afterSentence": 3, "ms": 300 }
+          ]
+        },
+        "assetPlan": {
+          "required": [],
+          "fallbackMode": "text-only"
+        }
+      },
+      "synthesisConfidence": 0.82
+    },
+
+    "transitionBridge": {
+      "transitionToBody": "그렇다면 이 시스템의 핵심, 습관의 4법칙을 살펴보겠습니다.",
+      "carryKeyword": "시스템",
+      "audioCrossfadeMs": 300
+    }
+  }
+}
