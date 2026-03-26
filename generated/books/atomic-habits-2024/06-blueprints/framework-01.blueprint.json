@@ -5,61 +5,66 @@
   "layout": "radial",
   "layoutConfig": {
     "centerIndex": 0,
-    "radiusRatio": 0.35,
-    "startAngleDeg": -90
+    "radiusRatio": 0.42,
+    "startAngleDeg": -90,
+    "elementSizeRatio": 0.65
   },
   "elements": [
     {
       "id": "synth-radial-center",
-      "type": "label",
+      "type": "headline",
       "props": {
         "text": "습관의 4법칙",
         "layer": 20,
-        "variant": "accent",
-        "tokenRef": "typeScale.headlineM"
+        "weight": "bold",
+        "align": "center"
       }
     },
     {
       "id": "synth-radial-node-0",
-      "type": "label",
+      "type": "body-text",
       "props": {
         "text": "1. 분명하게 만들어라",
         "layer": 30,
-        "variant": "default",
+        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
+        "align": "center",
         "index": 0
       }
     },
     {
       "id": "synth-radial-node-1",
-      "type": "label",
+      "type": "body-text",
       "props": {
         "text": "2. 매력적으로 만들어라",
         "layer": 30,
-        "variant": "default",
+        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
+        "align": "center",
         "index": 1
       }
     },
     {
       "id": "synth-radial-node-2",
-      "type": "label",
+      "type": "body-text",
       "props": {
         "text": "3. 쉽게 만들어라",
         "layer": 30,
-        "variant": "default",
+        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
+        "align": "center",
         "index": 2
       }
     },
     {
       "id": "synth-radial-node-3",
-      "type": "label",
+      "type": "body-text",
       "props": {
         "text": "4. 만족스럽게 만들어라",
         "layer": 30,
-        "variant": "default",
+        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
+        "align": "center",
         "index": 3
       }
     },

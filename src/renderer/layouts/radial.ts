@@ -34,7 +34,11 @@ export const radial: LayoutFunction = (
   const centerY = safeTop + safeHeight / 2;
 
   const radius = Math.min(safeWidth, safeHeight) * radiusRatio;
-  const elementSize = radius * 0.4;
+  const elementSizeRatio =
+    (config as Record<string, unknown>)?.elementSizeRatio != null
+      ? Number((config as Record<string, unknown>).elementSizeRatio)
+      : 0.4;
+  const elementSize = radius * elementSizeRatio;
 
   const radialElements = elements.filter((_, i) => i !== centerIndex);
   const count = radialElements.length;

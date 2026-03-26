@@ -80,12 +80,54 @@ export const splitTwo: LayoutFunction = (
     };
   }
 
-  // Panel-aware positioning: group elements by panel prop
-  return elements.map((el, i) => {
+  // Group element indices by panel
+  const leftIndices: number[] = [];
+  const rightIndices: number[] = [];
+  const centerIndices: number[] = [];
+  const unassigned: number[] = [];
+
+  elements.forEach((el, i) => {
     const panel = el.props?.panel as string | undefined;
-    if (panel === "left") return first;
-    if (panel === "right") return second;
-    if (panel === "center") return center;
+    if (panel === "left") leftIndices.push(i);
+    else if (panel === "right") rightIndices.push(i);
+    else if (panel === "center") centerIndices.push(i);
+    else unassigned.push(i);
+  });
+
+  // Distribute elements vertically within each panel (centered)
+  const distributeInPanel = (
+    panel: LayoutPosition,
+    indices: number[],
+  ): Map<number, LayoutPosition> => {
+    const result = new Map<number, LayoutPosition>();
+    const count = indices.length;
+    if (count === 0) return result;
+
+    const elementHeight = 80;
+    const gap = 16;
+    const totalHeight = count * elementHeight + (count - 1) * gap;
+    const startY = panel.top + (panel.height - totalHeight) / 2;
+
+    indices.forEach((idx, order) => {
+      result.set(idx, {
+        left: panel.left,
+        top: startY + order * (elementHeight + gap),
+        width: panel.width,
+        height: elementHeight,
+      });
+    });
+
+    return result;
+  };
+
+  const leftPositions = distributeInPanel(first, leftIndices);
+  const rightPositions = distributeInPanel(second, rightIndices);
+  const centerPositions = distributeInPanel(center, centerIndices);
+
+  return elements.map((el, i) => {
+    if (leftPositions.has(i)) return leftPositions.get(i)!;
+    if (rightPositions.has(i)) return rightPositions.get(i)!;
+    if (centerPositions.has(i)) return centerPositions.get(i)!;
     // Fallback: alternate between panels by index
     return i % 2 === 0 ? first : second;
   });

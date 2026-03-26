@@ -1,0 +1,85 @@
+{
+  "bookId": "atomic-habits-2024",
+  "timestamp": "2026-03-26T13:02:06.446Z",
+  "summary": {
+    "totalScenes": 11,
+    "pass": 10,
+    "warn": 1,
+    "fail": 0
+  },
+  "scenes": [
+    {
+      "sceneId": "hook-01",
+      "sceneType": "highlight",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "cover-01",
+      "sceneType": "cover",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "insight-compound",
+      "sceneType": "keyInsight",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "chapter-01",
+      "sceneType": "chapterDivider",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "framework-01",
+      "sceneType": "framework",
+      "severity": "warn",
+      "issues": [
+        {
+          "ruleId": "safe-area",
+          "severity": "warn",
+          "sceneId": "framework-01",
+          "message": "Scene has long narration (267 chars) and many beats (5) — risk of visual crowding"
+        }
+      ]
+    },
+    {
+      "sceneId": "insight-identity",
+      "sceneType": "keyInsight",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "compare-01",
+      "sceneType": "compareContrast",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "application-01",
+      "sceneType": "application",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "quote-01",
+      "sceneType": "quote",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "insight-recap",
+      "sceneType": "keyInsight",
+      "severity": "pass",
+      "issues": []
+    },
+    {
+      "sceneId": "closing-01",
+      "sceneType": "closing",
+      "severity": "pass",
+      "issues": []
+    }
+  ]
+}

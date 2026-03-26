@@ -1,0 +1,128 @@
+{
+  "checkpoint": "A",
+  "stageId": "3-opening",
+  "stageName": "OpeningComposer",
+  "completedStages": [
+    {
+      "stageId": "1-analyzer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/00-fingerprint.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 00-fingerprint.json"
+    },
+    {
+      "stageId": "2-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/01-editorial-outline.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 01-editorial-outline.json"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/02-art-direction.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 02-art-direction.json"
+    },
+    {
+      "stageId": "4-scene-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/03-storyboard.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 03-storyboard.json"
+    },
+    {
+      "stageId": "5-gap-detector",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/04-asset-inventory.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 04-asset-inventory.json"
+    },
+    {
+      "stageId": "6-synthesizer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/05-motion-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 05-motion-plan.json"
+    },
+    {
+      "stageId": "6.3-beat-composer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/06-blueprints"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 06-blueprints"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/04-asset-inventory.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 04-asset-inventory.json"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/.validation"
+      ],
+      "durationMs": 610
+    },
+    {
+      "stageId": "8-render",
+      "status": "success",
+      "artifacts": [],
+      "durationMs": 111862
+    },
+    {
+      "stageId": "9-promote",
+      "status": "skipped",
+      "artifacts": [],
+      "durationMs": 0,
+      "message": "Promotion stage not yet implemented"
+    },
+    {
+      "stageId": "1-analyzer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/00-fingerprint.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 00-fingerprint.json"
+    },
+    {
+      "stageId": "2-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/01-editorial-outline.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 01-editorial-outline.json"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/02-art-direction.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 02-art-direction.json"
+    }
+  ],
+  "timestamp": "2026-03-26T12:01:18.958Z"
+}

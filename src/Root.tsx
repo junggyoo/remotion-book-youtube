@@ -18,6 +18,9 @@ import {
   miracleMorningGaps,
   miracleMorningFingerprint,
 } from "@/planner/__tests__/miracleMorning.fixture";
+import hookBlueprint from "../generated/books/atomic-habits-2024/06-blueprints/hook-01.blueprint.json";
+import frameworkBlueprint from "../generated/books/atomic-habits-2024/06-blueprints/framework-01.blueprint.json";
+import type { SceneBlueprint } from "@/types";
 
 loadProjectFonts();
 
@@ -160,6 +163,24 @@ const synthProps: SynthesizedPreviewProps = {
   height: 1080,
 };
 
+// Blueprint v2 preview: hook-01 + framework-01 side by side
+const blueprintV2: SceneBlueprint[] = [
+  hookBlueprint as unknown as SceneBlueprint,
+  {
+    ...(frameworkBlueprint as unknown as SceneBlueprint),
+    from: (hookBlueprint as any).durationFrames,
+  },
+];
+const blueprintV2Props: SynthesizedPreviewProps = {
+  blueprints: blueprintV2 as any,
+  totalDurationFrames:
+    (hookBlueprint as any).durationFrames +
+    (frameworkBlueprint as any).durationFrames,
+  fps: 30,
+  width: 1920,
+  height: 1080,
+};
+
 export const RemotionRoot: React.FC = () => {
   return (
     <>
@@ -225,6 +246,15 @@ export const RemotionRoot: React.FC = () => {
         width={synthProps.width}
         height={synthProps.height}
         defaultProps={synthProps as any}
+      />
+      <Composition
+        id="BlueprintV2Preview"
+        component={SynthesizedPreview as any}
+        durationInFrames={blueprintV2Props.totalDurationFrames}
+        fps={blueprintV2Props.fps}
+        width={blueprintV2Props.width}
+        height={blueprintV2Props.height}
+        defaultProps={blueprintV2Props as any}
       />
     </>
   );
