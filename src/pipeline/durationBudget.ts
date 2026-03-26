@@ -107,7 +107,7 @@ export function extractSceneComposition(scenes: any[]): SceneComposition[] {
  *
  * @param targetDurationSeconds - desired total video length
  * @param scenes - scene composition (id, type, itemCount)
- * @param options.cps - override Korean chars-per-second (default: 11.4)
+ * @param options.cps - override Korean chars-per-second (default: 5.7)
  * @param options.ttsSpeed - TTS speed multiplier (default: 1). CPS scales proportionally.
  */
 export function calculateBudget(
@@ -194,6 +194,28 @@ export function calculateBudget(
     ),
     totalMaxChars: sceneBudgets.reduce((s, b) => s + b.maxChars, 0),
   };
+}
+
+/**
+ * Reverse of calculateBudget: estimate frame count from narration text length.
+ * Used as fallback when TTS is unavailable but narrationText exists.
+ *
+ * @param narrationText - the narration string (length determines estimate)
+ * @param fps - frames per second (typically 30)
+ * @param opts.cps - override Korean chars-per-second (default: KOREAN_CPS_DEFAULT)
+ * @param opts.tailPaddingFrames - padding after narration (default: 15)
+ */
+export function estimateDurationFrames(
+  narrationText: string,
+  fps: number,
+  opts?: { cps?: number; tailPaddingFrames?: number },
+): number {
+  const cps = opts?.cps ?? KOREAN_CPS_DEFAULT;
+  const tailPadding = opts?.tailPaddingFrames ?? 15;
+  const charCount = narrationText.length;
+  if (charCount === 0) return 0;
+  const estimatedSeconds = charCount / cps;
+  return Math.ceil(estimatedSeconds * fps) + tailPadding;
 }
 
 // ---------------------------------------------------------------------------

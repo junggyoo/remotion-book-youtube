@@ -1,5 +1,6 @@
 import type { TypedScene, FormatKey, TTSResult } from "@/types";
 import sceneCatalog from "@/schema/scene-catalog.json";
+import { estimateDurationFrames } from "./durationBudget";
 
 type SceneCatalogEntry = {
   durationFramesDefault: number;
@@ -45,6 +46,7 @@ const TAIL_PADDING_FRAMES = 15;
 export function resolveDuration(
   scene: TypedScene,
   ttsResult?: TTSResult,
+  fps: number = 30,
 ): number {
   const hasNarration = !!scene.narrationText?.trim();
   const catalogDefault = getCatalogDefault(scene.type);
@@ -72,11 +74,14 @@ export function resolveDuration(
     return scene.durationFrames;
   }
 
-  // Case 3: narration 있지만 TTS 실패 → catalog default (silent 모드)
+  // Case 3: narration 있지만 TTS 없음 → char-based estimation fallback
   if (hasNarration && !ttsResult) {
+    const estimated = estimateDurationFrames(scene.narrationText!, fps);
+    const resolved = Math.max(estimated, catalogDefault);
     console.warn(
-      `⚠️  Scene ${scene.id}: narration 있으나 TTS 없음 → catalog default ${catalogDefault}f (silent)`,
+      `⚠️  Scene ${scene.id}: narration 있으나 TTS 없음 → char 기반 추정 ${resolved}f (${scene.narrationText!.length}자/${fps}fps)`,
     );
+    return resolved;
   }
 
   return catalogDefault;
@@ -118,6 +123,7 @@ export function planScenes(
   scenes: TypedScene[],
   format: FormatKey,
   ttsResults?: Map<string, TTSResult>,
+  fps: number = 30,
 ): PlannedScene[] {
   const formatScenes = getScenesForFormat(scenes, format);
   const planned: PlannedScene[] = [];
@@ -125,7 +131,7 @@ export function planScenes(
 
   for (const scene of formatScenes) {
     const ttsResult = ttsResults?.get(scene.id);
-    const resolvedDuration = resolveDuration(scene, ttsResult);
+    const resolvedDuration = resolveDuration(scene, ttsResult, fps);
 
     planned.push({
       ...scene,
