@@ -40,5 +40,8 @@ voice/output/
 *.mp4
 *.webm
 
+# Planning validation results (ephemeral)
+generated/books/**/.validation/
+
 # oh-my-claudecode state
 .omc/
