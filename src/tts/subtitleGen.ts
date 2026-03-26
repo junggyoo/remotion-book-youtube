@@ -17,8 +17,8 @@ export const LEAD_FRAMES = 3;
  */
 export function splitToLines(text: string): string[] {
   const lines: string[] = [];
-  // 문장부호 뒤 공백 정규화: "시작할까요?세 가지" → "시작할까요? 세 가지"
-  let remaining = text.trim().replace(/([?!])([가-힣])/g, "$1 $2");
+  // 문장부호 뒤 공백 정규화: "나눕니다.인도는" → "나눕니다. 인도는"
+  let remaining = text.trim().replace(/([.?!])([가-힣])/g, "$1 $2");
 
   while (remaining.length > 0 && lines.length < MAX_LINES) {
     if (remaining.length <= MAX_CHARS_PER_LINE) {
