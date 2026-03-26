@@ -27,46 +27,66 @@ export const splitTwo: LayoutFunction = (
 
   const isLandscape = width >= height;
 
-  const positions: LayoutPosition[] = [];
+  let first: LayoutPosition;
+  let second: LayoutPosition;
+  let center: LayoutPosition;
 
   if (isLandscape) {
     // Horizontal split
     const firstWidth = (safeWidth - resolvedGap) * ratio;
     const secondWidth = safeWidth - resolvedGap - firstWidth;
 
-    const first: LayoutPosition = {
+    first = {
       left: safeLeft,
       top: safeTop,
       width: firstWidth,
       height: safeHeight,
     };
-    const second: LayoutPosition = {
+    second = {
       left: safeLeft + firstWidth + resolvedGap,
       top: safeTop,
       width: secondWidth,
       height: safeHeight,
     };
-    positions.push(first, second);
+    // Center position for dividers/unassigned elements (in the gap)
+    center = {
+      left: safeLeft + firstWidth,
+      top: safeTop,
+      width: resolvedGap,
+      height: safeHeight,
+    };
   } else {
     // Vertical split
     const firstHeight = (safeHeight - resolvedGap) * ratio;
     const secondHeight = safeHeight - resolvedGap - firstHeight;
 
-    const first: LayoutPosition = {
+    first = {
       left: safeLeft,
       top: safeTop,
       width: safeWidth,
       height: firstHeight,
     };
-    const second: LayoutPosition = {
+    second = {
       left: safeLeft,
       top: safeTop + firstHeight + resolvedGap,
       width: safeWidth,
       height: secondHeight,
     };
-    positions.push(first, second);
+    center = {
+      left: safeLeft,
+      top: safeTop + firstHeight,
+      width: safeWidth,
+      height: resolvedGap,
+    };
   }
 
-  // Clamp to actual element count (if fewer than 2 elements provided)
-  return positions.slice(0, elements.length);
+  // Panel-aware positioning: group elements by panel prop
+  return elements.map((el, i) => {
+    const panel = el.props?.panel as string | undefined;
+    if (panel === "left") return first;
+    if (panel === "right") return second;
+    if (panel === "center") return center;
+    // Fallback: alternate between panels by index
+    return i % 2 === 0 ? first : second;
+  });
 };

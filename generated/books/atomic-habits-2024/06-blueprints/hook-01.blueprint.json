@@ -1,40 +1,68 @@
 {
   "id": "hook-01",
-  "intent": "Contrarian hook: challenge goal-setting with a bold statement, provide Olympic evidence, then reveal the system keyword",
+  "intent": "Split-contrast hook: visually oppose goals vs systems — left panel (muted goals) vs right panel (accented systems) to embody the book's core thesis",
   "origin": "synthesized",
-  "layout": "center-focus",
-  "layoutConfig": {},
+  "layout": "split-two",
+  "layoutConfig": {
+    "ratio": 0.5,
+    "gap": 32
+  },
   "elements": [
     {
-      "id": "mainText",
+      "id": "left-label",
       "type": "headline",
       "props": {
-        "text": "목표를 세우지 마세요",
+        "text": "목표",
         "weight": "bold",
-        "align": "center"
+        "align": "center",
+        "color": "textMuted",
+        "panel": "left"
       }
     },
     {
-      "id": "subText",
+      "id": "left-body",
       "type": "body-text",
       "props": {
         "text": "승자와 패자의 목표는 같습니다",
         "tokenRef": "bodyL",
         "weight": "regular",
         "align": "center",
-        "color": "textMuted"
+        "color": "textMuted",
+        "panel": "left"
       }
     },
     {
-      "id": "signalBar",
+      "id": "center-divider",
       "type": "divider",
       "props": {
-        "orientation": "horizontal"
+        "orientation": "vertical",
+        "panel": "center"
+      }
+    },
+    {
+      "id": "right-label",
+      "type": "headline",
+      "props": {
+        "text": "시스템",
+        "weight": "bold",
+        "align": "center",
+        "panel": "right"
+      }
+    },
+    {
+      "id": "right-body",
+      "type": "body-text",
+      "props": {
+        "text": "차이를 만든 건 매일의 훈련 시스템입니다",
+        "tokenRef": "bodyL",
+        "weight": "regular",
+        "align": "center",
+        "panel": "right"
       }
     }
   ],
   "choreography": "reveal-sequence",
-  "motionPreset": "dramatic",
+  "motionPreset": "heavy",
   "format": "longform",
   "theme": {
     "mode": "dark",

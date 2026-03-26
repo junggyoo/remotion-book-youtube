@@ -1,98 +1,119 @@
 {
   "id": "framework-01",
-  "intent": "Sequentially reveal the 4 Laws of Behavior Change with numbered items, building an accumulative visual structure",
+  "intent": "Radial operating system: center hub with 4 Laws orbiting clockwise, connected by cycle-connector arcs to convey a closed-loop habit system",
   "origin": "synthesized",
-  "layout": "grid-expand",
+  "layout": "radial",
   "layoutConfig": {
-    "columns": 2,
-    "rows": 2,
-    "gap": 24
+    "centerIndex": 0,
+    "radiusRatio": 0.35,
+    "startAngleDeg": -90
   },
   "elements": [
     {
-      "id": "frameworkLabel",
-      "type": "headline",
+      "id": "synth-radial-center",
+      "type": "label",
       "props": {
         "text": "습관의 4법칙",
-        "weight": "bold",
-        "align": "center"
+        "layer": 20,
+        "variant": "accent",
+        "tokenRef": "typeScale.headlineM"
       }
     },
     {
-      "id": "item-0",
+      "id": "synth-radial-node-0",
       "type": "label",
       "props": {
         "text": "1. 분명하게 만들어라",
-        "variant": "accent"
+        "layer": 30,
+        "variant": "default",
+        "tokenRef": "typeScale.bodyL",
+        "index": 0
       }
     },
     {
-      "id": "item-0-desc",
-      "type": "body-text",
-      "props": {
-        "text": "신호를 눈에 보이게 설계합니다",
-        "tokenRef": "bodyM",
-        "weight": "regular",
-        "color": "textMuted"
-      }
-    },
-    {
-      "id": "item-1",
+      "id": "synth-radial-node-1",
       "type": "label",
       "props": {
         "text": "2. 매력적으로 만들어라",
-        "variant": "accent"
+        "layer": 30,
+        "variant": "default",
+        "tokenRef": "typeScale.bodyL",
+        "index": 1
       }
     },
     {
-      "id": "item-1-desc",
-      "type": "body-text",
-      "props": {
-        "text": "열망을 유발하는 보상을 연결합니다",
-        "tokenRef": "bodyM",
-        "weight": "regular",
-        "color": "textMuted"
-      }
-    },
-    {
-      "id": "item-2",
+      "id": "synth-radial-node-2",
       "type": "label",
       "props": {
         "text": "3. 쉽게 만들어라",
-        "variant": "accent"
+        "layer": 30,
+        "variant": "default",
+        "tokenRef": "typeScale.bodyL",
+        "index": 2
       }
     },
     {
-      "id": "item-2-desc",
-      "type": "body-text",
-      "props": {
-        "text": "반응의 저항을 최소화합니다",
-        "tokenRef": "bodyM",
-        "weight": "regular",
-        "color": "textMuted"
-      }
-    },
-    {
-      "id": "item-3",
+      "id": "synth-radial-node-3",
       "type": "label",
       "props": {
         "text": "4. 만족스럽게 만들어라",
-        "variant": "accent"
+        "layer": 30,
+        "variant": "default",
+        "tokenRef": "typeScale.bodyL",
+        "index": 3
       }
     },
     {
-      "id": "item-3-desc",
-      "type": "body-text",
+      "id": "synth-radial-conn-0-1",
+      "type": "cycle-connector",
       "props": {
-        "text": "즉각적 보상으로 반복을 강화합니다",
-        "tokenRef": "bodyM",
-        "weight": "regular",
-        "color": "textMuted"
+        "connects": {
+          "fromId": "synth-radial-node-0",
+          "toId": "synth-radial-node-1"
+        },
+        "layer": 25,
+        "dotted": true
+      }
+    },
+    {
+      "id": "synth-radial-conn-1-2",
+      "type": "cycle-connector",
+      "props": {
+        "connects": {
+          "fromId": "synth-radial-node-1",
+          "toId": "synth-radial-node-2"
+        },
+        "layer": 25,
+        "dotted": true
+      }
+    },
+    {
+      "id": "synth-radial-conn-2-3",
+      "type": "cycle-connector",
+      "props": {
+        "connects": {
+          "fromId": "synth-radial-node-2",
+          "toId": "synth-radial-node-3"
+        },
+        "layer": 25,
+        "dotted": true
+      }
+    },
+    {
+      "id": "synth-radial-conn-3-0",
+      "type": "cycle-connector",
+      "props": {
+        "connects": {
+          "fromId": "synth-radial-node-3",
+          "toId": "synth-radial-node-0"
+        },
+        "layer": 25,
+        "dotted": true
       }
     }
   ],
-  "choreography": "reveal-sequence",
-  "motionPreset": "smooth",
+  "choreography": "stagger-clockwise",
+  "motionPreset": "snappy",
   "format": "longform",
   "theme": {
     "mode": "dark",
