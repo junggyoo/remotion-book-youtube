@@ -2,64 +2,92 @@
   {
     "text": "그렇다면",
     "startMs": 100,
-    "endMs": 812,
+    "endMs": 945,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 이",
-    "startMs": 812,
-    "endMs": 1525,
-    "timestampMs": 812,
+    "text": " 추월차선의",
+    "startMs": 945,
+    "endMs": 1790,
+    "timestampMs": 945,
     "confidence": null
   },
   {
-    "text": " 시스템의",
-    "startMs": 1525,
-    "endMs": 2237,
-    "timestampMs": 1525,
+    "text": " 구체적인",
+    "startMs": 1790,
+    "endMs": 2635,
+    "timestampMs": 1790,
     "confidence": null
   },
   {
-    "text": " 핵심은",
-    "startMs": 2237,
-    "endMs": 2950,
-    "timestampMs": 2237,
+    "text": " 공식은",
+    "startMs": 2635,
+    "endMs": 3480,
+    "timestampMs": 2635,
     "confidence": null
   },
   {
     "text": " 무엇일까요?",
-    "startMs": 2950,
-    "endMs": 3662,
-    "timestampMs": 2950,
+    "startMs": 3480,
+    "endMs": 4325,
+    "timestampMs": 3480,
     "confidence": null
   },
   {
-    "text": "습관의",
-    "startMs": 3612,
-    "endMs": 4556,
-    "timestampMs": 3612,
+    "text": "드마코가",
+    "startMs": 4275,
+    "endMs": 4900,
+    "timestampMs": 4275,
     "confidence": null
   },
   {
-    "text": " 4법칙을",
-    "startMs": 4556,
-    "endMs": 5500,
-    "timestampMs": 4556,
+    "text": " 제시하는",
+    "startMs": 4900,
+    "endMs": 5525,
+    "timestampMs": 4900,
+    "confidence": null
+  },
+  {
+    "text": " 다섯",
+    "startMs": 5525,
+    "endMs": 6150,
+    "timestampMs": 5525,
+    "confidence": null
+  },
+  {
+    "text": " 가지",
+    "startMs": 6150,
+    "endMs": 6775,
+    "timestampMs": 6150,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 6775,
+    "endMs": 7400,
+    "timestampMs": 6775,
+    "confidence": null
+  },
+  {
+    "text": " 원칙을",
+    "startMs": 7400,
+    "endMs": 8025,
+    "timestampMs": 7400,
     "confidence": null
   },
   {
     "text": " 하나씩",
-    "startMs": 5500,
-    "endMs": 6443,
-    "timestampMs": 5500,
+    "startMs": 8025,
+    "endMs": 8650,
+    "timestampMs": 8025,
     "confidence": null
   },
   {
-    "text": " 살펴보겠습니다.",
-    "startMs": 6443,
-    "endMs": 7387,
-    "timestampMs": 6443,
+    "text": " 살펴봅니다.",
+    "startMs": 8650,
+    "endMs": 9275,
+    "timestampMs": 8650,
     "confidence": null
   }
 ]

@@ -1,121 +1,114 @@
 [
   {
-    "text": "제임스",
+    "text": "엠제이",
     "startMs": 100,
-    "endMs": 523,
+    "endMs": 906,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 클리어의",
-    "startMs": 523,
-    "endMs": 946,
-    "timestampMs": 523,
+    "text": " 드마코의",
+    "startMs": 906,
+    "endMs": 1713,
+    "timestampMs": 906,
     "confidence": null
   },
   {
-    "text": " 아주",
-    "startMs": 946,
-    "endMs": 1368,
-    "timestampMs": 946,
+    "text": " 부의",
+    "startMs": 1713,
+    "endMs": 2519,
+    "timestampMs": 1713,
     "confidence": null
   },
   {
-    "text": " 작은",
-    "startMs": 1368,
-    "endMs": 1791,
-    "timestampMs": 1368,
+    "text": " 추월차선.",
+    "startMs": 2519,
+    "endMs": 3325,
+    "timestampMs": 2519,
     "confidence": null
   },
   {
-    "text": " 습관의",
-    "startMs": 1791,
-    "endMs": 2214,
-    "timestampMs": 1791,
-    "confidence": null
-  },
-  {
-    "text": " 힘.",
-    "startMs": 2214,
-    "endMs": 2637,
-    "timestampMs": 2214,
-    "confidence": null
-  },
-  {
-    "text": " 전",
-    "startMs": 2637,
-    "endMs": 3059,
-    "timestampMs": 2637,
+    "text": "전",
+    "startMs": 3275,
+    "endMs": 3739,
+    "timestampMs": 3275,
     "confidence": null
   },
   {
     "text": " 세계",
-    "startMs": 3059,
-    "endMs": 3482,
-    "timestampMs": 3059,
+    "startMs": 3739,
+    "endMs": 4202,
+    "timestampMs": 3739,
     "confidence": null
   },
   {
-    "text": " 천만",
-    "startMs": 3482,
-    "endMs": 3905,
-    "timestampMs": 3482,
+    "text": " 수백만",
+    "startMs": 4202,
+    "endMs": 4666,
+    "timestampMs": 4202,
     "confidence": null
   },
   {
-    "text": " 부",
-    "startMs": 3905,
-    "endMs": 4328,
-    "timestampMs": 3905,
+    "text": " 독자의",
+    "startMs": 4666,
+    "endMs": 5129,
+    "timestampMs": 4666,
     "confidence": null
   },
   {
-    "text": " 이상",
-    "startMs": 4328,
-    "endMs": 4750,
-    "timestampMs": 4328,
+    "text": " 돈에",
+    "startMs": 5129,
+    "endMs": 5593,
+    "timestampMs": 5129,
     "confidence": null
   },
   {
-    "text": " 팔린",
-    "startMs": 4750,
-    "endMs": 5173,
-    "timestampMs": 4750,
+    "text": " 대한",
+    "startMs": 5593,
+    "endMs": 6056,
+    "timestampMs": 5593,
+    "confidence": null
+  },
+  {
+    "text": " 생각을",
+    "startMs": 6056,
+    "endMs": 6520,
+    "timestampMs": 6056,
+    "confidence": null
+  },
+  {
+    "text": " 바꾼",
+    "startMs": 6520,
+    "endMs": 6983,
+    "timestampMs": 6520,
     "confidence": null
   },
   {
     "text": " 이",
-    "startMs": 5173,
-    "endMs": 5596,
-    "timestampMs": 5173,
+    "startMs": 6983,
+    "endMs": 7447,
+    "timestampMs": 6983,
     "confidence": null
   },
   {
-    "text": " 책이",
-    "startMs": 5596,
-    "endMs": 6019,
-    "timestampMs": 5596,
-    "confidence": null
-  },
-  {
-    "text": " 말하는",
-    "startMs": 6019,
-    "endMs": 6441,
-    "timestampMs": 6019,
+    "text": " 책의",
+    "startMs": 7447,
+    "endMs": 7910,
+    "timestampMs": 7447,
     "confidence": null
   },
   {
     "text": " 핵심을",
-    "startMs": 6441,
-    "endMs": 6864,
-    "timestampMs": 6441,
+    "startMs": 7910,
+    "endMs": 8374,
+    "timestampMs": 7910,
     "confidence": null
   },
   {
     "text": " 알아봅니다.",
-    "startMs": 6864,
-    "endMs": 7287,
-    "timestampMs": 6864,
+    "startMs": 8374,
+    "endMs": 8837,
+    "timestampMs": 8374,
     "confidence": null
   }
 ]

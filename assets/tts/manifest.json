@@ -3,21 +3,21 @@
     "sceneId": "cover-01",
     "audioFile": "cover-01.mp3",
     "captionsFile": "cover-01.json",
-    "durationMs": 7296,
-    "durationFrames": 219,
+    "durationMs": 8904,
+    "durationFrames": 268,
     "beatTimings": [
       {
         "beatId": "cover-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 79,
+        "resolvedEndFrame": 100,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.55
+        "originalEndRatio": 0.5
       },
       {
         "beatId": "cover-b2",
-        "resolvedStartFrame": 79,
-        "resolvedEndFrame": 219,
-        "originalStartRatio": 0.55,
+        "resolvedStartFrame": 98,
+        "resolvedEndFrame": 265,
+        "originalStartRatio": 0.5,
         "originalEndRatio": 1
       }
     ]
@@ -26,58 +26,58 @@
     "sceneId": "hook-01",
     "audioFile": "hook-01.mp3",
     "captionsFile": "hook-01.json",
-    "durationMs": 19776,
-    "durationFrames": 594,
+    "durationMs": 26232,
+    "durationFrames": 787,
     "beatTimings": [
       {
         "beatId": "hook-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 139,
+        "resolvedEndFrame": 208,
         "originalStartRatio": 0,
         "originalEndRatio": 0.3
       },
       {
         "beatId": "hook-b2",
-        "resolvedStartFrame": 139,
-        "resolvedEndFrame": 409,
+        "resolvedStartFrame": 208,
+        "resolvedEndFrame": 554,
         "originalStartRatio": 0.3,
-        "originalEndRatio": 0.65
+        "originalEndRatio": 0.6
       },
       {
         "beatId": "hook-b3",
-        "resolvedStartFrame": 409,
-        "resolvedEndFrame": 591,
-        "originalStartRatio": 0.65,
+        "resolvedStartFrame": 554,
+        "resolvedEndFrame": 785,
+        "originalStartRatio": 0.6,
         "originalEndRatio": 1
       }
     ]
   },
   {
-    "sceneId": "insight-compound",
-    "audioFile": "insight-compound.mp3",
-    "captionsFile": "insight-compound.json",
-    "durationMs": 30192,
-    "durationFrames": 906,
+    "sceneId": "insight-01",
+    "audioFile": "insight-01.mp3",
+    "captionsFile": "insight-01.json",
+    "durationMs": 33792,
+    "durationFrames": 1014,
     "beatTimings": [
       {
-        "beatId": "compound-b1",
+        "beatId": "insight-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 515,
+        "resolvedEndFrame": 345,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.45
+        "originalEndRatio": 0.35
       },
       {
-        "beatId": "compound-b2",
-        "resolvedStartFrame": 515,
-        "resolvedEndFrame": 813,
-        "originalStartRatio": 0.45,
-        "originalEndRatio": 0.75
+        "beatId": "insight-b2",
+        "resolvedStartFrame": 345,
+        "resolvedEndFrame": 828,
+        "originalStartRatio": 0.35,
+        "originalEndRatio": 0.65
       },
       {
-        "beatId": "compound-b3",
-        "resolvedStartFrame": 813,
-        "resolvedEndFrame": 904,
-        "originalStartRatio": 0.75,
+        "beatId": "insight-b3",
+        "resolvedStartFrame": 828,
+        "resolvedEndFrame": 1012,
+        "originalStartRatio": 0.65,
         "originalEndRatio": 1
       }
     ]
@@ -86,13 +86,13 @@
     "sceneId": "chapter-01",
     "audioFile": "chapter-01.mp3",
     "captionsFile": "chapter-01.json",
-    "durationMs": 7440,
-    "durationFrames": 224,
+    "durationMs": 9336,
+    "durationFrames": 281,
     "beatTimings": [
       {
         "beatId": "chapter-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 222,
+        "resolvedEndFrame": 278,
         "originalStartRatio": 0,
         "originalEndRatio": 1
       }
@@ -102,95 +102,49 @@
     "sceneId": "framework-01",
     "audioFile": "framework-01.mp3",
     "captionsFile": "framework-01.json",
-    "durationMs": 45144,
-    "durationFrames": 1355,
+    "durationMs": 59160,
+    "durationFrames": 1775,
     "beatTimings": [
       {
         "beatId": "fw-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 88,
+        "resolvedEndFrame": 113,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.15
+        "originalEndRatio": 0.12
       },
       {
         "beatId": "fw-b2",
-        "resolvedStartFrame": 87,
-        "resolvedEndFrame": 406,
-        "originalStartRatio": 0.15,
-        "originalEndRatio": 0.4
+        "resolvedStartFrame": 111,
+        "resolvedEndFrame": 449,
+        "originalStartRatio": 0.12,
+        "originalEndRatio": 0.3
       },
       {
         "beatId": "fw-b3",
-        "resolvedStartFrame": 406,
-        "resolvedEndFrame": 722,
-        "originalStartRatio": 0.4,
-        "originalEndRatio": 0.6
+        "resolvedStartFrame": 449,
+        "resolvedEndFrame": 758,
+        "originalStartRatio": 0.3,
+        "originalEndRatio": 0.47
       },
       {
         "beatId": "fw-b4",
-        "resolvedStartFrame": 722,
-        "resolvedEndFrame": 1010,
-        "originalStartRatio": 0.6,
-        "originalEndRatio": 0.8
+        "resolvedStartFrame": 758,
+        "resolvedEndFrame": 1145,
+        "originalStartRatio": 0.47,
+        "originalEndRatio": 0.64
       },
       {
         "beatId": "fw-b5",
-        "resolvedStartFrame": 1010,
-        "resolvedEndFrame": 1353,
-        "originalStartRatio": 0.8,
-        "originalEndRatio": 1
-      }
-    ]
-  },
-  {
-    "sceneId": "insight-identity",
-    "audioFile": "insight-identity.mp3",
-    "captionsFile": "insight-identity.json",
-    "durationMs": 34680,
-    "durationFrames": 1041,
-    "beatTimings": [
-      {
-        "beatId": "identity-b1",
-        "resolvedStartFrame": 3,
-        "resolvedEndFrame": 207,
-        "originalStartRatio": 0,
-        "originalEndRatio": 0.2
+        "resolvedStartFrame": 1145,
+        "resolvedEndFrame": 1452,
+        "originalStartRatio": 0.64,
+        "originalEndRatio": 0.82
       },
       {
-        "beatId": "identity-b2",
-        "resolvedStartFrame": 207,
-        "resolvedEndFrame": 893,
-        "originalStartRatio": 0.2,
-        "originalEndRatio": 0.55
-      },
-      {
-        "beatId": "identity-b3",
-        "resolvedStartFrame": 893,
-        "resolvedEndFrame": 1039,
-        "originalStartRatio": 0.55,
-        "originalEndRatio": 1
-      }
-    ]
-  },
-  {
-    "sceneId": "compare-01",
-    "audioFile": "compare-01.mp3",
-    "captionsFile": "compare-01.json",
-    "durationMs": 30888,
-    "durationFrames": 927,
-    "beatTimings": [
-      {
-        "beatId": "compare-b1",
-        "resolvedStartFrame": 3,
-        "resolvedEndFrame": 459,
-        "originalStartRatio": 0,
-        "originalEndRatio": 0.5
-      },
-      {
-        "beatId": "compare-b2",
-        "resolvedStartFrame": 459,
-        "resolvedEndFrame": 925,
-        "originalStartRatio": 0.5,
+        "beatId": "fw-b6",
+        "resolvedStartFrame": 1452,
+        "resolvedEndFrame": 1773,
+        "originalStartRatio": 0.82,
         "originalEndRatio": 1
       }
     ]
@@ -199,34 +153,34 @@
     "sceneId": "application-01",
     "audioFile": "application-01.mp3",
     "captionsFile": "application-01.json",
-    "durationMs": 46944,
-    "durationFrames": 1409,
+    "durationMs": 51168,
+    "durationFrames": 1536,
     "beatTimings": [
       {
         "beatId": "app-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 195,
+        "resolvedEndFrame": 185,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.15
+        "originalEndRatio": 0.13
       },
       {
         "beatId": "app-b2",
-        "resolvedStartFrame": 195,
-        "resolvedEndFrame": 633,
-        "originalStartRatio": 0.15,
-        "originalEndRatio": 0.45
+        "resolvedStartFrame": 185,
+        "resolvedEndFrame": 677,
+        "originalStartRatio": 0.13,
+        "originalEndRatio": 0.42
       },
       {
         "beatId": "app-b3",
-        "resolvedStartFrame": 633,
-        "resolvedEndFrame": 1046,
-        "originalStartRatio": 0.45,
+        "resolvedStartFrame": 677,
+        "resolvedEndFrame": 1065,
+        "originalStartRatio": 0.42,
         "originalEndRatio": 0.7
       },
       {
         "beatId": "app-b4",
-        "resolvedStartFrame": 1046,
-        "resolvedEndFrame": 1406,
+        "resolvedStartFrame": 1065,
+        "resolvedEndFrame": 1533,
         "originalStartRatio": 0.7,
         "originalEndRatio": 1
       }
@@ -236,21 +190,21 @@
     "sceneId": "quote-01",
     "audioFile": "quote-01.mp3",
     "captionsFile": "quote-01.json",
-    "durationMs": 17256,
-    "durationFrames": 518,
+    "durationMs": 20808,
+    "durationFrames": 625,
     "beatTimings": [
       {
         "beatId": "quote-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 150,
+        "resolvedEndFrame": 88,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.35
+        "originalEndRatio": 0.3
       },
       {
         "beatId": "quote-b2",
-        "resolvedStartFrame": 149,
-        "resolvedEndFrame": 516,
-        "originalStartRatio": 0.35,
+        "resolvedStartFrame": 86,
+        "resolvedEndFrame": 622,
+        "originalStartRatio": 0.3,
         "originalEndRatio": 1
       }
     ]
@@ -259,20 +213,20 @@
     "sceneId": "insight-recap",
     "audioFile": "insight-recap.mp3",
     "captionsFile": "insight-recap.json",
-    "durationMs": 24768,
-    "durationFrames": 744,
+    "durationMs": 24600,
+    "durationFrames": 738,
     "beatTimings": [
       {
         "beatId": "recap-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 311,
+        "resolvedEndFrame": 465,
         "originalStartRatio": 0,
         "originalEndRatio": 0.4
       },
       {
         "beatId": "recap-b2",
-        "resolvedStartFrame": 311,
-        "resolvedEndFrame": 741,
+        "resolvedStartFrame": 465,
+        "resolvedEndFrame": 737,
         "originalStartRatio": 0.4,
         "originalEndRatio": 1
       }
@@ -282,21 +236,21 @@
     "sceneId": "closing-01",
     "audioFile": "closing-01.mp3",
     "captionsFile": "closing-01.json",
-    "durationMs": 22392,
-    "durationFrames": 672,
+    "durationMs": 22176,
+    "durationFrames": 666,
     "beatTimings": [
       {
         "beatId": "closing-b1",
         "resolvedStartFrame": 3,
-        "resolvedEndFrame": 425,
+        "resolvedEndFrame": 419,
         "originalStartRatio": 0,
-        "originalEndRatio": 0.55
+        "originalEndRatio": 0.5
       },
       {
         "beatId": "closing-b2",
-        "resolvedStartFrame": 425,
-        "resolvedEndFrame": 670,
-        "originalStartRatio": 0.55,
+        "resolvedStartFrame": 419,
+        "resolvedEndFrame": 664,
+        "originalStartRatio": 0.5,
         "originalEndRatio": 1
       }
     ]

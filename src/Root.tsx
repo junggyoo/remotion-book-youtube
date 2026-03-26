@@ -1,5 +1,5 @@
 import React from "react";
-import { Composition } from "remotion";
+import { Composition, staticFile } from "remotion";
 import { LongformComposition } from "@/compositions/LongformComposition";
 import { SynthesizedPreview } from "@/compositions/SynthesizedPreview";
 import type { SynthesizedPreviewProps } from "@/compositions/SynthesizedPreview";
@@ -20,6 +20,39 @@ import {
 } from "@/planner/__tests__/miracleMorning.fixture";
 
 loadProjectFonts();
+
+/**
+ * Reads TTS manifest at render time to compute actual video duration.
+ * Falls back to the static prop value if manifest is unavailable.
+ */
+async function calculateMetadataFromManifest({
+  defaultProps,
+}: {
+  defaultProps: CompositionProps;
+}) {
+  try {
+    const res = await fetch(staticFile("tts/manifest.json"));
+    const manifest: { durationFrames: number }[] = await res.json();
+    const totalFrames = manifest.reduce((s, e) => s + e.durationFrames, 0);
+    if (totalFrames > 0) {
+      return {
+        durationInFrames: totalFrames,
+        fps: defaultProps.fps,
+        width: defaultProps.width,
+        height: defaultProps.height,
+        props: { ...defaultProps, totalDurationFrames: totalFrames },
+      };
+    }
+  } catch {
+    // No manifest — use static defaults
+  }
+  return {
+    durationInFrames: defaultProps.totalDurationFrames,
+    fps: defaultProps.fps,
+    width: defaultProps.width,
+    height: defaultProps.height,
+  };
+}
 
 const book = testBook as unknown as BookContent;
 const mmBook = miracleMorningBook as unknown as BookContent;
@@ -105,6 +138,7 @@ export const RemotionRoot: React.FC = () => {
         width={mmLongformProps.width}
         height={mmLongformProps.height}
         defaultProps={mmLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="AtomicHabits"
@@ -115,6 +149,7 @@ export const RemotionRoot: React.FC = () => {
         width={ahLongformProps.width}
         height={ahLongformProps.height}
         defaultProps={ahLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="MillionaireFastlane"
@@ -125,6 +160,7 @@ export const RemotionRoot: React.FC = () => {
         width={mfLongformProps.width}
         height={mfLongformProps.height}
         defaultProps={mfLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="SynthesizedPreview"

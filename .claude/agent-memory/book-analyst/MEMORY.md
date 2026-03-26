@@ -1,0 +1,2 @@
+- [pattern_contrarian_hook.md](pattern_contrarian_hook.md) — framework 구조 책에서 contrarian hook이 효과적인 조건
+- [pattern_selfhelp_framework.md](pattern_selfhelp_framework.md) — selfHelp + framework 구조의 분석 패턴
