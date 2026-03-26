@@ -32,15 +32,34 @@ async function calculateMetadataFromManifest({
 }) {
   try {
     const res = await fetch(staticFile("tts/manifest.json"));
-    const manifest: { durationFrames: number }[] = await res.json();
-    const totalFrames = manifest.reduce((s, e) => s + e.durationFrames, 0);
+    const manifest: { sceneId: string; durationFrames: number }[] =
+      await res.json();
+    const manifestMap = new Map(manifest.map((e) => [e.sceneId, e]));
+
+    // 개별 씬의 from/resolvedDuration을 manifest 기반으로 재계산
+    let cumulativeFrom = 0;
+    const updatedScenes = defaultProps.scenes.map((scene) => {
+      const entry = manifestMap.get(scene.id);
+      const resolvedDuration = entry
+        ? entry.durationFrames + 15 // TAIL_PADDING_FRAMES
+        : scene.resolvedDuration;
+      const from = cumulativeFrom;
+      cumulativeFrom += resolvedDuration;
+      return { ...scene, from, resolvedDuration };
+    });
+
+    const totalFrames = cumulativeFrom;
     if (totalFrames > 0) {
       return {
         durationInFrames: totalFrames,
         fps: defaultProps.fps,
         width: defaultProps.width,
         height: defaultProps.height,
-        props: { ...defaultProps, totalDurationFrames: totalFrames },
+        props: {
+          ...defaultProps,
+          scenes: updatedScenes,
+          totalDurationFrames: totalFrames,
+        },
       };
     }
   } catch {
