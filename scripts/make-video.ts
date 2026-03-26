@@ -61,7 +61,13 @@ function main() {
 
   // Step 3: asset pre-render check
   step("3/5 Asset 존재 검사 (pre-render)", () => {
-    run("npx", ["ts-node", "scripts/qa-check.ts", "--pre-render"]);
+    run("npx", [
+      "ts-node",
+      "scripts/qa-check.ts",
+      "--pre-render",
+      "--content",
+      bookPath,
+    ]);
   });
 
   // Step 4: render
@@ -76,7 +82,7 @@ function main() {
 
   // Step 5: QA
   step("5/5 QA 검사 (post-render)", () => {
-    run("npx", ["ts-node", "scripts/qa-check.ts"]);
+    run("npx", ["ts-node", "scripts/qa-check.ts", "--content", bookPath]);
   });
 
   console.log("\n✅ 완료. output/ 디렉토리를 확인하세요.");
