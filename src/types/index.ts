@@ -924,3 +924,13 @@ export interface ScenePlan {
   policy: PlanningPolicy; // the policy used
   totalSlots: number; // sum of all scene slots across segments
 }
+
+// ============================================================
+// Planning Layer Integration
+// ============================================================
+import type { StoryboardScene } from "../planning/types";
+
+export interface BlueprintMeta {
+  _blueprint?: SceneBlueprint;
+  _storyboard?: StoryboardScene;
+}
