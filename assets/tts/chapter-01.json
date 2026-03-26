@@ -1,51 +1,65 @@
 [
   {
-    "text": "첫",
+    "text": "그렇다면",
     "startMs": 100,
-    "endMs": 832,
+    "endMs": 812,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 번째",
-    "startMs": 832,
-    "endMs": 1564,
-    "timestampMs": 832,
-    "confidence": null
-  },
-  {
-    "text": " 파트,",
-    "startMs": 1564,
-    "endMs": 2296,
-    "timestampMs": 1564,
-    "confidence": null
-  },
-  {
-    "text": " SAVERS",
-    "startMs": 2296,
-    "endMs": 3029,
-    "timestampMs": 2296,
+    "text": " 이",
+    "startMs": 812,
+    "endMs": 1525,
+    "timestampMs": 812,
     "confidence": null
   },
   {
     "text": " 시스템의",
-    "startMs": 3029,
-    "endMs": 3761,
-    "timestampMs": 3029,
+    "startMs": 1525,
+    "endMs": 2237,
+    "timestampMs": 1525,
     "confidence": null
   },
   {
-    "text": " 핵심을",
-    "startMs": 3761,
-    "endMs": 4493,
-    "timestampMs": 3761,
+    "text": " 핵심은",
+    "startMs": 2237,
+    "endMs": 2950,
+    "timestampMs": 2237,
     "confidence": null
   },
   {
-    "text": " 살펴봅니다.",
-    "startMs": 4493,
-    "endMs": 5225,
-    "timestampMs": 4493,
+    "text": " 무엇일까요?",
+    "startMs": 2950,
+    "endMs": 3662,
+    "timestampMs": 2950,
+    "confidence": null
+  },
+  {
+    "text": "습관의",
+    "startMs": 3612,
+    "endMs": 4556,
+    "timestampMs": 3612,
+    "confidence": null
+  },
+  {
+    "text": " 4법칙을",
+    "startMs": 4556,
+    "endMs": 5500,
+    "timestampMs": 4556,
+    "confidence": null
+  },
+  {
+    "text": " 하나씩",
+    "startMs": 5500,
+    "endMs": 6443,
+    "timestampMs": 5500,
+    "confidence": null
+  },
+  {
+    "text": " 살펴보겠습니다.",
+    "startMs": 6443,
+    "endMs": 7387,
+    "timestampMs": 6443,
     "confidence": null
   }
 ]

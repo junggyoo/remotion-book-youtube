@@ -1,72 +1,121 @@
 [
   {
-    "text": "할",
+    "text": "제임스",
     "startMs": 100,
-    "endMs": 734,
+    "endMs": 523,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 엘로드의",
-    "startMs": 734,
-    "endMs": 1367,
-    "timestampMs": 734,
+    "text": " 클리어의",
+    "startMs": 523,
+    "endMs": 946,
+    "timestampMs": 523,
     "confidence": null
   },
   {
-    "text": " 미라클",
-    "startMs": 1367,
-    "endMs": 2001,
-    "timestampMs": 1367,
+    "text": " 아주",
+    "startMs": 946,
+    "endMs": 1368,
+    "timestampMs": 946,
     "confidence": null
   },
   {
-    "text": " 모닝,",
-    "startMs": 2001,
-    "endMs": 2635,
-    "timestampMs": 2001,
+    "text": " 작은",
+    "startMs": 1368,
+    "endMs": 1791,
+    "timestampMs": 1368,
     "confidence": null
   },
   {
-    "text": " 당신의",
-    "startMs": 2635,
-    "endMs": 3269,
-    "timestampMs": 2635,
+    "text": " 습관의",
+    "startMs": 1791,
+    "endMs": 2214,
+    "timestampMs": 1791,
     "confidence": null
   },
   {
-    "text": " 아침을",
-    "startMs": 3269,
-    "endMs": 3902,
-    "timestampMs": 3269,
+    "text": " 힘.",
+    "startMs": 2214,
+    "endMs": 2637,
+    "timestampMs": 2214,
     "confidence": null
   },
   {
-    "text": " 바꾸는",
-    "startMs": 3902,
-    "endMs": 4536,
-    "timestampMs": 3902,
+    "text": " 전",
+    "startMs": 2637,
+    "endMs": 3059,
+    "timestampMs": 2637,
     "confidence": null
   },
   {
-    "text": " 6가지",
-    "startMs": 4536,
-    "endMs": 5170,
-    "timestampMs": 4536,
+    "text": " 세계",
+    "startMs": 3059,
+    "endMs": 3482,
+    "timestampMs": 3059,
     "confidence": null
   },
   {
-    "text": " 습관을",
-    "startMs": 5170,
-    "endMs": 5803,
-    "timestampMs": 5170,
+    "text": " 천만",
+    "startMs": 3482,
+    "endMs": 3905,
+    "timestampMs": 3482,
+    "confidence": null
+  },
+  {
+    "text": " 부",
+    "startMs": 3905,
+    "endMs": 4328,
+    "timestampMs": 3905,
+    "confidence": null
+  },
+  {
+    "text": " 이상",
+    "startMs": 4328,
+    "endMs": 4750,
+    "timestampMs": 4328,
+    "confidence": null
+  },
+  {
+    "text": " 팔린",
+    "startMs": 4750,
+    "endMs": 5173,
+    "timestampMs": 4750,
+    "confidence": null
+  },
+  {
+    "text": " 이",
+    "startMs": 5173,
+    "endMs": 5596,
+    "timestampMs": 5173,
+    "confidence": null
+  },
+  {
+    "text": " 책이",
+    "startMs": 5596,
+    "endMs": 6019,
+    "timestampMs": 5596,
+    "confidence": null
+  },
+  {
+    "text": " 말하는",
+    "startMs": 6019,
+    "endMs": 6441,
+    "timestampMs": 6019,
+    "confidence": null
+  },
+  {
+    "text": " 핵심을",
+    "startMs": 6441,
+    "endMs": 6864,
+    "timestampMs": 6441,
     "confidence": null
   },
   {
     "text": " 알아봅니다.",
-    "startMs": 5803,
-    "endMs": 6437,
-    "timestampMs": 5803,
+    "startMs": 6864,
+    "endMs": 7287,
+    "timestampMs": 6864,
     "confidence": null
   }
 ]

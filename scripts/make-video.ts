@@ -50,17 +50,28 @@ function main() {
   console.log(`Format: ${FORMAT}`);
 
   // Step 1: validate
-  step("1/5 콘텐츠 JSON 검증", () => {
+  step("1/6 콘텐츠 JSON 검증", () => {
     run("npx", ["ts-node", "scripts/validate-content.ts", bookPath]);
   });
 
-  // Step 2: generate TTS + captions + manifest
-  step("2/5 TTS 생성 + 자막/manifest 생성", () => {
+  // Step 2: duration budget check (pre-TTS)
+  step("2/6 Duration budget 검사 (pre-TTS)", () => {
+    run("npx", [
+      "ts-node",
+      "scripts/qa-check.ts",
+      "--pre-tts",
+      "--content",
+      bookPath,
+    ]);
+  });
+
+  // Step 3: generate TTS + captions + manifest
+  step("3/6 TTS 생성 + 자막/manifest 생성", () => {
     run("npx", ["ts-node", "scripts/generate-captions.ts", bookPath]);
   });
 
-  // Step 3: asset pre-render check
-  step("3/5 Asset 존재 검사 (pre-render)", () => {
+  // Step 4: asset pre-render check
+  step("4/6 Asset 존재 검사 (pre-render)", () => {
     run("npx", [
       "ts-node",
       "scripts/qa-check.ts",
@@ -70,18 +81,18 @@ function main() {
     ]);
   });
 
-  // Step 4: render
+  // Step 5: render
   const renderScript =
     FORMAT === "shorts"
       ? "scripts/render-shorts.ts"
       : "scripts/render-longform.ts";
 
-  step(`4/5 렌더링 (${FORMAT})`, () => {
+  step(`5/6 렌더링 (${FORMAT})`, () => {
     run("npx", ["ts-node", renderScript, "--book", bookName]);
   });
 
-  // Step 5: QA
-  step("5/5 QA 검사 (post-render)", () => {
+  // Step 6: QA (post-render, includes QA-13B post-TTS duration check)
+  step("6/6 QA 검사 (post-render)", () => {
     run("npx", ["ts-node", "scripts/qa-check.ts", "--content", bookPath]);
   });
 

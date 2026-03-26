@@ -1,0 +1,282 @@
+[
+  {
+    "text": "제임스",
+    "startMs": 100,
+    "endMs": 872,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 클리어는",
+    "startMs": 872,
+    "endMs": 1645,
+    "timestampMs": 872,
+    "confidence": null
+  },
+  {
+    "text": " 놀라운",
+    "startMs": 1645,
+    "endMs": 2417,
+    "timestampMs": 1645,
+    "confidence": null
+  },
+  {
+    "text": " 수치를",
+    "startMs": 2417,
+    "endMs": 3190,
+    "timestampMs": 2417,
+    "confidence": null
+  },
+  {
+    "text": " 제시합니다.",
+    "startMs": 3190,
+    "endMs": 3962,
+    "timestampMs": 3190,
+    "confidence": null
+  },
+  {
+    "text": "매일",
+    "startMs": 3912,
+    "endMs": 4617,
+    "timestampMs": 3912,
+    "confidence": null
+  },
+  {
+    "text": " 1%씩",
+    "startMs": 4617,
+    "endMs": 5323,
+    "timestampMs": 4617,
+    "confidence": null
+  },
+  {
+    "text": " 나아지면",
+    "startMs": 5323,
+    "endMs": 6028,
+    "timestampMs": 5323,
+    "confidence": null
+  },
+  {
+    "text": " 1년",
+    "startMs": 6028,
+    "endMs": 6734,
+    "timestampMs": 6028,
+    "confidence": null
+  },
+  {
+    "text": " 뒤",
+    "startMs": 6734,
+    "endMs": 7439,
+    "timestampMs": 6734,
+    "confidence": null
+  },
+  {
+    "text": " 37배가",
+    "startMs": 7439,
+    "endMs": 8145,
+    "timestampMs": 7439,
+    "confidence": null
+  },
+  {
+    "text": " 됩니다.",
+    "startMs": 8145,
+    "endMs": 8850,
+    "timestampMs": 8145,
+    "confidence": null
+  },
+  {
+    "text": "처음에는",
+    "startMs": 8850,
+    "endMs": 9672,
+    "timestampMs": 8850,
+    "confidence": null
+  },
+  {
+    "text": " 차이가",
+    "startMs": 9672,
+    "endMs": 10494,
+    "timestampMs": 9672,
+    "confidence": null
+  },
+  {
+    "text": " 느껴지지",
+    "startMs": 10494,
+    "endMs": 11315,
+    "timestampMs": 10494,
+    "confidence": null
+  },
+  {
+    "text": " 않습니다.",
+    "startMs": 11315,
+    "endMs": 12137,
+    "timestampMs": 11315,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 12137,
+    "endMs": 12977,
+    "timestampMs": 12137,
+    "confidence": null
+  },
+  {
+    "text": " 복리처럼",
+    "startMs": 12977,
+    "endMs": 13816,
+    "timestampMs": 12977,
+    "confidence": null
+  },
+  {
+    "text": " 쌓이기",
+    "startMs": 13816,
+    "endMs": 14656,
+    "timestampMs": 13816,
+    "confidence": null
+  },
+  {
+    "text": " 시작하면",
+    "startMs": 14656,
+    "endMs": 15496,
+    "timestampMs": 14656,
+    "confidence": null
+  },
+  {
+    "text": " 폭발적으로",
+    "startMs": 15496,
+    "endMs": 16335,
+    "timestampMs": 15496,
+    "confidence": null
+  },
+  {
+    "text": " 성장합니다.",
+    "startMs": 16335,
+    "endMs": 17175,
+    "timestampMs": 16335,
+    "confidence": null
+  },
+  {
+    "text": "반대로",
+    "startMs": 17175,
+    "endMs": 17875,
+    "timestampMs": 17175,
+    "confidence": null
+  },
+  {
+    "text": " 매일",
+    "startMs": 17875,
+    "endMs": 18575,
+    "timestampMs": 17875,
+    "confidence": null
+  },
+  {
+    "text": " 1%씩",
+    "startMs": 18575,
+    "endMs": 19275,
+    "timestampMs": 18575,
+    "confidence": null
+  },
+  {
+    "text": " 나빠지면",
+    "startMs": 19275,
+    "endMs": 19975,
+    "timestampMs": 19275,
+    "confidence": null
+  },
+  {
+    "text": " 거의",
+    "startMs": 19975,
+    "endMs": 20675,
+    "timestampMs": 19975,
+    "confidence": null
+  },
+  {
+    "text": " 0에",
+    "startMs": 20675,
+    "endMs": 21375,
+    "timestampMs": 20675,
+    "confidence": null
+  },
+  {
+    "text": " 수렴합니다.",
+    "startMs": 21375,
+    "endMs": 22075,
+    "timestampMs": 21375,
+    "confidence": null
+  },
+  {
+    "text": "나쁜",
+    "startMs": 22075,
+    "endMs": 22791,
+    "timestampMs": 22075,
+    "confidence": null
+  },
+  {
+    "text": " 습관의",
+    "startMs": 22791,
+    "endMs": 23507,
+    "timestampMs": 22791,
+    "confidence": null
+  },
+  {
+    "text": " 대가는",
+    "startMs": 23507,
+    "endMs": 24223,
+    "timestampMs": 23507,
+    "confidence": null
+  },
+  {
+    "text": " 천천히,",
+    "startMs": 24223,
+    "endMs": 24939,
+    "timestampMs": 24223,
+    "confidence": null
+  },
+  {
+    "text": " 하지만",
+    "startMs": 24939,
+    "endMs": 25655,
+    "timestampMs": 24939,
+    "confidence": null
+  },
+  {
+    "text": " 확실하게",
+    "startMs": 25655,
+    "endMs": 26371,
+    "timestampMs": 25655,
+    "confidence": null
+  },
+  {
+    "text": " 찾아옵니다.",
+    "startMs": 26371,
+    "endMs": 27087,
+    "timestampMs": 26371,
+    "confidence": null
+  },
+  {
+    "text": "이것이",
+    "startMs": 27087,
+    "endMs": 27847,
+    "timestampMs": 27087,
+    "confidence": null
+  },
+  {
+    "text": " 습관의",
+    "startMs": 27847,
+    "endMs": 28606,
+    "timestampMs": 27847,
+    "confidence": null
+  },
+  {
+    "text": " 복리",
+    "startMs": 28606,
+    "endMs": 29366,
+    "timestampMs": 28606,
+    "confidence": null
+  },
+  {
+    "text": " 효과입니다.",
+    "startMs": 29366,
+    "endMs": 30125,
+    "timestampMs": 29366,
+    "confidence": null
+  }
+]

@@ -1,205 +1,226 @@
 [
   {
-    "text": "미라클",
+    "text": "정리하겠습니다.",
     "startMs": 100,
-    "endMs": 771,
+    "endMs": 2125,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 모닝은",
-    "startMs": 771,
-    "endMs": 1442,
-    "timestampMs": 771,
+    "text": "아주",
+    "startMs": 2075,
+    "endMs": 2741,
+    "timestampMs": 2075,
+    "confidence": null
+  },
+  {
+    "text": " 작은",
+    "startMs": 2741,
+    "endMs": 3407,
+    "timestampMs": 2741,
+    "confidence": null
+  },
+  {
+    "text": " 습관의",
+    "startMs": 3407,
+    "endMs": 4073,
+    "timestampMs": 3407,
+    "confidence": null
+  },
+  {
+    "text": " 힘은",
+    "startMs": 4073,
+    "endMs": 4739,
+    "timestampMs": 4073,
     "confidence": null
   },
   {
     "text": " 단순한",
-    "startMs": 1442,
-    "endMs": 2113,
-    "timestampMs": 1442,
+    "startMs": 4739,
+    "endMs": 5405,
+    "timestampMs": 4739,
     "confidence": null
   },
   {
-    "text": " 아침",
-    "startMs": 2113,
-    "endMs": 2783,
-    "timestampMs": 2113,
-    "confidence": null
-  },
-  {
-    "text": " 루틴이",
-    "startMs": 2783,
-    "endMs": 3454,
-    "timestampMs": 2783,
+    "text": " 자기계발서가",
+    "startMs": 5405,
+    "endMs": 6071,
+    "timestampMs": 5405,
     "confidence": null
   },
   {
     "text": " 아닙니다.",
-    "startMs": 3454,
-    "endMs": 4125,
-    "timestampMs": 3454,
+    "startMs": 6071,
+    "endMs": 6737,
+    "timestampMs": 6071,
     "confidence": null
   },
   {
-    "text": "마음,",
-    "startMs": 4075,
-    "endMs": 4954,
-    "timestampMs": 4075,
+    "text": "행동",
+    "startMs": 6737,
+    "endMs": 7640,
+    "timestampMs": 6737,
     "confidence": null
   },
   {
-    "text": " 생각,",
-    "startMs": 4954,
-    "endMs": 5833,
-    "timestampMs": 4954,
+    "text": " 변화의",
+    "startMs": 7640,
+    "endMs": 8544,
+    "timestampMs": 7640,
     "confidence": null
   },
   {
-    "text": " 목표,",
-    "startMs": 5833,
-    "endMs": 6713,
-    "timestampMs": 5833,
+    "text": " 과학적",
+    "startMs": 8544,
+    "endMs": 9447,
+    "timestampMs": 8544,
     "confidence": null
   },
   {
-    "text": " 몸,",
-    "startMs": 6713,
-    "endMs": 7592,
-    "timestampMs": 6713,
+    "text": " 프레임워크입니다.",
+    "startMs": 9447,
+    "endMs": 10350,
+    "timestampMs": 9447,
     "confidence": null
   },
   {
-    "text": " 지식,",
-    "startMs": 7592,
-    "endMs": 8471,
-    "timestampMs": 7592,
+    "text": "매일",
+    "startMs": 10350,
+    "endMs": 11044,
+    "timestampMs": 10350,
     "confidence": null
   },
   {
-    "text": " 성찰.",
-    "startMs": 8471,
-    "endMs": 9350,
-    "timestampMs": 8471,
+    "text": " 1%의",
+    "startMs": 11044,
+    "endMs": 11739,
+    "timestampMs": 11044,
     "confidence": null
   },
   {
-    "text": "삶의",
-    "startMs": 9350,
-    "endMs": 10001,
-    "timestampMs": 9350,
+    "text": " 변화가",
+    "startMs": 11739,
+    "endMs": 12433,
+    "timestampMs": 11739,
     "confidence": null
   },
   {
-    "text": " 6가지",
-    "startMs": 10001,
-    "endMs": 10653,
-    "timestampMs": 10001,
+    "text": " 복리로",
+    "startMs": 12433,
+    "endMs": 13127,
+    "timestampMs": 12433,
     "confidence": null
   },
   {
-    "text": " 영역을",
-    "startMs": 10653,
-    "endMs": 11304,
-    "timestampMs": 10653,
+    "text": " 쌓이고,",
+    "startMs": 13127,
+    "endMs": 13821,
+    "timestampMs": 13127,
     "confidence": null
   },
   {
-    "text": " 매일",
-    "startMs": 11304,
-    "endMs": 11955,
-    "timestampMs": 11304,
+    "text": " 4법칙으로",
+    "startMs": 13821,
+    "endMs": 14516,
+    "timestampMs": 13821,
     "confidence": null
   },
   {
-    "text": " 아침",
-    "startMs": 11955,
-    "endMs": 12607,
-    "timestampMs": 11955,
+    "text": " 습관을",
+    "startMs": 14516,
+    "endMs": 15210,
+    "timestampMs": 14516,
     "confidence": null
   },
   {
-    "text": " 동시에",
-    "startMs": 12607,
-    "endMs": 13258,
-    "timestampMs": 12607,
+    "text": " 설계하며,",
+    "startMs": 15210,
+    "endMs": 15904,
+    "timestampMs": 15210,
     "confidence": null
   },
   {
-    "text": " 업그레이드하는",
-    "startMs": 13258,
-    "endMs": 13909,
-    "timestampMs": 13258,
+    "text": " 정체성이",
+    "startMs": 15904,
+    "endMs": 16598,
+    "timestampMs": 15904,
     "confidence": null
   },
   {
-    "text": " 통합",
-    "startMs": 13909,
-    "endMs": 14561,
-    "timestampMs": 13909,
+    "text": " 행동을",
+    "startMs": 16598,
+    "endMs": 17293,
+    "timestampMs": 16598,
     "confidence": null
   },
   {
-    "text": " 시스템입니다.",
-    "startMs": 14561,
-    "endMs": 15212,
-    "timestampMs": 14561,
+    "text": " 이끕니다.",
+    "startMs": 17293,
+    "endMs": 17987,
+    "timestampMs": 17293,
     "confidence": null
   },
   {
-    "text": "SAVERS",
-    "startMs": 15212,
-    "endMs": 15964,
-    "timestampMs": 15212,
+    "text": "목표를",
+    "startMs": 17987,
+    "endMs": 18675,
+    "timestampMs": 17987,
     "confidence": null
   },
   {
-    "text": " 하나하나가",
-    "startMs": 15964,
-    "endMs": 16715,
-    "timestampMs": 15964,
+    "text": " 세우는",
+    "startMs": 18675,
+    "endMs": 19362,
+    "timestampMs": 18675,
     "confidence": null
   },
   {
-    "text": " 당신을",
-    "startMs": 16715,
-    "endMs": 17467,
-    "timestampMs": 16715,
+    "text": " 대신",
+    "startMs": 19362,
+    "endMs": 20050,
+    "timestampMs": 19362,
     "confidence": null
   },
   {
-    "text": " 어제보다",
-    "startMs": 17467,
-    "endMs": 18219,
-    "timestampMs": 17467,
+    "text": " 시스템을",
+    "startMs": 20050,
+    "endMs": 20737,
+    "timestampMs": 20050,
     "confidence": null
   },
   {
-    "text": " 더",
-    "startMs": 18219,
-    "endMs": 18970,
-    "timestampMs": 18219,
+    "text": " 만드세요.",
+    "startMs": 20737,
+    "endMs": 21425,
+    "timestampMs": 20737,
     "confidence": null
   },
   {
-    "text": " 나은",
-    "startMs": 18970,
-    "endMs": 19722,
-    "timestampMs": 18970,
+    "text": "나머지는",
+    "startMs": 21425,
+    "endMs": 22244,
+    "timestampMs": 21425,
     "confidence": null
   },
   {
-    "text": " 버전으로",
-    "startMs": 19722,
-    "endMs": 20473,
-    "timestampMs": 19722,
+    "text": " 시스템이",
+    "startMs": 22244,
+    "endMs": 23063,
+    "timestampMs": 22244,
     "confidence": null
   },
   {
-    "text": " 만들어갑니다.",
-    "startMs": 20473,
-    "endMs": 21225,
-    "timestampMs": 20473,
+    "text": " 알아서",
+    "startMs": 23063,
+    "endMs": 23881,
+    "timestampMs": 23063,
+    "confidence": null
+  },
+  {
+    "text": " 해결합니다.",
+    "startMs": 23881,
+    "endMs": 24700,
+    "timestampMs": 23881,
     "confidence": null
   }
 ]

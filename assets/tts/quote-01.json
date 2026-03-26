@@ -1,86 +1,184 @@
 [
   {
-    "text": "할",
+    "text": "제임스",
     "startMs": 100,
-    "endMs": 841,
+    "endMs": 713,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 엘로드는",
-    "startMs": 841,
-    "endMs": 1581,
-    "timestampMs": 841,
+    "text": " 클리어는",
+    "startMs": 713,
+    "endMs": 1325,
+    "timestampMs": 713,
     "confidence": null
   },
   {
-    "text": " 이렇게",
-    "startMs": 1581,
-    "endMs": 2322,
-    "timestampMs": 1581,
+    "text": " 이",
+    "startMs": 1325,
+    "endMs": 1938,
+    "timestampMs": 1325,
     "confidence": null
   },
   {
-    "text": " 말합니다.",
-    "startMs": 2322,
-    "endMs": 3062,
-    "timestampMs": 2322,
+    "text": " 책에서",
+    "startMs": 1938,
+    "endMs": 2550,
+    "timestampMs": 1938,
     "confidence": null
   },
   {
-    "text": "당신의",
-    "startMs": 3012,
-    "endMs": 3628,
-    "timestampMs": 3012,
+    "text": " 가장",
+    "startMs": 2550,
+    "endMs": 3163,
+    "timestampMs": 2550,
     "confidence": null
   },
   {
-    "text": " 아침",
-    "startMs": 3628,
-    "endMs": 4243,
-    "timestampMs": 3628,
+    "text": " 강력한",
+    "startMs": 3163,
+    "endMs": 3775,
+    "timestampMs": 3163,
     "confidence": null
   },
   {
-    "text": " 루틴이",
-    "startMs": 4243,
-    "endMs": 4859,
-    "timestampMs": 4243,
+    "text": " 한마디를",
+    "startMs": 3775,
+    "endMs": 4388,
+    "timestampMs": 3775,
     "confidence": null
   },
   {
-    "text": " 곧",
-    "startMs": 4859,
-    "endMs": 5475,
-    "timestampMs": 4859,
+    "text": " 남깁니다.",
+    "startMs": 4388,
+    "endMs": 5000,
+    "timestampMs": 4388,
+    "confidence": null
+  },
+  {
+    "text": "당신은",
+    "startMs": 4950,
+    "endMs": 5652,
+    "timestampMs": 4950,
+    "confidence": null
+  },
+  {
+    "text": " 목표",
+    "startMs": 5652,
+    "endMs": 6355,
+    "timestampMs": 5652,
+    "confidence": null
+  },
+  {
+    "text": " 수준으로",
+    "startMs": 6355,
+    "endMs": 7057,
+    "timestampMs": 6355,
+    "confidence": null
+  },
+  {
+    "text": " 올라가지",
+    "startMs": 7057,
+    "endMs": 7760,
+    "timestampMs": 7057,
+    "confidence": null
+  },
+  {
+    "text": " 않습니다.",
+    "startMs": 7760,
+    "endMs": 8462,
+    "timestampMs": 7760,
+    "confidence": null
+  },
+  {
+    "text": "시스템",
+    "startMs": 8462,
+    "endMs": 9387,
+    "timestampMs": 8462,
+    "confidence": null
+  },
+  {
+    "text": " 수준으로",
+    "startMs": 9387,
+    "endMs": 10312,
+    "timestampMs": 9387,
+    "confidence": null
+  },
+  {
+    "text": " 떨어집니다.",
+    "startMs": 10312,
+    "endMs": 11237,
+    "timestampMs": 10312,
+    "confidence": null
+  },
+  {
+    "text": "결국",
+    "startMs": 11237,
+    "endMs": 11832,
+    "timestampMs": 11237,
     "confidence": null
   },
   {
     "text": " 당신의",
-    "startMs": 5475,
-    "endMs": 6090,
-    "timestampMs": 5475,
+    "startMs": 11832,
+    "endMs": 12427,
+    "timestampMs": 11832,
     "confidence": null
   },
   {
-    "text": " 인생",
-    "startMs": 6090,
-    "endMs": 6706,
-    "timestampMs": 6090,
+    "text": " 미래를",
+    "startMs": 12427,
+    "endMs": 13022,
+    "timestampMs": 12427,
     "confidence": null
   },
   {
-    "text": " 수준을",
-    "startMs": 6706,
-    "endMs": 7321,
-    "timestampMs": 6706,
+    "text": " 결정하는",
+    "startMs": 13022,
+    "endMs": 13617,
+    "timestampMs": 13022,
     "confidence": null
   },
   {
-    "text": " 결정합니다.",
-    "startMs": 7321,
-    "endMs": 7937,
-    "timestampMs": 7321,
+    "text": " 건",
+    "startMs": 13617,
+    "endMs": 14212,
+    "timestampMs": 13617,
+    "confidence": null
+  },
+  {
+    "text": " 목표가",
+    "startMs": 14212,
+    "endMs": 14807,
+    "timestampMs": 14212,
+    "confidence": null
+  },
+  {
+    "text": " 아니라",
+    "startMs": 14807,
+    "endMs": 15402,
+    "timestampMs": 14807,
+    "confidence": null
+  },
+  {
+    "text": " 매일",
+    "startMs": 15402,
+    "endMs": 15997,
+    "timestampMs": 15402,
+    "confidence": null
+  },
+  {
+    "text": " 반복하는",
+    "startMs": 15997,
+    "endMs": 16592,
+    "timestampMs": 15997,
+    "confidence": null
+  },
+  {
+    "text": " 시스템입니다.",
+    "startMs": 16592,
+    "endMs": 17187,
+    "timestampMs": 16592,
     "confidence": null
   }
 ]

@@ -618,7 +618,7 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
     }
   }
 
-  // Headline hard limit (60 chars) and narrationText hard limit (200 chars)
+  // Headline hard limit (60 chars) and narrationText hard limit (500 chars)
   for (const scene of parsed.scenes) {
     if (scene.type === "keyInsight") {
       const headline = (scene.content as { headline: string }).headline;
@@ -629,9 +629,9 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
       }
     }
 
-    if (scene.narrationText && scene.narrationText.length > 200) {
+    if (scene.narrationText && scene.narrationText.length > 500) {
       errors.push(
-        `Scene ${scene.id}: narrationText exceeds 200 chars (${scene.narrationText.length})`,
+        `Scene ${scene.id}: narrationText exceeds 500 chars (${scene.narrationText.length})`,
       );
     }
   }
@@ -647,8 +647,8 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
   for (const scene of parsed.scenes) {
     if (
       scene.narrationText &&
-      scene.narrationText.length > 120 &&
-      scene.narrationText.length <= 200
+      scene.narrationText.length > 300 &&
+      scene.narrationText.length <= 500
     ) {
       warnings.push(
         `Scene ${scene.id}: narrationText > 120 chars (${scene.narrationText.length}), TTS may be long`,

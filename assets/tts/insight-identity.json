@@ -1,0 +1,324 @@
+[
+  {
+    "text": "하지만",
+    "startMs": 100,
+    "endMs": 773,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 4법칙보다",
+    "startMs": 773,
+    "endMs": 1446,
+    "timestampMs": 773,
+    "confidence": null
+  },
+  {
+    "text": " 더",
+    "startMs": 1446,
+    "endMs": 2119,
+    "timestampMs": 1446,
+    "confidence": null
+  },
+  {
+    "text": " 중요한",
+    "startMs": 2119,
+    "endMs": 2791,
+    "timestampMs": 2119,
+    "confidence": null
+  },
+  {
+    "text": " 것이",
+    "startMs": 2791,
+    "endMs": 3464,
+    "timestampMs": 2791,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 3464,
+    "endMs": 4137,
+    "timestampMs": 3464,
+    "confidence": null
+  },
+  {
+    "text": "바로",
+    "startMs": 4087,
+    "endMs": 5029,
+    "timestampMs": 4087,
+    "confidence": null
+  },
+  {
+    "text": " 정체성의",
+    "startMs": 5029,
+    "endMs": 5970,
+    "timestampMs": 5029,
+    "confidence": null
+  },
+  {
+    "text": " 변화입니다.",
+    "startMs": 5970,
+    "endMs": 6912,
+    "timestampMs": 5970,
+    "confidence": null
+  },
+  {
+    "text": "대부분의",
+    "startMs": 6912,
+    "endMs": 7787,
+    "timestampMs": 6912,
+    "confidence": null
+  },
+  {
+    "text": " 사람은",
+    "startMs": 7787,
+    "endMs": 8662,
+    "timestampMs": 7787,
+    "confidence": null
+  },
+  {
+    "text": " 결과에서",
+    "startMs": 8662,
+    "endMs": 9537,
+    "timestampMs": 8662,
+    "confidence": null
+  },
+  {
+    "text": " 시작합니다.",
+    "startMs": 9537,
+    "endMs": 10412,
+    "timestampMs": 9537,
+    "confidence": null
+  },
+  {
+    "text": "살을",
+    "startMs": 10412,
+    "endMs": 11278,
+    "timestampMs": 10412,
+    "confidence": null
+  },
+  {
+    "text": " 빼겠어,",
+    "startMs": 11278,
+    "endMs": 12144,
+    "timestampMs": 11278,
+    "confidence": null
+  },
+  {
+    "text": " 돈을",
+    "startMs": 12144,
+    "endMs": 13009,
+    "timestampMs": 12144,
+    "confidence": null
+  },
+  {
+    "text": " 모으겠어.",
+    "startMs": 13009,
+    "endMs": 13875,
+    "timestampMs": 13009,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 13875,
+    "endMs": 14600,
+    "timestampMs": 13875,
+    "confidence": null
+  },
+  {
+    "text": " 동기가",
+    "startMs": 14600,
+    "endMs": 15325,
+    "timestampMs": 14600,
+    "confidence": null
+  },
+  {
+    "text": " 사라지면",
+    "startMs": 15325,
+    "endMs": 16050,
+    "timestampMs": 15325,
+    "confidence": null
+  },
+  {
+    "text": " 행동도",
+    "startMs": 16050,
+    "endMs": 16775,
+    "timestampMs": 16050,
+    "confidence": null
+  },
+  {
+    "text": " 멈추죠.",
+    "startMs": 16775,
+    "endMs": 17500,
+    "timestampMs": 16775,
+    "confidence": null
+  },
+  {
+    "text": "진정한",
+    "startMs": 17500,
+    "endMs": 18403,
+    "timestampMs": 17500,
+    "confidence": null
+  },
+  {
+    "text": " 변화는",
+    "startMs": 18403,
+    "endMs": 19306,
+    "timestampMs": 18403,
+    "confidence": null
+  },
+  {
+    "text": " 정체성에서",
+    "startMs": 19306,
+    "endMs": 20209,
+    "timestampMs": 19306,
+    "confidence": null
+  },
+  {
+    "text": " 시작됩니다.",
+    "startMs": 20209,
+    "endMs": 21112,
+    "timestampMs": 20209,
+    "confidence": null
+  },
+  {
+    "text": "나는",
+    "startMs": 21112,
+    "endMs": 21816,
+    "timestampMs": 21112,
+    "confidence": null
+  },
+  {
+    "text": " 건강한",
+    "startMs": 21816,
+    "endMs": 22520,
+    "timestampMs": 21816,
+    "confidence": null
+  },
+  {
+    "text": " 사람이야,",
+    "startMs": 22520,
+    "endMs": 23225,
+    "timestampMs": 22520,
+    "confidence": null
+  },
+  {
+    "text": " 나는",
+    "startMs": 23225,
+    "endMs": 23929,
+    "timestampMs": 23225,
+    "confidence": null
+  },
+  {
+    "text": " 절약하는",
+    "startMs": 23929,
+    "endMs": 24633,
+    "timestampMs": 23929,
+    "confidence": null
+  },
+  {
+    "text": " 사람이야.",
+    "startMs": 24633,
+    "endMs": 25337,
+    "timestampMs": 24633,
+    "confidence": null
+  },
+  {
+    "text": "이렇게",
+    "startMs": 25337,
+    "endMs": 26077,
+    "timestampMs": 25337,
+    "confidence": null
+  },
+  {
+    "text": " 정체성이",
+    "startMs": 26077,
+    "endMs": 26816,
+    "timestampMs": 26077,
+    "confidence": null
+  },
+  {
+    "text": " 바뀌면",
+    "startMs": 26816,
+    "endMs": 27556,
+    "timestampMs": 26816,
+    "confidence": null
+  },
+  {
+    "text": " 행동은",
+    "startMs": 27556,
+    "endMs": 28296,
+    "timestampMs": 27556,
+    "confidence": null
+  },
+  {
+    "text": " 자연스럽게",
+    "startMs": 28296,
+    "endMs": 29035,
+    "timestampMs": 28296,
+    "confidence": null
+  },
+  {
+    "text": " 따라옵니다.",
+    "startMs": 29035,
+    "endMs": 29775,
+    "timestampMs": 29035,
+    "confidence": null
+  },
+  {
+    "text": "습관",
+    "startMs": 29775,
+    "endMs": 30381,
+    "timestampMs": 29775,
+    "confidence": null
+  },
+  {
+    "text": " 하나하나는",
+    "startMs": 30381,
+    "endMs": 30988,
+    "timestampMs": 30381,
+    "confidence": null
+  },
+  {
+    "text": " 내가",
+    "startMs": 30988,
+    "endMs": 31594,
+    "timestampMs": 30988,
+    "confidence": null
+  },
+  {
+    "text": " 원하는",
+    "startMs": 31594,
+    "endMs": 32200,
+    "timestampMs": 31594,
+    "confidence": null
+  },
+  {
+    "text": " 정체성에",
+    "startMs": 32200,
+    "endMs": 32806,
+    "timestampMs": 32200,
+    "confidence": null
+  },
+  {
+    "text": " 던지는",
+    "startMs": 32806,
+    "endMs": 33413,
+    "timestampMs": 32806,
+    "confidence": null
+  },
+  {
+    "text": " 한",
+    "startMs": 33413,
+    "endMs": 34019,
+    "timestampMs": 33413,
+    "confidence": null
+  },
+  {
+    "text": " 표입니다.",
+    "startMs": 34019,
+    "endMs": 34625,
+    "timestampMs": 34019,
+    "confidence": null
+  }
+]
