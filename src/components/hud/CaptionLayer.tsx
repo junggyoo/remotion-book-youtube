@@ -6,40 +6,78 @@ import {
   staticFile,
   useDelayRender,
 } from "remotion";
-import { createTikTokStyleCaptions } from "@remotion/captions";
 import type { Caption } from "@remotion/captions";
 import type { FormatKey, Theme } from "@/types";
 import { typography } from "@/design/tokens/typography";
 import { sp } from "@/design/tokens/spacing";
 import { useFormat } from "@/design/themes/useFormat";
 
-const SWITCH_CAPTIONS_EVERY_MS = 2400;
+/** 한 페이지(= 화면에 동시에 표시되는 자막 단위) */
+interface SentencePage {
+  startMs: number;
+  endMs: number;
+  text: string;
+  tokens: Array<{ text: string; fromMs: number; toMs: number }>;
+}
 
 /**
- * TTS caption JSON의 timestamp overlap 보정 + 문장 경계 강제 분리.
- * edge-tts가 문장 경계에서 50~100ms overlap을 생성하는 경우가 있어
- * createTikTokStyleCaptions의 페이지 묶음이 문장 경계를 무시하게 됨.
+ * 문장 경계 기반 페이지 분리.
+ * createTikTokStyleCaptions 대체 — 문장부호(.?!) 기준으로 페이지를 나눈다.
+ * 한 문장이 너무 길면(28자 초과) 쉼표/연결어미에서 추가 분리.
  */
-function fixCaptionOverlaps(captions: Caption[]): Caption[] {
-  if (captions.length === 0) return captions;
-  const fixed = captions.map((c) => ({ ...c }));
-  for (let i = 0; i < fixed.length - 1; i++) {
-    // overlap 보정: 앞 토큰의 endMs가 뒤 토큰의 startMs보다 크면 clamp
-    if (fixed[i].endMs > fixed[i + 1].startMs) {
-      fixed[i].endMs = fixed[i + 1].startMs;
-    }
-    // 문장 경계(마침표/물음표/느낌표로 끝나는 토큰) 뒤에 gap 삽입
-    // → createTikTokStyleCaptions가 별도 페이지로 분리하도록
-    const trimmed = fixed[i].text.trimEnd();
-    if (/[.?!]$/.test(trimmed) && i + 1 < fixed.length) {
-      // 최소 gap을 확보하여 페이지 분리 유도
-      const gap = fixed[i + 1].startMs - fixed[i].endMs;
-      if (gap < 50) {
-        fixed[i].endMs = Math.max(fixed[i].startMs, fixed[i + 1].startMs - 50);
+const MAX_PAGE_CHARS = 56; // 28자 × 2줄
+
+function buildSentencePages(captions: Caption[]): SentencePage[] {
+  if (captions.length === 0) return [];
+
+  const pages: SentencePage[] = [];
+  let currentTokens: SentencePage["tokens"] = [];
+  let currentText = "";
+  let pageStartMs = captions[0].startMs;
+
+  const flushPage = (endMs: number) => {
+    if (currentTokens.length === 0) return;
+    pages.push({
+      startMs: pageStartMs,
+      endMs,
+      text: currentText.trim(),
+      tokens: [...currentTokens],
+    });
+    currentTokens = [];
+    currentText = "";
+  };
+
+  for (let i = 0; i < captions.length; i++) {
+    const cap = captions[i];
+    const tokenText = cap.text;
+    const trimmedToken = tokenText.trimEnd();
+
+    currentTokens.push({
+      text: tokenText,
+      fromMs: cap.startMs,
+      toMs: cap.endMs,
+    });
+    currentText += tokenText;
+
+    const isSentenceEnd = /[.?!]$/.test(trimmedToken);
+    const nextText = currentText + (captions[i + 1]?.text ?? "");
+    const wouldOverflow =
+      currentText.replace(/\s/g, "").length > MAX_PAGE_CHARS;
+
+    if (isSentenceEnd || wouldOverflow) {
+      flushPage(cap.endMs);
+      if (i + 1 < captions.length) {
+        pageStartMs = captions[i + 1].startMs;
       }
     }
   }
-  return fixed;
+
+  // 남은 토큰 flush
+  if (currentTokens.length > 0) {
+    flushPage(currentTokens[currentTokens.length - 1].toMs);
+  }
+
+  return pages;
 }
 
 const KOREAN_SUFFIXES =
@@ -100,7 +138,7 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
     try {
       const response = await fetch(staticFile(captionsFile));
       const data: Caption[] = await response.json();
-      setCaptions(fixCaptionOverlaps(data));
+      setCaptions(data);
       continueRender(handle);
     } catch (e) {
       // Fallback: no captions, don't block render
@@ -114,14 +152,9 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
     fetchCaptions();
   }, [fetchCaptions]);
 
-  const { pages } = useMemo(() => {
-    if (!captions || captions.length === 0) {
-      return { pages: [] };
-    }
-    return createTikTokStyleCaptions({
-      captions,
-      combineTokensWithinMilliseconds: SWITCH_CAPTIONS_EVERY_MS,
-    });
+  const pages = useMemo(() => {
+    if (!captions || captions.length === 0) return [];
+    return buildSentencePages(captions);
   }, [captions]);
 
   if (!captions || pages.length === 0) {
@@ -134,9 +167,7 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
   // Find active page
   const activePage = pages.find((page, i) => {
     const nextPage = pages[i + 1];
-    const pageEnd = nextPage
-      ? nextPage.startMs
-      : page.startMs + SWITCH_CAPTIONS_EVERY_MS;
+    const pageEnd = nextPage ? nextPage.startMs : page.endMs;
     return currentTimeMs >= page.startMs && currentTimeMs < pageEnd;
   });
 
@@ -182,17 +213,6 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
                 (token.fromMs >= emphasisTimeRangeMs.startMs &&
                   token.fromMs < emphasisTimeRangeMs.endMs));
 
-            // 문장부호 뒤 공백 삽입: "나눕니다.인도는" → "나눕니다. 인도는"
-            let displayText = token.text;
-            const nextToken = activePage.tokens[ti + 1];
-            if (
-              nextToken &&
-              /[.?!]$/.test(displayText.trimEnd()) &&
-              !/^\s/.test(nextToken.text)
-            ) {
-              displayText = displayText.trimEnd() + " ";
-            }
-
             return (
               <span
                 key={`${token.fromMs}-${ti}`}
@@ -205,7 +225,7 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
                   transform: isEmphasized ? "scale(1.02)" : undefined,
                 }}
               >
-                {displayText}
+                {token.text}
               </span>
             );
           })}
