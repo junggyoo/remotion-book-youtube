@@ -111,12 +111,17 @@ export function useBeatTimeline(
     }
   }
 
-  // 4. beat 진행률
+  // 4. beat 진행률 (gap 구간에서는 마지막 완료 beat의 progress=1.0으로 hold)
   let beatProgress = 0;
   if (activeBeat) {
     const start = Math.round(durationFrames * activeBeat.startRatio);
     const end = Math.round(durationFrames * activeBeat.endRatio);
     beatProgress = Math.min(1, (frame - start) / Math.max(1, end - start));
+  } else if (beats.length > 0) {
+    const lastCompleted = [...beats]
+      .reverse()
+      .find((b) => frame >= Math.round(durationFrames * b.endRatio));
+    if (lastCompleted) beatProgress = 1;
   }
 
   return { activeBeat, elementStates, beatProgress, currentEmphasis };

@@ -597,19 +597,22 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
     errors.push("Duplicate scene IDs detected");
   }
 
-  // Longform: first scene must be 'cover', last must be 'closing'
+  // Longform: cover must appear within first 3 scenes, last must be 'closing'
   if (isLongform) {
-    if (parsed.scenes[0]?.type !== "cover") {
-      errors.push('Longform: first scene must be type "cover"');
+    const coverIndex = parsed.scenes.findIndex((s) => s.type === "cover");
+    if (coverIndex === -1 || coverIndex >= 3) {
+      errors.push(
+        'Longform: "cover" scene must appear within the first 3 scenes',
+      );
     }
     if (parsed.scenes[parsed.scenes.length - 1]?.type !== "closing") {
       errors.push('Longform: last scene must be type "closing"');
     }
 
     // Cover image validation
-    const firstScene = parsed.scenes[0];
-    if (firstScene?.type === "cover") {
-      const coverImageUrl = (firstScene.content as { coverImageUrl: string })
+    const coverScene = parsed.scenes.find((s) => s.type === "cover");
+    if (coverScene) {
+      const coverImageUrl = (coverScene.content as { coverImageUrl: string })
         .coverImageUrl;
       const coverPath = path.join("assets", coverImageUrl);
       if (!fileExists(coverPath)) {

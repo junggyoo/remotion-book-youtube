@@ -5,6 +5,7 @@ export {
   generateSentenceSubtitles,
   splitToLines,
   splitKoreanSentences,
+  splitLongSentence,
   MAX_CHARS_PER_LINE,
   MAX_LINES,
   LEAD_FRAMES,

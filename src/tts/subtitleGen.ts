@@ -13,10 +13,12 @@ export const LEAD_FRAMES = 3;
 /**
  * Split text into lines of max MAX_CHARS_PER_LINE chars, max MAX_LINES lines.
  * Excess text beyond 2 lines is trimmed.
+ * Pre-processes: normalizes missing spaces after sentence-ending punctuation.
  */
 export function splitToLines(text: string): string[] {
   const lines: string[] = [];
-  let remaining = text.trim();
+  // 문장부호 뒤 공백 정규화: "시작할까요?세 가지" → "시작할까요? 세 가지"
+  let remaining = text.trim().replace(/([?!])([가-힣])/g, "$1 $2");
 
   while (remaining.length > 0 && lines.length < MAX_LINES) {
     if (remaining.length <= MAX_CHARS_PER_LINE) {
@@ -35,6 +37,65 @@ export function splitToLines(text: string): string[] {
   }
 
   return lines;
+}
+
+/** 한국어 연결어미 패턴 — clause 분리 지점 */
+const CLAUSE_BREAK_PATTERN =
+  /(?:고\s|며\s|지만\s|면서\s|해서\s|하여\s|하면\s|는데\s|니까\s|라서\s)/;
+
+/**
+ * Split a long Korean sentence into clause-level sub-sentences.
+ * Only splits if the sentence exceeds MAX_CHARS_PER_LINE * MAX_LINES (56 chars).
+ * Splits at comma+space or Korean connective endings.
+ */
+export function splitLongSentence(sentence: string): string[] {
+  const MAX_DISPLAY = MAX_CHARS_PER_LINE * MAX_LINES; // 56
+  if (sentence.length <= MAX_DISPLAY) return [sentence];
+
+  const results: string[] = [];
+  let remaining = sentence;
+
+  while (remaining.length > MAX_DISPLAY) {
+    const searchRange = remaining.slice(0, MAX_DISPLAY);
+
+    // 1순위: 쉼표+공백 기준 분리
+    const commaIdx = searchRange.lastIndexOf(", ");
+    if (commaIdx > 10) {
+      results.push(remaining.slice(0, commaIdx + 1).trim());
+      remaining = remaining.slice(commaIdx + 2).trim();
+      continue;
+    }
+
+    // 2순위: 연결어미 패턴 기준 분리
+    const clauseMatch = searchRange.match(CLAUSE_BREAK_PATTERN);
+    if (
+      clauseMatch &&
+      clauseMatch.index !== undefined &&
+      clauseMatch.index > 10
+    ) {
+      const splitAt = clauseMatch.index + clauseMatch[0].length;
+      results.push(remaining.slice(0, splitAt).trim());
+      remaining = remaining.slice(splitAt).trim();
+      continue;
+    }
+
+    // 3순위: 어절 단위(공백) 분리 — 조사 분리 방지
+    const spaceIdx = searchRange.lastIndexOf(" ");
+    if (spaceIdx > 0) {
+      results.push(remaining.slice(0, spaceIdx).trim());
+      remaining = remaining.slice(spaceIdx + 1).trim();
+      continue;
+    }
+
+    // fallback: 그대로 반환
+    break;
+  }
+
+  if (remaining.length > 0) {
+    results.push(remaining.trim());
+  }
+
+  return results;
 }
 
 /**
@@ -112,7 +173,14 @@ export function splitKoreanSentences(text: string): string[] {
   }
 
   // Fallback: if no splits found, return whole text as one sentence
-  return parts.length > 0 ? parts : [trimmed];
+  const sentences = parts.length > 0 ? parts : [trimmed];
+
+  // 긴 문장을 clause 단위로 추가 분리
+  const result: string[] = [];
+  for (const s of sentences) {
+    result.push(...splitLongSentence(s));
+  }
+  return result;
 }
 
 /**

@@ -5,8 +5,6 @@ import {
   useVideoConfig,
   staticFile,
   useDelayRender,
-  interpolate,
-  interpolateColors,
 } from "remotion";
 import { createTikTokStyleCaptions } from "@remotion/captions";
 import type { Caption } from "@remotion/captions";
@@ -68,7 +66,7 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
   const isShorts = format === "shorts";
 
   const [captions, setCaptions] = useState<Caption[] | null>(null);
-  const { delayRender, continueRender, cancelRender } = useDelayRender();
+  const { delayRender, continueRender } = useDelayRender();
   const [handle] = useState(() => delayRender());
 
   const fetchCaptions = useCallback(async () => {
@@ -117,9 +115,6 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
 
   if (!activePage) return null;
 
-  const absoluteTimeMs =
-    activePage.startMs + (currentTimeMs - activePage.startMs);
-
   return (
     <AbsoluteFill
       style={{
@@ -151,11 +146,7 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
           }}
         >
           {activePage.tokens.map((token, ti) => {
-            const isActive =
-              token.fromMs <= absoluteTimeMs && token.toMs > absoluteTimeMs;
-
             const isEmphasized =
-              !isActive &&
               (emphasisKeywords?.some((kw) =>
                 matchesKoreanStem(token.text, kw),
               ) ??
@@ -164,34 +155,16 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
                 (token.fromMs >= emphasisTimeRangeMs.startMs &&
                   token.fromMs < emphasisTimeRangeMs.endMs));
 
-            // emphasis fade-in 계산
-            let tokenColor = isActive ? theme.signal : theme.textStrong;
-
-            if (isEmphasized && emphasisTimeRangeMs) {
-              const fadeOffset = token.fromMs - emphasisTimeRangeMs.startMs;
-              const fadeProgress = interpolate(fadeOffset, [0, 200], [0, 1], {
-                extrapolateLeft: "clamp",
-                extrapolateRight: "clamp",
-              });
-              tokenColor = interpolateColors(
-                fadeProgress,
-                [0, 1],
-                [theme.textStrong, theme.signal],
-              );
-            } else if (isActive) {
-              tokenColor = theme.signal;
-            }
-
             return (
               <span
                 key={`${token.fromMs}-${ti}`}
                 style={{
-                  color: tokenColor,
-                  fontWeight:
-                    isActive || isEmphasized
-                      ? typography.fontWeight.bold
-                      : typography.fontWeight.medium,
-                  transition: "none",
+                  color: theme.textStrong,
+                  fontWeight: isEmphasized
+                    ? typography.fontWeight.bold
+                    : typography.fontWeight.medium,
+                  display: isEmphasized ? "inline-block" : undefined,
+                  transform: isEmphasized ? "scale(1.02)" : undefined,
                 }}
               >
                 {token.text}

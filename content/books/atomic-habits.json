@@ -28,47 +28,6 @@
   },
   "scenes": [
     {
-      "id": "cover-01",
-      "type": "cover",
-      "narrationText": "제임스 클리어의 아주 작은 습관의 힘. 전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
-      "content": {
-        "title": "아주 작은 습관의 힘",
-        "subtitle": "최고의 변화는 가장 작은 습관에서 시작된다",
-        "author": "제임스 클리어",
-        "coverImageUrl": "covers/atomic-habits-cover.png",
-        "brandLabel": "Editorial Signal",
-        "backgroundVariant": "dark"
-      },
-      "beats": [
-        {
-          "id": "cover-b1",
-          "role": "headline",
-          "startRatio": 0,
-          "endRatio": 0.55,
-          "narrationText": "제임스 클리어의 아주 작은 습관의 힘.",
-          "activates": ["title", "subtitle", "author"],
-          "emphasisTargets": ["아주 작은 습관의 힘"],
-          "transition": "enter"
-        },
-        {
-          "id": "cover-b2",
-          "role": "support",
-          "startRatio": 0.55,
-          "endRatio": 1,
-          "narrationText": "전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
-          "activates": ["brandLabel"],
-          "emphasisTargets": ["천만 부"],
-          "transition": "enter"
-        }
-      ],
-      "_rationale": {
-        "segmentationReason": "마침표 뒤 시점 전환 (저자 소개→영상 주제)",
-        "evidenceDecision": "해당 없음 — cover 씬",
-        "densityDecision": "2-beat — 14초, cover는 시각 임팩트 중심",
-        "riskFlags": []
-      }
-    },
-    {
       "id": "hook-01",
       "type": "highlight",
       "narrationText": "목표를 세우지 마세요. 이게 무슨 말일까요? 올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 모두가 이기고 싶어했죠. 하지만 차이를 만든 건 목표가 아닙니다. 매일의 훈련 시스템입니다.",
@@ -114,6 +73,47 @@
         "segmentationReason": "contrarian hook 3단계: 반전 선언 → 근거 → 핵심 키워드",
         "evidenceDecision": "올림픽 사례는 직관적 evidence. beat 내 소화",
         "densityDecision": "3-beat — 25초 highlight, 시각 변화 유지",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "제임스 클리어의 아주 작은 습관의 힘. 전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
+      "content": {
+        "title": "아주 작은 습관의 힘",
+        "subtitle": "최고의 변화는 가장 작은 습관에서 시작된다",
+        "author": "제임스 클리어",
+        "coverImageUrl": "covers/atomic-habits-cover.png",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "제임스 클리어의 아주 작은 습관의 힘.",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["아주 작은 습관의 힘"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["천만 부"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "마침표 뒤 시점 전환 (저자 소개→영상 주제)",
+        "evidenceDecision": "해당 없음 — cover 씬",
+        "densityDecision": "2-beat — 14초, cover는 시각 임팩트 중심",
         "riskFlags": []
       }
     },
