@@ -18,7 +18,7 @@
   },
   "narration": {
     "voice": "ko-KR-SunHiNeural",
-    "ttsEngine": "qwen3-tts",
+    "ttsEngine": "edge-tts",
     "speed": 1,
     "pitch": "+0Hz"
   },

@@ -1,7 +1,7 @@
 {
   "bookId": "story-brand-2025",
   "mode": "auto",
-  "startedAt": "2026-03-27T06:03:08.582Z",
+  "startedAt": "2026-03-27T09:03:33.782Z",
   "stageResults": [
     {
       "stageId": "1-analyzer",
@@ -36,7 +36,7 @@
       "artifacts": [
         "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/03-storyboard.json"
       ],
-      "durationMs": 2,
+      "durationMs": 1,
       "message": "Storyboard: 10 scenes (9 preset, 1 blueprint), 390.3s"
     },
     {
@@ -45,7 +45,7 @@
       "artifacts": [
         "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/04-gap-analysis.json"
       ],
-      "durationMs": 1,
+      "durationMs": 0,
       "message": "Gaps: 5 (0 must, 5 nice), Presets: 8, Policy: min=2 max=5"
     },
     {
@@ -87,7 +87,7 @@
       "artifacts": [
         "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/asset-requirements.json"
       ],
-      "durationMs": 0,
+      "durationMs": 1,
       "message": "Assets: 2 total (needed:2)"
     },
     {
@@ -96,13 +96,13 @@
       "artifacts": [
         "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/.validation"
       ],
-      "durationMs": 663
+      "durationMs": 652
     },
     {
       "stageId": "8-render",
       "status": "success",
       "artifacts": [],
-      "durationMs": 130248
+      "durationMs": 136755
     },
     {
       "stageId": "9-promote",
