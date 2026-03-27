@@ -1,63 +1,17 @@
 {
   "id": "hook-01",
-  "intent": "Split-contrast hook: visually oppose goals vs systems — left panel (muted goals) vs right panel (accented systems) to embody the book's core thesis",
-  "origin": "synthesized",
-  "layout": "split-two",
-  "layoutConfig": {
-    "ratio": 0.5,
-    "gap": 32
-  },
+  "intent": "시선을 사로잡는 후크: 목표를 세우지 마세요",
+  "origin": "preset",
+  "layout": "center-focus",
   "elements": [
     {
-      "id": "left-label",
-      "type": "headline",
+      "id": "headline-0",
+      "type": "text",
       "props": {
-        "text": "목표",
-        "weight": "bold",
-        "align": "center",
-        "color": "textMuted",
-        "panel": "left"
-      }
-    },
-    {
-      "id": "left-body",
-      "type": "body-text",
-      "props": {
-        "text": "승자와 패자의 목표는 같습니다",
-        "tokenRef": "bodyL",
-        "weight": "regular",
-        "align": "center",
-        "color": "textMuted",
-        "panel": "left"
-      }
-    },
-    {
-      "id": "center-divider",
-      "type": "divider",
-      "props": {
-        "orientation": "vertical",
-        "panel": "center"
-      }
-    },
-    {
-      "id": "right-label",
-      "type": "headline",
-      "props": {
-        "text": "시스템",
-        "weight": "bold",
-        "align": "center",
-        "panel": "right"
-      }
-    },
-    {
-      "id": "right-body",
-      "type": "body-text",
-      "props": {
-        "text": "차이를 만든 건 매일의 훈련 시스템입니다",
-        "tokenRef": "bodyL",
-        "weight": "regular",
-        "align": "center",
-        "panel": "right"
+        "content": "목표를 세우지 마세요",
+        "role": "headline",
+        "highlightWords": ["목표를", "마세요"],
+        "highlightDelay": 30
       }
     }
   ],
@@ -78,7 +32,7 @@
     "premium": "#D4A853"
   },
   "from": 0,
-  "durationFrames": 150,
+  "durationFrames": 1080,
   "mediaPlan": {
     "narrationText": "목표를 세우지 마세요. 이게 무슨 말일까요? 올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 모두가 이기고 싶어했죠. 하지만 차이를 만든 건 목표가 아닙니다. 매일의 훈련 시스템입니다.",
     "captionPlan": {
@@ -86,8 +40,7 @@
       "maxCharsPerLine": 28,
       "maxLines": 2,
       "leadFrames": 3,
-      "trailFrames": 5,
-      "highlightKeywords": ["목표", "시스템"],
+      "trailFrames": 6,
       "transitionStyle": "fade-slide"
     },
     "audioPlan": {

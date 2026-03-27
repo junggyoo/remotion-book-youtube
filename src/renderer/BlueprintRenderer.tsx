@@ -11,7 +11,7 @@ import { useFormat } from "@/design/themes/useFormat";
 import { useLayoutEngine } from "./layouts";
 import type { LayoutPosition } from "./layouts";
 import { useChoreography } from "./choreography";
-import { getPrimitive } from "./primitiveRegistry";
+import { getPrimitive, SELF_ANIMATED_TYPES } from "./primitiveRegistry";
 import { MotionWrapper } from "./MotionWrapper";
 
 // --- Node/Edge classification ---
@@ -119,11 +119,16 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
             return null;
           }
 
+          const isSelfAnimatedEdge =
+            SELF_ANIMATED_TYPES.has(el.type) ||
+            (el.type === "text" && el.props.role === "headline");
+
           return (
             <MotionWrapper
               key={el.id}
               timing={timing}
               preset={blueprint.motionPreset}
+              selfAnimated={isSelfAnimatedEdge}
             >
               {React.createElement(adapter, {
                 ...el.props,
@@ -150,11 +155,16 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
           if (nodeIdx == null) return null;
           const position = nodePositions[nodeIdx];
 
+          const isSelfAnimated =
+            SELF_ANIMATED_TYPES.has(el.type) ||
+            (el.type === "text" && el.props.role === "headline");
+
           return (
             <MotionWrapper
               key={el.id}
               timing={timing}
               preset={blueprint.motionPreset}
+              selfAnimated={isSelfAnimated}
             >
               {React.createElement(adapter, {
                 ...el.props,

@@ -230,6 +230,23 @@ const registry: Record<string, PrimitiveAdapter> = {
         style: { width: "100%", height: "100%", objectFit: "contain" as const },
       }),
     ),
+  // Text type — used by blueprint elements with "type": "text"
+  // Routes to headline adapter; upgraded in kinetic-text registration below
+  text: ({ style, format, theme, ...props }) =>
+    positioned(
+      style,
+      React.createElement(TextBlock, {
+        format,
+        theme,
+        text: (props.text as string) ?? (props.content as string) ?? "",
+        variant: "headlineL",
+        weight:
+          (props.weight as "regular" | "bold" | "semibold" | "medium") ??
+          "bold",
+        color: props.color === "textMuted" ? theme.textMuted : undefined,
+        align: (props.align as "left" | "center" | "right") ?? "center",
+      }),
+    ),
   // Structural primitives — registered later via registerPrimitive()
   // (timeline-node, cycle-connector, flow-step, card-stack, layer-stack)
 };
@@ -252,6 +269,9 @@ export function registerPrimitive(
 export function getPrimitive(type: string): PrimitiveAdapter | undefined {
   return registry[type];
 }
+
+/** Element types that manage their own enter animation (MotionWrapper bypass). */
+export const SELF_ANIMATED_TYPES = new Set<string>(["kinetic-text"]);
 
 /** The full primitive registry (read-only access). */
 export const primitiveRegistry = registry;
@@ -346,3 +366,111 @@ registerPrimitive("layer-stack", ({ style, format, theme, ...props }) =>
     ),
   ),
 );
+
+// --- Kinetic text primitive registration ---
+import { KineticText } from "@/components/primitives/KineticText";
+import { WordHighlight } from "@/components/primitives/WordHighlight";
+
+registerPrimitive("kinetic-text", ({ style, format, theme, ...props }) =>
+  positioned(
+    style,
+    React.createElement(KineticText, {
+      format,
+      theme,
+      text: (props.text as string) ?? (props.content as string) ?? "",
+      variant:
+        (props.variant as
+          | "headlineL"
+          | "headlineM"
+          | "headlineS"
+          | "bodyL"
+          | "bodyM"
+          | "bodyS") ?? "headlineL",
+      weight:
+        (props.weight as "regular" | "bold" | "semibold" | "medium") ?? "bold",
+      color: props.color === "textMuted" ? theme.textMuted : undefined,
+      align: (props.align as "left" | "center" | "right") ?? "center",
+      staggerDelay: props.staggerDelay as number | undefined,
+      motionPreset: props.motionPreset as
+        | "gentle"
+        | "smooth"
+        | "snappy"
+        | "heavy"
+        | "dramatic"
+        | undefined,
+      delay: props.delay as number | undefined,
+      highlightWords: props.highlightWords as string[] | undefined,
+      highlightDelay: props.highlightDelay as number | undefined,
+      highlightColor: props.highlightColor as string | undefined,
+    }),
+  ),
+);
+
+registerPrimitive("word-highlight", ({ style, format, theme, ...props }) =>
+  positioned(
+    style,
+    React.createElement(WordHighlight, {
+      format,
+      theme,
+      text: (props.text as string) ?? (props.content as string) ?? "",
+      highlightWords: (props.highlightWords as string[]) ?? [],
+      variant:
+        (props.variant as
+          | "headlineL"
+          | "headlineM"
+          | "headlineS"
+          | "bodyL"
+          | "bodyM"
+          | "bodyS") ?? "headlineL",
+      weight:
+        (props.weight as "regular" | "bold" | "semibold" | "medium") ?? "bold",
+      color: props.color === "textMuted" ? theme.textMuted : undefined,
+      highlightColor: props.highlightColor as string | undefined,
+      delay: props.delay as number | undefined,
+      align: (props.align as "left" | "center" | "right") ?? "center",
+    }),
+  ),
+);
+
+// --- Upgrade "text" adapter: route to KineticText for headline role ---
+registry["text"] = ({ style, format, theme, ...props }) => {
+  const text = (props.text as string) ?? (props.content as string) ?? "";
+  const role = props.role as string | undefined;
+  const highlightWords = props.highlightWords as string[] | undefined;
+
+  // Headline role → KineticText (with optional highlight)
+  if (role === "headline") {
+    return positioned(
+      style,
+      React.createElement(KineticText, {
+        format,
+        theme,
+        text,
+        variant: "headlineL",
+        weight:
+          (props.weight as "regular" | "bold" | "semibold" | "medium") ??
+          "bold",
+        color: props.color === "textMuted" ? theme.textMuted : undefined,
+        align: (props.align as "left" | "center" | "right") ?? "center",
+        highlightWords,
+        highlightDelay: (props.highlightDelay as number) ?? 18,
+        highlightColor: props.highlightColor as string | undefined,
+      }),
+    );
+  }
+
+  // Default: static TextBlock
+  return positioned(
+    style,
+    React.createElement(TextBlock, {
+      format,
+      theme,
+      text,
+      variant: "headlineL",
+      weight:
+        (props.weight as "regular" | "bold" | "semibold" | "medium") ?? "bold",
+      color: props.color === "textMuted" ? theme.textMuted : undefined,
+      align: (props.align as "left" | "center" | "right") ?? "center",
+    }),
+  );
+};

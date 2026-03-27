@@ -20,16 +20,23 @@ export interface MotionTiming {
 interface MotionWrapperProps {
   timing: MotionTiming;
   preset: MotionPresetKey;
+  /** When true, skip opacity/translateY animation (element manages its own motion). */
+  selfAnimated?: boolean;
   children: React.ReactNode;
 }
 
 export const MotionWrapper: React.FC<MotionWrapperProps> = ({
   timing,
   preset,
+  selfAnimated,
   children,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+
+  if (selfAnimated) {
+    return <div style={{ willChange: "opacity, transform" }}>{children}</div>;
+  }
 
   const adjustedFrame = Math.max(0, frame - timing.delayFrames);
   const progress = applyPreset(
