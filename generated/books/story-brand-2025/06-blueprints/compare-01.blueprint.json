@@ -1,68 +1,112 @@
 {
   "id": "compare-01",
-  "intent": "브랜드 중심 vs 고객 중심 메시지 대비",
-  "origin": "synthesized",
-  "fallbackPreset": "compareContrast",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
   "layout": "split-compare",
   "elements": [
     {
-      "id": "leftLabel",
-      "type": "text",
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
       "props": {
-        "content": "브랜드 중심",
-        "role": "label"
+        "layer": 5
       }
     },
     {
-      "id": "leftContent",
-      "type": "text",
+      "id": "compareContrast-leftPanel",
+      "type": "container",
       "props": {
-        "content": "우리는 업계 최고의 기술력을 보유하고 혁신적 솔루션을 제공합니다",
-        "role": "bodyText"
+        "layer": 20,
+        "side": "left"
       }
     },
     {
-      "id": "leftTag",
-      "type": "chip",
+      "id": "compareContrast-rightPanel",
+      "type": "container",
       "props": {
-        "content": "무시당하는 메시지",
-        "variant": "muted"
+        "layer": 20,
+        "side": "right"
       }
     },
     {
-      "id": "rightLabel",
-      "type": "text",
+      "id": "compareContrast-divider",
+      "type": "divider",
       "props": {
-        "content": "고객 중심",
-        "role": "label"
+        "layer": 30,
+        "orientation": "vertical"
       }
     },
     {
-      "id": "rightContent",
-      "type": "text",
+      "id": "compareContrast-labels-left",
+      "type": "label",
       "props": {
-        "content": "세금 때문에 골치 아프시죠? 세 단계만 따라오세요",
-        "role": "bodyText"
+        "text": "브랜드 중심",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
       }
     },
     {
-      "id": "rightTag",
-      "type": "chip",
+      "id": "compareContrast-labels-right",
+      "type": "label",
       "props": {
-        "content": "행동을 이끄는 메시지",
+        "text": "고객 중심",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
         "variant": "signal"
       }
     },
     {
-      "id": "connector",
-      "type": "divider",
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
       "props": {
-        "role": "connector",
-        "orientation": "vertical"
+        "text": "우리는 업계 최고의 기술력을 보유하고 혁신적 솔루션을 제공합니다",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "세금 때문에 골치 아프시죠? 세 단계만 따라오세요",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "wrong",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "right",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
       }
     }
   ],
-  "choreography": "compare-reveal",
+  "choreography": "split-reveal",
   "motionPreset": "smooth",
   "format": "longform",
   "theme": {
@@ -75,11 +119,11 @@
     "textMuted": "#94A3B8",
     "lineSubtle": "#334155",
     "signal": "#356DFF",
-    "accent": "#10B981",
+    "accent": "#F59E0B",
     "premium": "#D4A853"
   },
-  "from": 5778,
-  "durationFrames": 1179,
+  "from": 0,
+  "durationFrames": 1269,
   "mediaPlan": {
     "narrationText": "두 가지 마케팅 방식을 비교해볼까요? 브랜드 중심 방식은 이렇습니다. 우리는 업계 최고의 기술력을 보유하고 있으며, 혁신적인 솔루션을 제공합니다. 듣기엔 그럴듯하지만 고객의 뇌는 이 메시지를 무시합니다. 자기와 관련 없는 정보니까요. 반면 고객 중심 방식은 다릅니다. 복잡한 세금 때문에 골치 아프시죠? 세 단계만 따라오세요. 이 방식은 고객의 문제로 시작하고, 고객의 성공으로 끝납니다. 차이가 느껴지시나요? 같은 서비스인데 메시지 구조만 바꿔도 반응이 완전히 달라집니다.",
     "captionPlan": {

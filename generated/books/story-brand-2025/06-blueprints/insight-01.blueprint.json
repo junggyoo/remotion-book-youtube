@@ -1,41 +1,42 @@
 {
   "id": "insight-01",
-  "intent": "핵심 인사이트: 모든 성공한 브랜드는 스토리 구조를 따른다",
+  "intent": "Key insight headline reveal with optional support text",
   "origin": "preset",
   "layout": "center-focus",
   "elements": [
     {
-      "id": "headline",
-      "type": "text",
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
       "props": {
-        "content": "모든 성공한 브랜드는 스토리 구조를 따른다",
-        "role": "headline"
+        "layer": 5
       }
     },
     {
-      "id": "supportText",
-      "type": "text",
+      "id": "keyInsight-signalBar",
+      "type": "shape",
       "props": {
-        "content": "고객이 영웅, 브랜드가 가이드. 영화 속 조력자처럼 고객의 여정을 이끌어야 합니다.",
-        "role": "supportText"
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
       }
     },
     {
-      "id": "evidenceCard",
-      "type": "evidenceCard",
+      "id": "keyInsight-headline",
+      "type": "headline",
       "props": {
-        "cardType": "case",
-        "value": "루크 → 요다 = 고객 → 브랜드",
-        "caption": "영웅과 가이드의 관계",
-        "source": "Building a StoryBrand, Ch.3"
+        "text": "브랜드 성공의 비밀, 스토리 구조",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "스토리 구조"
       }
     },
     {
-      "id": "signalBar",
-      "type": "divider",
+      "id": "keyInsight-supportText",
+      "type": "body-text",
       "props": {
-        "role": "signalBar",
-        "color": "signal"
+        "text": "고객이 영웅, 브랜드가 가이드. 영화 속 조력자처럼 고객의 여정을 이끌어야 합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
       }
     }
   ],
@@ -52,11 +53,11 @@
     "textMuted": "#94A3B8",
     "lineSubtle": "#334155",
     "signal": "#356DFF",
-    "accent": "#10B981",
+    "accent": "#F59E0B",
     "premium": "#D4A853"
   },
-  "from": 1605,
-  "durationFrames": 1031,
+  "from": 0,
+  "durationFrames": 1269,
   "mediaPlan": {
     "narrationText": "밀러의 핵심 발견은 이겁니다. 모든 성공한 브랜드 메시지는 스토리 구조를 따릅니다. 영화를 생각해보세요. 주인공이 문제에 부딪히고, 현명한 조력자를 만나고, 계획을 세우고, 행동하고, 결국 성공합니다. 스타워즈의 루크 스카이워커에게 요다가 있었듯이, 당신의 고객에게는 당신의 브랜드가 가이드 역할을 해야 합니다. 이것이 바로 SB7 프레임워크의 출발점입니다.",
     "captionPlan": {

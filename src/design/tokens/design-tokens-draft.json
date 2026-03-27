@@ -141,12 +141,12 @@
   },
   "sceneWrapper": {
     "gradientOpacity": {
-      "dark": 0.06,
-      "light": 0.08
+      "dark": 0.18,
+      "light": 0.15
     },
     "depthShadow": {
-      "dark": "inset 0 0 80px rgba(0,0,0,0.12)",
-      "light": "inset 0 0 60px rgba(0,0,0,0.20)"
+      "dark": "inset 0 0 120px rgba(0,0,0,0.25)",
+      "light": "inset 0 0 80px rgba(0,0,0,0.18)"
     },
     "gradientAngle": 135
   },

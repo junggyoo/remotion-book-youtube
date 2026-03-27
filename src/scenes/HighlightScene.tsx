@@ -10,6 +10,7 @@ import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { PulseEmphasis } from "@/components/motion/PulseEmphasis";
 import { TextBlock } from "@/components/primitives/TextBlock";
+import { KineticText } from "@/components/primitives/KineticText";
 import { SignalBar } from "@/components/primitives/SignalBar";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
@@ -125,6 +126,7 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
                 beatState={getBeatState("mainText")}
                 format={format}
                 theme={theme}
+                motionType="none"
               >
                 {showPulse ? (
                   <PulseEmphasis
@@ -133,7 +135,7 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
                     cycles={2}
                     delay={30}
                   >
-                    <TextBlock
+                    <KineticText
                       format={format}
                       theme={theme}
                       text={content.mainText}
@@ -141,11 +143,12 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
                       weight="bold"
                       color={mainTextColor}
                       align="center"
-                      maxLines={3}
+                      staggerDelay={4}
+                      motionPreset="heavy"
                     />
                   </PulseEmphasis>
                 ) : (
-                  <TextBlock
+                  <KineticText
                     format={format}
                     theme={theme}
                     text={content.mainText}
@@ -153,7 +156,8 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
                     weight="bold"
                     color={mainTextColor}
                     align="center"
-                    maxLines={3}
+                    staggerDelay={4}
+                    motionPreset="heavy"
                   />
                 )}
               </BeatElement>

@@ -1,73 +1,116 @@
 {
   "bookId": "story-brand-2025",
-  "title": "스토리 설계자",
-  "startedAt": "2026-03-27T13:50:00+09:00",
-  "pipeline": [
+  "mode": "auto",
+  "startedAt": "2026-03-27T06:03:08.582Z",
+  "stageResults": [
     {
-      "stage": 1,
-      "name": "BookAnalyzer",
-      "status": "completed",
-      "output": "00-fingerprint.json",
-      "notes": "genre=business, structure=framework, hookStrategy=contrarian"
+      "stageId": "1-analyzer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/00-fingerprint.json"
+      ],
+      "durationMs": 1,
+      "message": "Fingerprint: genre=business, structure=framework, hook=question"
     },
     {
-      "stage": 2,
-      "name": "NarrativePlanner",
-      "status": "completed",
-      "output": "01-editorial-outline.json",
-      "notes": "5 segments, target 390s, framework-driven arc"
+      "stageId": "2-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/01-editorial-outline.json"
+      ],
+      "durationMs": 1,
+      "message": "Outline: framework-driven, 390s, 3 messages"
     },
     {
-      "stage": 3,
-      "name": "OpeningComposer",
-      "status": "completed",
-      "output": "content/books/story-brand-2025.json (cover-01, hook-01)",
-      "notes": "contrarian hook: 브랜드가 영웅이 되려 하면 망한다"
+      "stageId": "3-opening",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/02-art-direction.json"
+      ],
+      "durationMs": 1,
+      "message": "ArtDirection: palette=#F59E0B, shape=geometric, motion=precise"
     },
     {
-      "stage": 4,
-      "name": "ScenePlanner",
-      "status": "completed",
-      "output": "content/books/story-brand-2025.json (10 scenes)",
-      "notes": "8 preset + 2 synthesized (compare-01, application-01)"
+      "stageId": "4-scene-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/03-storyboard.json"
+      ],
+      "durationMs": 2,
+      "message": "Storyboard: 10 scenes (9 preset, 1 blueprint), 390.3s"
     },
     {
-      "stage": 5,
-      "name": "GapDetector",
-      "status": "completed",
-      "output": "implicit",
-      "notes": "2 gaps identified → synthesized: compareContrast + application"
+      "stageId": "5-gap-detector",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/04-gap-analysis.json"
+      ],
+      "durationMs": 1,
+      "message": "Gaps: 5 (0 must, 5 nice), Presets: 8, Policy: min=2 max=5"
     },
     {
-      "stage": 6,
-      "name": "SceneSynthesizer",
-      "status": "completed",
-      "output": "06-blueprints/ (10 files)",
-      "notes": "All 10 blueprints generated with cumulative from offsets"
+      "stageId": "6-synthesizer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/synth-setup-0-0.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/synth-setup-1-1.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/synth-core-0-2.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/synth-core-1-3.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/synth-core-2-4.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/cover-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/hook-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/insight-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/chapter-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/framework-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/compare-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/application-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/quote-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/insight-recap.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06-blueprints/closing-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/05-synthesis-summary.json"
+      ],
+      "durationMs": 2,
+      "message": "Synthesized 5 blueprints (5 ephemeral), materialized 10 preset blueprints. Validation: passed"
     },
     {
-      "stage": 6.3,
-      "name": "BeatComposer",
-      "status": "completed",
-      "output": "06.3-beat-plan.json",
-      "notes": "27 beats total, all quality checks passed"
+      "stageId": "6.3-beat-composer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/06.3-beat-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Beats generated: 0 processed, 10 skipped (total 10 scenes)"
     },
     {
-      "stage": 7,
-      "name": "BlueprintValidator",
-      "status": "completed",
-      "output": "06-blueprints/*.blueprint.json",
-      "notes": "10/10 blueprints valid, 2 synthesized with fallbackPreset"
+      "stageId": "6.5-asset-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/asset-requirements.json"
+      ],
+      "durationMs": 0,
+      "message": "Assets: 2 total (needed:2)"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/story-brand-2025/.validation"
+      ],
+      "durationMs": 663
+    },
+    {
+      "stageId": "8-render",
+      "status": "success",
+      "artifacts": [],
+      "durationMs": 130248
+    },
+    {
+      "stageId": "9-promote",
+      "status": "skipped",
+      "artifacts": [],
+      "durationMs": 0,
+      "message": "Promotion stage not yet implemented"
     }
   ],
-  "metrics": {
-    "totalScenes": 10,
-    "totalBeats": 27,
-    "presetScenes": 8,
-    "synthesizedScenes": 2,
-    "totalNarrationChars": 2327,
-    "estimatedDurationSeconds": 408,
-    "targetDurationSeconds": 390,
-    "durationVariance": "+4.7%"
-  }
+  "lastCompletedStage": "9-promote"
 }

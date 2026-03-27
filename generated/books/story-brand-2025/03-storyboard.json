@@ -1,0 +1,181 @@
+{
+  "bookId": "story-brand-2025",
+  "totalScenes": 10,
+  "estimatedDurationSeconds": 390.3,
+  "scenes": [
+    {
+      "sceneId": "cover-01",
+      "order": 0,
+      "purpose": "책 표지와 브랜드 소개",
+      "narrativeGoal": "도널드 밀러의 스토리 설계자",
+      "visualFunction": "transition",
+      "visualIntent": "표지 이미지 중심 레이아웃, 브랜드 라벨 배치",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 46.8,
+      "onScreenText": [
+        "스토리 설계자",
+        "도널드 밀러"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "cover"
+    },
+    {
+      "sceneId": "hook-01",
+      "order": 1,
+      "purpose": "시선을 사로잡는 후크: 영웅이 되려 하면 망한다",
+      "narrativeGoal": "마케팅에 돈을 쏟아붓는데 왜 고객이 반응하지 않을까요",
+      "visualFunction": "hook",
+      "visualIntent": "강렬한 텍스트 등장, 키워드 강조",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 46.8,
+      "onScreenText": [
+        "영웅이 되려 하면 망한다",
+        "고객이 영웅이고, 브랜드는 가이드입니다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "blueprint",
+      "blueprintId": "hook-01"
+    },
+    {
+      "sceneId": "insight-01",
+      "order": 2,
+      "purpose": "핵심 인사이트 전달: 브랜드 성공의 비밀, 스토리 구조",
+      "narrativeGoal": "밀러의 핵심 발견은 이겁니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "브랜드 성공의 비밀, 스토리 구조"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "chapter-01",
+      "order": 3,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "그렇다면 SB7 프레임워크의 구체적인 구조는 무엇일까요",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 15.6,
+      "onScreenText": [
+        "SB7 프레임워크의 핵심"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "framework-01",
+      "order": 4,
+      "purpose": "핵심 프레임워크 순차 공개: SB7 프레임워크 5대 핵심",
+      "narrativeGoal": "SB7 프레임워크의 다섯 가지 핵심 단계입니다",
+      "visualFunction": "framework",
+      "visualIntent": "항목 stagger reveal, 번호 배지 + 제목 + 설명",
+      "layoutMode": "grid-expand",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "SB7 프레임워크 5대 핵심",
+        "주인공 설정",
+        "문제 정의",
+        "가이드 등장",
+        "계획 제시",
+        "행동 촉구와 결과"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "framework"
+    },
+    {
+      "sceneId": "compare-01",
+      "order": 5,
+      "purpose": "대비를 통한 이해 강화",
+      "narrativeGoal": "두 가지 마케팅 방식을 비교해볼까요",
+      "visualFunction": "compare",
+      "visualIntent": "좌우 분할 패널, 순차 공개",
+      "layoutMode": "split-compare",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "브랜드 중심",
+        "고객 중심",
+        "우리는 업계 최고의 기술력을 보유하고 혁신적 솔루션을 제공합니다",
+        "세금 때문에 골치 아프시죠? 세 단계만 따라오세요"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
+    },
+    {
+      "sceneId": "application-01",
+      "order": 6,
+      "purpose": "실천 방법 제시",
+      "narrativeGoal": "이 프레임워크를 당장 어떻게 적용할 수 있을까요",
+      "visualFunction": "process",
+      "visualIntent": "anchor statement 후 step 순차 공개",
+      "layoutMode": "left-anchor",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "SB7을 당장 적용하는 3가지 실전 단계",
+        "브랜드스크립트 작성",
+        "웹사이트 재설계",
+        "전 채널 일관 적용"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "application"
+    },
+    {
+      "sceneId": "quote-01",
+      "order": 7,
+      "purpose": "핵심 명언으로 감정적 임팩트: 사람들은 최고의 제품을 사는 게 아니라, 가장 쉽게 이해되는 제품을 산다",
+      "narrativeGoal": "도널드 밀러는 이렇게 말합니다",
+      "visualFunction": "quote",
+      "visualIntent": "serif 서체 인용문 중앙 배치, texture 배경",
+      "layoutMode": "quote-hold",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "사람들은 최고의 제품을 사는 게 아니라, 가장 쉽게 이해되는 제품을 산다."
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "quote"
+    },
+    {
+      "sceneId": "insight-recap",
+      "order": 8,
+      "purpose": "핵심 인사이트 전달: 고객이 영웅, 브랜드가 가이드",
+      "narrativeGoal": "정리하겠습니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 42.3,
+      "onScreenText": [
+        "고객이 영웅, 브랜드가 가이드"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "closing-01",
+      "order": 9,
+      "purpose": "행동 촉구 + CTA",
+      "narrativeGoal": "오늘 당장 해보세요",
+      "visualFunction": "compress-recap",
+      "visualIntent": "recap statement 중앙 + CTA 텍스트 하단",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 27.3,
+      "onScreenText": [
+        "종이 한 장, 세 줄로 마케팅을 바꿔라",
+        "구독과 좋아요로 더 많은 인사이트를 받아보세요"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "closing"
+    }
+  ]
+}

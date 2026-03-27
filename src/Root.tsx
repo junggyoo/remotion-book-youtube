@@ -39,7 +39,8 @@ async function calculateMetadataFromManifest({
   let scenes = defaultProps.scenes;
   let theme = defaultProps.theme;
 
-  // --- Phase 1: Load planning data (theme + blueprints) ---
+  // --- Phase 1: Load planning data (theme + blueprints + storyboard + art direction) ---
+  let textureMood: string | undefined;
   try {
     const planRes = await fetch(
       staticFile(`planning/${defaultProps.bookId}.plan.json`),
@@ -48,20 +49,31 @@ async function calculateMetadataFromManifest({
     if (planData.hasPlan) {
       // Apply theme overrides
       theme = planData.theme;
-      // Attach _blueprint to relevant scenes
+      // Apply art direction
+      textureMood = planData.textureMood;
+      // Attach _blueprint and _storyboard to relevant scenes
       const bpMap: Record<string, unknown> = planData.blueprintScenes ?? {};
+      const sbMap: Record<string, unknown> = planData.storyboardScenes ?? {};
       scenes = scenes.map((scene) => {
         const bp = bpMap[scene.id];
+        const sb = sbMap[scene.id];
+        const extensions: Record<string, unknown> = {};
         if (bp) {
           console.log(`[planning] ${scene.id} → BlueprintRenderer`);
-          return { ...scene, _blueprint: bp };
+          extensions._blueprint = bp;
         }
-        return scene;
+        if (sb) {
+          extensions._storyboard = sb;
+        }
+        return Object.keys(extensions).length > 0
+          ? { ...scene, ...extensions }
+          : scene;
       });
       const bpCount = Object.keys(bpMap).length;
+      const sbCount = Object.keys(sbMap).length;
       const presetCount = scenes.length - bpCount;
       console.log(
-        `[planning] ${defaultProps.bookId}: ${bpCount} blueprint, ${presetCount} preset, theme override applied`,
+        `[planning] ${defaultProps.bookId}: ${bpCount} blueprint, ${presetCount} preset, ${sbCount} storyboard, textureMood=${textureMood ?? "none"}`,
       );
     }
   } catch {
@@ -97,6 +109,7 @@ async function calculateMetadataFromManifest({
           ...defaultProps,
           scenes: updatedScenes,
           theme,
+          textureMood,
           totalDurationFrames: totalFrames,
         },
       };
@@ -109,7 +122,7 @@ async function calculateMetadataFromManifest({
     fps: defaultProps.fps,
     width: defaultProps.width,
     height: defaultProps.height,
-    props: { ...defaultProps, scenes, theme },
+    props: { ...defaultProps, scenes, theme, textureMood },
   };
 }
 

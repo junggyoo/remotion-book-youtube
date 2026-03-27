@@ -1,44 +1,20 @@
 {
   "bookId": "story-brand-2025",
-  "oneLiner": "도널드 밀러의 SB7 프레임워크로 고객을 영웅으로 만드는 스토리 마케팅 전략을 정리한다",
-  "targetAudience": "마케팅과 브랜딩에 관심 있는 20-40대 한국어 유튜브 시청자",
-  "hookAngle": "반직관적 선언 — 브랜드가 영웅이 되려 하면 망한다",
+  "oneLiner": "스토리 설계자의 핵심 인사이트를 체계적으로 정리한다",
+  "targetAudience": "비즈니스 전략과 성공에 관심 있는 직장인 및 창업가 시청자",
+  "hookAngle": "근본적 질문을 던지며 영웅이 되려 하면 망한다",
   "coreMessages": [
-    "고객이 영웅이고, 브랜드는 가이드다",
-    "모든 위대한 브랜드는 7단계 스토리 구조를 따른다",
-    "명확한 메시지가 없으면 고객은 떠난다",
-    "고객의 문제를 3가지 층위로 이해하라",
-    "실패를 보여주고, 성공을 그려줘라"
+    "영웅이 되려 하면 망한다",
+    "브랜드 성공의 비밀, 스토리 구조",
+    "고객이 영웅, 브랜드가 가이드"
   ],
   "excludedTopics": [],
   "targetDurationSeconds": 390,
-  "toneKeywords": ["구어체", "정보 밀도", "실용적", "마케팅 인사이트"],
-  "narrativeArc": "framework-driven",
-  "segments": {
-    "opening": {
-      "durationRatio": 0.15,
-      "scenes": ["cover-01", "hook-01"],
-      "emotionalTarget": "curiosity"
-    },
-    "setup": {
-      "durationRatio": 0.15,
-      "scenes": ["insight-01", "chapter-01"],
-      "emotionalTarget": "recognition"
-    },
-    "core": {
-      "durationRatio": 0.35,
-      "scenes": ["framework-01", "compare-01"],
-      "emotionalTarget": "understanding"
-    },
-    "climax": {
-      "durationRatio": 0.2,
-      "scenes": ["application-01", "quote-01"],
-      "emotionalTarget": "motivation"
-    },
-    "resolution": {
-      "durationRatio": 0.15,
-      "scenes": ["insight-recap", "closing-01"],
-      "emotionalTarget": "empowerment"
-    }
-  }
+  "toneKeywords": [
+    "구어체",
+    "정보 밀도",
+    "동기 부여",
+    "실용적"
+  ],
+  "narrativeArc": "framework-driven"
 }

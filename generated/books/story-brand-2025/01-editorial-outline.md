@@ -1,0 +1,32 @@
+# Editorial outline
+
+**bookId:** story-brand-2025
+
+**oneLiner:** 스토리 설계자의 핵심 인사이트를 체계적으로 정리한다
+
+**targetAudience:** 비즈니스 전략과 성공에 관심 있는 직장인 및 창업가 시청자
+
+**hookAngle:** 근본적 질문을 던지며 영웅이 되려 하면 망한다
+
+## coreMessages
+
+- 영웅이 되려 하면 망한다
+- 브랜드 성공의 비밀, 스토리 구조
+- 고객이 영웅, 브랜드가 가이드
+
+## excludedTopics
+
+
+**targetDurationSeconds:** 390
+
+## toneKeywords
+
+- 구어체
+- 정보 밀도
+- 동기 부여
+- 실용적
+
+**narrativeArc:** framework-driven
+
+---
+> Auto-generated from 01-editorial-outline.json. JSON is source of truth.

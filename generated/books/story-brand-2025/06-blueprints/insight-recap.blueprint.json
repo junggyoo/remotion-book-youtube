@@ -1,31 +1,42 @@
 {
   "id": "insight-recap",
-  "intent": "핵심 정리: 고객이 영웅, 브랜드가 가이드, 명확함이 열쇠",
+  "intent": "Key insight headline reveal with optional support text",
   "origin": "preset",
   "layout": "center-focus",
   "elements": [
     {
-      "id": "headline",
-      "type": "text",
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
       "props": {
-        "content": "고객이 영웅, 브랜드가 가이드",
-        "role": "headline"
+        "layer": 5
       }
     },
     {
-      "id": "supportText",
-      "type": "text",
+      "id": "keyInsight-signalBar",
+      "type": "shape",
       "props": {
-        "content": "문제를 정의하고, 계획을 제시하고, 행동을 촉구하라. 명확함이 마케팅의 본질이다.",
-        "role": "supportText"
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
       }
     },
     {
-      "id": "signalBar",
-      "type": "divider",
+      "id": "keyInsight-headline",
+      "type": "headline",
       "props": {
-        "role": "signalBar",
-        "color": "signal"
+        "text": "고객이 영웅, 브랜드가 가이드",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "명확함"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "문제를 정의하고, 계획을 제시하고, 행동을 촉구하라. 명확함이 마케팅의 본질이다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
       }
     }
   ],
@@ -42,11 +53,11 @@
     "textMuted": "#94A3B8",
     "lineSubtle": "#334155",
     "signal": "#356DFF",
-    "accent": "#10B981",
+    "accent": "#F59E0B",
     "premium": "#D4A853"
   },
-  "from": 9725,
-  "durationFrames": 1047,
+  "from": 0,
+  "durationFrames": 1269,
   "mediaPlan": {
     "narrationText": "정리하겠습니다. 스토리 설계자의 핵심은 이것입니다. 고객이 영웅이고, 브랜드는 가이드입니다. 고객의 문제를 외적, 내적, 철학적 세 층위로 이해하고, 명확한 계획을 제시하고, 행동을 촉구하세요. 성공의 비전과 실패의 공포를 함께 보여주세요. 이 구조를 브랜드스크립트 한 장에 담으면 웹사이트부터 영업 대본까지 모든 메시지가 일관됩니다. 복잡함을 버리고 명확함을 선택하세요. 이것이 고객의 마음을 여는 유일한 열쇠입니다.",
     "captionPlan": {

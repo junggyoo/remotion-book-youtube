@@ -1,31 +1,41 @@
 {
   "id": "chapter-01",
-  "intent": "챕터 구분: SB7 프레임워크의 핵심 단계 소개",
+  "intent": "Chapter divider with number and title reveal",
   "origin": "preset",
   "layout": "left-anchor",
   "elements": [
     {
-      "id": "chapterNumber",
-      "type": "text",
+      "id": "chapterDivider-texture",
+      "type": "texture-overlay",
       "props": {
-        "content": "1",
-        "role": "chapterNumber"
+        "layer": 5
       }
     },
     {
-      "id": "chapterTitle",
-      "type": "text",
+      "id": "chapterDivider-chapterNumber",
+      "type": "number-display",
       "props": {
-        "content": "SB7 프레임워크의 핵심",
-        "role": "headline"
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL"
       }
     },
     {
-      "id": "chapterSubtitle",
-      "type": "text",
+      "id": "chapterDivider-chapterTitle",
+      "type": "headline",
       "props": {
-        "content": "고객을 영웅으로 만드는 스토리 구조",
-        "role": "supportText"
+        "text": "SB7 프레임워크의 핵심",
+        "layer": 35,
+        "tokenRef": "typeScale.headlineM"
+      }
+    },
+    {
+      "id": "chapterDivider-baseContent",
+      "type": "body-text",
+      "props": {
+        "text": "고객을 영웅으로 만드는 스토리 구조",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyM"
       }
     }
   ],
@@ -42,11 +52,11 @@
     "textMuted": "#94A3B8",
     "lineSubtle": "#334155",
     "signal": "#356DFF",
-    "accent": "#10B981",
+    "accent": "#F59E0B",
     "premium": "#D4A853"
   },
-  "from": 2636,
-  "durationFrames": 342,
+  "from": 0,
+  "durationFrames": 468,
   "mediaPlan": {
     "narrationText": "그렇다면 SB7 프레임워크의 구체적인 구조는 무엇일까요? 고객을 영웅으로 만드는 다섯 가지 핵심 단계를 살펴봅니다.",
     "captionPlan": {
