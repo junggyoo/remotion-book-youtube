@@ -1,44 +1,79 @@
 [
   {
-    "text": "두",
+    "text": "이론은",
     "startMs": 100,
-    "endMs": 913,
+    "endMs": 1000,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 번째",
-    "startMs": 913,
-    "endMs": 1725,
-    "timestampMs": 913,
+    "text": " 충분합니다.",
+    "startMs": 1000,
+    "endMs": 1900,
+    "timestampMs": 1000,
     "confidence": null
   },
   {
-    "text": " 파트,",
-    "startMs": 1725,
-    "endMs": 2538,
-    "timestampMs": 1725,
+    "text": " 이제",
+    "startMs": 1850,
+    "endMs": 2353,
+    "timestampMs": 1850,
     "confidence": null
   },
   {
-    "text": " 실전",
-    "startMs": 2538,
-    "endMs": 3350,
-    "timestampMs": 2538,
+    "text": " 아무것도",
+    "startMs": 2353,
+    "endMs": 2857,
+    "timestampMs": 2353,
     "confidence": null
   },
   {
-    "text": " 적용법을",
-    "startMs": 3350,
-    "endMs": 4163,
-    "timestampMs": 3350,
+    "text": " 없는",
+    "startMs": 2857,
+    "endMs": 3360,
+    "timestampMs": 2857,
     "confidence": null
   },
   {
-    "text": " 살펴봅니다.",
-    "startMs": 4163,
-    "endMs": 4975,
-    "timestampMs": 4163,
+    "text": " 상태에서",
+    "startMs": 3360,
+    "endMs": 3863,
+    "timestampMs": 3360,
+    "confidence": null
+  },
+  {
+    "text": " 첫",
+    "startMs": 3863,
+    "endMs": 4367,
+    "timestampMs": 3863,
+    "confidence": null
+  },
+  {
+    "text": " 론칭을",
+    "startMs": 4367,
+    "endMs": 4870,
+    "timestampMs": 4367,
+    "confidence": null
+  },
+  {
+    "text": " 시작하는",
+    "startMs": 4870,
+    "endMs": 5373,
+    "timestampMs": 4870,
+    "confidence": null
+  },
+  {
+    "text": " 방법을",
+    "startMs": 5373,
+    "endMs": 5877,
+    "timestampMs": 5373,
+    "confidence": null
+  },
+  {
+    "text": " 알아보겠습니다.",
+    "startMs": 5877,
+    "endMs": 6380,
+    "timestampMs": 5877,
     "confidence": null
   }
 ]

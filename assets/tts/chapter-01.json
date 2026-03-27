@@ -2,99 +2,85 @@
   {
     "text": "그렇다면",
     "startMs": 100,
-    "endMs": 942,
+    "endMs": 670,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " SB7",
-    "startMs": 942,
-    "endMs": 1783,
-    "timestampMs": 942,
+    "text": " 이",
+    "startMs": 670,
+    "endMs": 1240,
+    "timestampMs": 670,
     "confidence": null
   },
   {
-    "text": " 프레임워크의",
-    "startMs": 1783,
-    "endMs": 2625,
-    "timestampMs": 1783,
+    "text": " 론칭",
+    "startMs": 1240,
+    "endMs": 1810,
+    "timestampMs": 1240,
     "confidence": null
   },
   {
-    "text": " 구체적인",
-    "startMs": 2625,
-    "endMs": 3467,
-    "timestampMs": 2625,
+    "text": " 공식은",
+    "startMs": 1810,
+    "endMs": 2380,
+    "timestampMs": 1810,
     "confidence": null
   },
   {
-    "text": " 구조는",
-    "startMs": 3467,
-    "endMs": 4308,
-    "timestampMs": 3467,
+    "text": " 구체적으로",
+    "startMs": 2380,
+    "endMs": 2950,
+    "timestampMs": 2380,
     "confidence": null
   },
   {
-    "text": " 무엇일까요?",
-    "startMs": 4308,
-    "endMs": 5150,
-    "timestampMs": 4308,
+    "text": " 어떻게",
+    "startMs": 2950,
+    "endMs": 3520,
+    "timestampMs": 2950,
     "confidence": null
   },
   {
-    "text": "고객을",
-    "startMs": 5100,
-    "endMs": 5703,
-    "timestampMs": 5100,
+    "text": " 작동할까요?",
+    "startMs": 3520,
+    "endMs": 4090,
+    "timestampMs": 3520,
     "confidence": null
   },
   {
-    "text": " 영웅으로",
-    "startMs": 5703,
-    "endMs": 6306,
-    "timestampMs": 5703,
+    "text": " PLF의",
+    "startMs": 4040,
+    "endMs": 4656,
+    "timestampMs": 4040,
     "confidence": null
   },
   {
-    "text": " 만드는",
-    "startMs": 6306,
-    "endMs": 6909,
-    "timestampMs": 6306,
-    "confidence": null
-  },
-  {
-    "text": " 다섯",
-    "startMs": 6909,
-    "endMs": 7513,
-    "timestampMs": 6909,
-    "confidence": null
-  },
-  {
-    "text": " 가지",
-    "startMs": 7513,
-    "endMs": 8116,
-    "timestampMs": 7513,
-    "confidence": null
-  },
-  {
-    "text": " 핵심",
-    "startMs": 8116,
-    "endMs": 8719,
-    "timestampMs": 8116,
+    "text": " 네",
+    "startMs": 4656,
+    "endMs": 5272,
+    "timestampMs": 4656,
     "confidence": null
   },
   {
     "text": " 단계를",
-    "startMs": 8719,
-    "endMs": 9322,
-    "timestampMs": 8719,
+    "startMs": 5272,
+    "endMs": 5888,
+    "timestampMs": 5272,
     "confidence": null
   },
   {
-    "text": " 살펴봅니다.",
-    "startMs": 9322,
-    "endMs": 9925,
-    "timestampMs": 9322,
+    "text": " 하나씩",
+    "startMs": 5888,
+    "endMs": 6504,
+    "timestampMs": 5888,
+    "confidence": null
+  },
+  {
+    "text": " 살펴보겠습니다.",
+    "startMs": 6504,
+    "endMs": 7120,
+    "timestampMs": 6504,
     "confidence": null
   }
 ]

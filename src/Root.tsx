@@ -11,6 +11,8 @@ import atomicHabitsBook from "../content/books/atomic-habits.json";
 import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
 import crazyOneYearBook from "../content/books/crazy-one-year.json";
 import storyBrandBook from "../content/books/story-brand-2025.json";
+import richDadBook from "../content/books/rich-dad-poor-dad.json";
+import startupDesignerBook from "../content/books/startup-designer.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -167,6 +169,20 @@ const sbLongformProps: CompositionProps = buildCompositionProps(
   "longform",
 );
 
+// Rich Dad Poor Dad — 6min longform
+const rdBook = richDadBook as unknown as BookContent;
+const rdLongformProps: CompositionProps = buildCompositionProps(
+  rdBook,
+  "longform",
+);
+
+// Startup Designer — 6min longform
+const sdBook = startupDesignerBook as unknown as BookContent;
+const sdLongformProps: CompositionProps = buildCompositionProps(
+  sdBook,
+  "longform",
+);
+
 // Build synthesized scene preview props
 const synthTheme = useTheme("dark", "selfHelp");
 const synthCtx: SynthesizerContext = {
@@ -286,6 +302,26 @@ export const RemotionRoot: React.FC = () => {
         width={sbLongformProps.width}
         height={sbLongformProps.height}
         defaultProps={sbLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="RichDadPoorDad"
+        component={LongformComposition as any}
+        durationInFrames={rdLongformProps.totalDurationFrames}
+        fps={rdLongformProps.fps}
+        width={rdLongformProps.width}
+        height={rdLongformProps.height}
+        defaultProps={rdLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="StartupDesigner"
+        component={LongformComposition as any}
+        durationInFrames={sdLongformProps.totalDurationFrames}
+        fps={sdLongformProps.fps}
+        width={sdLongformProps.width}
+        height={sdLongformProps.height}
+        defaultProps={sdLongformProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition

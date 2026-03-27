@@ -1,114 +1,114 @@
 [
   {
-    "text": "도널드",
-    "startMs": 100,
-    "endMs": 847,
-    "timestampMs": 100,
+    "text": "제포",
+    "startMs": 0,
+    "endMs": 360,
+    "timestampMs": 0,
     "confidence": null
   },
   {
-    "text": " 밀러의",
-    "startMs": 847,
-    "endMs": 1594,
-    "timestampMs": 847,
+    "text": " 워커의",
+    "startMs": 360,
+    "endMs": 780,
+    "timestampMs": 360,
     "confidence": null
   },
   {
-    "text": " 스토리",
-    "startMs": 1594,
-    "endMs": 2340,
-    "timestampMs": 1594,
+    "text": " 스타트업",
+    "startMs": 780,
+    "endMs": 1260,
+    "timestampMs": 780,
     "confidence": null
   },
   {
-    "text": " 설계자.",
-    "startMs": 2340,
-    "endMs": 3087,
-    "timestampMs": 2340,
+    "text": " 설계자",
+    "startMs": 1260,
+    "endMs": 1679,
+    "timestampMs": 1260,
     "confidence": null
   },
   {
-    "text": "전",
-    "startMs": 3037,
-    "endMs": 3555,
-    "timestampMs": 3037,
+    "text": " 뉴욕타임스",
+    "startMs": 2379,
+    "endMs": 2960,
+    "timestampMs": 2379,
     "confidence": null
   },
   {
-    "text": " 세계",
-    "startMs": 3555,
-    "endMs": 4073,
-    "timestampMs": 3555,
+    "text": " 베스트셀러",
+    "startMs": 2960,
+    "endMs": 3680,
+    "timestampMs": 2960,
     "confidence": null
   },
   {
-    "text": " 수만",
-    "startMs": 4073,
-    "endMs": 4590,
-    "timestampMs": 4073,
+    "text": " 1위에",
+    "startMs": 3680,
+    "endMs": 4200,
+    "timestampMs": 3680,
     "confidence": null
   },
   {
-    "text": " 개",
-    "startMs": 4590,
-    "endMs": 5108,
-    "timestampMs": 4590,
+    "text": " 오른",
+    "startMs": 4200,
+    "endMs": 4440,
+    "timestampMs": 4200,
     "confidence": null
   },
   {
-    "text": " 기업의",
-    "startMs": 5108,
-    "endMs": 5626,
-    "timestampMs": 5108,
+    "text": " 이책이",
+    "startMs": 4440,
+    "endMs": 4940,
+    "timestampMs": 4440,
     "confidence": null
   },
   {
-    "text": " 매출을",
-    "startMs": 5626,
-    "endMs": 6144,
-    "timestampMs": 5626,
+    "text": " 마라는",
+    "startMs": 4940,
+    "endMs": 5160,
+    "timestampMs": 4940,
     "confidence": null
   },
   {
-    "text": " 바꾼",
-    "startMs": 6144,
-    "endMs": 6661,
-    "timestampMs": 6144,
+    "text": " 온라인",
+    "startMs": 5160,
+    "endMs": 5740,
+    "timestampMs": 5160,
     "confidence": null
   },
   {
-    "text": " 스토리",
-    "startMs": 6661,
-    "endMs": 7179,
-    "timestampMs": 6661,
+    "text": " 비즈니스의",
+    "startMs": 5740,
+    "endMs": 6360,
+    "timestampMs": 5740,
     "confidence": null
   },
   {
-    "text": " 브랜드",
-    "startMs": 7179,
-    "endMs": 7697,
-    "timestampMs": 7179,
+    "text": " 핵심",
+    "startMs": 6360,
+    "endMs": 6639,
+    "timestampMs": 6360,
     "confidence": null
   },
   {
-    "text": " 프레임워크의",
-    "startMs": 7697,
-    "endMs": 8215,
-    "timestampMs": 7697,
+    "text": " 공식을",
+    "startMs": 6639,
+    "endMs": 7099,
+    "timestampMs": 6639,
     "confidence": null
   },
   {
-    "text": " 핵심을",
-    "startMs": 8215,
-    "endMs": 8732,
-    "timestampMs": 8215,
+    "text": " 지금부터",
+    "startMs": 7099,
+    "endMs": 7459,
+    "timestampMs": 7099,
     "confidence": null
   },
   {
-    "text": " 정리합니다.",
-    "startMs": 8732,
-    "endMs": 9250,
-    "timestampMs": 8732,
+    "text": " 알아보입니다",
+    "startMs": 7459,
+    "endMs": 7860,
+    "timestampMs": 7459,
     "confidence": null
   }
 ]

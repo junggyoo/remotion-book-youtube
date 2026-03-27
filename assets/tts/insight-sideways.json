@@ -1,0 +1,422 @@
+[
+  {
+    "text": "PLF에서",
+    "startMs": 100,
+    "endMs": 760,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 가장",
+    "startMs": 760,
+    "endMs": 1420,
+    "timestampMs": 760,
+    "confidence": null
+  },
+  {
+    "text": " 혁명적인",
+    "startMs": 1420,
+    "endMs": 2080,
+    "timestampMs": 1420,
+    "confidence": null
+  },
+  {
+    "text": " 아이디어가",
+    "startMs": 2080,
+    "endMs": 2740,
+    "timestampMs": 2080,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 2740,
+    "endMs": 3400,
+    "timestampMs": 2740,
+    "confidence": null
+  },
+  {
+    "text": " 바로",
+    "startMs": 3350,
+    "endMs": 4000,
+    "timestampMs": 3350,
+    "confidence": null
+  },
+  {
+    "text": " 사이드웨이",
+    "startMs": 4000,
+    "endMs": 4650,
+    "timestampMs": 4000,
+    "confidence": null
+  },
+  {
+    "text": " 세일즈",
+    "startMs": 4650,
+    "endMs": 5300,
+    "timestampMs": 4650,
+    "confidence": null
+  },
+  {
+    "text": " 레터입니다.",
+    "startMs": 5300,
+    "endMs": 5950,
+    "timestampMs": 5300,
+    "confidence": null
+  },
+  {
+    "text": " 전통적인",
+    "startMs": 5950,
+    "endMs": 6513,
+    "timestampMs": 5950,
+    "confidence": null
+  },
+  {
+    "text": " 판매는",
+    "startMs": 6513,
+    "endMs": 7076,
+    "timestampMs": 6513,
+    "confidence": null
+  },
+  {
+    "text": " 길고",
+    "startMs": 7076,
+    "endMs": 7639,
+    "timestampMs": 7076,
+    "confidence": null
+  },
+  {
+    "text": " 긴",
+    "startMs": 7639,
+    "endMs": 8201,
+    "timestampMs": 7639,
+    "confidence": null
+  },
+  {
+    "text": " 세일즈",
+    "startMs": 8201,
+    "endMs": 8764,
+    "timestampMs": 8201,
+    "confidence": null
+  },
+  {
+    "text": " 페이지로",
+    "startMs": 8764,
+    "endMs": 9327,
+    "timestampMs": 8764,
+    "confidence": null
+  },
+  {
+    "text": " 설득합니다.",
+    "startMs": 9327,
+    "endMs": 9890,
+    "timestampMs": 9327,
+    "confidence": null
+  },
+  {
+    "text": " 위에서",
+    "startMs": 9890,
+    "endMs": 10452,
+    "timestampMs": 9890,
+    "confidence": null
+  },
+  {
+    "text": " 아래로",
+    "startMs": 10452,
+    "endMs": 11014,
+    "timestampMs": 10452,
+    "confidence": null
+  },
+  {
+    "text": " 스크롤하며",
+    "startMs": 11014,
+    "endMs": 11576,
+    "timestampMs": 11014,
+    "confidence": null
+  },
+  {
+    "text": " 읽는",
+    "startMs": 11576,
+    "endMs": 12138,
+    "timestampMs": 11576,
+    "confidence": null
+  },
+  {
+    "text": " 방식이죠.",
+    "startMs": 12138,
+    "endMs": 12700,
+    "timestampMs": 12138,
+    "confidence": null
+  },
+  {
+    "text": " 하지만",
+    "startMs": 12700,
+    "endMs": 13223,
+    "timestampMs": 12700,
+    "confidence": null
+  },
+  {
+    "text": " 제프",
+    "startMs": 13223,
+    "endMs": 13747,
+    "timestampMs": 13223,
+    "confidence": null
+  },
+  {
+    "text": " 워커는",
+    "startMs": 13747,
+    "endMs": 14270,
+    "timestampMs": 13747,
+    "confidence": null
+  },
+  {
+    "text": " 이걸",
+    "startMs": 14270,
+    "endMs": 14793,
+    "timestampMs": 14270,
+    "confidence": null
+  },
+  {
+    "text": " 옆으로",
+    "startMs": 14793,
+    "endMs": 15317,
+    "timestampMs": 14793,
+    "confidence": null
+  },
+  {
+    "text": " 눕혔습니다.",
+    "startMs": 15317,
+    "endMs": 15840,
+    "timestampMs": 15317,
+    "confidence": null
+  },
+  {
+    "text": " 한",
+    "startMs": 15840,
+    "endMs": 16301,
+    "timestampMs": 15840,
+    "confidence": null
+  },
+  {
+    "text": " 번에",
+    "startMs": 16301,
+    "endMs": 16762,
+    "timestampMs": 16301,
+    "confidence": null
+  },
+  {
+    "text": " 설득하는",
+    "startMs": 16762,
+    "endMs": 17223,
+    "timestampMs": 16762,
+    "confidence": null
+  },
+  {
+    "text": " 대신,",
+    "startMs": 17223,
+    "endMs": 17684,
+    "timestampMs": 17223,
+    "confidence": null
+  },
+  {
+    "text": " 3편의",
+    "startMs": 17684,
+    "endMs": 18145,
+    "timestampMs": 17684,
+    "confidence": null
+  },
+  {
+    "text": " 영상",
+    "startMs": 18145,
+    "endMs": 18605,
+    "timestampMs": 18145,
+    "confidence": null
+  },
+  {
+    "text": " 시리즈로",
+    "startMs": 18605,
+    "endMs": 19066,
+    "timestampMs": 18605,
+    "confidence": null
+  },
+  {
+    "text": " 나눠서",
+    "startMs": 19066,
+    "endMs": 19527,
+    "timestampMs": 19066,
+    "confidence": null
+  },
+  {
+    "text": " 가치를",
+    "startMs": 19527,
+    "endMs": 19988,
+    "timestampMs": 19527,
+    "confidence": null
+  },
+  {
+    "text": " 먼저",
+    "startMs": 19988,
+    "endMs": 20449,
+    "timestampMs": 19988,
+    "confidence": null
+  },
+  {
+    "text": " 제공합니다.",
+    "startMs": 20449,
+    "endMs": 20910,
+    "timestampMs": 20449,
+    "confidence": null
+  },
+  {
+    "text": " 첫",
+    "startMs": 20910,
+    "endMs": 21400,
+    "timestampMs": 20910,
+    "confidence": null
+  },
+  {
+    "text": " 번째",
+    "startMs": 21400,
+    "endMs": 21890,
+    "timestampMs": 21400,
+    "confidence": null
+  },
+  {
+    "text": " 영상에서",
+    "startMs": 21890,
+    "endMs": 22380,
+    "timestampMs": 21890,
+    "confidence": null
+  },
+  {
+    "text": " 기회를",
+    "startMs": 22380,
+    "endMs": 22870,
+    "timestampMs": 22380,
+    "confidence": null
+  },
+  {
+    "text": " 보여주면",
+    "startMs": 22870,
+    "endMs": 23360,
+    "timestampMs": 22870,
+    "confidence": null
+  },
+  {
+    "text": " 사람들은",
+    "startMs": 23360,
+    "endMs": 23850,
+    "timestampMs": 23360,
+    "confidence": null
+  },
+  {
+    "text": " 자발적으로",
+    "startMs": 23850,
+    "endMs": 24340,
+    "timestampMs": 23850,
+    "confidence": null
+  },
+  {
+    "text": " 두",
+    "startMs": 24340,
+    "endMs": 24830,
+    "timestampMs": 24340,
+    "confidence": null
+  },
+  {
+    "text": " 번째",
+    "startMs": 24830,
+    "endMs": 25320,
+    "timestampMs": 24830,
+    "confidence": null
+  },
+  {
+    "text": " 영상을",
+    "startMs": 25320,
+    "endMs": 25810,
+    "timestampMs": 25320,
+    "confidence": null
+  },
+  {
+    "text": " 기다립니다.",
+    "startMs": 25810,
+    "endMs": 26300,
+    "timestampMs": 25810,
+    "confidence": null
+  },
+  {
+    "text": " 판매가",
+    "startMs": 26300,
+    "endMs": 26840,
+    "timestampMs": 26300,
+    "confidence": null
+  },
+  {
+    "text": " 아니라",
+    "startMs": 26840,
+    "endMs": 27380,
+    "timestampMs": 26840,
+    "confidence": null
+  },
+  {
+    "text": " 기대감을",
+    "startMs": 27380,
+    "endMs": 27920,
+    "timestampMs": 27380,
+    "confidence": null
+  },
+  {
+    "text": " 파는",
+    "startMs": 27920,
+    "endMs": 28460,
+    "timestampMs": 27920,
+    "confidence": null
+  },
+  {
+    "text": " 겁니다.",
+    "startMs": 28460,
+    "endMs": 29000,
+    "timestampMs": 28460,
+    "confidence": null
+  },
+  {
+    "text": " 이것이",
+    "startMs": 29000,
+    "endMs": 29572,
+    "timestampMs": 29000,
+    "confidence": null
+  },
+  {
+    "text": " PLF가",
+    "startMs": 29572,
+    "endMs": 30143,
+    "timestampMs": 29572,
+    "confidence": null
+  },
+  {
+    "text": " 전통",
+    "startMs": 30143,
+    "endMs": 30715,
+    "timestampMs": 30143,
+    "confidence": null
+  },
+  {
+    "text": " 마케팅을",
+    "startMs": 30715,
+    "endMs": 31287,
+    "timestampMs": 30715,
+    "confidence": null
+  },
+  {
+    "text": " 압도하는",
+    "startMs": 31287,
+    "endMs": 31858,
+    "timestampMs": 31287,
+    "confidence": null
+  },
+  {
+    "text": " 이유입니다.",
+    "startMs": 31858,
+    "endMs": 32430,
+    "timestampMs": 31858,
+    "confidence": null
+  }
+]

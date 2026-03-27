@@ -104,6 +104,31 @@ async function generateViaEdgeTTS(
   }
 }
 
+function curlRequest(
+  url: string,
+  options: { method?: string; body?: string; timeout?: number } = {},
+): { status: number; body: string } {
+  const timeoutSec = Math.ceil((options.timeout ?? 30000) / 1000);
+  const args = ["-s", "-w", "\n%{http_code}", "--max-time", String(timeoutSec)];
+  if (options.method === "POST") {
+    args.push("-X", "POST", "-H", "Content-Type: application/json");
+    if (options.body) args.push("-d", options.body);
+  }
+  args.push(url);
+  try {
+    const raw = execFileSync("curl", args, {
+      encoding: "utf-8",
+      timeout: (timeoutSec + 5) * 1000,
+    });
+    const lines = raw.trimEnd().split("\n");
+    const statusCode = parseInt(lines.pop() ?? "0", 10);
+    const body = lines.join("\n");
+    return { status: statusCode, body };
+  } catch {
+    return { status: 0, body: "" };
+  }
+}
+
 async function generateViaQwen3(
   text: string,
   audioPath: string,
@@ -111,25 +136,23 @@ async function generateViaQwen3(
   speed: number = 1.0,
 ): Promise<boolean> {
   try {
-    const resp = await fetch(`${QWEN3_SERVER_URL}/generate`, {
+    const resp = curlRequest(`${QWEN3_SERVER_URL}/generate`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         text,
         outputPath: path.resolve(audioPath),
         whisperVtt: true,
         speed,
       }),
-      signal: AbortSignal.timeout(120000),
+      timeout: 300000,
     });
 
-    if (!resp.ok) {
-      const errBody = await resp.text();
-      console.error(`[FAIL] qwen3-tts server ${resp.status}: ${errBody}`);
+    if (resp.status !== 200) {
+      console.error(`[FAIL] qwen3-tts server ${resp.status}: ${resp.body}`);
       return false;
     }
 
-    const result = (await resp.json()) as {
+    const result = JSON.parse(resp.body) as {
       audioPath: string;
       vttPath: string | null;
     };
@@ -152,11 +175,11 @@ async function generateViaQwen3(
 
 async function waitForQwen3Server(): Promise<boolean> {
   try {
-    const resp = await fetch(`${QWEN3_SERVER_URL}/health`, {
-      signal: AbortSignal.timeout(2000),
+    const resp = curlRequest(`${QWEN3_SERVER_URL}/health`, {
+      timeout: 10000,
     });
-    if (resp.ok) {
-      const data = (await resp.json()) as { status: string };
+    if (resp.status === 200) {
+      const data = JSON.parse(resp.body) as { status: string };
       return data.status === "ready";
     }
   } catch {}

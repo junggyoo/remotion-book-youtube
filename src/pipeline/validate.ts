@@ -321,7 +321,7 @@ const ProductionConfigSchema = z.object({
 const NarrationConfigSchema = z.object({
   voice: z.string().min(1),
   ttsEngine: z
-    .enum(["edge-tts", "elevenlabs", "google-tts", "minimax"])
+    .enum(["edge-tts", "elevenlabs", "google-tts", "minimax", "qwen3-tts"])
     .optional(),
   speed: z.number().optional(),
   pitch: z.string().optional(),
