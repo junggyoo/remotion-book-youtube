@@ -1,5 +1,11 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  spring,
+  interpolate,
+} from "remotion";
 import type {
   BaseSceneProps,
   ChapterDividerContent,
@@ -8,40 +14,39 @@ import type {
 import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
 import { typography } from "@/design/tokens/typography";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
+import { motionPresets } from "@/design/tokens";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
-import { TextBlock } from "@/components/primitives/TextBlock";
-import { DividerLine } from "@/components/primitives/DividerLine";
+import { AccentUnderline } from "@/components/primitives/AccentUnderline";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers from scene-catalog.json → chapterDivider
 const LAYERS = {
   background: 0,
+  darkenOverlay: 3,
   texture: 5,
   baseContent: 20,
-  chapterNumber: 30,
-  chapterTitle: 35,
+  chapterTitle: 30,
+  underline: 35,
 } as const;
 
+/** Darker background overlay opacity for chapter divider */
+const DARKEN_OVERLAY_OPACITY = 0.08;
+const UNDERLINE_WIDTH = 120;
+
 const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
-  chapterNumber: {
+  chapterTitle: {
     visibility: "entering",
     entryFrame: 0,
     emphasis: false,
     motionPreset: "heavy",
   },
-  chapterTitle: {
-    visibility: "entering",
-    entryFrame: 6,
-    emphasis: false,
-    motionPreset: "heavy",
-  },
-  chapterSubtitle: {
+  underline: {
     visibility: "entering",
     entryFrame: 12,
     emphasis: false,
-    motionPreset: "heavy",
+    motionPreset: "snappy",
   },
 };
 
@@ -57,9 +62,9 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
   content,
   beats,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const { typeScale } = useFormat(format);
-  const isShorts = format === "shorts";
-  const useAltLayout = content.useAltLayout === true;
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -80,42 +85,54 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
     return elementStates.get(key);
   };
 
-  const chapterNumberEl = (
-    <span
-      style={{
-        fontFamily: typography.fontFamily.mono,
-        fontSize: typeScale.headlineL,
-        fontWeight: typography.fontWeight.bold,
-        color: theme.signal,
-        lineHeight: typography.lineHeight.tight,
-        letterSpacing: typography.tracking.tight,
-        fontVariantNumeric: "tabular-nums",
-      }}
-    >
-      {String(content.chapterNumber).padStart(2, "0")}
-    </span>
-  );
+  // Title scale 0.8→1 spring animation
+  const titleState = getBeatState("chapterTitle");
+  const titleEntryFrame = titleState?.entryFrame ?? 0;
+  const titleLocalFrame = Math.max(0, frame - titleEntryFrame);
+  const titleScale = spring({
+    frame: titleLocalFrame,
+    fps,
+    config: motionPresets.presets.heavy.config,
+    durationInFrames: 36,
+  });
+  const scaleValue = interpolate(titleScale, [0, 1], [0.8, 1]);
+  const titleOpacity = interpolate(titleScale, [0, 1], [0, 1]);
+
+  // Underline entry
+  const underlineState = getBeatState("underline");
+  const underlineEntryFrame = underlineState?.entryFrame ?? 12;
+
+  // Darken overlay uses theme-relative darkening
+  const darkenBg =
+    theme.mode === "dark"
+      ? `rgba(0,0,0,${DARKEN_OVERLAY_OPACITY})`
+      : `rgba(0,0,0,${DARKEN_OVERLAY_OPACITY * 0.5})`;
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {/* Background layer */}
+      {/* Background — slightly darker than other scenes */}
+      <AbsoluteFill
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
+      />
+
+      {/* Darken overlay — makes this scene feel distinct */}
       <AbsoluteFill
         style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
+          zIndex: LAYERS.darkenOverlay,
+          backgroundColor: darkenBg,
         }}
       />
 
-      {/* Texture layer */}
+      {/* Texture */}
       <AbsoluteFill
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 
-      {/* Main content */}
+      {/* Centered content */}
       <div
         style={{
           position: "absolute",
@@ -124,167 +141,60 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
         }}
       >
         <SafeArea format={format} theme={theme}>
-          {useAltLayout ? (
-            /* band-divider mode */
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100%",
+              gap: sp(5),
+            }}
+          >
+            {/* Chapter title — headlineXL, accent, scale 0.8→1 */}
             <div
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
+                zIndex: LAYERS.chapterTitle,
+                transform: `scale(${scaleValue})`,
+                opacity: titleOpacity,
+                willChange: "transform, opacity",
+                textAlign: "center",
               }}
             >
-              <div
+              <span
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: theme.surfaceMuted,
-                  opacity: 1,
-                  width: "100%",
-                  padding: `${sp(7)}px ${sp(6)}px`,
-                  gap: sp(6),
+                  fontFamily: typography.fontFamily.sans,
+                  fontSize: typeScale.headlineXL,
+                  fontWeight: typography.fontWeight.bold,
+                  color: theme.accent,
+                  lineHeight: typography.lineHeight.tight,
+                  letterSpacing: typography.tracking.tight,
                 }}
               >
-                <div style={{ zIndex: LAYERS.chapterNumber }}>
-                  <BeatElement
-                    elementKey="chapterNumber"
-                    beatState={getBeatState("chapterNumber")}
-                    format={format}
-                    theme={theme}
-                  >
-                    {chapterNumberEl}
-                  </BeatElement>
-                </div>
-
-                <DividerLine
-                  format={format}
-                  theme={theme}
-                  orientation="vertical"
-                />
-
-                <div style={{ zIndex: LAYERS.chapterTitle }}>
-                  <BeatElement
-                    elementKey="chapterTitle"
-                    beatState={getBeatState("chapterTitle")}
-                    format={format}
-                    theme={theme}
-                  >
-                    <TextBlock
-                      format={format}
-                      theme={theme}
-                      text={content.chapterTitle}
-                      variant="headlineM"
-                      weight="bold"
-                      maxLines={2}
-                    />
-                  </BeatElement>
-                </div>
-              </div>
+                {content.chapterTitle}
+              </span>
             </div>
-          ) : (
-            /* left-anchor mode */
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "stretch",
-                justifyContent: "center",
-                height: "100%",
-                gap: sp(6),
-              }}
-            >
-              {/* Left column: chapter number */}
-              <div
-                style={{
-                  zIndex: LAYERS.chapterNumber,
-                  flex: "0 0 30%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  paddingRight: sp(5),
-                }}
-              >
-                <BeatElement
-                  elementKey="chapterNumber"
-                  beatState={getBeatState("chapterNumber")}
-                  format={format}
-                  theme={theme}
-                >
-                  {chapterNumberEl}
-                </BeatElement>
-              </div>
 
-              {/* Vertical divider */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "stretch",
-                  paddingTop: sp(5),
-                  paddingBottom: sp(5),
-                }}
+            {/* Accent underline below */}
+            <div style={{ zIndex: LAYERS.underline }}>
+              <BeatElement
+                elementKey="underline"
+                beatState={getBeatState("underline")}
+                format={format}
+                theme={theme}
+                motionType="none"
               >
-                <DividerLine
-                  format={format}
-                  theme={theme}
-                  orientation="vertical"
+                <AccentUnderline
+                  width={UNDERLINE_WIDTH}
+                  color={theme.accent}
+                  startFrame={underlineEntryFrame}
+                  strokeWidth={3}
                 />
-              </div>
-
-              {/* Right column: title + subtitle */}
-              <div
-                style={{
-                  flex: "1 1 0",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  gap: sp(4),
-                  paddingLeft: sp(5),
-                }}
-              >
-                <div style={{ zIndex: LAYERS.chapterTitle }}>
-                  <BeatElement
-                    elementKey="chapterTitle"
-                    beatState={getBeatState("chapterTitle")}
-                    format={format}
-                    theme={theme}
-                  >
-                    <TextBlock
-                      format={format}
-                      theme={theme}
-                      text={content.chapterTitle}
-                      variant="headlineM"
-                      weight="bold"
-                      maxLines={3}
-                    />
-                  </BeatElement>
-                </div>
-
-                {content.chapterSubtitle && (
-                  <BeatElement
-                    elementKey="chapterSubtitle"
-                    beatState={getBeatState("chapterSubtitle")}
-                    format={format}
-                    theme={theme}
-                  >
-                    <TextBlock
-                      format={format}
-                      theme={theme}
-                      text={content.chapterSubtitle}
-                      variant="bodyL"
-                      color={theme.textMuted}
-                      maxLines={2}
-                    />
-                  </BeatElement>
-                )}
-              </div>
+              </BeatElement>
             </div>
-          )}
+          </div>
         </SafeArea>
       </div>
-
-      {/* SubtitleLayer removed — Root HUD global layer principle.
-          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
   );
 };

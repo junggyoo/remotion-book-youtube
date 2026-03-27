@@ -1,26 +1,32 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  spring,
+  interpolate,
+} from "remotion";
 import type { BaseSceneProps, ClosingContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
-import { radius } from "@/design/tokens/radius";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
+import { motionPresets } from "@/design/tokens";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
-import { LabelChip } from "@/components/primitives/LabelChip";
-import { DividerLine } from "@/components/primitives/DividerLine";
-import { AccentLine } from "@/components/primitives/AccentLine";
+import { AccentBar } from "@/components/primitives/AccentBar";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers from scene-catalog.json → closing
 const LAYERS = {
   background: 0,
   texture: 5,
   recapStatement: 30,
-  brandLabel: 40,
   cta: 35,
+  accentBar: 40,
 } as const;
+
+/** CTA slide-up delay: 1 second = 30 frames after recap */
+const CTA_DELAY_FRAMES = 30;
 
 function buildWildcardStagger(
   isShorts: boolean,
@@ -34,15 +40,15 @@ function buildWildcardStagger(
     },
     ctaText: {
       visibility: "entering",
-      entryFrame: 9,
+      entryFrame: CTA_DELAY_FRAMES,
       emphasis: false,
-      motionPreset: "heavy",
+      motionPreset: "smooth",
     },
-    brandLabel: {
+    accentBar: {
       visibility: "entering",
-      entryFrame: isShorts ? 9 : 15,
+      entryFrame: isShorts ? CTA_DELAY_FRAMES : CTA_DELAY_FRAMES + 6,
       emphasis: false,
-      motionPreset: "heavy",
+      motionPreset: "snappy",
     },
   };
 }
@@ -59,11 +65,10 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
   content,
   beats,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
-  const showBrandLabel = content.showBrandLabel !== false;
   const showCta = !isShorts && !!content.ctaText;
-  const modeKey = theme.mode === "dark" ? "dark" : "light";
-  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -81,17 +86,32 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
     return elementStates.get(key);
   };
 
+  // CTA slide-up animation
+  const ctaState = getBeatState("ctaText");
+  const ctaEntryFrame = ctaState?.entryFrame ?? CTA_DELAY_FRAMES;
+  const ctaLocalFrame = Math.max(0, frame - ctaEntryFrame);
+  const ctaProgress = spring({
+    frame: ctaLocalFrame,
+    fps,
+    config: motionPresets.presets.smooth.config,
+    durationInFrames: 24,
+  });
+  const ctaTranslateY = interpolate(ctaProgress, [0, 1], [40, 0]);
+  const ctaOpacity = interpolate(ctaProgress, [0, 1], [0, 1]);
+
+  // Accent bar entry
+  const accentBarState = getBeatState("accentBar");
+  const accentBarEntryFrame =
+    accentBarState?.entryFrame ?? CTA_DELAY_FRAMES + 6;
+
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {/* Background layer */}
+      {/* Background */}
       <AbsoluteFill
-        style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
-        }}
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
       />
 
-      {/* Texture layer */}
+      {/* Texture */}
       <AbsoluteFill
         style={{
           zIndex: LAYERS.texture,
@@ -100,7 +120,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
         }}
       />
 
-      {/* Main content */}
+      {/* Main content — centered */}
       <div
         style={{
           position: "absolute",
@@ -119,99 +139,75 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               gap: sp(7),
             }}
           >
-            {/* Recap statement — upgraded to headlineL */}
-            <div style={{ zIndex: LAYERS.recapStatement }}>
-              <BeatElement
-                elementKey="recapStatement"
-                beatState={getBeatState("recapStatement")}
+            {/* Recap statement — headlineXL, centered */}
+            <BeatElement
+              elementKey="recapStatement"
+              beatState={getBeatState("recapStatement")}
+              format={format}
+              theme={theme}
+            >
+              <TextBlock
                 format={format}
                 theme={theme}
-              >
-                <TextBlock
-                  format={format}
-                  theme={theme}
-                  text={content.recapStatement}
-                  variant="headlineL"
-                  weight="bold"
-                  align="center"
-                  maxLines={4}
-                />
-              </BeatElement>
-            </div>
+                text={content.recapStatement}
+                variant="headlineXL"
+                weight="bold"
+                align="center"
+                maxLines={4}
+              />
+            </BeatElement>
 
-            {/* CTA text with container bg — longform only */}
+            {/* CTA — bodyL, slide-up from bottom */}
             {showCta && (
               <div
                 style={{
                   zIndex: LAYERS.cta,
-                  backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
-                  borderRadius: radius.md,
-                  padding: `${sp(4)}px ${sp(6)}px`,
+                  transform: `translateY(${ctaTranslateY}px)`,
+                  opacity: ctaOpacity,
+                  willChange: "opacity, transform",
                 }}
               >
-                <BeatElement
-                  elementKey="ctaText"
-                  beatState={getBeatState("ctaText")}
+                <TextBlock
                   format={format}
                   theme={theme}
-                >
-                  <TextBlock
-                    format={format}
-                    theme={theme}
-                    text={content.ctaText!}
-                    variant="bodyL"
-                    color={theme.textMuted}
-                    align="center"
-                  />
-                </BeatElement>
-              </div>
-            )}
-
-            {/* Accent line + Divider + Brand label */}
-            {showBrandLabel && (
-              <div
-                style={{
-                  zIndex: LAYERS.brandLabel,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: sp(4),
-                  width: "100%",
-                  maxWidth: sp(10) * 10,
-                }}
-              >
-                <BeatElement
-                  elementKey="brandLabel"
-                  beatState={getBeatState("brandLabel")}
-                  format={format}
-                  theme={theme}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: sp(4),
-                      width: "100%",
-                    }}
-                  >
-                    <AccentLine format={format} theme={theme} />
-                    <DividerLine format={format} theme={theme} />
-                    <LabelChip
-                      format={format}
-                      theme={theme}
-                      label="Editorial Signal"
-                      variant="signal"
-                    />
-                  </div>
-                </BeatElement>
+                  text={content.ctaText!}
+                  variant="bodyL"
+                  color={theme.textMuted}
+                  align="center"
+                />
               </div>
             )}
           </div>
         </SafeArea>
       </div>
 
-      {/* SubtitleLayer removed — Root HUD global layer principle. */}
+      {/* Accent bar — bottom */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: sp(8),
+          left: 0,
+          right: 0,
+          zIndex: LAYERS.accentBar,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <BeatElement
+          elementKey="accentBar"
+          beatState={getBeatState("accentBar")}
+          format={format}
+          theme={theme}
+          motionType="none"
+        >
+          <AccentBar
+            direction="horizontal"
+            length={120}
+            color={theme.accent}
+            startFrame={accentBarEntryFrame}
+          />
+        </BeatElement>
+      </div>
     </AbsoluteFill>
   );
 };

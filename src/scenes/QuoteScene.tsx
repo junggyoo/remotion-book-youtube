@@ -10,6 +10,7 @@ import type { BaseSceneProps, QuoteContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { typography } from "@/design/tokens/typography";
+import { motionPresets } from "@/design/tokens";
 import { resolvePreset } from "@/design/tokens/motion";
 import { useFormat } from "@/design/themes/useFormat";
 import { SafeArea } from "@/components/layout/SafeArea";
@@ -17,7 +18,6 @@ import { BeatElement } from "@/components/motion/BeatElement";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers
 const LAYERS = {
   background: 0,
   texture: 5,
@@ -27,47 +27,35 @@ const LAYERS = {
   attribution: 35,
 } as const;
 
-/** Line-by-line interval: 15 frames = 0.5s at 30fps */
+/** Line stagger interval: 15 frames = 0.5s at 30fps */
 const LINE_STAGGER_FRAMES = 15;
-
-/** Quotation mark entrance delay */
-const QUOTE_MARK_DELAY = 0;
-/** First line starts after marks have scaled in */
-const FIRST_LINE_DELAY = 12;
+/** Quote text starts after marks have scaled in */
+const QUOTE_TEXT_DELAY = 12;
 
 /**
- * Wildcard stagger for quote scenes without explicit beats.
- * quoteMarks appear first, then lines stagger, then attribution last.
+ * Wildcard stagger — uses "quoteText" as single key (matches content JSON beats).
  */
-function buildWildcardStagger(
-  lineCount: number,
-): Record<string, ElementBeatState> {
-  const stagger: Record<string, ElementBeatState> = {
+function buildWildcardStagger(): Record<string, ElementBeatState> {
+  return {
     quoteMarks: {
       visibility: "entering",
-      entryFrame: QUOTE_MARK_DELAY,
+      entryFrame: 0,
       emphasis: false,
       motionPreset: "dramatic",
     },
-  };
-
-  for (let i = 0; i < lineCount; i++) {
-    stagger[`line-${i}`] = {
+    quoteText: {
       visibility: "entering",
-      entryFrame: FIRST_LINE_DELAY + i * LINE_STAGGER_FRAMES,
+      entryFrame: QUOTE_TEXT_DELAY,
       emphasis: false,
       motionPreset: "heavy",
-    };
-  }
-
-  stagger.attribution = {
-    visibility: "entering",
-    entryFrame: FIRST_LINE_DELAY + lineCount * LINE_STAGGER_FRAMES,
-    emphasis: false,
-    motionPreset: "heavy",
+    },
+    attribution: {
+      visibility: "entering",
+      entryFrame: QUOTE_TEXT_DELAY + 24,
+      emphasis: false,
+      motionPreset: "heavy",
+    },
   };
-
-  return stagger;
 }
 
 /**
@@ -105,19 +93,14 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
-    {
-      id: `quote-${from}`,
-      type: "quote",
-      beats,
-      narrationText: "",
-    },
+    { id: `quote-${from}`, type: "quote", beats, narrationText: "" },
     format,
   );
   const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
-  const wildcardStagger = buildWildcardStagger(quoteLines.length);
+  const wildcardStagger = buildWildcardStagger();
 
   const getBeatState = (key: string): ElementBeatState | undefined => {
     if (isWildcard) return wildcardStagger[key];
@@ -126,7 +109,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
 
   // Large quotation mark scale animation (scale 0→1 spring)
   const quoteMarkState = getBeatState("quoteMarks");
-  const quoteMarkEntry = quoteMarkState?.entryFrame ?? QUOTE_MARK_DELAY;
+  const quoteMarkEntry = quoteMarkState?.entryFrame ?? 0;
   const dramaticConfig = resolvePreset("dramatic");
   const quoteMarkScale = spring({
     frame: Math.max(0, frame - quoteMarkEntry),
@@ -135,18 +118,22 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
     durationInFrames: 36,
   });
 
+  // Per-line stagger: manual spring animation inside the quoteText BeatElement
+  const quoteTextState = getBeatState("quoteText");
+  const quoteTextEntry = quoteTextState?.entryFrame ?? QUOTE_TEXT_DELAY;
+
   const quoteFontFamily = content.useSerif
     ? typography.fontFamily.serif
     : typography.fontFamily.sans;
+
+  // Dark overlay via theme-relative approach
+  const darkOverlayOpacity = theme.mode === "dark" ? 0.1 : 0.05;
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
       {/* Background layer */}
       <AbsoluteFill
-        style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
-        }}
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
       />
 
       {/* Texture layer */}
@@ -162,7 +149,8 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
       <AbsoluteFill
         style={{
           zIndex: LAYERS.darkOverlay,
-          backgroundColor: "rgba(0,0,0,0.1)",
+          backgroundColor: theme.surfaceMuted,
+          opacity: darkOverlayOpacity,
         }}
       />
 
@@ -207,28 +195,43 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               {"\u275D"}
             </span>
 
-            {/* Quote text — line by line fade-in */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: sp(3),
-                width: "100%",
-                paddingLeft: sp(4),
-                paddingRight: sp(4),
-              }}
+            {/* Quote text — single BeatElement with per-line stagger inside */}
+            <BeatElement
+              elementKey="quoteText"
+              beatState={getBeatState("quoteText")}
+              format={format}
+              theme={theme}
+              motionType="none"
             >
-              {quoteLines.map((line, i) => {
-                const lineState = getBeatState(`line-${i}`);
-                return (
-                  <BeatElement
-                    key={`line-${i}`}
-                    elementKey={`line-${i}`}
-                    beatState={lineState}
-                    format={format}
-                    theme={theme}
-                  >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: sp(3),
+                  width: "100%",
+                  paddingLeft: sp(4),
+                  paddingRight: sp(4),
+                }}
+              >
+                {quoteLines.map((line, i) => {
+                  const lineDelay = quoteTextEntry + i * LINE_STAGGER_FRAMES;
+                  const lineLocalFrame = Math.max(0, frame - lineDelay);
+                  const lineProgress = spring({
+                    frame: lineLocalFrame,
+                    fps,
+                    config: motionPresets.presets.heavy.config,
+                    durationInFrames: 30,
+                  });
+                  const lineOpacity = interpolate(lineProgress, [0, 1], [0, 1]);
+                  const lineTranslateY = interpolate(
+                    lineProgress,
+                    [0, 1],
+                    [22, 0],
+                  );
+
+                  return (
                     <p
+                      key={i}
                       style={{
                         fontFamily: quoteFontFamily,
                         fontSize: typeScale.headlineS,
@@ -237,15 +240,17 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                         letterSpacing: typography.tracking.normal,
                         color: theme.textStrong,
                         margin: 0,
-                        textShadow: "0 2px 12px rgba(0,0,0,0.5)",
+                        opacity: lineOpacity,
+                        transform: `translateY(${lineTranslateY}px)`,
+                        willChange: "opacity, transform",
                       }}
                     >
                       {line}
                     </p>
-                  </BeatElement>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </BeatElement>
 
             {/* Large closing quotation mark ❞ */}
             <span

@@ -1,28 +1,34 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  spring,
+  interpolate,
+} from "remotion";
 import type {
   BaseSceneProps,
   ApplicationContent,
   ElementBeatState,
 } from "@/types";
 import { sp } from "@/design/tokens/spacing";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
+import { motionPresets } from "@/design/tokens";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
-import { ProgressDot } from "@/components/primitives/ProgressDot";
-import { ConnectorLine } from "@/components/primitives/ConnectorLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers from scene-catalog.json → application
 const LAYERS = {
   background: 0,
   texture: 5,
   anchorStatement: 20,
-  paths: 25,
   steps: 30,
-  emphasis: 40,
 } as const;
+
+/** Accent bullet size */
+const BULLET_SIZE = 12;
 
 const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
   anchorStatement: {
@@ -35,7 +41,6 @@ const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
 
 function getWildcardStagger(key: string, index?: number): ElementBeatState {
   if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
-  // steps: delay = index * 9
   return {
     visibility: "entering",
     entryFrame: (index ?? 0) * 9,
@@ -56,9 +61,10 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
   content,
   beats,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showDetail = !isShorts;
-  const showPaths = content.showPaths === true;
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -82,22 +88,35 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
     return elementStates.get(key);
   };
 
+  // Determine which step is "current" (latest entering/visible)
+  const getStepVisibility = (index: number): "hidden" | "current" | "past" => {
+    const state = getBeatState(`step-${index}`, index);
+    if (!state || state.visibility === "hidden") return "hidden";
+
+    let highestVisible = -1;
+    for (let i = 0; i < content.steps.length; i++) {
+      const s = getBeatState(`step-${i}`, i);
+      if (s && s.visibility !== "hidden") {
+        highestVisible = i;
+      }
+    }
+
+    return index === highestVisible ? "current" : "past";
+  };
+
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {/* Background layer */}
+      {/* Background */}
       <AbsoluteFill
-        style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
-        }}
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
       />
 
-      {/* Texture layer */}
+      {/* Texture */}
       <AbsoluteFill
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 
@@ -138,7 +157,7 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Vertical step flow */}
+            {/* Vertical step list — sequential reveal with dim */}
             <div
               style={{
                 zIndex: LAYERS.steps,
@@ -149,13 +168,54 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
             >
               {content.steps.map((step, index) => {
                 const stepKey = `step-${index}`;
+                const visibility = getStepVisibility(index);
+                const stepState = getBeatState(stepKey, index);
+
+                // Dim logic: past steps dim
+                let stepOpacity = 1;
+                if (
+                  visibility === "past" &&
+                  stepState &&
+                  stepState.visibility !== "hidden"
+                ) {
+                  const nextState = getBeatState(
+                    `step-${index + 1}`,
+                    index + 1,
+                  );
+                  if (nextState && nextState.entryFrame > 0) {
+                    const dimProgress = spring({
+                      frame: Math.max(0, frame - nextState.entryFrame),
+                      fps,
+                      config: motionPresets.presets.smooth.config,
+                      durationInFrames: 18,
+                    });
+                    stepOpacity = interpolate(
+                      dimProgress,
+                      [0, 1],
+                      [1, sceneInteriorTokens.dimOpacity],
+                      {
+                        extrapolateLeft: "clamp",
+                        extrapolateRight: "clamp",
+                      },
+                    );
+                  }
+                }
+
                 return (
-                  <React.Fragment key={index}>
+                  <div
+                    key={index}
+                    style={{
+                      opacity: stepOpacity,
+                      willChange: visibility === "past" ? "opacity" : undefined,
+                    }}
+                  >
                     <BeatElement
                       elementKey={stepKey}
-                      beatState={getBeatState(stepKey, index)}
+                      beatState={stepState}
                       format={format}
                       theme={theme}
+                      motionType="scale"
+                      scaleFrom={0.95}
                     >
                       <div
                         style={{
@@ -165,38 +225,20 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                           gap: sp(4),
                         }}
                       >
-                        {/* ProgressDot + optional path connector column */}
+                        {/* Accent bullet circle */}
                         <div
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
+                            width: BULLET_SIZE,
+                            height: BULLET_SIZE,
+                            borderRadius: BULLET_SIZE / 2,
+                            backgroundColor:
+                              visibility === "current"
+                                ? theme.accent
+                                : theme.lineSubtle,
                             flexShrink: 0,
-                            gap: 0,
+                            marginTop: sp(2),
                           }}
-                        >
-                          <ProgressDot
-                            format={format}
-                            theme={theme}
-                            active
-                            size={12}
-                          />
-                          {showPaths && index < content.steps.length - 1 && (
-                            <div
-                              style={{
-                                zIndex: LAYERS.paths,
-                                marginTop: sp(2),
-                              }}
-                            >
-                              <ConnectorLine
-                                format={format}
-                                theme={theme}
-                                orientation="vertical"
-                                length={sp(6)}
-                              />
-                            </div>
-                          )}
-                        </div>
+                        />
 
                         {/* Step text */}
                         <div
@@ -228,15 +270,13 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                         </div>
                       </div>
                     </BeatElement>
-                  </React.Fragment>
+                  </div>
                 );
               })}
             </div>
           </div>
         </SafeArea>
       </div>
-
-      {/* SubtitleLayer removed — Root HUD global layer principle. */}
     </AbsoluteFill>
   );
 };
