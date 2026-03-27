@@ -201,11 +201,12 @@ export const synthesizeGapsStage: DsgsStage = {
       );
     }
 
-    // 11. Materialize preset blueprints for storyboard blueprint scenes
-    //     The storyboard may mark scenes as renderMode: "blueprint" even when
-    //     they have a viable preset. The SceneSynthesizer only creates synth-*
-    //     blueprints for gaps. This step fills the remaining blueprint files
-    //     so the validator and plan-bridge can resolve every blueprintId.
+    // 11. Materialize blueprint files for all storyboard scenes
+    //     Creates blueprint JSON files for every scene regardless of renderMode.
+    //     - For renderMode "blueprint" scenes: validator + plan-bridge load these.
+    //     - For renderMode "preset" scenes: serves as artifacts for dev preview
+    //       (Root.tsx static imports) and future promotion comparison.
+    //     The SceneSynthesizer gap blueprints (synth-*) are separate artifacts.
     let materializedCount = 0;
     const sbPath = path.join(ctx.planDir, "03-storyboard.json");
     if (existsSync(sbPath)) {
@@ -219,12 +220,10 @@ export const synthesizeGapsStage: DsgsStage = {
         const bpDir = path.join(ctx.planDir, "06-blueprints");
 
         for (const scene of storyboard.scenes) {
-          if (scene.renderMode !== "blueprint" || !scene.blueprintId) continue;
+          // Use blueprintId for blueprint scenes, sceneId for preset scenes
+          const targetId = scene.blueprintId ?? scene.sceneId;
 
-          const bpFilePath = path.join(
-            bpDir,
-            `${scene.blueprintId}.blueprint.json`,
-          );
+          const bpFilePath = path.join(bpDir, `${targetId}.blueprint.json`);
           if (existsSync(bpFilePath)) continue; // already exists (e.g., from prior run)
 
           const bookScene = bookSceneMap.get(scene.sceneId);
@@ -250,8 +249,8 @@ export const synthesizeGapsStage: DsgsStage = {
           }
 
           if (blueprint) {
-            // Override ID to match storyboard's expected blueprintId
-            (blueprint as { id: string }).id = scene.blueprintId;
+            // Override ID to match storyboard's expected ID
+            (blueprint as { id: string }).id = targetId;
           } else {
             // Fallback: create a minimal center-focus blueprint for types
             // without preset support (highlight, transition, etc.)
@@ -262,7 +261,7 @@ export const synthesizeGapsStage: DsgsStage = {
                 ?.mainText ??
               scene.sceneId;
             blueprint = {
-              id: scene.blueprintId,
+              id: targetId,
               intent: scene.purpose ?? bookScene.type,
               origin: "preset",
               layout: "center-focus",
@@ -286,8 +285,8 @@ export const synthesizeGapsStage: DsgsStage = {
             };
           }
 
-          saveBlueprintArtifact(ctx.bookId, scene.blueprintId, blueprint);
-          blueprintIds.push(scene.blueprintId);
+          saveBlueprintArtifact(ctx.bookId, targetId, blueprint);
+          blueprintIds.push(targetId);
           artifactPaths.push(bpFilePath);
           materializedCount++;
         }

@@ -62,6 +62,22 @@ const VISUAL_FUNCTION_MAP: Record<string, VisualFunction> = {
   splitQuote: "quote",
 };
 
+// Scene types with dedicated preset components (CoreSceneType from presetBlueprintRegistry).
+// These always render via the existing scene component path regardless of matchPresets confidence.
+// Only types WITHOUT preset support (highlight, timeline, listReveal, transition, splitQuote)
+// fall through to confidence-based blueprint routing.
+const ALWAYS_PRESET_TYPES = new Set<string>([
+  "cover",
+  "chapterDivider",
+  "keyInsight",
+  "compareContrast",
+  "quote",
+  "framework",
+  "application",
+  "data",
+  "closing",
+]);
+
 const LAYOUT_MODE_MAP: Record<string, string> = {
   cover: "center-focus",
   chapterDivider: "band-divider",
@@ -239,8 +255,14 @@ function toStoryboardScenes(
   return book.scenes.map((scene, i) => {
     const sceneType = scene.type as string;
     const confidence = confidenceMap.get(sceneType) ?? 0;
-    // highlight (hook) type has no preset scorer → force blueprint
-    const isPreset = sceneType !== "highlight" && confidence >= threshold;
+    // Types with dedicated preset components always use preset renderMode.
+    // Only types without preset support (highlight, timeline, etc.) use
+    // confidence-based routing to determine if blueprint synthesis is needed.
+    const isPreset =
+      ALWAYS_PRESET_TYPES.has(sceneType) ||
+      (!ALWAYS_PRESET_TYPES.has(sceneType) &&
+        sceneType !== "highlight" &&
+        confidence >= threshold);
     const layoutMode = LAYOUT_MODE_MAP[sceneType] ?? "center-focus";
 
     const budgetScene = budgetPlan.scenes[i];
