@@ -10,6 +10,7 @@ import miracleMorningBook from "../content/books/miracle-morning.json";
 import atomicHabitsBook from "../content/books/atomic-habits.json";
 import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
 import crazyOneYearBook from "../content/books/crazy-one-year.json";
+import storyBrandBook from "../content/books/story-brand-2025.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -146,6 +147,13 @@ const coyLongformProps: CompositionProps = buildCompositionProps(
   "longform",
 );
 
+// Story Brand — 6.5min longform
+const sbBook = storyBrandBook as unknown as BookContent;
+const sbLongformProps: CompositionProps = buildCompositionProps(
+  sbBook,
+  "longform",
+);
+
 // Build synthesized scene preview props
 const synthTheme = useTheme("dark", "selfHelp");
 const synthCtx: SynthesizerContext = {
@@ -254,6 +262,17 @@ export const RemotionRoot: React.FC = () => {
         width={coyLongformProps.width}
         height={coyLongformProps.height}
         defaultProps={coyLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="StoryBrand"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        component={LongformComposition as any}
+        durationInFrames={sbLongformProps.totalDurationFrames}
+        fps={sbLongformProps.fps}
+        width={sbLongformProps.width}
+        height={sbLongformProps.height}
+        defaultProps={sbLongformProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
