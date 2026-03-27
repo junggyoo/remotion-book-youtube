@@ -1,124 +1,170 @@
 {
   "id": "framework-01",
-  "intent": "Radial operating system: center hub with 4 Laws orbiting clockwise, connected by cycle-connector arcs to convey a closed-loop habit system",
-  "origin": "synthesized",
-  "layout": "radial",
-  "layoutConfig": {
-    "centerIndex": 0,
-    "radiusRatio": 0.42,
-    "startAngleDeg": -90,
-    "elementSizeRatio": 0.65
-  },
+  "intent": "Framework grid with 4 item(s) in stagger-clockwise reveal",
+  "origin": "preset",
+  "layout": "grid-expand",
   "elements": [
     {
-      "id": "synth-radial-center",
-      "type": "headline",
+      "id": "framework-texture",
+      "type": "texture-overlay",
       "props": {
-        "text": "습관의 4법칙",
-        "layer": 20,
-        "weight": "bold",
-        "align": "center"
+        "layer": 5
       }
     },
     {
-      "id": "synth-radial-node-0",
-      "type": "body-text",
+      "id": "framework-frameworkLabel",
+      "type": "label",
       "props": {
-        "text": "1. 분명하게 만들어라",
+        "text": "습관의 4법칙",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineS",
+        "color": "signal"
+      }
+    },
+    {
+      "id": "framework-items-0-number",
+      "type": "number-display",
+      "props": {
+        "value": 1,
         "layer": 30,
-        "weight": "bold",
-        "tokenRef": "typeScale.bodyL",
-        "align": "center",
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
         "index": 0
       }
     },
     {
-      "id": "synth-radial-node-1",
+      "id": "framework-items-0-title",
       "type": "body-text",
       "props": {
-        "text": "2. 매력적으로 만들어라",
+        "text": "분명하게 만들어라",
         "layer": 30,
-        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
-        "align": "center",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-description",
+      "type": "body-text",
+      "props": {
+        "text": "신호를 눈에 보이게 설계합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-1-number",
+      "type": "number-display",
+      "props": {
+        "value": 2,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
         "index": 1
       }
     },
     {
-      "id": "synth-radial-node-2",
+      "id": "framework-items-1-title",
       "type": "body-text",
       "props": {
-        "text": "3. 쉽게 만들어라",
+        "text": "매력적으로 만들어라",
         "layer": 30,
-        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
-        "align": "center",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-description",
+      "type": "body-text",
+      "props": {
+        "text": "열망을 유발하는 보상을 연결합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-2-number",
+      "type": "number-display",
+      "props": {
+        "value": 3,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
         "index": 2
       }
     },
     {
-      "id": "synth-radial-node-3",
+      "id": "framework-items-2-title",
       "type": "body-text",
       "props": {
-        "text": "4. 만족스럽게 만들어라",
+        "text": "쉽게 만들어라",
         "layer": 30,
-        "weight": "bold",
         "tokenRef": "typeScale.bodyL",
-        "align": "center",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-description",
+      "type": "body-text",
+      "props": {
+        "text": "반응의 저항을 최소화합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-3-number",
+      "type": "number-display",
+      "props": {
+        "value": 4,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
         "index": 3
       }
     },
     {
-      "id": "synth-radial-conn-0-1",
-      "type": "cycle-connector",
+      "id": "framework-items-3-title",
+      "type": "body-text",
       "props": {
-        "connects": {
-          "fromId": "synth-radial-node-0",
-          "toId": "synth-radial-node-1"
-        },
-        "layer": 25,
-        "dotted": true
+        "text": "만족스럽게 만들어라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 3
       }
     },
     {
-      "id": "synth-radial-conn-1-2",
-      "type": "cycle-connector",
+      "id": "framework-items-3-description",
+      "type": "body-text",
       "props": {
-        "connects": {
-          "fromId": "synth-radial-node-1",
-          "toId": "synth-radial-node-2"
-        },
-        "layer": 25,
-        "dotted": true
+        "text": "즉각적 보상으로 반복을 강화합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 3
       }
     },
     {
-      "id": "synth-radial-conn-2-3",
-      "type": "cycle-connector",
+      "id": "framework-connectors",
+      "type": "divider",
       "props": {
-        "connects": {
-          "fromId": "synth-radial-node-2",
-          "toId": "synth-radial-node-3"
-        },
         "layer": 25,
-        "dotted": true
-      }
-    },
-    {
-      "id": "synth-radial-conn-3-0",
-      "type": "cycle-connector",
-      "props": {
-        "connects": {
-          "fromId": "synth-radial-node-3",
-          "toId": "synth-radial-node-0"
-        },
-        "layer": 25,
+        "role": "item-connector",
         "dotted": true
       }
     }
   ],
   "choreography": "stagger-clockwise",
-  "motionPreset": "snappy",
+  "motionPreset": "smooth",
   "format": "longform",
   "theme": {
     "mode": "dark",
@@ -134,7 +180,7 @@
     "premium": "#D4A853"
   },
   "from": 0,
-  "durationFrames": 300,
+  "durationFrames": 837,
   "mediaPlan": {
     "narrationText": "습관의 4법칙은 이렇습니다. 첫째, 분명하게 만들어라. 하고 싶은 행동의 신호를 눈에 보이게 설계하세요. 예를 들어 운동복을 침대 옆에 두는 겁니다. 둘째, 매력적으로 만들어라. 하고 싶은 행동에 좋아하는 보상을 연결하세요. 운동 후에 좋아하는 음악을 듣는 식이죠. 셋째, 쉽게 만들어라. 시작의 저항을 최소화하세요. 헬스장 대신 집 앞 산책부터 시작합니다. 넷째, 만족스럽게 만들어라. 즉각적인 보상으로 반복을 강화합니다. 습관 달력에 체크 표시를 하는 것만으로도 충분합니다.",
     "captionPlan": {
@@ -142,8 +188,7 @@
       "maxCharsPerLine": 28,
       "maxLines": 2,
       "leadFrames": 3,
-      "trailFrames": 5,
-      "highlightKeywords": ["분명하게", "매력적으로", "쉽게", "만족스럽게"],
+      "trailFrames": 6,
       "transitionStyle": "fade-slide"
     },
     "audioPlan": {

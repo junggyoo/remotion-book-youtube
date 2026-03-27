@@ -1,38 +1,28 @@
 {
   "bookId": "atomic-habits-2024",
-  "totalRequired": 3,
+  "totalRequired": 2,
   "byStatus": {
-    "placeholder": 3
+    "needed": 2
   },
   "requirements": [
     {
-      "assetId": "hook-bg-texture",
-      "type": "texture",
-      "description": "Hook scene dark grain background texture",
+      "assetId": "application-01-application-emphasis",
+      "type": "icon",
+      "description": "icon element in application-01",
       "sourceScenes": [
-        "hook-01"
+        "application-01"
       ],
-      "status": "placeholder",
+      "status": "needed",
       "fallbackStrategy": "shape-placeholder"
     },
     {
-      "assetId": "framework-number-badges",
-      "type": "icon",
-      "description": "Number badges (1-4) for 4 Laws framework items",
-      "sourceScenes": [
-        "framework-01"
-      ],
-      "status": "placeholder",
-      "fallbackStrategy": "text-only"
-    },
-    {
-      "assetId": "book-cover-image",
-      "type": "cover",
-      "description": "Atomic Habits book cover image",
+      "assetId": "cover-01-cover-image",
+      "type": "image",
+      "description": "image element in cover-01",
       "sourceScenes": [
         "cover-01"
       ],
-      "status": "placeholder",
+      "status": "needed",
       "fallbackStrategy": "shape-placeholder"
     }
   ]

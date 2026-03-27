@@ -1,0 +1,81 @@
+{
+  "id": "closing-01",
+  "intent": "Closing recap with brand label and optional CTA",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "closing-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "closing-recapStatement",
+      "type": "headline",
+      "props": {
+        "text": "오늘, 2분짜리 습관 하나를 시작하세요",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM"
+      }
+    },
+    {
+      "id": "closing-brandLabel",
+      "type": "label",
+      "props": {
+        "text": "Editorial Signal",
+        "layer": 40,
+        "tokenRef": "typeScale.label"
+      }
+    },
+    {
+      "id": "closing-cta",
+      "type": "body-text",
+      "props": {
+        "text": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "layer": 35,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 630,
+  "mediaPlan": {
+    "narrationText": "오늘, 딱 2분짜리 습관 하나를 시작해보세요. 한 페이지 읽기, 스쿼트 5개, 무엇이든 좋습니다. 그 작은 시작이 1년 뒤 37배의 차이를 만듭니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

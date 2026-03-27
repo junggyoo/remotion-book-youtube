@@ -34,8 +34,8 @@
         "제임스 클리어"
       ],
       "transitionIntent": "fade",
-      "renderMode": "blueprint",
-      "blueprintId": "cover-01"
+      "renderMode": "preset",
+      "presetSceneType": "cover"
     },
     {
       "sceneId": "insight-compound",
@@ -50,8 +50,8 @@
         "매일 1%만 나아지면 1년 뒤 37배"
       ],
       "transitionIntent": "cut",
-      "renderMode": "blueprint",
-      "blueprintId": "insight-compound"
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
     },
     {
       "sceneId": "chapter-01",
@@ -66,8 +66,8 @@
         "습관의 4법칙"
       ],
       "transitionIntent": "directional",
-      "renderMode": "blueprint",
-      "blueprintId": "chapter-01"
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
     },
     {
       "sceneId": "framework-01",
@@ -86,8 +86,8 @@
         "만족스럽게 만들어라"
       ],
       "transitionIntent": "cut",
-      "renderMode": "blueprint",
-      "blueprintId": "framework-01"
+      "renderMode": "preset",
+      "presetSceneType": "framework"
     },
     {
       "sceneId": "insight-identity",
@@ -102,8 +102,8 @@
         "정체성이 바뀌면 습관이 바뀐다"
       ],
       "transitionIntent": "cut",
-      "renderMode": "blueprint",
-      "blueprintId": "insight-identity"
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
     },
     {
       "sceneId": "compare-01",
@@ -121,8 +121,8 @@
         "나는 건강한 사람이야 → 건강한 선택 → 자연스러운 반복"
       ],
       "transitionIntent": "cut",
-      "renderMode": "blueprint",
-      "blueprintId": "compare-01"
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
     },
     {
       "sceneId": "application-01",
@@ -156,8 +156,8 @@
         "당신은 목표 수준으로 올라가지 않습니다. 시스템 수준으로 떨어집니다."
       ],
       "transitionIntent": "fade",
-      "renderMode": "blueprint",
-      "blueprintId": "quote-01"
+      "renderMode": "preset",
+      "presetSceneType": "quote"
     },
     {
       "sceneId": "insight-recap",
@@ -172,8 +172,8 @@
         "작은 습관이 큰 결과를 만든다"
       ],
       "transitionIntent": "cut",
-      "renderMode": "blueprint",
-      "blueprintId": "insight-recap"
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
     },
     {
       "sceneId": "closing-01",

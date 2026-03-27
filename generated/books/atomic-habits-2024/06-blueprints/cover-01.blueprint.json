@@ -1,0 +1,99 @@
+{
+  "id": "cover-01",
+  "intent": "Book cover reveal with title, author, and brand",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "cover-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "cover-image",
+      "type": "image",
+      "props": {
+        "src": "covers/atomic-habits-cover.png",
+        "layer": 25,
+        "role": "book-cover"
+      }
+    },
+    {
+      "id": "cover-title",
+      "type": "headline",
+      "props": {
+        "text": "아주 작은 습관의 힘",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL"
+      }
+    },
+    {
+      "id": "cover-subtitle",
+      "type": "body-text",
+      "props": {
+        "text": "최고의 변화는 가장 작은 습관에서 시작된다",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyM"
+      }
+    },
+    {
+      "id": "cover-author",
+      "type": "body-text",
+      "props": {
+        "text": "제임스 클리어",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyS"
+      }
+    },
+    {
+      "id": "cover-brandLabel",
+      "type": "label",
+      "props": {
+        "text": "Editorial Signal",
+        "layer": 40,
+        "tokenRef": "typeScale.label"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "dramatic",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1080,
+  "mediaPlan": {
+    "narrationText": "제임스 클리어의 아주 작은 습관의 힘. 전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
