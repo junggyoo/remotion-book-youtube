@@ -1,5 +1,10 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  interpolate,
+} from "remotion";
 import type {
   BaseSceneProps,
   CompareContrastContent,
@@ -7,13 +12,13 @@ import type {
 } from "@/types";
 import { sp } from "@/design/tokens/spacing";
 import { typography } from "@/design/tokens/typography";
-import { sceneInteriorTokens } from "@/design/tokens/shadow";
+import { shadow, sceneInteriorTokens } from "@/design/tokens/shadow";
+import { applyPreset } from "@/design/tokens/motion";
+import { useFormat } from "@/design/themes/useFormat";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
-import { DividerLine } from "@/components/primitives/DividerLine";
-import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -28,20 +33,25 @@ const LAYERS = {
   emphasis: 40,
 } as const;
 
+/** SVG divider height (longform) / width (shorts) */
+const DIVIDER_LENGTH = 400;
+const DIVIDER_STROKE_WIDTH = 2;
+
 interface CompareContrastSceneProps extends BaseSceneProps {
   content: CompareContrastContent;
 }
 
 /**
- * Wildcard stagger — preserve existing revealOrder delays.
- * Returns per-element beat states based on revealOrder when no explicit beats.
+ * Wildcard stagger — sequential reveal even without explicit beats.
+ * Left first → connector → right (always left-first for wildcard).
  */
 function buildWildcardStagger(
   revealOrder: "simultaneous" | "left-first" | "right-first",
 ): Record<string, ElementBeatState> {
-  const leftDelay = revealOrder === "right-first" ? 12 : 0;
-  const rightDelay = revealOrder === "left-first" ? 12 : 0;
-  const connectorDelay = Math.max(leftDelay, rightDelay) + 12;
+  const leftDelay = revealOrder === "right-first" ? 18 : 0;
+  const rightDelay =
+    revealOrder === "left-first" ? 18 : revealOrder === "simultaneous" ? 18 : 0;
+  const connectorDelay = Math.max(leftDelay, rightDelay) + 15;
 
   return {
     leftPanel: {
@@ -65,6 +75,77 @@ function buildWildcardStagger(
   };
 }
 
+/**
+ * Check if a panel is activated (entering, visible, or emphasized).
+ */
+function isActivated(state: ElementBeatState | undefined): boolean {
+  if (!state) return false;
+  return (
+    state.visibility === "entering" ||
+    state.visibility === "visible" ||
+    state.visibility === "emphasized"
+  );
+}
+
+/**
+ * SVG Divider with draw-on animation (top→bottom for vertical, left→right for horizontal).
+ */
+const DrawOnDivider: React.FC<{
+  orientation: "vertical" | "horizontal";
+  color: string;
+  progress: number;
+}> = ({ orientation, color, progress }) => {
+  const length = DIVIDER_LENGTH;
+  const dashOffset = interpolate(progress, [0, 1], [length, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  if (orientation === "vertical") {
+    return (
+      <svg
+        width={DIVIDER_STROKE_WIDTH}
+        height={length}
+        viewBox={`0 0 ${DIVIDER_STROKE_WIDTH} ${length}`}
+        style={{ overflow: "visible" }}
+      >
+        <line
+          x1={DIVIDER_STROKE_WIDTH / 2}
+          y1={0}
+          x2={DIVIDER_STROKE_WIDTH / 2}
+          y2={length}
+          stroke={color}
+          strokeWidth={DIVIDER_STROKE_WIDTH}
+          strokeDasharray={length}
+          strokeDashoffset={dashOffset}
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width={length}
+      height={DIVIDER_STROKE_WIDTH}
+      viewBox={`0 0 ${length} ${DIVIDER_STROKE_WIDTH}`}
+      style={{ overflow: "visible" }}
+    >
+      <line
+        x1={0}
+        y1={DIVIDER_STROKE_WIDTH / 2}
+        x2={length}
+        y2={DIVIDER_STROKE_WIDTH / 2}
+        stroke={color}
+        strokeWidth={DIVIDER_STROKE_WIDTH}
+        strokeDasharray={length}
+        strokeDashoffset={dashOffset}
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
 export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   format,
   theme,
@@ -73,8 +154,12 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   content,
   beats,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
+  const { typeScale } = useFormat(format);
   const revealOrder = content.revealOrder ?? "simultaneous";
+
   // Beat resolution
   const resolvedBeats = resolveBeats(
     {
@@ -85,7 +170,10 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat } = useBeatTimeline(
+    resolvedBeats,
+    durationFrames,
+  );
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -95,6 +183,50 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     if (isWildcard) return wildcardStagger[key];
     return elementStates.get(key);
   };
+
+  // --- Dim / emphasis logic (frame-interpolated, no CSS transitions) ---
+  const rightState = getBeatState("rightPanel");
+  const connectorState = getBeatState("connector");
+  const rightIsActive = isActivated(rightState);
+
+  // Determine target opacity for left panel based on beat phase
+  const isRecapBeat = activeBeat?.transition === "emphasis";
+  const leftTargetOpacity = rightIsActive
+    ? isRecapBeat
+      ? 0.7 // beat 4: both visible, right emphasized
+      : sceneInteriorTokens.dimOpacity // beat 3: left dimmed
+    : 1; // beat 1-2: full opacity (or hidden via BeatElement)
+
+  // Smooth frame-interpolated dim (no CSS transition — Remotion renders static frames)
+  const rightEntry = rightState?.entryFrame ?? 0;
+  const dimProgress = rightIsActive
+    ? applyPreset(
+        "smooth",
+        Math.max(0, frame - rightEntry),
+        fps,
+        durationFrames,
+      )
+    : 0;
+  const leftFinalOpacity = interpolate(
+    dimProgress,
+    [0, 1],
+    [1, leftTargetOpacity],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    },
+  );
+
+  // --- Divider draw-on progress ---
+  const connectorEntry = connectorState?.entryFrame ?? 0;
+  const dividerProgress = connectorState
+    ? applyPreset(
+        "smooth",
+        Math.max(0, frame - connectorEntry),
+        fps,
+        durationFrames,
+      )
+    : 0;
 
   // Tag label variant mapping
   const leftTagVariant = ((): "default" | "accent" | "signal" => {
@@ -119,9 +251,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     return "default";
   })();
 
-  const panelContainerStyle: React.CSSProperties = {
-    textShadow: "0 2px 12px rgba(0,0,0,0.5)",
-  };
+  const panelTextShadow = shadow.float;
 
   const leftPanel = (
     <div
@@ -130,9 +260,9 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         flexDirection: "column",
         gap: sp(5),
         flex: 1,
-        paddingRight: isShorts ? 0 : sp(5),
+        paddingRight: isShorts ? 0 : sp(6),
         paddingBottom: isShorts ? sp(4) : 0,
-        ...panelContainerStyle,
+        textShadow: panelTextShadow,
       }}
     >
       {content.leftTag && (
@@ -170,13 +300,11 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         flexDirection: "column",
         gap: sp(5),
         flex: 1,
-        paddingLeft: isShorts ? 0 : sp(5),
+        paddingLeft: isShorts ? 0 : sp(6),
         paddingTop: isShorts ? sp(4) : 0,
-        ...panelContainerStyle,
+        textShadow: panelTextShadow,
       }}
     >
-      {/* Accent line on right (positive) panel only */}
-      <AccentLine format={format} theme={theme} />
       {content.rightTag && (
         <div style={{ zIndex: LAYERS.labels }}>
           <LabelChip
@@ -237,8 +365,15 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
               position: "relative",
             }}
           >
-            {/* Left panel */}
-            <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+            {/* Left panel — dims when right panel enters */}
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                opacity: leftFinalOpacity,
+              }}
+            >
               <BeatElement
                 elementKey="leftPanel"
                 beatState={getBeatState("leftPanel")}
@@ -251,47 +386,46 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Center divider */}
-            <BeatElement
-              elementKey="connector"
-              beatState={getBeatState("connector")}
-              format={format}
-              theme={theme}
+            {/* Center SVG divider with draw-on */}
+            <div
+              style={{
+                zIndex: LAYERS.divider,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                position: "relative",
+                padding: isShorts ? `${sp(3)}px 0` : `0 ${sp(3)}px`,
+              }}
             >
-              <div
-                style={{
-                  zIndex: LAYERS.divider,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  gap: sp(3),
-                }}
-              >
-                <DividerLine
-                  format={format}
-                  theme={theme}
+              {isActivated(connectorState) && (
+                <DrawOnDivider
                   orientation={isShorts ? "horizontal" : "vertical"}
+                  color={theme.lineSubtle}
+                  progress={dividerProgress}
                 />
-                {content.showConnector && !isShorts && (
+              )}
+              {content.showConnector &&
+                !isShorts &&
+                isActivated(connectorState) && (
                   <div
                     style={{
                       position: "absolute",
                       fontFamily: typography.fontFamily.sans,
-                      fontSize: 14,
+                      fontSize: typeScale.caption,
                       fontWeight: typography.fontWeight.bold,
                       color: theme.textMuted,
                       letterSpacing: typography.tracking.wide,
                       backgroundColor: theme.bg,
                       padding: `${sp(2)}px ${sp(3)}px`,
+                      opacity: dividerProgress,
                     }}
                   >
                     VS
                   </div>
                 )}
-              </div>
-            </BeatElement>
+            </div>
 
             {/* Right panel */}
             <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
@@ -309,9 +443,6 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
           </div>
         </SafeArea>
       </div>
-
-      {/* SubtitleLayer removed — Root HUD global layer principle.
-          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
   );
 };
