@@ -6,12 +6,15 @@ import type {
   ElementBeatState,
 } from "@/types";
 import { sp } from "@/design/tokens/spacing";
+import { radius } from "@/design/tokens/radius";
 import { typography } from "@/design/tokens/typography";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { DividerLine } from "@/components/primitives/DividerLine";
+import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -73,6 +76,8 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
 }) => {
   const isShorts = format === "shorts";
   const revealOrder = content.revealOrder ?? "simultaneous";
+  const modeKey = theme.mode === "dark" ? "dark" : "light";
+  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -118,15 +123,22 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     return "default";
   })();
 
+  const panelContainerStyle: React.CSSProperties = {
+    backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
+    borderRadius: radius.md,
+    padding: `${sp(5)}px ${sp(5)}px`,
+  };
+
   const leftPanel = (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: sp(4),
+        gap: sp(5),
         flex: 1,
         paddingRight: isShorts ? 0 : sp(5),
         paddingBottom: isShorts ? sp(4) : 0,
+        ...panelContainerStyle,
       }}
     >
       {content.leftTag && (
@@ -139,7 +151,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
           />
         </div>
       )}
-      <div style={{ zIndex: LAYERS.labels }}>
+      <div style={{ zIndex: LAYERS.labels, marginBottom: sp(2) }}>
         <LabelChip
           format={format}
           theme={theme}
@@ -162,12 +174,15 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: sp(4),
+        gap: sp(5),
         flex: 1,
         paddingLeft: isShorts ? 0 : sp(5),
         paddingTop: isShorts ? sp(4) : 0,
+        ...panelContainerStyle,
       }}
     >
+      {/* Accent line on right (positive) panel only */}
+      <AccentLine format={format} theme={theme} />
       {content.rightTag && (
         <div style={{ zIndex: LAYERS.labels }}>
           <LabelChip
@@ -178,7 +193,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
           />
         </div>
       )}
-      <div style={{ zIndex: LAYERS.labels }}>
+      <div style={{ zIndex: LAYERS.labels, marginBottom: sp(2) }}>
         <LabelChip
           format={format}
           theme={theme}
@@ -211,7 +226,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 

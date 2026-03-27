@@ -12,3 +12,13 @@ export const sceneWrapperTokens = designTokens.sceneWrapper as {
   readonly depthShadow: { readonly dark: string; readonly light: string };
   readonly gradientAngle: number;
 };
+
+export const sceneInteriorTokens = designTokens.sceneInterior as {
+  readonly containerBgOpacity: {
+    readonly dark: number;
+    readonly light: number;
+  };
+  readonly textureOpacity: number;
+  readonly dimOpacity: number;
+  readonly accentLine: { readonly height: number; readonly width: number };
+};

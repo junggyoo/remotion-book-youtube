@@ -7,12 +7,15 @@ import type {
 } from "@/types";
 import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
+import { radius } from "@/design/tokens/radius";
 import { typography } from "@/design/tokens/typography";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { SignalBar } from "@/components/primitives/SignalBar";
 import { EvidenceCard } from "@/components/primitives/EvidenceCard";
+import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -135,6 +138,8 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   const isShorts = format === "shorts";
   const showSignalBar = content.useSignalBar !== false;
   const showSupportText = !isShorts && !!content.supportText;
+  const modeKey = theme.mode === "dark" ? "dark" : "light";
+  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
 
   // Beat resolution: explicit beats or implicit single beat (backward compat)
   const resolvedBeats = resolveBeats(
@@ -171,7 +176,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 
@@ -210,17 +215,23 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
               </div>
             )}
 
-            {/* Text content column */}
+            {/* Text content column — with container background */}
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 flex: 1,
-                gap: sp(4),
+                gap: sp(6),
                 maxWidth: isShorts ? "100%" : "760px",
+                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
+                borderRadius: radius.lg,
+                padding: `${sp(6)}px ${sp(7)}px`,
               }}
             >
+              {/* Accent line above headline */}
+              <AccentLine format={format} theme={theme} />
+
               {/* Headline */}
               <div style={{ zIndex: LAYERS.headline }}>
                 <BeatElement

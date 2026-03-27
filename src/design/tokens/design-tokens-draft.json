@@ -149,5 +149,17 @@
       "light": "inset 0 0 60px rgba(0,0,0,0.20)"
     },
     "gradientAngle": 135
+  },
+  "sceneInterior": {
+    "containerBgOpacity": {
+      "dark": 0.06,
+      "light": 0.04
+    },
+    "textureOpacity": 0.04,
+    "dimOpacity": 0.35,
+    "accentLine": {
+      "height": 3,
+      "width": 48
+    }
   }
 }

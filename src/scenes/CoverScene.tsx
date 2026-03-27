@@ -4,11 +4,13 @@ import type { BaseSceneProps, CoverContent, ElementBeatState } from "@/types";
 import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
 import { radius } from "@/design/tokens/radius";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { ImageMask } from "@/components/primitives/ImageMask";
+import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -79,6 +81,8 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
   const isShorts = format === "shorts";
 
   const bgOpacity = content.backgroundVariant === "light" ? 0.6 : 0.85;
+  const modeKey = theme.mode === "dark" ? "dark" : "light";
+  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
   const imageSize = isShorts
     ? { width: 200, height: 280 }
     : { width: 280, height: 400 };
@@ -115,7 +119,7 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 
@@ -135,7 +139,7 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(5),
+              gap: sp(7),
             }}
           >
             {/* Cover image */}
@@ -158,15 +162,18 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Title block */}
+            {/* Title block — with subtle container background */}
             <div
               style={{
                 zIndex: LAYERS.title,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: sp(3),
+                gap: sp(4),
                 maxWidth: "100%",
+                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
+                borderRadius: radius.lg,
+                padding: `${sp(5)}px ${sp(6)}px`,
               }}
             >
               <BeatElement
@@ -224,8 +231,17 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Brand label */}
-            <div style={{ zIndex: LAYERS.brandLabel }}>
+            {/* Accent line + Brand label */}
+            <div
+              style={{
+                zIndex: LAYERS.brandLabel,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: sp(4),
+              }}
+            >
+              <AccentLine format={format} theme={theme} />
               <BeatElement
                 elementKey="brandLabel"
                 beatState={getBeatState("brandLabel")}

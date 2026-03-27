@@ -1,15 +1,15 @@
-import React from 'react'
-import type { FormatKey, Theme } from '@/types'
-import { typography } from '@/design/tokens/typography'
-import { spacing } from '@/design/tokens/spacing'
-import { useFormat } from '@/design/themes/useFormat'
+import React from "react";
+import type { FormatKey, Theme } from "@/types";
+import { typography } from "@/design/tokens/typography";
+import { spacing } from "@/design/tokens/spacing";
+import { useFormat } from "@/design/themes/useFormat";
 
 interface QuoteBlockProps {
-  format: FormatKey
-  theme: Theme
-  quoteText: string
-  attribution?: string
-  useSerif?: boolean
+  format: FormatKey;
+  theme: Theme;
+  quoteText: string;
+  attribution?: string;
+  useSerif?: boolean;
 }
 
 export const QuoteBlock: React.FC<QuoteBlockProps> = ({
@@ -19,32 +19,32 @@ export const QuoteBlock: React.FC<QuoteBlockProps> = ({
   attribution,
   useSerif = false,
 }) => {
-  const { typeScale } = useFormat(format)
+  const { typeScale } = useFormat(format);
 
   const quoteFontFamily = useSerif
     ? typography.fontFamily.serif
-    : typography.fontFamily.sans
+    : typography.fontFamily.sans;
 
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         gap: spacing.scale[4],
       }}
     >
-      {/* Decorative quote mark */}
+      {/* Decorative opening quote mark */}
       <span
         style={{
           fontFamily: typography.fontFamily.serif,
-          fontSize: typeScale.headlineL * 1.5,
-          lineHeight: 0.8,
+          fontSize: typeScale.headlineL * 2,
+          lineHeight: 0.6,
           color: theme.signal,
-          userSelect: 'none',
+          userSelect: "none",
         }}
         aria-hidden="true"
       >
-        {'\u201C'}
+        {"\u201C"}
       </span>
 
       {/* Quote text */}
@@ -57,11 +57,27 @@ export const QuoteBlock: React.FC<QuoteBlockProps> = ({
           letterSpacing: typography.tracking.normal,
           color: theme.textStrong,
           margin: 0,
-          paddingLeft: spacing.scale[3],
+          paddingLeft: spacing.scale[4],
+          paddingRight: spacing.scale[4],
         }}
       >
         {quoteText}
       </p>
+
+      {/* Decorative closing quote mark */}
+      <span
+        style={{
+          fontFamily: typography.fontFamily.serif,
+          fontSize: typeScale.headlineL * 2,
+          lineHeight: 0.6,
+          color: theme.textMuted,
+          userSelect: "none",
+          alignSelf: "flex-end",
+        }}
+        aria-hidden="true"
+      >
+        {"\u201D"}
+      </span>
 
       {/* Attribution */}
       {attribution && (
@@ -69,17 +85,18 @@ export const QuoteBlock: React.FC<QuoteBlockProps> = ({
           style={{
             fontFamily: typography.fontFamily.sans,
             fontSize: typeScale.bodyS,
-            fontWeight: typography.fontWeight.regular,
+            fontWeight: typography.fontWeight.medium,
+            letterSpacing: typography.tracking.wide,
             color: theme.textMuted,
-            paddingLeft: spacing.scale[3],
+            paddingLeft: spacing.scale[4],
           }}
         >
-          {'\u2014 '}
+          {"\u2014 "}
           {attribution}
         </span>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default QuoteBlock
+export default QuoteBlock;

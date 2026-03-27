@@ -2,11 +2,14 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import type { BaseSceneProps, ClosingContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
+import { radius } from "@/design/tokens/radius";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { DividerLine } from "@/components/primitives/DividerLine";
+import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -59,6 +62,8 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
   const isShorts = format === "shorts";
   const showBrandLabel = content.showBrandLabel !== false;
   const showCta = !isShorts && !!content.ctaText;
+  const modeKey = theme.mode === "dark" ? "dark" : "light";
+  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -91,7 +96,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
         style={{
           zIndex: LAYERS.texture,
           backgroundColor: theme.surfaceMuted,
-          opacity: 0.04,
+          opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
 
@@ -111,10 +116,10 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(5),
+              gap: sp(7),
             }}
           >
-            {/* Recap statement */}
+            {/* Recap statement — upgraded to headlineL */}
             <div style={{ zIndex: LAYERS.recapStatement }}>
               <BeatElement
                 elementKey="recapStatement"
@@ -126,7 +131,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                   format={format}
                   theme={theme}
                   text={content.recapStatement}
-                  variant="headlineM"
+                  variant="headlineL"
                   weight="bold"
                   align="center"
                   maxLines={4}
@@ -134,9 +139,16 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* CTA text — longform only */}
+            {/* CTA text with container bg — longform only */}
             {showCta && (
-              <div style={{ zIndex: LAYERS.cta }}>
+              <div
+                style={{
+                  zIndex: LAYERS.cta,
+                  backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
+                  borderRadius: radius.md,
+                  padding: `${sp(4)}px ${sp(6)}px`,
+                }}
+              >
                 <BeatElement
                   elementKey="ctaText"
                   beatState={getBeatState("ctaText")}
@@ -147,7 +159,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                     format={format}
                     theme={theme}
                     text={content.ctaText!}
-                    variant="bodyM"
+                    variant="bodyL"
                     color={theme.textMuted}
                     align="center"
                   />
@@ -155,7 +167,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               </div>
             )}
 
-            {/* Divider + Brand label */}
+            {/* Accent line + Divider + Brand label */}
             {showBrandLabel && (
               <div
                 style={{
@@ -183,6 +195,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
                       width: "100%",
                     }}
                   >
+                    <AccentLine format={format} theme={theme} />
                     <DividerLine format={format} theme={theme} />
                     <LabelChip
                       format={format}

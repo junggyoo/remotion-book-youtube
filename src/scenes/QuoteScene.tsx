@@ -2,10 +2,13 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import type { BaseSceneProps, QuoteContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
+import { radius } from "@/design/tokens/radius";
+import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { QuoteBlock } from "@/components/primitives/QuoteBlock";
+import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
@@ -56,7 +59,11 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   beats,
 }) => {
   const isShorts = format === "shorts";
-  const textureOpacity = content.showTexture ? 0.08 : 0.04;
+  const modeKey = theme.mode === "dark" ? "dark" : "light";
+  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
+  const textureOpacity = content.showTexture
+    ? sceneInteriorTokens.textureOpacity * 2
+    : sceneInteriorTokens.textureOpacity;
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -106,14 +113,22 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(5),
+              gap: sp(6),
               maxWidth: isShorts ? "100%" : 760,
               marginLeft: "auto",
               marginRight: "auto",
             }}
           >
-            {/* Quote block (includes decorative mark + text) */}
-            <div style={{ zIndex: LAYERS.quoteText, width: "100%" }}>
+            {/* Quote block with container background */}
+            <div
+              style={{
+                zIndex: LAYERS.quoteText,
+                width: "100%",
+                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
+                borderRadius: radius.lg,
+                padding: `${sp(6)}px ${sp(6)}px`,
+              }}
+            >
               <BeatElement
                 elementKey="quoteText"
                 beatState={getBeatState("quoteText")}
@@ -148,20 +163,14 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Bottom accent divider */}
+            {/* Bottom accent line (replaces hardcoded divider) */}
             <BeatElement
               elementKey="accentDivider"
               beatState={getBeatState("accentDivider")}
               format={format}
               theme={theme}
             >
-              <div
-                style={{
-                  width: 120,
-                  height: 2,
-                  backgroundColor: theme.accent,
-                }}
-              />
+              <AccentLine format={format} theme={theme} color={theme.accent} />
             </BeatElement>
           </div>
         </SafeArea>
