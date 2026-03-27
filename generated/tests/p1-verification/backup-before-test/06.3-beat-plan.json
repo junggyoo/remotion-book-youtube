@@ -1,0 +1,586 @@
+{
+  "bookId": "atomic-habits-2024",
+  "generatedAt": "2026-03-27T02:15:16.947Z",
+  "totalScenes": 11,
+  "processedScenes": 0,
+  "skippedScenes": 11,
+  "entries": [
+    {
+      "sceneId": "hook-01",
+      "sceneType": "highlight",
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "목표를 세우지 마세요. 이게 무슨 말일까요?",
+          "activates": [
+            "mainText"
+          ],
+          "emphasisTargets": [
+            "목표"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.3,
+          "endRatio": 0.65,
+          "narrationText": "올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 모두가 이기고 싶어했죠.",
+          "activates": [
+            "subText"
+          ],
+          "emphasisTargets": [
+            "금메달리스트",
+            "꼴찌",
+            "같았습니다"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "하지만 차이를 만든 건 목표가 아닙니다. 매일의 훈련 시스템입니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "시스템"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "cover-01",
+      "sceneType": "cover",
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "제임스 클리어의 아주 작은 습관의 힘.",
+          "activates": [
+            "title",
+            "subtitle",
+            "author"
+          ],
+          "emphasisTargets": [
+            "아주 작은 습관의 힘"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "전 세계 천만 부 이상 팔린 이 책이 말하는 핵심을 알아봅니다.",
+          "activates": [
+            "brandLabel"
+          ],
+          "emphasisTargets": [
+            "천만 부"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-compound",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "compound-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "제임스 클리어는 놀라운 수치를 제시합니다. 매일 1%씩 나아지면 1년 뒤 37배가 됩니다. 처음에는 차이가 느껴지지 않습니다. 하지만 복리처럼 쌓이기 시작하면 폭발적으로 성장합니다.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "1%",
+            "37배"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "compound-b2",
+          "role": "evidence",
+          "startRatio": 0.45,
+          "endRatio": 0.75,
+          "narrationText": "반대로 매일 1%씩 나빠지면 거의 0에 수렴합니다. 나쁜 습관의 대가는 천천히, 하지만 확실하게 찾아옵니다.",
+          "activates": [
+            "supportText",
+            "evidenceCard"
+          ],
+          "emphasisTargets": [
+            "0에 수렴"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "compound-b3",
+          "role": "recap",
+          "startRatio": 0.75,
+          "endRatio": 1,
+          "narrationText": "이것이 습관의 복리 효과입니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "복리"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "chapter-01",
+      "sceneType": "chapterDivider",
+      "beats": [
+        {
+          "id": "chapter-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "그렇다면 이 시스템의 핵심은 무엇일까요? 습관의 4법칙을 하나씩 살펴보겠습니다.",
+          "activates": [
+            "chapterNumber",
+            "chapterTitle",
+            "chapterSubtitle"
+          ],
+          "emphasisTargets": [
+            "4법칙"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "framework-01",
+      "sceneType": "framework",
+      "beats": [
+        {
+          "id": "fw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.15,
+          "narrationText": "습관의 4법칙은 이렇습니다.",
+          "activates": [
+            "frameworkLabel"
+          ],
+          "emphasisTargets": [
+            "4법칙"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b2",
+          "role": "reveal",
+          "startRatio": 0.15,
+          "endRatio": 0.4,
+          "narrationText": "첫째, 분명하게 만들어라. 하고 싶은 행동의 신호를 눈에 보이게 설계하세요. 예를 들어 운동복을 침대 옆에 두는 겁니다.",
+          "activates": [
+            "item-0"
+          ],
+          "emphasisTargets": [
+            "분명하게"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b3",
+          "role": "reveal",
+          "startRatio": 0.4,
+          "endRatio": 0.6,
+          "narrationText": "둘째, 매력적으로 만들어라. 하고 싶은 행동에 좋아하는 보상을 연결하세요. 운동 후에 좋아하는 음악을 듣는 식이죠.",
+          "activates": [
+            "item-1"
+          ],
+          "emphasisTargets": [
+            "매력적으로"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b4",
+          "role": "reveal",
+          "startRatio": 0.6,
+          "endRatio": 0.8,
+          "narrationText": "셋째, 쉽게 만들어라. 시작의 저항을 최소화하세요. 헬스장 대신 집 앞 산책부터 시작합니다.",
+          "activates": [
+            "item-2"
+          ],
+          "emphasisTargets": [
+            "쉽게"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b5",
+          "role": "reveal",
+          "startRatio": 0.8,
+          "endRatio": 1,
+          "narrationText": "넷째, 만족스럽게 만들어라. 즉각적인 보상으로 반복을 강화합니다. 습관 달력에 체크 표시를 하는 것만으로도 충분합니다.",
+          "activates": [
+            "item-3"
+          ],
+          "emphasisTargets": [
+            "만족스럽게"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-identity",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "identity-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.2,
+          "narrationText": "하지만 4법칙보다 더 중요한 것이 있습니다. 바로 정체성의 변화입니다.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "정체성"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "identity-b2",
+          "role": "compare",
+          "startRatio": 0.2,
+          "endRatio": 0.55,
+          "narrationText": "대부분의 사람은 결과에서 시작합니다. 살을 빼겠어, 돈을 모으겠어. 하지만 동기가 사라지면 행동도 멈추죠. 진정한 변화는 정체성에서 시작됩니다. 나는 건강한 사람이야, 나는 절약하는 사람이야. 이렇게 정체성이 바뀌면 행동은 자연스럽게 따라옵니다.",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "결과",
+            "정체성"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "identity-b3",
+          "role": "recap",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "습관 하나하나는 내가 원하는 정체성에 던지는 한 표입니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "한 표"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "compare-01",
+      "sceneType": "compareContrast",
+      "beats": [
+        {
+          "id": "compare-b1",
+          "role": "compare",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "두 접근의 차이를 비교해보겠습니다. 결과 기반 접근은 이렇습니다. 살을 빼겠어, 책을 읽겠어. 처음엔 의지력으로 버틸 수 있지만, 동기가 사라지면 결국 포기합니다.",
+          "activates": [
+            "leftLabel",
+            "leftContent"
+          ],
+          "emphasisTargets": [
+            "결과 기반",
+            "포기"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "compare-b2",
+          "role": "compare",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "반면 정체성 기반 접근은 완전히 다릅니다. 나는 건강한 사람이야. 이렇게 믿으면 건강한 사람의 선택을 자연스럽게 하게 됩니다. 의지력이 아니라 정체성이 행동을 이끄는 겁니다.",
+          "activates": [
+            "rightLabel",
+            "rightContent",
+            "connector"
+          ],
+          "emphasisTargets": [
+            "정체성 기반",
+            "자연스럽게"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "application-01",
+      "sceneType": "application",
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.15,
+          "narrationText": "그렇다면 오늘부터 어떻게 시작할까요? 세 가지 실천법이 있습니다.",
+          "activates": [
+            "anchorStatement"
+          ],
+          "emphasisTargets": [
+            "세 가지"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.15,
+          "endRatio": 0.45,
+          "narrationText": "첫째, 2분 규칙입니다. 새 습관은 2분 안에 끝나는 버전으로 시작하세요. 책 읽기가 목표라면 한 페이지만 읽으세요. 이렇게 작게 시작해야 뇌가 저항하지 않습니다.",
+          "activates": [
+            "step-0"
+          ],
+          "emphasisTargets": [
+            "2분 규칙",
+            "한 페이지"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.45,
+          "endRatio": 0.7,
+          "narrationText": "둘째, 환경 설계입니다. 좋은 습관의 신호를 눈에 보이게 배치하세요. 물을 더 마시고 싶다면 책상 위에 물병을 올려두세요. 환경이 행동을 이끕니다.",
+          "activates": [
+            "step-1"
+          ],
+          "emphasisTargets": [
+            "환경 설계"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "셋째, 습관 쌓기입니다. 현재 습관 뒤에 새 습관을 연결하세요. 양치 후에 스쿼트 5개, 이런 식으로 기존 루틴에 붙이는 겁니다.",
+          "activates": [
+            "step-2"
+          ],
+          "emphasisTargets": [
+            "습관 쌓기"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "quote-01",
+      "sceneType": "quote",
+      "beats": [
+        {
+          "id": "quote-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "제임스 클리어는 이 책에서 가장 강력한 한마디를 남깁니다.",
+          "activates": [
+            "attribution"
+          ],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b2",
+          "role": "headline",
+          "startRatio": 0.35,
+          "endRatio": 1,
+          "narrationText": "당신은 목표 수준으로 올라가지 않습니다. 시스템 수준으로 떨어집니다. 결국 당신의 미래를 결정하는 건 목표가 아니라 매일 반복하는 시스템입니다.",
+          "activates": [
+            "quoteText"
+          ],
+          "emphasisTargets": [
+            "목표 수준",
+            "시스템 수준"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-recap",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.4,
+          "narrationText": "정리하겠습니다. 아주 작은 습관의 힘은 단순한 자기계발서가 아닙니다. 행동 변화의 과학적 프레임워크입니다.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "프레임워크"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "recap",
+          "startRatio": 0.4,
+          "endRatio": 1,
+          "narrationText": "매일 1%의 변화가 복리로 쌓이고, 4법칙으로 습관을 설계하며, 정체성이 행동을 이끕니다. 목표를 세우는 대신 시스템을 만드세요. 나머지는 시스템이 알아서 해결합니다.",
+          "activates": [
+            "supportText",
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "1%",
+            "정체성",
+            "시스템"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "closing-01",
+      "sceneType": "closing",
+      "beats": [
+        {
+          "id": "closing-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "오늘, 딱 2분짜리 습관 하나를 시작해보세요. 한 페이지 읽기, 스쿼트 5개, 무엇이든 좋습니다. 그 작은 시작이 1년 뒤 37배의 차이를 만듭니다.",
+          "activates": [
+            "recapStatement"
+          ],
+          "emphasisTargets": [
+            "2분",
+            "37배"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "closing-b2",
+          "role": "transition",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+          "activates": [
+            "ctaText",
+            "brandLabel"
+          ],
+          "emphasisTargets": [],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    }
+  ]
+}

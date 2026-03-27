@@ -1,0 +1,81 @@
+{
+  "id": "chapter-01",
+  "intent": "Chapter divider with number and title reveal",
+  "origin": "preset",
+  "layout": "left-anchor",
+  "elements": [
+    {
+      "id": "chapterDivider-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "chapterDivider-chapterNumber",
+      "type": "number-display",
+      "props": {
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL"
+      }
+    },
+    {
+      "id": "chapterDivider-chapterTitle",
+      "type": "headline",
+      "props": {
+        "text": "습관의 4법칙",
+        "layer": 35,
+        "tokenRef": "typeScale.headlineM"
+      }
+    },
+    {
+      "id": "chapterDivider-baseContent",
+      "type": "body-text",
+      "props": {
+        "text": "행동 변화를 만드는 과학적 프레임워크",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 360,
+  "mediaPlan": {
+    "narrationText": "그렇다면 이 시스템의 핵심은 무엇일까요? 습관의 4법칙을 하나씩 살펴보겠습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

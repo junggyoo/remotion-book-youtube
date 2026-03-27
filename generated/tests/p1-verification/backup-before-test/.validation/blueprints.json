@@ -1,0 +1,28 @@
+{
+  "phase": "blueprints",
+  "status": "pass",
+  "timestamp": "2026-03-27T03:59:58.251Z",
+  "checks": [
+    {
+      "id": "bp-mediaPlan-hook-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "mediaPlan present",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "bp-id-hook-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "id matches filename",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "bp-elements-hook-01",
+      "level": "WARN",
+      "passed": true,
+      "message": "1 elements",
+      "sceneId": "hook-01"
+    }
+  ]
+}

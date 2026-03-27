@@ -1,0 +1,90 @@
+{
+  "phase": "duration",
+  "status": "pass",
+  "timestamp": "2026-03-27T03:59:58.251Z",
+  "checks": [
+    {
+      "id": "dur-total",
+      "level": "WARN",
+      "passed": true,
+      "message": "total=300.3s target=300s (0.1%)"
+    },
+    {
+      "id": "dur-chars-hook-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"hook-01\": ~205 chars",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "dur-chars-cover-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"cover-01\": ~205 chars",
+      "sceneId": "cover-01"
+    },
+    {
+      "id": "dur-chars-insight-compound",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"insight-compound\": ~159 chars",
+      "sceneId": "insight-compound"
+    },
+    {
+      "id": "dur-chars-chapter-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"chapter-01\": ~68 chars",
+      "sceneId": "chapter-01"
+    },
+    {
+      "id": "dur-chars-framework-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"framework-01\": ~159 chars",
+      "sceneId": "framework-01"
+    },
+    {
+      "id": "dur-chars-insight-identity",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"insight-identity\": ~159 chars",
+      "sceneId": "insight-identity"
+    },
+    {
+      "id": "dur-chars-compare-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"compare-01\": ~159 chars",
+      "sceneId": "compare-01"
+    },
+    {
+      "id": "dur-chars-application-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"application-01\": ~159 chars",
+      "sceneId": "application-01"
+    },
+    {
+      "id": "dur-chars-quote-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"quote-01\": ~159 chars",
+      "sceneId": "quote-01"
+    },
+    {
+      "id": "dur-chars-insight-recap",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"insight-recap\": ~159 chars",
+      "sceneId": "insight-recap"
+    },
+    {
+      "id": "dur-chars-closing-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "\"closing-01\": ~120 chars",
+      "sceneId": "closing-01"
+    }
+  ]
+}

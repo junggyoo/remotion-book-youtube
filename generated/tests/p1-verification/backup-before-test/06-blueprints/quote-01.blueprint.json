@@ -1,0 +1,83 @@
+{
+  "id": "quote-01",
+  "intent": "Quote reveal with attribution",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quote-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5,
+        "visible": true
+      }
+    },
+    {
+      "id": "quote-quoteMark",
+      "type": "shape",
+      "props": {
+        "role": "quote-mark",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "quote-quoteText",
+      "type": "quote-text",
+      "props": {
+        "text": "당신은 목표 수준으로 올라가지 않습니다. 시스템 수준으로 떨어집니다.",
+        "layer": 30,
+        "tokenRef": "typography.fontFamily.serif",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "quote-attribution",
+      "type": "caption",
+      "props": {
+        "text": "제임스 클리어",
+        "layer": 25,
+        "tokenRef": "typeScale.caption"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 837,
+  "mediaPlan": {
+    "narrationText": "제임스 클리어는 이 책에서 가장 강력한 한마디를 남깁니다. 당신은 목표 수준으로 올라가지 않습니다. 시스템 수준으로 떨어집니다. 결국 당신의 미래를 결정하는 건 목표가 아니라 매일 반복하는 시스템입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

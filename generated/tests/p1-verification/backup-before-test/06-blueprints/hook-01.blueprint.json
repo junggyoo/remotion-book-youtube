@@ -1,0 +1,57 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 목표를 세우지 마세요",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "목표를 세우지 마세요",
+        "role": "headline",
+        "highlightWords": ["목표를", "마세요"],
+        "highlightDelay": 30
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1080,
+  "mediaPlan": {
+    "narrationText": "목표를 세우지 마세요. 이게 무슨 말일까요? 올림픽 금메달리스트도, 만년 꼴찌도 목표는 같았습니다. 금메달. 모두가 이기고 싶어했죠. 하지만 차이를 만든 건 목표가 아닙니다. 매일의 훈련 시스템입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

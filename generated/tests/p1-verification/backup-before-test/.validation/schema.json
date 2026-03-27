@@ -1,0 +1,258 @@
+{
+  "phase": "schema",
+  "status": "pass",
+  "timestamp": "2026-03-27T03:59:58.250Z",
+  "checks": [
+    {
+      "id": "fp-genre",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "genre is valid"
+    },
+    {
+      "id": "fp-hookStrategy",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "hookStrategy present"
+    },
+    {
+      "id": "fp-visualMotifs",
+      "level": "WARN",
+      "passed": true,
+      "message": "3 visual motifs"
+    },
+    {
+      "id": "outline-targetDuration",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "targetDurationSeconds=300"
+    },
+    {
+      "id": "outline-coreMessages",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "coreMessages count=4"
+    },
+    {
+      "id": "outline-oneLiner",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "oneLiner present"
+    },
+    {
+      "id": "outline-toneKeywords",
+      "level": "WARN",
+      "passed": true,
+      "message": "4 tone keywords"
+    },
+    {
+      "id": "art-palette-primary",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "palette.primary=#10B981"
+    },
+    {
+      "id": "art-palette-secondary",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "palette.secondary=#356DFF"
+    },
+    {
+      "id": "art-signalColor",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "signalColor=#356DFF"
+    },
+    {
+      "id": "art-visualMetaphors",
+      "level": "WARN",
+      "passed": true,
+      "message": "3 metaphors"
+    },
+    {
+      "id": "sb-sceneId-hook-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"hook-01\" found",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "sb-sceneId-cover-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"cover-01\" found",
+      "sceneId": "cover-01"
+    },
+    {
+      "id": "sb-sceneId-insight-compound",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"insight-compound\" found",
+      "sceneId": "insight-compound"
+    },
+    {
+      "id": "sb-sceneId-chapter-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"chapter-01\" found",
+      "sceneId": "chapter-01"
+    },
+    {
+      "id": "sb-sceneId-framework-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"framework-01\" found",
+      "sceneId": "framework-01"
+    },
+    {
+      "id": "sb-sceneId-insight-identity",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"insight-identity\" found",
+      "sceneId": "insight-identity"
+    },
+    {
+      "id": "sb-sceneId-compare-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"compare-01\" found",
+      "sceneId": "compare-01"
+    },
+    {
+      "id": "sb-sceneId-application-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"application-01\" found",
+      "sceneId": "application-01"
+    },
+    {
+      "id": "sb-sceneId-quote-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"quote-01\" found",
+      "sceneId": "quote-01"
+    },
+    {
+      "id": "sb-sceneId-insight-recap",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"insight-recap\" found",
+      "sceneId": "insight-recap"
+    },
+    {
+      "id": "sb-sceneId-closing-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "\"closing-01\" found",
+      "sceneId": "closing-01"
+    },
+    {
+      "id": "sb-bp-id-hook-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "blueprint \"hook-01\" id=hook-01",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "sb-bp-file-hook-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "blueprint file exists",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "sb-preset-type-cover-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"cover-01\" type=cover",
+      "sceneId": "cover-01"
+    },
+    {
+      "id": "sb-preset-type-insight-compound",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"insight-compound\" type=keyInsight",
+      "sceneId": "insight-compound"
+    },
+    {
+      "id": "sb-preset-type-chapter-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"chapter-01\" type=chapterDivider",
+      "sceneId": "chapter-01"
+    },
+    {
+      "id": "sb-preset-type-framework-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"framework-01\" type=framework",
+      "sceneId": "framework-01"
+    },
+    {
+      "id": "sb-preset-type-insight-identity",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"insight-identity\" type=keyInsight",
+      "sceneId": "insight-identity"
+    },
+    {
+      "id": "sb-preset-type-compare-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"compare-01\" type=compareContrast",
+      "sceneId": "compare-01"
+    },
+    {
+      "id": "sb-preset-type-application-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"application-01\" type=application",
+      "sceneId": "application-01"
+    },
+    {
+      "id": "sb-preset-type-quote-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"quote-01\" type=quote",
+      "sceneId": "quote-01"
+    },
+    {
+      "id": "sb-preset-type-insight-recap",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"insight-recap\" type=keyInsight",
+      "sceneId": "insight-recap"
+    },
+    {
+      "id": "sb-preset-type-closing-01",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "preset \"closing-01\" type=closing",
+      "sceneId": "closing-01"
+    },
+    {
+      "id": "sb-order",
+      "level": "BLOCKED",
+      "passed": true,
+      "message": "Order 0..10"
+    },
+    {
+      "id": "sb-duration-vs-outline",
+      "level": "WARN",
+      "passed": true,
+      "message": "estimated=300.3s target=300s (0.1%)"
+    },
+    {
+      "id": "sb-bp-count",
+      "level": "WARN",
+      "passed": true,
+      "message": "1 blueprint scenes"
+    },
+    {
+      "id": "sb-summary",
+      "level": "INFO",
+      "passed": true,
+      "message": "11 storyboard: 10 preset, 1 blueprint"
+    }
+  ]
+}

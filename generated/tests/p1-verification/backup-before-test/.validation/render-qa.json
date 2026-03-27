@@ -1,0 +1,119 @@
+{
+  "phase": "render-qa",
+  "status": "warn",
+  "timestamp": "2026-03-27T03:59:58.253Z",
+  "checks": [
+    {
+      "id": "rqa-pass-application-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[application-01] All render-qa checks passed",
+      "sceneId": "application-01"
+    },
+    {
+      "id": "rqa-pass-chapter-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[chapter-01] All render-qa checks passed",
+      "sceneId": "chapter-01"
+    },
+    {
+      "id": "rqa-pass-closing-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[closing-01] All render-qa checks passed",
+      "sceneId": "closing-01"
+    },
+    {
+      "id": "rqa-pass-compare-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[compare-01] All render-qa checks passed",
+      "sceneId": "compare-01"
+    },
+    {
+      "id": "rqa-pass-cover-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[cover-01] All render-qa checks passed",
+      "sceneId": "cover-01"
+    },
+    {
+      "id": "rqa-pass-framework-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[framework-01] All render-qa checks passed",
+      "sceneId": "framework-01"
+    },
+    {
+      "id": "rqa-pass-hook-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[hook-01] All render-qa checks passed",
+      "sceneId": "hook-01"
+    },
+    {
+      "id": "rqa-pass-insight-compound",
+      "level": "INFO",
+      "passed": true,
+      "message": "[insight-compound] All render-qa checks passed",
+      "sceneId": "insight-compound"
+    },
+    {
+      "id": "rqa-pass-insight-identity",
+      "level": "INFO",
+      "passed": true,
+      "message": "[insight-identity] All render-qa checks passed",
+      "sceneId": "insight-identity"
+    },
+    {
+      "id": "rqa-pass-insight-recap",
+      "level": "INFO",
+      "passed": true,
+      "message": "[insight-recap] All render-qa checks passed",
+      "sceneId": "insight-recap"
+    },
+    {
+      "id": "rqa-pass-quote-01",
+      "level": "INFO",
+      "passed": true,
+      "message": "[quote-01] All render-qa checks passed",
+      "sceneId": "quote-01"
+    },
+    {
+      "id": "rqa-NO_NON_TEXT_VISUAL_WARN-synth-core-0-2",
+      "level": "WARN",
+      "passed": false,
+      "message": "[synth-core-0-2] No non-text visual elements (icon, image, shape, chart) — custom scene relies on text only",
+      "sceneId": "synth-core-0-2"
+    },
+    {
+      "id": "rqa-NO_NON_TEXT_VISUAL_WARN-synth-core-1-3",
+      "level": "WARN",
+      "passed": false,
+      "message": "[synth-core-1-3] No non-text visual elements (icon, image, shape, chart) — custom scene relies on text only",
+      "sceneId": "synth-core-1-3"
+    },
+    {
+      "id": "rqa-NO_NON_TEXT_VISUAL_WARN-synth-core-2-4",
+      "level": "WARN",
+      "passed": false,
+      "message": "[synth-core-2-4] No non-text visual elements (icon, image, shape, chart) — custom scene relies on text only",
+      "sceneId": "synth-core-2-4"
+    },
+    {
+      "id": "rqa-NO_NON_TEXT_VISUAL_WARN-synth-setup-0-0",
+      "level": "WARN",
+      "passed": false,
+      "message": "[synth-setup-0-0] No non-text visual elements (icon, image, shape, chart) — custom scene relies on text only",
+      "sceneId": "synth-setup-0-0"
+    },
+    {
+      "id": "rqa-NO_NON_TEXT_VISUAL_WARN-synth-setup-1-1",
+      "level": "WARN",
+      "passed": false,
+      "message": "[synth-setup-1-1] No non-text visual elements (icon, image, shape, chart) — custom scene relies on text only",
+      "sceneId": "synth-setup-1-1"
+    }
+  ]
+}

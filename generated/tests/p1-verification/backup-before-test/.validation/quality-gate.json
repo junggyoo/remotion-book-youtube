@@ -1,0 +1,19 @@
+{
+  "phase": "quality-gate",
+  "status": "pass",
+  "timestamp": "2026-03-27T03:59:58.253Z",
+  "checks": [
+    {
+      "id": "qg-completeness",
+      "level": "INFO",
+      "passed": true,
+      "message": "Planning docs: 5/6"
+    },
+    {
+      "id": "qg-bp-ratio",
+      "level": "INFO",
+      "passed": true,
+      "message": "Blueprint: 1/11"
+    }
+  ]
+}

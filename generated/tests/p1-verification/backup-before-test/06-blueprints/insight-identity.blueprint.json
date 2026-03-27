@@ -1,0 +1,82 @@
+{
+  "id": "insight-identity",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "정체성이 바뀌면 습관이 바뀐다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "정체성"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "대부분의 사람은 결과에서 시작합니다. '살을 빼겠어.' 하지만 진정한 변화는 정체성에서 시작됩니다. '나는 건강한 사람이야.' 습관은 정체성의 투표입니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 837,
+  "mediaPlan": {
+    "narrationText": "하지만 4법칙보다 더 중요한 것이 있습니다. 바로 정체성의 변화입니다. 대부분의 사람은 결과에서 시작합니다. 살을 빼겠어, 돈을 모으겠어. 하지만 동기가 사라지면 행동도 멈추죠. 진정한 변화는 정체성에서 시작됩니다. 나는 건강한 사람이야, 나는 절약하는 사람이야. 이렇게 정체성이 바뀌면 행동은 자연스럽게 따라옵니다. 습관 하나하나는 내가 원하는 정체성에 던지는 한 표입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
