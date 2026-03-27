@@ -1,5 +1,11 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import {
+  AbsoluteFill,
+  useCurrentFrame,
+  useVideoConfig,
+  spring,
+  interpolate,
+} from "remotion";
 import type {
   BaseSceneProps,
   KeyInsightContent,
@@ -7,51 +13,51 @@ import type {
 } from "@/types";
 import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
-import { typography } from "@/design/tokens/typography";
+import { typography, typographyHierarchy } from "@/design/tokens/typography";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
-import { TextBlock } from "@/components/primitives/TextBlock";
-import { SignalBar } from "@/components/primitives/SignalBar";
-import { EvidenceCard } from "@/components/primitives/EvidenceCard";
-import { AccentLine } from "@/components/primitives/AccentLine";
+import { KineticText } from "@/components/primitives/KineticText";
+import { AccentBar } from "@/components/primitives/AccentBar";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
+import { motionPresets } from "@/design/tokens";
 
-// zIndex layers from scene-catalog.json → keyInsight
+// zIndex layers
 const LAYERS = {
   background: 0,
   texture: 5,
-  signalBar: 20,
-  supportText: 25,
+  accentBar: 20,
   headline: 30,
-  evidenceCard: 35,
-  emphasis: 40,
+  supportText: 25,
+  evidenceBar: 35,
 } as const;
 
-/**
- * Wildcard stagger states — preserve existing ArchitecturalReveal delay={0,3,12}
- * animation for scenes without explicit beats.
- * BeatElement's "entering" path delegates to ArchitecturalReveal with delay={entryFrame}.
- */
+// Wildcard stagger — sequential entrance when no explicit beats
 const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
-  signalBar: {
+  accentBar: {
     visibility: "entering",
     entryFrame: 0,
     emphasis: false,
-    motionPreset: "heavy",
+    motionPreset: "snappy",
   },
   headline: {
     visibility: "entering",
-    entryFrame: 3,
+    entryFrame: 9, // ~0.3s after AccentBar
     emphasis: false,
-    motionPreset: "heavy",
+    motionPreset: "wordReveal",
   },
   supportText: {
     visibility: "entering",
-    entryFrame: 12,
+    entryFrame: 24, // ~0.3s after headline start + stagger
     emphasis: false,
     motionPreset: "heavy",
+  },
+  evidenceCard: {
+    visibility: "entering",
+    entryFrame: 39, // ~0.5s after supportText
+    emphasis: false,
+    motionPreset: "smooth",
   },
 };
 
@@ -60,68 +66,99 @@ interface KeyInsightSceneProps extends BaseSceneProps {
 }
 
 /**
- * Renders headline text with optional keyword emphasis.
- * If underlineKeyword is set, the matching word is rendered in signal color with bold weight.
+ * EvidenceBar — full-width bottom bar with accent background.
+ * Replaces the old card-style EvidenceCard.
  */
-const HeadlineWithEmphasis: React.FC<{
-  text: string;
-  keyword?: string;
-  theme: KeyInsightSceneProps["theme"];
-  format: KeyInsightSceneProps["format"];
-}> = ({ text, keyword, theme, format }) => {
+const EvidenceBar: React.FC<{
+  value: string;
+  source?: string;
+  caption?: string;
+  accentColor: string;
+  textColor: string;
+  mutedColor: string;
+  startFrame: number;
+  format: BaseSceneProps["format"];
+}> = ({
+  value,
+  source,
+  caption,
+  accentColor,
+  textColor,
+  mutedColor,
+  startFrame,
+  format,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const { typeScale } = useFormat(format);
 
-  if (!keyword) {
-    return (
-      <TextBlock
-        format={format}
-        theme={theme}
-        text={text}
-        variant="headlineL"
-        weight="bold"
-        maxLines={3}
-      />
-    );
-  }
+  const localFrame = Math.max(0, frame - startFrame);
+  const progress = spring({
+    frame: localFrame,
+    fps,
+    config: motionPresets.presets.smooth.config,
+    durationInFrames: 24,
+  });
 
-  const keywordIndex = text.indexOf(keyword);
-  if (keywordIndex === -1) {
-    return (
-      <TextBlock
-        format={format}
-        theme={theme}
-        text={text}
-        variant="headlineL"
-        weight="bold"
-        maxLines={3}
-      />
-    );
-  }
-
-  const before = text.slice(0, keywordIndex);
-  const after = text.slice(keywordIndex + keyword.length);
+  const translateY = interpolate(progress, [0, 1], [60, 0]);
+  const opacity = interpolate(progress, [0, 1], [0, 1]);
 
   return (
     <div
       style={{
-        fontFamily: typography.fontFamily.sans,
-        fontSize: typeScale.headlineL,
-        fontWeight: typography.fontWeight.bold,
-        color: theme.textStrong,
-        lineHeight: typography.lineHeight.normal,
-        letterSpacing: typography.tracking.normal,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        transform: `translateY(${translateY}px)`,
+        opacity,
+        willChange: "opacity, transform",
       }}
     >
-      {before}
-      <span
+      <div
         style={{
-          color: theme.signal,
-          fontWeight: typography.fontWeight.bold,
+          backgroundColor: accentColor,
+          opacity: 0.15,
+          position: "absolute",
+          inset: 0,
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          padding: `${sp(5)}px ${sp(8)}px`,
+          display: "flex",
+          alignItems: "center",
+          gap: sp(3),
         }}
       >
-        {keyword}
-      </span>
-      {after}
+        <span
+          style={{
+            fontFamily: typography.fontFamily.sans,
+            fontSize: typeScale.bodyM,
+            fontWeight: typography.fontWeight.bold,
+            color: textColor,
+            letterSpacing: typography.tracking.normal,
+          }}
+        >
+          {value}
+        </span>
+        {(caption || source) && (
+          <span
+            style={{
+              fontFamily: typography.fontFamily.sans,
+              fontSize: typeScale.caption,
+              fontWeight: typography.fontWeight.regular,
+              color: mutedColor,
+              letterSpacing: typography.tracking.normal,
+              opacity: 0.7,
+            }}
+          >
+            {caption ? `${caption}` : ""}
+            {source ? ` — ${source}` : ""}
+          </span>
+        )}
+      </div>
     </div>
   );
 };
@@ -135,9 +172,9 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   beats,
 }) => {
   const isShorts = format === "shorts";
-  const showSignalBar = content.useSignalBar !== false;
   const showSupportText = !isShorts && !!content.supportText;
-  // Beat resolution: explicit beats or implicit single beat (backward compat)
+
+  // Beat resolution
   const resolvedBeats = resolveBeats(
     {
       id: `keyInsight-${from}`,
@@ -151,23 +188,27 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
-  // Helper: get beat state per element
   const getBeatState = (key: string): ElementBeatState | undefined => {
     if (isWildcard) return WILDCARD_STAGGER[key];
     return elementStates.get(key);
   };
 
+  // AccentBar entry frame for self-animated draw-on
+  const accentBarState = getBeatState("accentBar");
+  const accentBarEntryFrame = accentBarState?.entryFrame ?? 0;
+
+  // Evidence bar entry frame
+  const evidenceState = getBeatState("evidenceCard");
+  const evidenceEntryFrame = evidenceState?.entryFrame ?? 39;
+
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {/* Background layer */}
+      {/* Background */}
       <AbsoluteFill
-        style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
-        }}
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
       />
 
-      {/* Texture layer */}
+      {/* Texture */}
       <AbsoluteFill
         style={{
           zIndex: LAYERS.texture,
@@ -182,112 +223,100 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
+              flexDirection: "column",
+              justifyContent: "flex-start",
               height: "100%",
-              gap: sp(5),
+              width: isShorts ? "100%" : "80%",
+              paddingTop: isShorts ? sp(6) : sp(10),
             }}
           >
-            {/* Signal bar */}
-            {showSignalBar && (
-              <div
-                style={{
-                  zIndex: LAYERS.signalBar,
-                  alignSelf: "stretch",
-                  display: "flex",
-                  paddingTop: isShorts ? sp(6) : 0,
-                  paddingBottom: isShorts ? sp(6) : 0,
-                }}
+            {/* Vertical AccentBar — top-left anchor */}
+            <div style={{ zIndex: LAYERS.accentBar, marginBottom: sp(5) }}>
+              <BeatElement
+                elementKey="accentBar"
+                beatState={getBeatState("accentBar")}
+                format={format}
+                theme={theme}
+                motionType="none"
               >
+                <AccentBar
+                  direction="vertical"
+                  length={48}
+                  color={theme.accent}
+                  startFrame={accentBarEntryFrame}
+                />
+              </BeatElement>
+            </div>
+
+            {/* Headline — KineticText word stagger, left-aligned */}
+            <div style={{ zIndex: LAYERS.headline, marginBottom: sp(5) }}>
+              <BeatElement
+                elementKey="headline"
+                beatState={getBeatState("headline")}
+                format={format}
+                theme={theme}
+                motionType="none"
+              >
+                <KineticText
+                  format={format}
+                  theme={theme}
+                  text={content.headline}
+                  variant="headlineXL"
+                  weight="bold"
+                  align="left"
+                  motionPreset="wordReveal"
+                  delay={getBeatState("headline")?.entryFrame ?? 9}
+                  emphasisWord={content.underlineKeyword}
+                />
+              </BeatElement>
+            </div>
+
+            {/* Support text — bodyL, muted, left-aligned */}
+            {showSupportText && (
+              <div style={{ zIndex: LAYERS.supportText }}>
                 <BeatElement
-                  elementKey="signalBar"
-                  beatState={getBeatState("signalBar")}
+                  elementKey="supportText"
+                  beatState={getBeatState("supportText")}
                   format={format}
                   theme={theme}
                 >
-                  <SignalBar format={format} theme={theme} />
+                  <div
+                    style={{
+                      fontFamily: typography.fontFamily.sans,
+                      fontSize: typographyHierarchy.bodyL.fontSize,
+                      fontWeight: typography.fontWeight.regular,
+                      color: theme.textMuted,
+                      lineHeight: typography.lineHeight.relaxed,
+                      letterSpacing: typography.tracking.normal,
+                      maxWidth: "90%",
+                    }}
+                  >
+                    {content.supportText}
+                  </div>
                 </BeatElement>
               </div>
             )}
-
-            {/* Text content column */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                flex: 1,
-                gap: sp(6),
-                maxWidth: isShorts ? "100%" : "760px",
-                textShadow: "0 2px 12px rgba(0,0,0,0.5)",
-              }}
-            >
-              {/* Accent line above headline */}
-              <AccentLine format={format} theme={theme} />
-
-              {/* Headline */}
-              <div style={{ zIndex: LAYERS.headline }}>
-                <BeatElement
-                  elementKey="headline"
-                  beatState={getBeatState("headline")}
-                  format={format}
-                  theme={theme}
-                >
-                  <HeadlineWithEmphasis
-                    text={content.headline}
-                    keyword={content.underlineKeyword}
-                    theme={theme}
-                    format={format}
-                  />
-                </BeatElement>
-              </div>
-
-              {/* Support text — longform only */}
-              {showSupportText && (
-                <div style={{ zIndex: LAYERS.supportText }}>
-                  <BeatElement
-                    elementKey="supportText"
-                    beatState={getBeatState("supportText")}
-                    format={format}
-                    theme={theme}
-                  >
-                    <TextBlock
-                      format={format}
-                      theme={theme}
-                      text={content.supportText!}
-                      variant="bodyL"
-                      color={theme.textMuted}
-                      maxLines={4}
-                    />
-                  </BeatElement>
-                </div>
-              )}
-
-              {/* Evidence Card — only visible when explicit beats activate it */}
-              {content.evidenceCard && (
-                <div style={{ zIndex: LAYERS.evidenceCard }}>
-                  <BeatElement
-                    elementKey="evidenceCard"
-                    beatState={elementStates.get("evidenceCard")}
-                    format={format}
-                    theme={theme}
-                  >
-                    <EvidenceCard
-                      data={content.evidenceCard}
-                      theme={theme}
-                      format={format}
-                    />
-                  </BeatElement>
-                </div>
-              )}
-            </div>
           </div>
         </SafeArea>
       </div>
 
-      {/* SubtitleLayer removed — Root HUD global layer principle.
-          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
+      {/* Evidence bar — full-width bottom accent bar */}
+      {content.evidenceCard && (
+        <div
+          style={{ position: "absolute", inset: 0, zIndex: LAYERS.evidenceBar }}
+        >
+          <EvidenceBar
+            value={content.evidenceCard.value}
+            source={content.evidenceCard.source}
+            caption={content.evidenceCard.caption}
+            accentColor={theme.accent}
+            textColor={theme.textStrong}
+            mutedColor={theme.textMuted}
+            startFrame={evidenceEntryFrame}
+            format={format}
+          />
+        </div>
+      )}
     </AbsoluteFill>
   );
 };
