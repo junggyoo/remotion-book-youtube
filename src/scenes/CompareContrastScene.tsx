@@ -6,7 +6,6 @@ import type {
   ElementBeatState,
 } from "@/types";
 import { sp } from "@/design/tokens/spacing";
-import { radius } from "@/design/tokens/radius";
 import { typography } from "@/design/tokens/typography";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
@@ -76,9 +75,6 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
 }) => {
   const isShorts = format === "shorts";
   const revealOrder = content.revealOrder ?? "simultaneous";
-  const modeKey = theme.mode === "dark" ? "dark" : "light";
-  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
-
   // Beat resolution
   const resolvedBeats = resolveBeats(
     {
@@ -124,9 +120,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   })();
 
   const panelContainerStyle: React.CSSProperties = {
-    backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
-    borderRadius: radius.md,
-    padding: `${sp(5)}px ${sp(5)}px`,
+    textShadow: "0 2px 12px rgba(0,0,0,0.5)",
   };
 
   const leftPanel = (

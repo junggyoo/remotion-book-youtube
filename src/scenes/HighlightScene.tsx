@@ -111,6 +111,7 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
               justifyContent: "center",
               height: "100%",
               gap: sp(4),
+              textShadow: "0 2px 12px rgba(0,0,0,0.5)",
             }}
           >
             {/* Main text */}

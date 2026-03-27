@@ -2,7 +2,6 @@ import React from "react";
 import { AbsoluteFill } from "remotion";
 import type { BaseSceneProps, QuoteContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
-import { radius } from "@/design/tokens/radius";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
@@ -59,8 +58,6 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   beats,
 }) => {
   const isShorts = format === "shorts";
-  const modeKey = theme.mode === "dark" ? "dark" : "light";
-  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
   const textureOpacity = content.showTexture
     ? sceneInteriorTokens.textureOpacity * 2
     : sceneInteriorTokens.textureOpacity;
@@ -119,14 +116,12 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               marginRight: "auto",
             }}
           >
-            {/* Quote block with container background */}
+            {/* Quote block */}
             <div
               style={{
                 zIndex: LAYERS.quoteText,
                 width: "100%",
-                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
-                borderRadius: radius.lg,
-                padding: `${sp(6)}px ${sp(6)}px`,
+                textShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
               <BeatElement

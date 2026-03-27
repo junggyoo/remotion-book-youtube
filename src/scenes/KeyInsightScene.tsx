@@ -7,7 +7,6 @@ import type {
 } from "@/types";
 import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
-import { radius } from "@/design/tokens/radius";
 import { typography } from "@/design/tokens/typography";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { SafeArea } from "@/components/layout/SafeArea";
@@ -138,9 +137,6 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   const isShorts = format === "shorts";
   const showSignalBar = content.useSignalBar !== false;
   const showSupportText = !isShorts && !!content.supportText;
-  const modeKey = theme.mode === "dark" ? "dark" : "light";
-  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
-
   // Beat resolution: explicit beats or implicit single beat (backward compat)
   const resolvedBeats = resolveBeats(
     {
@@ -215,7 +211,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
               </div>
             )}
 
-            {/* Text content column — with container background */}
+            {/* Text content column */}
             <div
               style={{
                 display: "flex",
@@ -224,9 +220,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                 flex: 1,
                 gap: sp(6),
                 maxWidth: isShorts ? "100%" : "760px",
-                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
-                borderRadius: radius.lg,
-                padding: `${sp(6)}px ${sp(7)}px`,
+                textShadow: "0 2px 12px rgba(0,0,0,0.5)",
               }}
             >
               {/* Accent line above headline */}

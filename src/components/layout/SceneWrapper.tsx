@@ -34,14 +34,14 @@ export const SceneWrapper: React.FC<SceneWrapperProps> = ({
     <>
       {children}
 
-      {/* GradientTint: subtle 2-color tint from theme.accent → theme.signal */}
+      {/* GradientTint: monochrome tint from palette.primary (theme.accent) */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           zIndex: 15,
           pointerEvents: "none",
-          background: `linear-gradient(${angle}deg, ${theme.accent}, ${theme.signal})`,
+          background: `linear-gradient(${angle}deg, ${theme.accent}, transparent)`,
           opacity: gradientOpacity,
         }}
       />
