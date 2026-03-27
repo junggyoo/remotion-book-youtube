@@ -296,7 +296,7 @@
           "startRatio": 0,
           "endRatio": 0.15,
           "narrationText": "두 가지 마케팅 방식을 비교해볼까요?",
-          "activates": ["leftLabel", "rightLabel"],
+          "activates": ["leftPanel", "rightPanel"],
           "emphasisTargets": ["비교"],
           "transition": "enter"
         },
@@ -306,7 +306,7 @@
           "startRatio": 0.15,
           "endRatio": 0.5,
           "narrationText": "브랜드 중심 방식은 이렇습니다. 우리는 업계 최고의 기술력을 보유하고 있으며, 혁신적인 솔루션을 제공합니다. 듣기엔 그럴듯하지만 고객의 뇌는 이 메시지를 무시합니다. 자기와 관련 없는 정보니까요.",
-          "activates": ["leftContent"],
+          "activates": ["leftPanel"],
           "emphasisTargets": ["무시"],
           "transition": "enter"
         },
@@ -316,7 +316,7 @@
           "startRatio": 0.5,
           "endRatio": 0.85,
           "narrationText": "반면 고객 중심 방식은 다릅니다. 복잡한 세금 때문에 골치 아프시죠? 세 단계만 따라오세요. 이 방식은 고객의 문제로 시작하고, 고객의 성공으로 끝납니다.",
-          "activates": ["rightContent"],
+          "activates": ["rightPanel"],
           "emphasisTargets": ["문제", "성공"],
           "transition": "enter"
         },

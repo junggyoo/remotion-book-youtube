@@ -262,8 +262,10 @@ if (PRE_TTS_ONLY) {
       compareContrast: [
         "leftLabel",
         "leftContent",
+        "leftPanel",
         "rightLabel",
         "rightContent",
+        "rightPanel",
         "connector",
       ],
       quote: ["quoteMark", "quoteText", "attribution", "accentDivider"],
