@@ -1,15 +1,15 @@
 import React from "react";
-import { useCurrentFrame, useVideoConfig, interpolate } from "remotion";
+import { useCurrentFrame, useVideoConfig, interpolate, spring } from "remotion";
 import type { FormatKey, MotionPresetKey, Theme, TypeScale } from "@/types";
 import { typography } from "@/design/tokens/typography";
 import { useFormat } from "@/design/themes/useFormat";
-import { applyPreset } from "@/design/tokens/motion";
+import { resolvePreset } from "@/design/tokens/motion";
 import motionPresetsData from "@/design/tokens/motion-presets.json";
 
 type TextVariant = keyof TypeScale;
 
 const DEFAULT_STAGGER = motionPresetsData.defaults.staggerFrames; // 3
-const MAX_REVEAL_Y = motionPresetsData.defaults.maxRevealYOffset; // 24
+const EMPHASIS_SCALE = 1.05;
 
 interface KineticTextProps {
   format: FormatKey;
@@ -22,12 +22,8 @@ interface KineticTextProps {
   staggerDelay?: number;
   motionPreset?: MotionPresetKey;
   delay?: number;
-  /** Words to highlight with background wipe after entrance. */
-  highlightWords?: string[];
-  /** Frames after word entrance before highlight wipe starts. */
-  highlightDelay?: number;
-  /** Highlight background color. Defaults to theme.signal. */
-  highlightColor?: string;
+  /** Words to emphasize with accent color + scale. Exact match per word. */
+  emphasisWord?: string | string[];
 }
 
 export const KineticText: React.FC<KineticTextProps> = ({
@@ -39,11 +35,9 @@ export const KineticText: React.FC<KineticTextProps> = ({
   color,
   align = "center",
   staggerDelay = DEFAULT_STAGGER,
-  motionPreset = "smooth",
+  motionPreset = "wordReveal",
   delay = 0,
-  highlightWords,
-  highlightDelay = 18,
-  highlightColor,
+  emphasisWord,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -53,6 +47,26 @@ export const KineticText: React.FC<KineticTextProps> = ({
   const fontSize = typeScale[variant];
   const fontWeightValue = typography.fontWeight[weight];
   const words = text.split(" ");
+
+  // Read revealY from preset if available, otherwise use global default
+  const presetRaw = motionPresetsData.presets[
+    motionPreset as keyof typeof motionPresetsData.presets
+  ] as Record<string, unknown> | undefined;
+  const revealY =
+    (presetRaw?.revealY as number) ??
+    motionPresetsData.defaults.maxRevealYOffset;
+
+  // Resolve spring config for the preset
+  const resolvedConfig = resolvePreset(motionPreset);
+
+  // Build emphasis set for O(1) lookup
+  const emphasisSet = new Set(
+    emphasisWord == null
+      ? []
+      : typeof emphasisWord === "string"
+        ? [emphasisWord]
+        : emphasisWord,
+  );
 
   return (
     <div
@@ -78,26 +92,42 @@ export const KineticText: React.FC<KineticTextProps> = ({
       {words.map((word, i) => {
         const wordDelay = delay + i * staggerDelay;
         const adjustedFrame = Math.max(0, frame - wordDelay);
-        const progress = applyPreset(motionPreset, adjustedFrame, fps);
+
+        // Use spring directly with resolved config for consistent word entrance
+        const progress =
+          resolvedConfig.type === "spring" && resolvedConfig.springConfig
+            ? spring({
+                frame: adjustedFrame,
+                fps,
+                config: resolvedConfig.springConfig,
+              })
+            : interpolate(
+                adjustedFrame,
+                [0, resolvedConfig.durationRange[1]],
+                [0, 1],
+                {
+                  extrapolateLeft: "clamp",
+                  extrapolateRight: "clamp",
+                },
+              );
 
         const opacity = interpolate(progress, [0, 1], [0, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
 
-        const translateY = interpolate(progress, [0, 1], [MAX_REVEAL_Y, 0], {
+        const translateY = interpolate(progress, [0, 1], [revealY, 0], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
         });
 
-        // Highlight wipe for matching words
-        const isHighlighted = highlightWords && highlightWords.includes(word);
-        let highlightScaleX = 0;
-        if (isHighlighted) {
-          const highlightStart = wordDelay + highlightDelay;
-          const highlightFrame = Math.max(0, frame - highlightStart);
-          highlightScaleX = applyPreset("snappy", highlightFrame, fps);
-        }
+        const isEmphasis = emphasisSet.has(word);
+        const scale = isEmphasis
+          ? interpolate(progress, [0, 1], [1, EMPHASIS_SCALE], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            })
+          : 1;
 
         return (
           <span
@@ -105,28 +135,13 @@ export const KineticText: React.FC<KineticTextProps> = ({
             style={{
               display: "inline-block",
               opacity,
-              transform: `translateY(${translateY}px)`,
+              transform: `translateY(${translateY}px) scale(${scale})`,
               willChange: "opacity, transform",
-              position: "relative",
+              color: isEmphasis ? theme.accent : undefined,
+              fontWeight: isEmphasis ? typography.fontWeight.bold : undefined,
             }}
           >
-            {isHighlighted && (
-              <span
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  top: "50%",
-                  height: "1.05em",
-                  transform: `translateY(-50%) scaleX(${highlightScaleX})`,
-                  transformOrigin: "left center",
-                  backgroundColor: highlightColor ?? theme.signal,
-                  borderRadius: "0.18em",
-                  zIndex: 0,
-                }}
-              />
-            )}
-            <span style={{ position: "relative", zIndex: 1 }}>{word}</span>
+            {word}
           </span>
         );
       })}

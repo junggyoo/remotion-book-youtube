@@ -53,6 +53,18 @@
       "durationRange": [45, 75],
       "overshootClamping": false,
       "description": "chapter shift, intro, cover reveal"
+    },
+    "wordReveal": {
+      "type": "spring",
+      "config": {
+        "stiffness": 80,
+        "damping": 12,
+        "mass": 1
+      },
+      "durationRange": [24, 48],
+      "overshootClamping": false,
+      "revealY": 30,
+      "description": "per-word text entrance, playful bounce for staggered word reveal"
     }
   },
   "motionRoles": {

@@ -51,7 +51,8 @@ export type MotionPresetKey =
   | "smooth"
   | "snappy"
   | "heavy"
-  | "dramatic";
+  | "dramatic"
+  | "wordReveal";
 
 // --- Theme ---
 
@@ -414,6 +415,7 @@ export interface FormatConfig {
 }
 
 export interface TypeScale {
+  headlineXL: number;
   headlineL: number;
   headlineM: number;
   headlineS: number;

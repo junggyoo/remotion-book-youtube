@@ -397,11 +397,10 @@ registerPrimitive("kinetic-text", ({ style, format, theme, ...props }) =>
         | "snappy"
         | "heavy"
         | "dramatic"
+        | "wordReveal"
         | undefined,
       delay: props.delay as number | undefined,
-      highlightWords: props.highlightWords as string[] | undefined,
-      highlightDelay: props.highlightDelay as number | undefined,
-      highlightColor: props.highlightColor as string | undefined,
+      emphasisWord: props.emphasisWord as string | string[] | undefined,
     }),
   ),
 );
@@ -436,9 +435,7 @@ registerPrimitive("word-highlight", ({ style, format, theme, ...props }) =>
 registry["text"] = ({ style, format, theme, ...props }) => {
   const text = (props.text as string) ?? (props.content as string) ?? "";
   const role = props.role as string | undefined;
-  const highlightWords = props.highlightWords as string[] | undefined;
-
-  // Headline role → KineticText (with optional highlight)
+  // Headline role → KineticText (with optional emphasis)
   if (role === "headline") {
     return positioned(
       style,
@@ -452,9 +449,7 @@ registry["text"] = ({ style, format, theme, ...props }) => {
           "bold",
         color: props.color === "textMuted" ? theme.textMuted : undefined,
         align: (props.align as "left" | "center" | "right") ?? "center",
-        highlightWords,
-        highlightDelay: (props.highlightDelay as number) ?? 18,
-        highlightColor: props.highlightColor as string | undefined,
+        emphasisWord: props.emphasisWord as string | string[] | undefined,
       }),
     );
   }

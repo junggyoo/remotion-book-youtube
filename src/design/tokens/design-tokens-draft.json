@@ -97,6 +97,7 @@
     },
     "scale": {
       "longform": {
+        "headlineXL": 64,
         "headlineL": 56,
         "headlineM": 42,
         "headlineS": 32,
@@ -107,6 +108,7 @@
         "label": 12
       },
       "shorts": {
+        "headlineXL": 56,
         "headlineL": 48,
         "headlineM": 36,
         "headlineS": 28,

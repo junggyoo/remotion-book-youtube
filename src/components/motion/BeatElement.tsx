@@ -28,6 +28,7 @@ const EXITING_DURATION: Record<MotionPresetKey, number> = {
   snappy: 12,
   heavy: 24,
   dramatic: 36,
+  wordReveal: 24,
 };
 
 /** 프리셋별 emphasis scale 최대값 (1.06 이하 제약) */
