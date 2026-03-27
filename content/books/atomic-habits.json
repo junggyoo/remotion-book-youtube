@@ -360,7 +360,7 @@
           "startRatio": 0,
           "endRatio": 0.5,
           "narrationText": "두 접근의 차이를 비교해보겠습니다. 결과 기반 접근은 이렇습니다. 살을 빼겠어, 책을 읽겠어. 처음엔 의지력으로 버틸 수 있지만, 동기가 사라지면 결국 포기합니다.",
-          "activates": ["leftLabel", "leftContent"],
+          "activates": ["leftPanel"],
           "emphasisTargets": ["결과 기반", "포기"],
           "transition": "enter"
         },
@@ -370,7 +370,7 @@
           "startRatio": 0.5,
           "endRatio": 1,
           "narrationText": "반면 정체성 기반 접근은 완전히 다릅니다. 나는 건강한 사람이야. 이렇게 믿으면 건강한 사람의 선택을 자연스럽게 하게 됩니다. 의지력이 아니라 정체성이 행동을 이끄는 겁니다.",
-          "activates": ["rightLabel", "rightContent", "connector"],
+          "activates": ["rightPanel", "connector"],
           "emphasisTargets": ["정체성 기반", "자연스럽게"],
           "transition": "enter"
         }
