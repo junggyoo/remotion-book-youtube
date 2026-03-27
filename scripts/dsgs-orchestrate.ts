@@ -5,7 +5,7 @@
  * Usage:
  *   npx ts-node scripts/dsgs-orchestrate.ts <book.json> [--mode auto|review] [--format longform|shorts] [--resume-from <stage-id>]
  *
- * Stages 1-6.5 are generation stubs (require Claude Code agent).
+ * Stages 1-6.5 are real pipeline stages.
  * Stages 7-9 call existing scripts (validate-plan, prepare-plan + make-video).
  *
  * Exit codes: 0=success, 1=failure, 42=halted (awaiting agent or review checkpoint)
@@ -24,6 +24,7 @@ import { composeBeat } from "./stages/beat-composer";
 import { planScenes } from "./stages/scene-planner";
 import { detectGapsStage } from "./stages/gap-detector";
 import { composeArtDirectionStage } from "./stages/opening-composer";
+import { synthesizeGapsStage } from "./stages/scene-synthesizer";
 
 // ============================================================
 // Core Types
@@ -218,13 +219,7 @@ const STAGES: DsgsStage[] = [
   composeArtDirectionStage,
   planScenes,
   detectGapsStage,
-  createGenerationStub(
-    "6-synthesizer",
-    "SceneSynthesizer",
-    "05-motion-plan.json",
-    "/scene-architect synthesize <bookPath>",
-    "B", // Checkpoint B: after synthesis
-  ),
+  synthesizeGapsStage,
   composeBeat,
   planAssets,
   validatePlanStage,
