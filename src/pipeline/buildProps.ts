@@ -12,6 +12,10 @@ import { planScenes } from "@/pipeline/planScenes";
 import { useTheme } from "@/design/themes/useTheme";
 import { useFormat } from "@/design/themes/useFormat";
 import type { PlanBridgeResult, StoryboardScene } from "@/planning/types";
+import {
+  mapTransitionIntent,
+  type TransitionIntent,
+} from "@/transitions/mapTransitionIntent";
 
 export type PlannedScene = TypedScene & {
   from: number;
@@ -66,7 +70,7 @@ export function buildCompositionProps(
     };
   });
 
-  // Attach blueprint meta from planning layer
+  // Attach blueprint meta + storyboard entry from planning layer
   const scenesWithBlueprints = scenes.map((scene) => {
     if (!planResult?.hasPlan) return scene;
 
@@ -74,21 +78,45 @@ export function buildCompositionProps(
       (r) => r.sceneId === scene.id,
     );
 
-    if (resolved?.renderMode === "blueprint" && resolved.blueprint) {
-      return {
-        ...scene,
-        _blueprint: resolved.blueprint,
-        _storyboard: resolved.storyboardEntry,
-      };
-    }
-    return scene;
+    if (!resolved) return scene;
+
+    return {
+      ...scene,
+      ...(resolved.renderMode === "blueprint" && resolved.blueprint
+        ? { _blueprint: resolved.blueprint }
+        : {}),
+      // Always attach _storyboard so transitionIntent is available for all scenes
+      _storyboard: resolved.storyboardEntry,
+    };
   });
 
-  const totalDurationFrames =
+  // Calculate totalDurationFrames, subtracting transition overlaps when storyboard exists
+  const naiveTotalDuration =
     scenesWithBlueprints.length > 0
       ? scenesWithBlueprints[scenesWithBlueprints.length - 1].from +
         scenesWithBlueprints[scenesWithBlueprints.length - 1].resolvedDuration
       : 0;
+
+  // Transition overlap: each non-"cut" transition shortens total duration
+  // transitionIntent on scene[i] = transition FROM scene[i] TO scene[i+1]
+  // Last scene's transitionIntent is ignored (nothing after it)
+  let transitionOverlap = 0;
+  if (planResult?.hasPlan) {
+    for (let i = 0; i < scenesWithBlueprints.length - 1; i++) {
+      const storyboard = (scenesWithBlueprints[i] as any)._storyboard as
+        | StoryboardScene
+        | undefined;
+      const intent = storyboard?.transitionIntent as
+        | TransitionIntent
+        | undefined;
+      if (intent) {
+        const mapping = mapTransitionIntent(intent);
+        transitionOverlap += mapping?.durationInFrames ?? 0;
+      }
+    }
+  }
+
+  const totalDurationFrames = naiveTotalDuration - transitionOverlap;
 
   return {
     bookId: book.metadata.id,

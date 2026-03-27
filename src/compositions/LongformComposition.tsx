@@ -7,6 +7,12 @@ import {
   useCurrentFrame,
   useDelayRender,
 } from "remotion";
+import { TransitionSeries } from "@remotion/transitions";
+import {
+  mapTransitionIntent,
+  type TransitionIntent,
+} from "@/transitions/mapTransitionIntent";
+import type { StoryboardScene } from "@/planning/types";
 import type { PlannedScene, CompositionProps } from "@/pipeline/buildProps";
 import type {
   CoverContent,
@@ -297,22 +303,120 @@ export const LongformComposition: React.FC<CompositionProps> = ({
 
   const manifestMap = new Map(manifest.map((e) => [e.sceneId, e]));
 
+  // Determine if storyboard data is available (enables TransitionSeries path)
+  const hasStoryboard = scenes.some(
+    (s) => "_storyboard" in s && (s as any)._storyboard?.transitionIntent,
+  );
+
+  /** Shared scene content renderer — used by both Sequence and TransitionSeries paths */
+  const renderSceneContent = (scene: PlannedScene, sceneStartFrame: number) => {
+    const ttsEntry = manifestMap.get(scene.id);
+
+    const resolvedBeats =
+      scene.beats && ttsEntry?.beatTimings
+        ? applyResolvedTimings(
+            scene.beats,
+            ttsEntry.beatTimings,
+            scene.resolvedDuration,
+          )
+        : scene.beats;
+    const sceneWithResolvedBeats = { ...scene, beats: resolvedBeats };
+
+    return (
+      <>
+        {/* Scene visual */}
+        <SceneRenderer
+          scene={sceneWithResolvedBeats}
+          format={format}
+          theme={theme}
+        />
+
+        {/* TTS audio */}
+        {/* TODO(P1-1): During TransitionSeries overlap, both outgoing and incoming
+            Audio play simultaneously. This is natural for fade transitions (crossfade)
+            but may be noticeable for directional/wipe. Address in a follow-up. */}
+        {ttsEntry && (
+          <Audio src={staticFile(`tts/${ttsEntry.audioFile}`)} volume={1} />
+        )}
+
+        {/* Word-highlight captions (beat-aware or legacy path) */}
+        {ttsEntry && (
+          <div style={{ position: "absolute", inset: 0, zIndex: 70 }}>
+            {resolvedBeats && resolvedBeats.length > 0 ? (
+              <BeatEmphasisCaptionLayer
+                beats={resolvedBeats}
+                durationFrames={scene.resolvedDuration}
+                captionsFile={`tts/${ttsEntry.captionsFile}`}
+                sceneStartFrame={sceneStartFrame}
+                format={format}
+                theme={theme}
+                fps={fps}
+                beatTimings={ttsEntry.beatTimings}
+              />
+            ) : (
+              <CaptionLayer
+                format={format}
+                theme={theme}
+                captionsFile={`tts/${ttsEntry.captionsFile}`}
+                sceneStartFrame={sceneStartFrame}
+              />
+            )}
+          </div>
+        )}
+
+        {/* Sentence-level subtitles (DSGS path — when no CaptionLayer data) */}
+        {!ttsEntry && scene.subtitles && scene.subtitles.length > 0 && (
+          <SubtitleLayerWrapper
+            format={format}
+            theme={theme}
+            subtitles={scene.subtitles}
+          />
+        )}
+      </>
+    );
+  };
+
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {scenes.map((scene) => {
-        const ttsEntry = manifestMap.get(scene.id);
+      {hasStoryboard ? (
+        // ── TransitionSeries path (storyboard-driven with transitions) ──
+        // TODO(P1-1-sunset): Remove Sequence fallback once all books use storyboard.
+        // Trigger: after 2-3 books are validated through TransitionSeries path.
+        <TransitionSeries>
+          {scenes.map((scene, i) => {
+            const storyboard = (scene as any)._storyboard as
+              | StoryboardScene
+              | undefined;
+            // transitionIntent on scene[i] = transition FROM scene[i] TO scene[i+1]
+            const transitionMapping =
+              i < scenes.length - 1 && storyboard?.transitionIntent
+                ? mapTransitionIntent(
+                    storyboard.transitionIntent as TransitionIntent,
+                  )
+                : null;
 
-        const resolvedBeats =
-          scene.beats && ttsEntry?.beatTimings
-            ? applyResolvedTimings(
-                scene.beats,
-                ttsEntry.beatTimings,
-                scene.resolvedDuration,
-              )
-            : scene.beats;
-        const sceneWithResolvedBeats = { ...scene, beats: resolvedBeats };
+            return (
+              <React.Fragment key={scene.id}>
+                <TransitionSeries.Sequence
+                  durationInFrames={scene.resolvedDuration}
+                >
+                  {renderSceneContent(scene, 0)}
+                </TransitionSeries.Sequence>
 
-        return (
+                {/* Insert transition after this scene, before the next */}
+                {transitionMapping && (
+                  <TransitionSeries.Transition
+                    presentation={transitionMapping.presentation}
+                    timing={transitionMapping.timing}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </TransitionSeries>
+      ) : (
+        // ── Sequence fallback (no storyboard / legacy path) ──
+        scenes.map((scene) => (
           <Sequence
             key={scene.id}
             from={scene.from}
@@ -320,54 +424,10 @@ export const LongformComposition: React.FC<CompositionProps> = ({
             name={`${scene.type}-${scene.id}`}
             premountFor={PREMOUNT_FRAMES}
           >
-            {/* Scene visual */}
-            <SceneRenderer
-              scene={sceneWithResolvedBeats}
-              format={format}
-              theme={theme}
-            />
-
-            {/* TTS audio */}
-            {ttsEntry && (
-              <Audio src={staticFile(`tts/${ttsEntry.audioFile}`)} volume={1} />
-            )}
-
-            {/* Word-highlight captions (beat-aware or legacy path) */}
-            {ttsEntry && (
-              <div style={{ position: "absolute", inset: 0, zIndex: 70 }}>
-                {resolvedBeats && resolvedBeats.length > 0 ? (
-                  <BeatEmphasisCaptionLayer
-                    beats={resolvedBeats}
-                    durationFrames={scene.resolvedDuration}
-                    captionsFile={`tts/${ttsEntry.captionsFile}`}
-                    sceneStartFrame={scene.from}
-                    format={format}
-                    theme={theme}
-                    fps={fps}
-                    beatTimings={ttsEntry.beatTimings}
-                  />
-                ) : (
-                  <CaptionLayer
-                    format={format}
-                    theme={theme}
-                    captionsFile={`tts/${ttsEntry.captionsFile}`}
-                    sceneStartFrame={scene.from}
-                  />
-                )}
-              </div>
-            )}
-
-            {/* Sentence-level subtitles (DSGS path — when no CaptionLayer data) */}
-            {!ttsEntry && scene.subtitles && scene.subtitles.length > 0 && (
-              <SubtitleLayerWrapper
-                format={format}
-                theme={theme}
-                subtitles={scene.subtitles}
-              />
-            )}
+            {renderSceneContent(scene, scene.from)}
           </Sequence>
-        );
-      })}
+        ))
+      )}
     </AbsoluteFill>
   );
 };
