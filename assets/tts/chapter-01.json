@@ -1,86 +1,84 @@
-[
-  {
-    "text": "그렇다면",
-    "startMs": 100,
-    "endMs": 670,
-    "timestampMs": 100,
-    "confidence": null
-  },
-  {
-    "text": " 이",
-    "startMs": 670,
-    "endMs": 1240,
-    "timestampMs": 670,
-    "confidence": null
-  },
-  {
-    "text": " 론칭",
-    "startMs": 1240,
-    "endMs": 1810,
-    "timestampMs": 1240,
-    "confidence": null
-  },
-  {
-    "text": " 공식은",
-    "startMs": 1810,
-    "endMs": 2380,
-    "timestampMs": 1810,
-    "confidence": null
-  },
-  {
-    "text": " 구체적으로",
-    "startMs": 2380,
-    "endMs": 2950,
-    "timestampMs": 2380,
-    "confidence": null
-  },
-  {
-    "text": " 어떻게",
-    "startMs": 2950,
-    "endMs": 3520,
-    "timestampMs": 2950,
-    "confidence": null
-  },
-  {
-    "text": " 작동할까요?",
-    "startMs": 3520,
-    "endMs": 4090,
-    "timestampMs": 3520,
-    "confidence": null
-  },
-  {
-    "text": " PLF의",
-    "startMs": 4040,
-    "endMs": 4656,
-    "timestampMs": 4040,
-    "confidence": null
-  },
-  {
-    "text": " 네",
-    "startMs": 4656,
-    "endMs": 5272,
-    "timestampMs": 4656,
-    "confidence": null
-  },
-  {
-    "text": " 단계를",
-    "startMs": 5272,
-    "endMs": 5888,
-    "timestampMs": 5272,
-    "confidence": null
-  },
-  {
-    "text": " 하나씩",
-    "startMs": 5888,
-    "endMs": 6504,
-    "timestampMs": 5888,
-    "confidence": null
-  },
-  {
-    "text": " 살펴보겠습니다.",
-    "startMs": 6504,
-    "endMs": 7120,
-    "timestampMs": 6504,
-    "confidence": null
-  }
-]
+{
+  "captions": [
+    {
+      "text": "그렇다면",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이런",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 칭공식은",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 구체적으로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 어떻게",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 작동할까요?",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " PLF의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 4단계를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 하나씩",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 살펴보겠습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "durationMs": 7176,
+  "beatTimings": [
+    {
+      "beatId": "ch1-b1",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0,
+      "originalEndRatio": 1
+    }
+  ]
+}

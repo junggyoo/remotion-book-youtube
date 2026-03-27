@@ -1,275 +1,287 @@
-[
-  {
-    "text": "정리하겠습니다.",
-    "startMs": 100,
-    "endMs": 1710,
-    "timestampMs": 100,
-    "confidence": null
-  },
-  {
-    "text": " 스타트업",
-    "startMs": 1660,
-    "endMs": 2228,
-    "timestampMs": 1660,
-    "confidence": null
-  },
-  {
-    "text": " 설계자는",
-    "startMs": 2228,
-    "endMs": 2797,
-    "timestampMs": 2228,
-    "confidence": null
-  },
-  {
-    "text": " 단순한",
-    "startMs": 2797,
-    "endMs": 3365,
-    "timestampMs": 2797,
-    "confidence": null
-  },
-  {
-    "text": " 마케팅",
-    "startMs": 3365,
-    "endMs": 3933,
-    "timestampMs": 3365,
-    "confidence": null
-  },
-  {
-    "text": " 책이",
-    "startMs": 3933,
-    "endMs": 4502,
-    "timestampMs": 3933,
-    "confidence": null
-  },
-  {
-    "text": " 아닙니다.",
-    "startMs": 4502,
-    "endMs": 5070,
-    "timestampMs": 4502,
-    "confidence": null
-  },
-  {
-    "text": " 제품을",
-    "startMs": 5070,
-    "endMs": 5621,
-    "timestampMs": 5070,
-    "confidence": null
-  },
-  {
-    "text": " 세상에",
-    "startMs": 5621,
-    "endMs": 6173,
-    "timestampMs": 5621,
-    "confidence": null
-  },
-  {
-    "text": " 내놓는",
-    "startMs": 6173,
-    "endMs": 6724,
-    "timestampMs": 6173,
-    "confidence": null
-  },
-  {
-    "text": " 방법을",
-    "startMs": 6724,
-    "endMs": 7276,
-    "timestampMs": 6724,
-    "confidence": null
-  },
-  {
-    "text": " 완전히",
-    "startMs": 7276,
-    "endMs": 7827,
-    "timestampMs": 7276,
-    "confidence": null
-  },
-  {
-    "text": " 바꾸는",
-    "startMs": 7827,
-    "endMs": 8379,
-    "timestampMs": 7827,
-    "confidence": null
-  },
-  {
-    "text": " 설계도입니다.",
-    "startMs": 8379,
-    "endMs": 8930,
-    "timestampMs": 8379,
-    "confidence": null
-  },
-  {
-    "text": " 론칭은",
-    "startMs": 8930,
-    "endMs": 9407,
-    "timestampMs": 8930,
-    "confidence": null
-  },
-  {
-    "text": " 이벤트가",
-    "startMs": 9407,
-    "endMs": 9884,
-    "timestampMs": 9407,
-    "confidence": null
-  },
-  {
-    "text": " 아니라",
-    "startMs": 9884,
-    "endMs": 10362,
-    "timestampMs": 9884,
-    "confidence": null
-  },
-  {
-    "text": " 프로세스이고,",
-    "startMs": 10362,
-    "endMs": 10839,
-    "timestampMs": 10362,
-    "confidence": null
-  },
-  {
-    "text": " 사이드웨이",
-    "startMs": 10839,
-    "endMs": 11316,
-    "timestampMs": 10839,
-    "confidence": null
-  },
-  {
-    "text": " 세일즈",
-    "startMs": 11316,
-    "endMs": 11793,
-    "timestampMs": 11316,
-    "confidence": null
-  },
-  {
-    "text": " 레터로",
-    "startMs": 11793,
-    "endMs": 12271,
-    "timestampMs": 11793,
-    "confidence": null
-  },
-  {
-    "text": " 가치를",
-    "startMs": 12271,
-    "endMs": 12748,
-    "timestampMs": 12271,
-    "confidence": null
-  },
-  {
-    "text": " 먼저",
-    "startMs": 12748,
-    "endMs": 13225,
-    "timestampMs": 12748,
-    "confidence": null
-  },
-  {
-    "text": " 제공하며,",
-    "startMs": 13225,
-    "endMs": 13702,
-    "timestampMs": 13225,
-    "confidence": null
-  },
-  {
-    "text": " 시드",
-    "startMs": 13702,
-    "endMs": 14179,
-    "timestampMs": 13702,
-    "confidence": null
-  },
-  {
-    "text": " 론칭으로",
-    "startMs": 14179,
-    "endMs": 14657,
-    "timestampMs": 14179,
-    "confidence": null
-  },
-  {
-    "text": " 아무것도",
-    "startMs": 14657,
-    "endMs": 15134,
-    "timestampMs": 14657,
-    "confidence": null
-  },
-  {
-    "text": " 없는",
-    "startMs": 15134,
-    "endMs": 15611,
-    "timestampMs": 15134,
-    "confidence": null
-  },
-  {
-    "text": " 상태에서도",
-    "startMs": 15611,
-    "endMs": 16088,
-    "timestampMs": 15611,
-    "confidence": null
-  },
-  {
-    "text": " 시작할",
-    "startMs": 16088,
-    "endMs": 16566,
-    "timestampMs": 16088,
-    "confidence": null
-  },
-  {
-    "text": " 수",
-    "startMs": 16566,
-    "endMs": 17043,
-    "timestampMs": 16566,
-    "confidence": null
-  },
-  {
-    "text": " 있습니다.",
-    "startMs": 17043,
-    "endMs": 17520,
-    "timestampMs": 17043,
-    "confidence": null
-  },
-  {
-    "text": " 완벽한",
-    "startMs": 17520,
-    "endMs": 18081,
-    "timestampMs": 17520,
-    "confidence": null
-  },
-  {
-    "text": " 제품보다",
-    "startMs": 18081,
-    "endMs": 18643,
-    "timestampMs": 18081,
-    "confidence": null
-  },
-  {
-    "text": " 당신의",
-    "startMs": 18643,
-    "endMs": 19204,
-    "timestampMs": 18643,
-    "confidence": null
-  },
-  {
-    "text": " 이야기를",
-    "startMs": 19204,
-    "endMs": 19766,
-    "timestampMs": 19204,
-    "confidence": null
-  },
-  {
-    "text": " 기다리는",
-    "startMs": 19766,
-    "endMs": 20327,
-    "timestampMs": 19766,
-    "confidence": null
-  },
-  {
-    "text": " 100명이",
-    "startMs": 20327,
-    "endMs": 20889,
-    "timestampMs": 20327,
-    "confidence": null
-  },
-  {
-    "text": " 먼저입니다.",
-    "startMs": 20889,
-    "endMs": 21450,
-    "timestampMs": 20889,
-    "confidence": null
-  }
-]
+{
+  "captions": [
+    {
+      "text": "정리하겠습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 스타트업",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 설계자는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 단순한",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 마케팅",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 책이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 아닙니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제품을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 세상에",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 내놓는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 방법을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 완전히",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 바꾸는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 설계도입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 론칭은",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이벤트가",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 아니라",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 프로세스이고",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 사이드",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 웨이스",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 레터로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 가치를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 먼저",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제공하며",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시드론칭으로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 아무것도",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 없는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 상태에서도",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시작할",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 수",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 있습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 완벽한",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제품보다",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 당신의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이야기를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 기다리는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 100명이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 먼저입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "durationMs": 21504,
+  "beatTimings": [
+    {
+      "beatId": "recap-b1",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0,
+      "originalEndRatio": 0.35
+    },
+    {
+      "beatId": "recap-b2",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0.35,
+      "originalEndRatio": 1
+    }
+  ]
+}

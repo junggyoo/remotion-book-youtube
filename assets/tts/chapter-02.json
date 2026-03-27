@@ -1,79 +1,91 @@
-[
-  {
-    "text": "이론은",
-    "startMs": 100,
-    "endMs": 1000,
-    "timestampMs": 100,
-    "confidence": null
-  },
-  {
-    "text": " 충분합니다.",
-    "startMs": 1000,
-    "endMs": 1900,
-    "timestampMs": 1000,
-    "confidence": null
-  },
-  {
-    "text": " 이제",
-    "startMs": 1850,
-    "endMs": 2353,
-    "timestampMs": 1850,
-    "confidence": null
-  },
-  {
-    "text": " 아무것도",
-    "startMs": 2353,
-    "endMs": 2857,
-    "timestampMs": 2353,
-    "confidence": null
-  },
-  {
-    "text": " 없는",
-    "startMs": 2857,
-    "endMs": 3360,
-    "timestampMs": 2857,
-    "confidence": null
-  },
-  {
-    "text": " 상태에서",
-    "startMs": 3360,
-    "endMs": 3863,
-    "timestampMs": 3360,
-    "confidence": null
-  },
-  {
-    "text": " 첫",
-    "startMs": 3863,
-    "endMs": 4367,
-    "timestampMs": 3863,
-    "confidence": null
-  },
-  {
-    "text": " 론칭을",
-    "startMs": 4367,
-    "endMs": 4870,
-    "timestampMs": 4367,
-    "confidence": null
-  },
-  {
-    "text": " 시작하는",
-    "startMs": 4870,
-    "endMs": 5373,
-    "timestampMs": 4870,
-    "confidence": null
-  },
-  {
-    "text": " 방법을",
-    "startMs": 5373,
-    "endMs": 5877,
-    "timestampMs": 5373,
-    "confidence": null
-  },
-  {
-    "text": " 알아보겠습니다.",
-    "startMs": 5877,
-    "endMs": 6380,
-    "timestampMs": 5877,
-    "confidence": null
-  }
-]
+{
+  "captions": [
+    {
+      "text": "이로는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 충분합니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이제",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 아무것도",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 없는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 상태에서",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 차도는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 침을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시작하는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 방법을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 알아보겠습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "durationMs": 6432,
+  "beatTimings": [
+    {
+      "beatId": "ch2-b1",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0,
+      "originalEndRatio": 1
+    }
+  ]
+}

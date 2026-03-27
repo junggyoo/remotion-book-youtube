@@ -112,19 +112,22 @@ function curlRequest(
   const args = ["-s", "-w", "\n%{http_code}", "--max-time", String(timeoutSec)];
   if (options.method === "POST") {
     args.push("-X", "POST", "-H", "Content-Type: application/json");
-    if (options.body) args.push("-d", options.body);
+    if (options.body) args.push("-d", "@-");
   }
   args.push(url);
   try {
     const raw = execFileSync("curl", args, {
       encoding: "utf-8",
       timeout: (timeoutSec + 5) * 1000,
+      input: options.body ?? undefined,
     });
     const lines = raw.trimEnd().split("\n");
     const statusCode = parseInt(lines.pop() ?? "0", 10);
     const body = lines.join("\n");
     return { status: statusCode, body };
-  } catch {
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`[DEBUG] curlRequest error: ${msg}`);
     return { status: 0, body: "" };
   }
 }

@@ -1,639 +1,679 @@
-[
-  {
-    "text": "PLF",
-    "startMs": 100,
-    "endMs": 590,
-    "timestampMs": 100,
-    "confidence": null
-  },
-  {
-    "text": " 론칭",
-    "startMs": 590,
-    "endMs": 1080,
-    "timestampMs": 590,
-    "confidence": null
-  },
-  {
-    "text": " 공식은",
-    "startMs": 1080,
-    "endMs": 1570,
-    "timestampMs": 1080,
-    "confidence": null
-  },
-  {
-    "text": " 네",
-    "startMs": 1570,
-    "endMs": 2060,
-    "timestampMs": 1570,
-    "confidence": null
-  },
-  {
-    "text": " 단계로",
-    "startMs": 2060,
-    "endMs": 2550,
-    "timestampMs": 2060,
-    "confidence": null
-  },
-  {
-    "text": " 이루어져",
-    "startMs": 2550,
-    "endMs": 3040,
-    "timestampMs": 2550,
-    "confidence": null
-  },
-  {
-    "text": " 있습니다.",
-    "startMs": 3040,
-    "endMs": 3530,
-    "timestampMs": 3040,
-    "confidence": null
-  },
-  {
-    "text": " 첫째,",
-    "startMs": 3480,
-    "endMs": 4750,
-    "timestampMs": 3480,
-    "confidence": null
-  },
-  {
-    "text": " 프리프리론칭입니다.",
-    "startMs": 4750,
-    "endMs": 6020,
-    "timestampMs": 4750,
-    "confidence": null
-  },
-  {
-    "text": " 시장의",
-    "startMs": 6020,
-    "endMs": 6663,
-    "timestampMs": 6020,
-    "confidence": null
-  },
-  {
-    "text": " 반응을",
-    "startMs": 6663,
-    "endMs": 7305,
-    "timestampMs": 6663,
-    "confidence": null
-  },
-  {
-    "text": " 떠보는",
-    "startMs": 7305,
-    "endMs": 7948,
-    "timestampMs": 7305,
-    "confidence": null
-  },
-  {
-    "text": " 단계입니다.",
-    "startMs": 7948,
-    "endMs": 8590,
-    "timestampMs": 7948,
-    "confidence": null
-  },
-  {
-    "text": " 잠재",
-    "startMs": 8590,
-    "endMs": 9223,
-    "timestampMs": 8590,
-    "confidence": null
-  },
-  {
-    "text": " 고객에게",
-    "startMs": 9223,
-    "endMs": 9855,
-    "timestampMs": 9223,
-    "confidence": null
-  },
-  {
-    "text": " 질문을",
-    "startMs": 9855,
-    "endMs": 10488,
-    "timestampMs": 9855,
-    "confidence": null
-  },
-  {
-    "text": " 던지세요.",
-    "startMs": 10488,
-    "endMs": 11120,
-    "timestampMs": 10488,
-    "confidence": null
-  },
-  {
-    "text": " 가장",
-    "startMs": 11120,
-    "endMs": 11620,
-    "timestampMs": 11120,
-    "confidence": null
-  },
-  {
-    "text": " 큰",
-    "startMs": 11620,
-    "endMs": 12120,
-    "timestampMs": 11620,
-    "confidence": null
-  },
-  {
-    "text": " 고민이",
-    "startMs": 12120,
-    "endMs": 12620,
-    "timestampMs": 12120,
-    "confidence": null
-  },
-  {
-    "text": " 뭔가요?",
-    "startMs": 12620,
-    "endMs": 13120,
-    "timestampMs": 12620,
-    "confidence": null
-  },
-  {
-    "text": " 이",
-    "startMs": 13120,
-    "endMs": 13537,
-    "timestampMs": 13120,
-    "confidence": null
-  },
-  {
-    "text": " 질문",
-    "startMs": 13537,
-    "endMs": 13953,
-    "timestampMs": 13537,
-    "confidence": null
-  },
-  {
-    "text": " 하나로",
-    "startMs": 13953,
-    "endMs": 14370,
-    "timestampMs": 13953,
-    "confidence": null
-  },
-  {
-    "text": " 제품의",
-    "startMs": 14370,
-    "endMs": 14787,
-    "timestampMs": 14370,
-    "confidence": null
-  },
-  {
-    "text": " 방향이",
-    "startMs": 14787,
-    "endMs": 15203,
-    "timestampMs": 14787,
-    "confidence": null
-  },
-  {
-    "text": " 잡히고,",
-    "startMs": 15203,
-    "endMs": 15620,
-    "timestampMs": 15203,
-    "confidence": null
-  },
-  {
-    "text": " 동시에",
-    "startMs": 15620,
-    "endMs": 16037,
-    "timestampMs": 15620,
-    "confidence": null
-  },
-  {
-    "text": " 고객의",
-    "startMs": 16037,
-    "endMs": 16453,
-    "timestampMs": 16037,
-    "confidence": null
-  },
-  {
-    "text": " 관심을",
-    "startMs": 16453,
-    "endMs": 16870,
-    "timestampMs": 16453,
-    "confidence": null
-  },
-  {
-    "text": " 끌",
-    "startMs": 16870,
-    "endMs": 17287,
-    "timestampMs": 16870,
-    "confidence": null
-  },
-  {
-    "text": " 수",
-    "startMs": 17287,
-    "endMs": 17703,
-    "timestampMs": 17287,
-    "confidence": null
-  },
-  {
-    "text": " 있습니다.",
-    "startMs": 17703,
-    "endMs": 18120,
-    "timestampMs": 17703,
-    "confidence": null
-  },
-  {
-    "text": " 둘째,",
-    "startMs": 18120,
-    "endMs": 19295,
-    "timestampMs": 18120,
-    "confidence": null
-  },
-  {
-    "text": " 프리론칭입니다.",
-    "startMs": 19295,
-    "endMs": 20470,
-    "timestampMs": 19295,
-    "confidence": null
-  },
-  {
-    "text": " 여기가",
-    "startMs": 20470,
-    "endMs": 21243,
-    "timestampMs": 20470,
-    "confidence": null
-  },
-  {
-    "text": " PLF의",
-    "startMs": 21243,
-    "endMs": 22017,
-    "timestampMs": 21243,
-    "confidence": null
-  },
-  {
-    "text": " 핵심입니다.",
-    "startMs": 22017,
-    "endMs": 22790,
-    "timestampMs": 22017,
-    "confidence": null
-  },
-  {
-    "text": " 3편의",
-    "startMs": 22790,
-    "endMs": 23420,
-    "timestampMs": 22790,
-    "confidence": null
-  },
-  {
-    "text": " 무료",
-    "startMs": 23420,
-    "endMs": 24050,
-    "timestampMs": 23420,
-    "confidence": null
-  },
-  {
-    "text": " 콘텐츠를",
-    "startMs": 24050,
-    "endMs": 24680,
-    "timestampMs": 24050,
-    "confidence": null
-  },
-  {
-    "text": " 순서대로",
-    "startMs": 24680,
-    "endMs": 25310,
-    "timestampMs": 24680,
-    "confidence": null
-  },
-  {
-    "text": " 공개합니다.",
-    "startMs": 25310,
-    "endMs": 25940,
-    "timestampMs": 25310,
-    "confidence": null
-  },
-  {
-    "text": " 첫",
-    "startMs": 25940,
-    "endMs": 26436,
-    "timestampMs": 25940,
-    "confidence": null
-  },
-  {
-    "text": " 번째",
-    "startMs": 26436,
-    "endMs": 26932,
-    "timestampMs": 26436,
-    "confidence": null
-  },
-  {
-    "text": " 영상에서는",
-    "startMs": 26932,
-    "endMs": 27428,
-    "timestampMs": 26932,
-    "confidence": null
-  },
-  {
-    "text": " 기회를",
-    "startMs": 27428,
-    "endMs": 27924,
-    "timestampMs": 27428,
-    "confidence": null
-  },
-  {
-    "text": " 보여주고,",
-    "startMs": 27924,
-    "endMs": 28420,
-    "timestampMs": 27924,
-    "confidence": null
-  },
-  {
-    "text": " 두",
-    "startMs": 28420,
-    "endMs": 28916,
-    "timestampMs": 28420,
-    "confidence": null
-  },
-  {
-    "text": " 번째에서는",
-    "startMs": 28916,
-    "endMs": 29412,
-    "timestampMs": 28916,
-    "confidence": null
-  },
-  {
-    "text": " 변화를",
-    "startMs": 29412,
-    "endMs": 29908,
-    "timestampMs": 29412,
-    "confidence": null
-  },
-  {
-    "text": " 증명하고,",
-    "startMs": 29908,
-    "endMs": 30404,
-    "timestampMs": 29908,
-    "confidence": null
-  },
-  {
-    "text": " 세",
-    "startMs": 30404,
-    "endMs": 30900,
-    "timestampMs": 30404,
-    "confidence": null
-  },
-  {
-    "text": " 번째에서는",
-    "startMs": 30900,
-    "endMs": 31396,
-    "timestampMs": 30900,
-    "confidence": null
-  },
-  {
-    "text": " 구매",
-    "startMs": 31396,
-    "endMs": 31892,
-    "timestampMs": 31396,
-    "confidence": null
-  },
-  {
-    "text": " 경험을",
-    "startMs": 31892,
-    "endMs": 32388,
-    "timestampMs": 31892,
-    "confidence": null
-  },
-  {
-    "text": " 미리",
-    "startMs": 32388,
-    "endMs": 32884,
-    "timestampMs": 32388,
-    "confidence": null
-  },
-  {
-    "text": " 시뮬레이션합니다.",
-    "startMs": 32884,
-    "endMs": 33380,
-    "timestampMs": 32884,
-    "confidence": null
-  },
-  {
-    "text": " 셋째,",
-    "startMs": 33380,
-    "endMs": 34445,
-    "timestampMs": 33380,
-    "confidence": null
-  },
-  {
-    "text": " 론칭입니다.",
-    "startMs": 34445,
-    "endMs": 35510,
-    "timestampMs": 34445,
-    "confidence": null
-  },
-  {
-    "text": " 판매",
-    "startMs": 35510,
-    "endMs": 35928,
-    "timestampMs": 35510,
-    "confidence": null
-  },
-  {
-    "text": " 페이지를",
-    "startMs": 35928,
-    "endMs": 36346,
-    "timestampMs": 35928,
-    "confidence": null
-  },
-  {
-    "text": " 열고,",
-    "startMs": 36346,
-    "endMs": 36764,
-    "timestampMs": 36346,
-    "confidence": null
-  },
-  {
-    "text": " 제한된",
-    "startMs": 36764,
-    "endMs": 37182,
-    "timestampMs": 36764,
-    "confidence": null
-  },
-  {
-    "text": " 시간",
-    "startMs": 37182,
-    "endMs": 37600,
-    "timestampMs": 37182,
-    "confidence": null
-  },
-  {
-    "text": " 동안만",
-    "startMs": 37600,
-    "endMs": 38018,
-    "timestampMs": 37600,
-    "confidence": null
-  },
-  {
-    "text": " 구매할",
-    "startMs": 38018,
-    "endMs": 38436,
-    "timestampMs": 38018,
-    "confidence": null
-  },
-  {
-    "text": " 수",
-    "startMs": 38436,
-    "endMs": 38854,
-    "timestampMs": 38436,
-    "confidence": null
-  },
-  {
-    "text": " 있게",
-    "startMs": 38854,
-    "endMs": 39272,
-    "timestampMs": 38854,
-    "confidence": null
-  },
-  {
-    "text": " 합니다.",
-    "startMs": 39272,
-    "endMs": 39690,
-    "timestampMs": 39272,
-    "confidence": null
-  },
-  {
-    "text": " 프리론칭",
-    "startMs": 39690,
-    "endMs": 40277,
-    "timestampMs": 39690,
-    "confidence": null
-  },
-  {
-    "text": " 단계에서",
-    "startMs": 40277,
-    "endMs": 40863,
-    "timestampMs": 40277,
-    "confidence": null
-  },
-  {
-    "text": " 쌓인",
-    "startMs": 40863,
-    "endMs": 41450,
-    "timestampMs": 40863,
-    "confidence": null
-  },
-  {
-    "text": " 기대감이",
-    "startMs": 41450,
-    "endMs": 42037,
-    "timestampMs": 41450,
-    "confidence": null
-  },
-  {
-    "text": " 폭발하는",
-    "startMs": 42037,
-    "endMs": 42623,
-    "timestampMs": 42037,
-    "confidence": null
-  },
-  {
-    "text": " 순간입니다.",
-    "startMs": 42623,
-    "endMs": 43210,
-    "timestampMs": 42623,
-    "confidence": null
-  },
-  {
-    "text": " 넷째,",
-    "startMs": 43210,
-    "endMs": 44400,
-    "timestampMs": 43210,
-    "confidence": null
-  },
-  {
-    "text": " 포스트론칭입니다.",
-    "startMs": 44400,
-    "endMs": 45590,
-    "timestampMs": 44400,
-    "confidence": null
-  },
-  {
-    "text": " 론칭이",
-    "startMs": 45590,
-    "endMs": 46124,
-    "timestampMs": 45590,
-    "confidence": null
-  },
-  {
-    "text": " 끝나면",
-    "startMs": 46124,
-    "endMs": 46658,
-    "timestampMs": 46124,
-    "confidence": null
-  },
-  {
-    "text": " 구매하지",
-    "startMs": 46658,
-    "endMs": 47191,
-    "timestampMs": 46658,
-    "confidence": null
-  },
-  {
-    "text": " 않은",
-    "startMs": 47191,
-    "endMs": 47725,
-    "timestampMs": 47191,
-    "confidence": null
-  },
-  {
-    "text": " 사람에게도",
-    "startMs": 47725,
-    "endMs": 48259,
-    "timestampMs": 47725,
-    "confidence": null
-  },
-  {
-    "text": " 후속",
-    "startMs": 48259,
-    "endMs": 48793,
-    "timestampMs": 48259,
-    "confidence": null
-  },
-  {
-    "text": " 가치를",
-    "startMs": 48793,
-    "endMs": 49326,
-    "timestampMs": 48793,
-    "confidence": null
-  },
-  {
-    "text": " 제공합니다.",
-    "startMs": 49326,
-    "endMs": 49860,
-    "timestampMs": 49326,
-    "confidence": null
-  },
-  {
-    "text": " 다음",
-    "startMs": 49860,
-    "endMs": 50404,
-    "timestampMs": 49860,
-    "confidence": null
-  },
-  {
-    "text": " 론칭의",
-    "startMs": 50404,
-    "endMs": 50948,
-    "timestampMs": 50404,
-    "confidence": null
-  },
-  {
-    "text": " 씨앗을",
-    "startMs": 50948,
-    "endMs": 51492,
-    "timestampMs": 50948,
-    "confidence": null
-  },
-  {
-    "text": " 심는",
-    "startMs": 51492,
-    "endMs": 52036,
-    "timestampMs": 51492,
-    "confidence": null
-  },
-  {
-    "text": " 단계입니다.",
-    "startMs": 52036,
-    "endMs": 52580,
-    "timestampMs": 52036,
-    "confidence": null
-  }
-]
+{
+  "captions": [
+    {
+      "text": "히어레프롬친",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 공식은",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 내",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 단계로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이루어져",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 있습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 첫째,",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 프리프리론칭입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시장의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 반응을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 떠보는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 단계입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 잠재",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 고객에게",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 질문을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 던지세요.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 가장",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 큰",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 고민이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 뭔가요?",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 질문",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 하나로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제품의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 방향이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 잡히고",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 동시에",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 고객의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 관심을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 끌",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 수",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 있습니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 둘째,",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 프리론칭입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 여기가",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 히어레프의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 핵심입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 세편의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 무료",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 콘텐츠를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 순서대로",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 공개합니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 첫",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 번째",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 영상에서는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 기회를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 보여주고",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 두",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 번째에서는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 변화를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 증명하고",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 세",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 번째에서는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 구매",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 경험을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 미리",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시뮬레이션합니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 셋째,",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 론칭입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 판매",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 페이지를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 열고",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제한된",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시간",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 동안만",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 구매할",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 수",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 있게",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 합니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 프리론칭",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 단계에서",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 쌓인",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 기대감이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 폭발하는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 순간입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 넷째,",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 포스트로는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 칭입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 론칭이",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 끝나면",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 구매하지",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 않은",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 사람에게도",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 후속",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 가치를",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 제공합니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 다음",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 론칭의",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 시야을",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 십는",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    },
+    {
+      "text": " 단계입니다.",
+      "startMs": null,
+      "endMs": null,
+      "timestampMs": null,
+      "confidence": null
+    }
+  ],
+  "durationMs": 52632,
+  "beatTimings": [
+    {
+      "beatId": "fw-b1",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0,
+      "originalEndRatio": 0.12
+    },
+    {
+      "beatId": "fw-b2",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0.12,
+      "originalEndRatio": 0.32
+    },
+    {
+      "beatId": "fw-b3",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0.32,
+      "originalEndRatio": 0.58
+    },
+    {
+      "beatId": "fw-b4",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0.58,
+      "originalEndRatio": 0.78
+    },
+    {
+      "beatId": "fw-b5",
+      "resolvedStartFrame": null,
+      "resolvedEndFrame": null,
+      "originalStartRatio": 0.78,
+      "originalEndRatio": 1
+    }
+  ]
+}
