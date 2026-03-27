@@ -2,71 +2,99 @@
   {
     "text": "그렇다면",
     "startMs": 100,
-    "endMs": 844,
+    "endMs": 942,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 어떻게",
-    "startMs": 844,
-    "endMs": 1588,
-    "timestampMs": 844,
+    "text": " SB7",
+    "startMs": 942,
+    "endMs": 1783,
+    "timestampMs": 942,
     "confidence": null
   },
   {
-    "text": " 미쳐야",
-    "startMs": 1588,
-    "endMs": 2331,
-    "timestampMs": 1588,
+    "text": " 프레임워크의",
+    "startMs": 1783,
+    "endMs": 2625,
+    "timestampMs": 1783,
     "confidence": null
   },
   {
-    "text": " 할까요?",
-    "startMs": 2331,
-    "endMs": 3075,
-    "timestampMs": 2331,
+    "text": " 구체적인",
+    "startMs": 2625,
+    "endMs": 3467,
+    "timestampMs": 2625,
     "confidence": null
   },
   {
-    "text": "저자가",
-    "startMs": 3025,
-    "endMs": 3910,
-    "timestampMs": 3025,
+    "text": " 구조는",
+    "startMs": 3467,
+    "endMs": 4308,
+    "timestampMs": 3467,
     "confidence": null
   },
   {
-    "text": " 제시하는",
-    "startMs": 3910,
-    "endMs": 4796,
-    "timestampMs": 3910,
+    "text": " 무엇일까요?",
+    "startMs": 4308,
+    "endMs": 5150,
+    "timestampMs": 4308,
     "confidence": null
   },
   {
-    "text": " CRAZY",
-    "startMs": 4796,
-    "endMs": 5681,
-    "timestampMs": 4796,
+    "text": "고객을",
+    "startMs": 5100,
+    "endMs": 5703,
+    "timestampMs": 5100,
     "confidence": null
   },
   {
-    "text": " 5단계를",
-    "startMs": 5681,
-    "endMs": 6566,
-    "timestampMs": 5681,
+    "text": " 영웅으로",
+    "startMs": 5703,
+    "endMs": 6306,
+    "timestampMs": 5703,
     "confidence": null
   },
   {
-    "text": " 하나씩",
-    "startMs": 6566,
-    "endMs": 7452,
-    "timestampMs": 6566,
+    "text": " 만드는",
+    "startMs": 6306,
+    "endMs": 6909,
+    "timestampMs": 6306,
     "confidence": null
   },
   {
-    "text": " 살펴보겠습니다.",
-    "startMs": 7452,
-    "endMs": 8337,
-    "timestampMs": 7452,
+    "text": " 다섯",
+    "startMs": 6909,
+    "endMs": 7513,
+    "timestampMs": 6909,
+    "confidence": null
+  },
+  {
+    "text": " 가지",
+    "startMs": 7513,
+    "endMs": 8116,
+    "timestampMs": 7513,
+    "confidence": null
+  },
+  {
+    "text": " 핵심",
+    "startMs": 8116,
+    "endMs": 8719,
+    "timestampMs": 8116,
+    "confidence": null
+  },
+  {
+    "text": " 단계를",
+    "startMs": 8719,
+    "endMs": 9322,
+    "timestampMs": 8719,
+    "confidence": null
+  },
+  {
+    "text": " 살펴봅니다.",
+    "startMs": 9322,
+    "endMs": 9925,
+    "timestampMs": 9322,
     "confidence": null
   }
 ]

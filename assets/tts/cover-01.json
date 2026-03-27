@@ -1,107 +1,114 @@
 [
   {
-    "text": "강상구의",
+    "text": "도널드",
     "startMs": 100,
-    "endMs": 819,
+    "endMs": 847,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 딱",
-    "startMs": 819,
-    "endMs": 1538,
-    "timestampMs": 819,
+    "text": " 밀러의",
+    "startMs": 847,
+    "endMs": 1594,
+    "timestampMs": 847,
     "confidence": null
   },
   {
-    "text": " 1년만",
-    "startMs": 1538,
-    "endMs": 2256,
-    "timestampMs": 1538,
+    "text": " 스토리",
+    "startMs": 1594,
+    "endMs": 2340,
+    "timestampMs": 1594,
     "confidence": null
   },
   {
-    "text": " 미쳐라.",
-    "startMs": 2256,
-    "endMs": 2975,
-    "timestampMs": 2256,
+    "text": " 설계자.",
+    "startMs": 2340,
+    "endMs": 3087,
+    "timestampMs": 2340,
     "confidence": null
   },
   {
-    "text": "평범한",
-    "startMs": 2925,
-    "endMs": 3565,
-    "timestampMs": 2925,
+    "text": "전",
+    "startMs": 3037,
+    "endMs": 3555,
+    "timestampMs": 3037,
     "confidence": null
   },
   {
-    "text": " 삶을",
-    "startMs": 3565,
-    "endMs": 4204,
-    "timestampMs": 3565,
+    "text": " 세계",
+    "startMs": 3555,
+    "endMs": 4073,
+    "timestampMs": 3555,
     "confidence": null
   },
   {
-    "text": " 거부하고,",
-    "startMs": 4204,
-    "endMs": 4844,
-    "timestampMs": 4204,
+    "text": " 수만",
+    "startMs": 4073,
+    "endMs": 4590,
+    "timestampMs": 4073,
     "confidence": null
   },
   {
-    "text": " 단",
-    "startMs": 4844,
-    "endMs": 5484,
-    "timestampMs": 4844,
+    "text": " 개",
+    "startMs": 4590,
+    "endMs": 5108,
+    "timestampMs": 4590,
     "confidence": null
   },
   {
-    "text": " 1년의",
-    "startMs": 5484,
-    "endMs": 6124,
-    "timestampMs": 5484,
+    "text": " 기업의",
+    "startMs": 5108,
+    "endMs": 5626,
+    "timestampMs": 5108,
     "confidence": null
   },
   {
-    "text": " 집중으로",
-    "startMs": 6124,
-    "endMs": 6763,
-    "timestampMs": 6124,
+    "text": " 매출을",
+    "startMs": 5626,
+    "endMs": 6144,
+    "timestampMs": 5626,
     "confidence": null
   },
   {
-    "text": " 인생을",
-    "startMs": 6763,
-    "endMs": 7403,
-    "timestampMs": 6763,
+    "text": " 바꾼",
+    "startMs": 6144,
+    "endMs": 6661,
+    "timestampMs": 6144,
     "confidence": null
   },
   {
-    "text": " 뒤바꾸는",
-    "startMs": 7403,
-    "endMs": 8043,
-    "timestampMs": 7403,
+    "text": " 스토리",
+    "startMs": 6661,
+    "endMs": 7179,
+    "timestampMs": 6661,
     "confidence": null
   },
   {
-    "text": " 실전",
-    "startMs": 8043,
-    "endMs": 8683,
-    "timestampMs": 8043,
+    "text": " 브랜드",
+    "startMs": 7179,
+    "endMs": 7697,
+    "timestampMs": 7179,
     "confidence": null
   },
   {
-    "text": " 전략을",
-    "startMs": 8683,
-    "endMs": 9322,
-    "timestampMs": 8683,
+    "text": " 프레임워크의",
+    "startMs": 7697,
+    "endMs": 8215,
+    "timestampMs": 7697,
     "confidence": null
   },
   {
-    "text": " 알아봅니다.",
-    "startMs": 9322,
-    "endMs": 9962,
-    "timestampMs": 9322,
+    "text": " 핵심을",
+    "startMs": 8215,
+    "endMs": 8732,
+    "timestampMs": 8215,
+    "confidence": null
+  },
+  {
+    "text": " 정리합니다.",
+    "startMs": 8732,
+    "endMs": 9250,
+    "timestampMs": 8732,
     "confidence": null
   }
 ]

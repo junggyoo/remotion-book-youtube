@@ -1,604 +1,611 @@
 [
   {
-    "text": "CRAZY",
+    "text": "SB7",
     "startMs": 100,
-    "endMs": 1237,
+    "endMs": 829,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 5단계는",
-    "startMs": 1237,
-    "endMs": 2375,
-    "timestampMs": 1237,
+    "text": " 프레임워크의",
+    "startMs": 829,
+    "endMs": 1558,
+    "timestampMs": 829,
     "confidence": null
   },
   {
-    "text": " 이렇습니다.",
-    "startMs": 2375,
-    "endMs": 3512,
-    "timestampMs": 2375,
+    "text": " 다섯",
+    "startMs": 1558,
+    "endMs": 2288,
+    "timestampMs": 1558,
     "confidence": null
   },
   {
-    "text": "첫째,",
-    "startMs": 3462,
-    "endMs": 4456,
-    "timestampMs": 3462,
+    "text": " 가지",
+    "startMs": 2288,
+    "endMs": 3017,
+    "timestampMs": 2288,
     "confidence": null
   },
   {
-    "text": " C는",
-    "startMs": 4456,
-    "endMs": 5450,
-    "timestampMs": 4456,
-    "confidence": null
-  },
-  {
-    "text": " Commanding,",
-    "startMs": 5450,
-    "endMs": 6443,
-    "timestampMs": 5450,
-    "confidence": null
-  },
-  {
-    "text": " 선언입니다.",
-    "startMs": 6443,
-    "endMs": 7437,
-    "timestampMs": 6443,
-    "confidence": null
-  },
-  {
-    "text": "자신에게",
-    "startMs": 7437,
-    "endMs": 8483,
-    "timestampMs": 7437,
-    "confidence": null
-  },
-  {
-    "text": " 미치겠다고",
-    "startMs": 8483,
-    "endMs": 9529,
-    "timestampMs": 8483,
-    "confidence": null
-  },
-  {
-    "text": " 명령하세요.",
-    "startMs": 9529,
-    "endMs": 10575,
-    "timestampMs": 9529,
-    "confidence": null
-  },
-  {
-    "text": "왜",
-    "startMs": 10575,
-    "endMs": 11133,
-    "timestampMs": 10575,
-    "confidence": null
-  },
-  {
-    "text": " 미쳐야",
-    "startMs": 11133,
-    "endMs": 11691,
-    "timestampMs": 11133,
-    "confidence": null
-  },
-  {
-    "text": " 하는지",
-    "startMs": 11691,
-    "endMs": 12248,
-    "timestampMs": 11691,
-    "confidence": null
-  },
-  {
-    "text": " 이유를",
-    "startMs": 12248,
-    "endMs": 12806,
-    "timestampMs": 12248,
-    "confidence": null
-  },
-  {
-    "text": " 분명히",
-    "startMs": 12806,
-    "endMs": 13364,
-    "timestampMs": 12806,
-    "confidence": null
-  },
-  {
-    "text": " 하는",
-    "startMs": 13364,
-    "endMs": 13922,
-    "timestampMs": 13364,
-    "confidence": null
-  },
-  {
-    "text": " 것이",
-    "startMs": 13922,
-    "endMs": 14479,
-    "timestampMs": 13922,
-    "confidence": null
-  },
-  {
-    "text": " 시작입니다.",
-    "startMs": 14479,
-    "endMs": 15037,
-    "timestampMs": 14479,
-    "confidence": null
-  },
-  {
-    "text": "둘째,",
-    "startMs": 15037,
-    "endMs": 16206,
-    "timestampMs": 15037,
-    "confidence": null
-  },
-  {
-    "text": " R은",
-    "startMs": 16206,
-    "endMs": 17375,
-    "timestampMs": 16206,
-    "confidence": null
-  },
-  {
-    "text": " Recognizing,",
-    "startMs": 17375,
-    "endMs": 18543,
-    "timestampMs": 17375,
-    "confidence": null
-  },
-  {
-    "text": " 자기인식입니다.",
-    "startMs": 18543,
-    "endMs": 19712,
-    "timestampMs": 18543,
-    "confidence": null
-  },
-  {
-    "text": "내가",
-    "startMs": 19712,
-    "endMs": 20301,
-    "timestampMs": 19712,
-    "confidence": null
-  },
-  {
-    "text": " 진정으로",
-    "startMs": 20301,
-    "endMs": 20889,
-    "timestampMs": 20301,
-    "confidence": null
-  },
-  {
-    "text": " 원하는",
-    "startMs": 20889,
-    "endMs": 21478,
-    "timestampMs": 20889,
-    "confidence": null
-  },
-  {
-    "text": " 것이",
-    "startMs": 21478,
-    "endMs": 22066,
-    "timestampMs": 21478,
-    "confidence": null
-  },
-  {
-    "text": " 무엇인지,",
-    "startMs": 22066,
-    "endMs": 22655,
-    "timestampMs": 22066,
-    "confidence": null
-  },
-  {
-    "text": " 나만의",
-    "startMs": 22655,
-    "endMs": 23244,
-    "timestampMs": 22655,
-    "confidence": null
-  },
-  {
-    "text": " 다이아몬드가",
-    "startMs": 23244,
-    "endMs": 23832,
-    "timestampMs": 23244,
-    "confidence": null
-  },
-  {
-    "text": " 될",
-    "startMs": 23832,
-    "endMs": 24421,
-    "timestampMs": 23832,
-    "confidence": null
-  },
-  {
-    "text": " 재능은",
-    "startMs": 24421,
-    "endMs": 25009,
-    "timestampMs": 24421,
-    "confidence": null
-  },
-  {
-    "text": " 무엇인지",
-    "startMs": 25009,
-    "endMs": 25598,
-    "timestampMs": 25009,
-    "confidence": null
-  },
-  {
-    "text": " 찾아야",
-    "startMs": 25598,
-    "endMs": 26186,
-    "timestampMs": 25598,
-    "confidence": null
-  },
-  {
-    "text": " 합니다.",
-    "startMs": 26186,
-    "endMs": 26775,
-    "timestampMs": 26186,
-    "confidence": null
-  },
-  {
-    "text": "셋째,",
-    "startMs": 26775,
-    "endMs": 27809,
-    "timestampMs": 26775,
-    "confidence": null
-  },
-  {
-    "text": " A는",
-    "startMs": 27809,
-    "endMs": 28844,
-    "timestampMs": 27809,
-    "confidence": null
-  },
-  {
-    "text": " Arranging,",
-    "startMs": 28844,
-    "endMs": 29878,
-    "timestampMs": 28844,
-    "confidence": null
-  },
-  {
-    "text": " 준비입니다.",
-    "startMs": 29878,
-    "endMs": 30912,
-    "timestampMs": 29878,
-    "confidence": null
-  },
-  {
-    "text": "현실을",
-    "startMs": 30912,
-    "endMs": 31642,
-    "timestampMs": 30912,
-    "confidence": null
-  },
-  {
-    "text": " 냉정하게",
-    "startMs": 31642,
-    "endMs": 32373,
-    "timestampMs": 31642,
-    "confidence": null
-  },
-  {
-    "text": " 직시하고,",
-    "startMs": 32373,
-    "endMs": 33103,
-    "timestampMs": 32373,
-    "confidence": null
-  },
-  {
-    "text": " 구체적인",
-    "startMs": 33103,
-    "endMs": 33834,
-    "timestampMs": 33103,
-    "confidence": null
-  },
-  {
-    "text": " 실행",
-    "startMs": 33834,
-    "endMs": 34564,
-    "timestampMs": 33834,
-    "confidence": null
-  },
-  {
-    "text": " 계획을",
-    "startMs": 34564,
-    "endMs": 35295,
-    "timestampMs": 34564,
-    "confidence": null
-  },
-  {
-    "text": " 세웁니다.",
-    "startMs": 35295,
-    "endMs": 36025,
-    "timestampMs": 35295,
-    "confidence": null
-  },
-  {
-    "text": "꿈만",
-    "startMs": 36025,
-    "endMs": 36700,
-    "timestampMs": 36025,
-    "confidence": null
-  },
-  {
-    "text": " 꾸는",
-    "startMs": 36700,
-    "endMs": 37375,
-    "timestampMs": 36700,
-    "confidence": null
-  },
-  {
-    "text": " 단계는",
-    "startMs": 37375,
-    "endMs": 38050,
-    "timestampMs": 37375,
-    "confidence": null
-  },
-  {
-    "text": " 여기서",
-    "startMs": 38050,
-    "endMs": 38725,
-    "timestampMs": 38050,
-    "confidence": null
-  },
-  {
-    "text": " 끝납니다.",
-    "startMs": 38725,
-    "endMs": 39400,
-    "timestampMs": 38725,
-    "confidence": null
-  },
-  {
-    "text": "넷째,",
-    "startMs": 39400,
-    "endMs": 40292,
-    "timestampMs": 39400,
-    "confidence": null
-  },
-  {
-    "text": " Z는",
-    "startMs": 40292,
-    "endMs": 41185,
-    "timestampMs": 40292,
-    "confidence": null
-  },
-  {
-    "text": " Zeroing,",
-    "startMs": 41185,
-    "endMs": 42077,
-    "timestampMs": 41185,
-    "confidence": null
-  },
-  {
-    "text": " 영점",
-    "startMs": 42077,
-    "endMs": 42970,
-    "timestampMs": 42077,
-    "confidence": null
-  },
-  {
-    "text": " 조정입니다.",
-    "startMs": 42970,
-    "endMs": 43862,
-    "timestampMs": 42970,
-    "confidence": null
-  },
-  {
-    "text": "중간에",
-    "startMs": 43862,
-    "endMs": 44612,
-    "timestampMs": 43862,
-    "confidence": null
-  },
-  {
-    "text": " 멈춰서",
-    "startMs": 44612,
-    "endMs": 45362,
-    "timestampMs": 44612,
-    "confidence": null
-  },
-  {
-    "text": " 방향이",
-    "startMs": 45362,
-    "endMs": 46112,
-    "timestampMs": 45362,
-    "confidence": null
-  },
-  {
-    "text": " 맞는지",
-    "startMs": 46112,
-    "endMs": 46862,
-    "timestampMs": 46112,
-    "confidence": null
-  },
-  {
-    "text": " 점검합니다.",
-    "startMs": 46862,
-    "endMs": 47612,
-    "timestampMs": 46862,
-    "confidence": null
-  },
-  {
-    "text": "결과가",
-    "startMs": 47612,
-    "endMs": 48271,
-    "timestampMs": 47612,
-    "confidence": null
-  },
-  {
-    "text": " 나오고",
-    "startMs": 48271,
-    "endMs": 48931,
-    "timestampMs": 48271,
-    "confidence": null
-  },
-  {
-    "text": " 있는지,",
-    "startMs": 48931,
-    "endMs": 49590,
-    "timestampMs": 48931,
-    "confidence": null
-  },
-  {
-    "text": " 수정할",
-    "startMs": 49590,
-    "endMs": 50250,
-    "timestampMs": 49590,
-    "confidence": null
-  },
-  {
-    "text": " 것은",
-    "startMs": 50250,
-    "endMs": 50909,
-    "timestampMs": 50250,
-    "confidence": null
-  },
-  {
-    "text": " 없는지",
-    "startMs": 50909,
-    "endMs": 51568,
-    "timestampMs": 50909,
-    "confidence": null
-  },
-  {
-    "text": " 확인하는",
-    "startMs": 51568,
-    "endMs": 52228,
-    "timestampMs": 51568,
+    "text": " 핵심",
+    "startMs": 3017,
+    "endMs": 3746,
+    "timestampMs": 3017,
     "confidence": null
   },
   {
     "text": " 단계입니다.",
-    "startMs": 52228,
-    "endMs": 52887,
-    "timestampMs": 52228,
+    "startMs": 3746,
+    "endMs": 4475,
+    "timestampMs": 3746,
+    "confidence": null
+  },
+  {
+    "text": "첫째,",
+    "startMs": 4425,
+    "endMs": 5425,
+    "timestampMs": 4425,
+    "confidence": null
+  },
+  {
+    "text": " 주인공",
+    "startMs": 5425,
+    "endMs": 6425,
+    "timestampMs": 5425,
+    "confidence": null
+  },
+  {
+    "text": " 설정.",
+    "startMs": 6425,
+    "endMs": 7425,
+    "timestampMs": 6425,
+    "confidence": null
+  },
+  {
+    "text": "고객이",
+    "startMs": 7425,
+    "endMs": 8150,
+    "timestampMs": 7425,
+    "confidence": null
+  },
+  {
+    "text": " 원하는",
+    "startMs": 8150,
+    "endMs": 8875,
+    "timestampMs": 8150,
+    "confidence": null
+  },
+  {
+    "text": " 것을",
+    "startMs": 8875,
+    "endMs": 9600,
+    "timestampMs": 8875,
+    "confidence": null
+  },
+  {
+    "text": " 명확하게",
+    "startMs": 9600,
+    "endMs": 10325,
+    "timestampMs": 9600,
+    "confidence": null
+  },
+  {
+    "text": " 정의하세요.",
+    "startMs": 10325,
+    "endMs": 11050,
+    "timestampMs": 10325,
+    "confidence": null
+  },
+  {
+    "text": "한",
+    "startMs": 11050,
+    "endMs": 11588,
+    "timestampMs": 11050,
+    "confidence": null
+  },
+  {
+    "text": " 문장으로",
+    "startMs": 11588,
+    "endMs": 12125,
+    "timestampMs": 11588,
+    "confidence": null
+  },
+  {
+    "text": " 말할",
+    "startMs": 12125,
+    "endMs": 12663,
+    "timestampMs": 12125,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 12663,
+    "endMs": 13200,
+    "timestampMs": 12663,
+    "confidence": null
+  },
+  {
+    "text": " 없다면",
+    "startMs": 13200,
+    "endMs": 13738,
+    "timestampMs": 13200,
+    "confidence": null
+  },
+  {
+    "text": " 메시지가",
+    "startMs": 13738,
+    "endMs": 14275,
+    "timestampMs": 13738,
+    "confidence": null
+  },
+  {
+    "text": " 흐린",
+    "startMs": 14275,
+    "endMs": 14813,
+    "timestampMs": 14275,
+    "confidence": null
+  },
+  {
+    "text": " 겁니다.",
+    "startMs": 14813,
+    "endMs": 15350,
+    "timestampMs": 14813,
+    "confidence": null
+  },
+  {
+    "text": "둘째,",
+    "startMs": 15350,
+    "endMs": 16250,
+    "timestampMs": 15350,
+    "confidence": null
+  },
+  {
+    "text": " 문제",
+    "startMs": 16250,
+    "endMs": 17150,
+    "timestampMs": 16250,
+    "confidence": null
+  },
+  {
+    "text": " 정의.",
+    "startMs": 17150,
+    "endMs": 18050,
+    "timestampMs": 17150,
+    "confidence": null
+  },
+  {
+    "text": "고객의",
+    "startMs": 18050,
+    "endMs": 18697,
+    "timestampMs": 18050,
+    "confidence": null
+  },
+  {
+    "text": " 문제는",
+    "startMs": 18697,
+    "endMs": 19345,
+    "timestampMs": 18697,
+    "confidence": null
+  },
+  {
+    "text": " 세",
+    "startMs": 19345,
+    "endMs": 19992,
+    "timestampMs": 19345,
+    "confidence": null
+  },
+  {
+    "text": " 층위가",
+    "startMs": 19992,
+    "endMs": 20640,
+    "timestampMs": 19992,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 20640,
+    "endMs": 21287,
+    "timestampMs": 20640,
+    "confidence": null
+  },
+  {
+    "text": "외적",
+    "startMs": 21287,
+    "endMs": 21960,
+    "timestampMs": 21287,
+    "confidence": null
+  },
+  {
+    "text": " 문제,",
+    "startMs": 21960,
+    "endMs": 22634,
+    "timestampMs": 21960,
+    "confidence": null
+  },
+  {
+    "text": " 내적",
+    "startMs": 22634,
+    "endMs": 23307,
+    "timestampMs": 22634,
+    "confidence": null
+  },
+  {
+    "text": " 불안,",
+    "startMs": 23307,
+    "endMs": 23980,
+    "timestampMs": 23307,
+    "confidence": null
+  },
+  {
+    "text": " 그리고",
+    "startMs": 23980,
+    "endMs": 24653,
+    "timestampMs": 23980,
+    "confidence": null
+  },
+  {
+    "text": " 철학적",
+    "startMs": 24653,
+    "endMs": 25327,
+    "timestampMs": 24653,
+    "confidence": null
+  },
+  {
+    "text": " 신념.",
+    "startMs": 25327,
+    "endMs": 26000,
+    "timestampMs": 25327,
+    "confidence": null
+  },
+  {
+    "text": "세",
+    "startMs": 26000,
+    "endMs": 26665,
+    "timestampMs": 26000,
+    "confidence": null
+  },
+  {
+    "text": " 가지를",
+    "startMs": 26665,
+    "endMs": 27329,
+    "timestampMs": 26665,
+    "confidence": null
+  },
+  {
+    "text": " 모두",
+    "startMs": 27329,
+    "endMs": 27994,
+    "timestampMs": 27329,
+    "confidence": null
+  },
+  {
+    "text": " 건드려야",
+    "startMs": 27994,
+    "endMs": 28658,
+    "timestampMs": 27994,
+    "confidence": null
+  },
+  {
+    "text": " 고객이",
+    "startMs": 28658,
+    "endMs": 29323,
+    "timestampMs": 28658,
+    "confidence": null
+  },
+  {
+    "text": " 반응합니다.",
+    "startMs": 29323,
+    "endMs": 29987,
+    "timestampMs": 29323,
+    "confidence": null
+  },
+  {
+    "text": "셋째,",
+    "startMs": 29987,
+    "endMs": 30979,
+    "timestampMs": 29987,
+    "confidence": null
+  },
+  {
+    "text": " 가이드",
+    "startMs": 30979,
+    "endMs": 31970,
+    "timestampMs": 30979,
+    "confidence": null
+  },
+  {
+    "text": " 등장.",
+    "startMs": 31970,
+    "endMs": 32962,
+    "timestampMs": 31970,
+    "confidence": null
+  },
+  {
+    "text": "브랜드는",
+    "startMs": 32962,
+    "endMs": 33689,
+    "timestampMs": 32962,
+    "confidence": null
+  },
+  {
+    "text": " 공감과",
+    "startMs": 33689,
+    "endMs": 34416,
+    "timestampMs": 33689,
+    "confidence": null
+  },
+  {
+    "text": " 권위를",
+    "startMs": 34416,
+    "endMs": 35144,
+    "timestampMs": 34416,
+    "confidence": null
+  },
+  {
+    "text": " 동시에",
+    "startMs": 35144,
+    "endMs": 35871,
+    "timestampMs": 35144,
+    "confidence": null
+  },
+  {
+    "text": " 보여줘야",
+    "startMs": 35871,
+    "endMs": 36598,
+    "timestampMs": 35871,
+    "confidence": null
+  },
+  {
+    "text": " 합니다.",
+    "startMs": 36598,
+    "endMs": 37325,
+    "timestampMs": 36598,
+    "confidence": null
+  },
+  {
+    "text": "이",
+    "startMs": 37325,
+    "endMs": 37972,
+    "timestampMs": 37325,
+    "confidence": null
+  },
+  {
+    "text": " 두",
+    "startMs": 37972,
+    "endMs": 38620,
+    "timestampMs": 37972,
+    "confidence": null
+  },
+  {
+    "text": " 가지가",
+    "startMs": 38620,
+    "endMs": 39267,
+    "timestampMs": 38620,
+    "confidence": null
+  },
+  {
+    "text": " 가이드의",
+    "startMs": 39267,
+    "endMs": 39915,
+    "timestampMs": 39267,
+    "confidence": null
+  },
+  {
+    "text": " 자격입니다.",
+    "startMs": 39915,
+    "endMs": 40562,
+    "timestampMs": 39915,
+    "confidence": null
+  },
+  {
+    "text": "넷째,",
+    "startMs": 40562,
+    "endMs": 41495,
+    "timestampMs": 40562,
+    "confidence": null
+  },
+  {
+    "text": " 계획",
+    "startMs": 41495,
+    "endMs": 42429,
+    "timestampMs": 41495,
+    "confidence": null
+  },
+  {
+    "text": " 제시.",
+    "startMs": 42429,
+    "endMs": 43362,
+    "timestampMs": 42429,
+    "confidence": null
+  },
+  {
+    "text": "세",
+    "startMs": 43362,
+    "endMs": 44225,
+    "timestampMs": 43362,
+    "confidence": null
+  },
+  {
+    "text": " 단계면",
+    "startMs": 44225,
+    "endMs": 45087,
+    "timestampMs": 44225,
+    "confidence": null
+  },
+  {
+    "text": " 충분합니다.",
+    "startMs": 45087,
+    "endMs": 45950,
+    "timestampMs": 45087,
+    "confidence": null
+  },
+  {
+    "text": "상담",
+    "startMs": 45950,
+    "endMs": 46725,
+    "timestampMs": 45950,
+    "confidence": null
+  },
+  {
+    "text": " 예약,",
+    "startMs": 46725,
+    "endMs": 47500,
+    "timestampMs": 46725,
+    "confidence": null
+  },
+  {
+    "text": " 맞춤",
+    "startMs": 47500,
+    "endMs": 48275,
+    "timestampMs": 47500,
+    "confidence": null
+  },
+  {
+    "text": " 설계,",
+    "startMs": 48275,
+    "endMs": 49050,
+    "timestampMs": 48275,
+    "confidence": null
+  },
+  {
+    "text": " 실행.",
+    "startMs": 49050,
+    "endMs": 49825,
+    "timestampMs": 49050,
+    "confidence": null
+  },
+  {
+    "text": "복잡하면",
+    "startMs": 49825,
+    "endMs": 50804,
+    "timestampMs": 49825,
+    "confidence": null
+  },
+  {
+    "text": " 고객은",
+    "startMs": 50804,
+    "endMs": 51783,
+    "timestampMs": 50804,
+    "confidence": null
+  },
+  {
+    "text": " 떠납니다.",
+    "startMs": 51783,
+    "endMs": 52762,
+    "timestampMs": 51783,
     "confidence": null
   },
   {
     "text": "다섯째,",
-    "startMs": 52887,
-    "endMs": 53631,
-    "timestampMs": 52887,
+    "startMs": 52762,
+    "endMs": 53578,
+    "timestampMs": 52762,
     "confidence": null
   },
   {
-    "text": " Y는",
-    "startMs": 53631,
-    "endMs": 54375,
-    "timestampMs": 53631,
+    "text": " 행동",
+    "startMs": 53578,
+    "endMs": 54394,
+    "timestampMs": 53578,
     "confidence": null
   },
   {
-    "text": " Year",
-    "startMs": 54375,
-    "endMs": 55119,
-    "timestampMs": 54375,
+    "text": " 촉구와",
+    "startMs": 54394,
+    "endMs": 55209,
+    "timestampMs": 54394,
     "confidence": null
   },
   {
-    "text": " Theory,",
-    "startMs": 55119,
-    "endMs": 55862,
-    "timestampMs": 55119,
+    "text": " 결과.",
+    "startMs": 55209,
+    "endMs": 56025,
+    "timestampMs": 55209,
     "confidence": null
   },
   {
-    "text": " 1년",
-    "startMs": 55862,
-    "endMs": 56606,
-    "timestampMs": 55862,
+    "text": "성공의",
+    "startMs": 56025,
+    "endMs": 56729,
+    "timestampMs": 56025,
     "confidence": null
   },
   {
-    "text": " 이론입니다.",
-    "startMs": 56606,
-    "endMs": 57350,
-    "timestampMs": 56606,
+    "text": " 비전과",
+    "startMs": 56729,
+    "endMs": 57433,
+    "timestampMs": 56729,
     "confidence": null
   },
   {
-    "text": "1년이라는",
-    "startMs": 57350,
-    "endMs": 58100,
-    "timestampMs": 57350,
+    "text": " 실패의",
+    "startMs": 57433,
+    "endMs": 58138,
+    "timestampMs": 57433,
     "confidence": null
   },
   {
-    "text": " 시간에",
-    "startMs": 58100,
-    "endMs": 58850,
-    "timestampMs": 58100,
+    "text": " 공포를",
+    "startMs": 58138,
+    "endMs": 58842,
+    "timestampMs": 58138,
     "confidence": null
   },
   {
-    "text": " 모든",
-    "startMs": 58850,
-    "endMs": 59600,
-    "timestampMs": 58850,
+    "text": " 함께",
+    "startMs": 58842,
+    "endMs": 59546,
+    "timestampMs": 58842,
     "confidence": null
   },
   {
-    "text": " 에너지를",
-    "startMs": 59600,
-    "endMs": 60350,
-    "timestampMs": 59600,
+    "text": " 보여주세요.",
+    "startMs": 59546,
+    "endMs": 60250,
+    "timestampMs": 59546,
     "confidence": null
   },
   {
-    "text": " 쏟습니다.",
-    "startMs": 60350,
-    "endMs": 61100,
-    "timestampMs": 60350,
+    "text": "실패의",
+    "startMs": 60250,
+    "endMs": 60956,
+    "timestampMs": 60250,
     "confidence": null
   },
   {
-    "text": "1년만",
-    "startMs": 61100,
-    "endMs": 61755,
-    "timestampMs": 61100,
+    "text": " 공포가",
+    "startMs": 60956,
+    "endMs": 61662,
+    "timestampMs": 60956,
     "confidence": null
   },
   {
-    "text": " 미치면",
-    "startMs": 61755,
-    "endMs": 62411,
-    "timestampMs": 61755,
+    "text": " 행동의",
+    "startMs": 61662,
+    "endMs": 62369,
+    "timestampMs": 61662,
     "confidence": null
   },
   {
-    "text": " 그",
-    "startMs": 62411,
-    "endMs": 63066,
-    "timestampMs": 62411,
+    "text": " 가장",
+    "startMs": 62369,
+    "endMs": 63075,
+    "timestampMs": 62369,
     "confidence": null
   },
   {
-    "text": " 다음부터는",
-    "startMs": 63066,
-    "endMs": 63721,
-    "timestampMs": 63066,
+    "text": " 강력한",
+    "startMs": 63075,
+    "endMs": 63781,
+    "timestampMs": 63075,
     "confidence": null
   },
   {
-    "text": " 미침이",
-    "startMs": 63721,
-    "endMs": 64376,
-    "timestampMs": 63721,
-    "confidence": null
-  },
-  {
-    "text": " 체질이",
-    "startMs": 64376,
-    "endMs": 65032,
-    "timestampMs": 64376,
-    "confidence": null
-  },
-  {
-    "text": " 됩니다.",
-    "startMs": 65032,
-    "endMs": 65687,
-    "timestampMs": 65032,
+    "text": " 동기입니다.",
+    "startMs": 63781,
+    "endMs": 64487,
+    "timestampMs": 63781,
     "confidence": null
   }
 ]
