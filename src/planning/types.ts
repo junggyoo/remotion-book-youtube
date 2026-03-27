@@ -186,6 +186,7 @@ export type ValidationPhase =
   | "duration"
   | "assets"
   | "blueprints"
+  | "render-qa"
   | "quality-gate";
 
 export interface PlanValidationResult {

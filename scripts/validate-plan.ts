@@ -9,6 +9,7 @@ import { validateStoryboard } from "../src/planning/validators/validate-storyboa
 import { validateDuration } from "../src/planning/validators/validate-duration";
 import { validateAssets } from "../src/planning/validators/validate-assets";
 import { validateBlueprints } from "../src/planning/validators/validate-blueprints";
+import { validateRenderQA } from "../src/planning/validators/validate-render-qa";
 import { validateQualityGate } from "../src/planning/validators/validate-quality-gate";
 import { saveValidationResult } from "../src/planning/loaders/save-book-plan";
 import type {
@@ -177,6 +178,17 @@ async function main() {
       status: deriveStatus(c),
       timestamp: new Date().toISOString(),
       checks: c,
+    });
+  }
+
+  // Render QA phase
+  if (storyboard) {
+    const rqc = validateRenderQA(bookId, storyboard as StoryboardPlan);
+    results.push({
+      phase: "render-qa",
+      status: deriveStatus(rqc),
+      timestamp: new Date().toISOString(),
+      checks: rqc,
     });
   }
 
