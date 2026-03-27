@@ -20,6 +20,8 @@ import type {
   BookFingerprint,
   ScenePlan,
   FormatKey,
+  SceneBlueprint,
+  TypedScene,
 } from "../../src/types";
 import type {
   DsgsStage,
@@ -35,7 +37,12 @@ import {
   savePlanArtifact,
 } from "../../src/planning/loaders/save-book-plan";
 import { resolveBaseTheme } from "../../src/design/themes/resolveBaseTheme";
-import type { BookArtDirection } from "../../src/planning/types";
+import type {
+  BookArtDirection,
+  StoryboardPlan,
+} from "../../src/planning/types";
+import { resolvePresetBlueprint } from "../../src/renderer/resolvePresetBlueprint";
+import { buildDefaultMediaPlan } from "../../src/renderer/presetBlueprints/types";
 
 // ---------------------------------------------------------------------------
 // Stage export
@@ -121,25 +128,8 @@ export const synthesizeGapsStage: DsgsStage = {
       fingerprint.emotionalTone = [];
     }
 
-    // 5. Extract gaps
+    // 5. Extract gaps (may be empty — materialization still runs for preset blueprints)
     const gaps = scenePlan.gaps;
-    if (gaps.length === 0) {
-      // No gaps — save empty summary and succeed
-      const summary = {
-        blueprintCount: 0,
-        blueprintIds: [],
-        validationPassed: true,
-        durationMs: Date.now() - start,
-      };
-      savePlanArtifact(ctx.bookId, "05-synthesis-summary", summary, true);
-      return {
-        stageId: "6-synthesizer",
-        status: "success",
-        artifacts: [summaryPath],
-        durationMs: Date.now() - start,
-        message: "No gaps detected — 0 blueprints synthesized.",
-      };
-    }
 
     // 6. Narrow format: ResolveContext.format requires 'longform' | 'shorts', NOT 'both'
     const resolvedFormat: "longform" | "shorts" =
@@ -177,12 +167,13 @@ export const synthesizeGapsStage: DsgsStage = {
       artDirection,
     };
 
-    // 8. Run synthesis
-    const blueprints = synthesizeGaps(gaps, synthCtx);
-
-    // 9. Save each blueprint individually (blueprints BEFORE summary for idempotency)
+    // 8. Run gap synthesis (only when gaps exist)
     const blueprintIds: string[] = [];
     const artifactPaths: string[] = [];
+    const validationErrors: string[] = [];
+    const blueprints = gaps.length > 0 ? synthesizeGaps(gaps, synthCtx) : [];
+
+    // 9. Save each gap blueprint individually (blueprints BEFORE summary for idempotency)
     for (const bp of blueprints) {
       saveBlueprintArtifact(ctx.bookId, bp.id, bp);
       blueprintIds.push(bp.id);
@@ -191,8 +182,7 @@ export const synthesizeGapsStage: DsgsStage = {
       );
     }
 
-    // 10. Post-save validation
-    const validationErrors: string[] = [];
+    // 10. Post-save validation for gap blueprints
     for (const bp of blueprints) {
       if (!bp.elements || bp.elements.length === 0) {
         validationErrors.push(`Blueprint ${bp.id}: elements[] is empty`);
@@ -211,9 +201,107 @@ export const synthesizeGapsStage: DsgsStage = {
       );
     }
 
-    // 11. Save summary LAST (preserves skip-if-exists contract)
+    // 11. Materialize preset blueprints for storyboard blueprint scenes
+    //     The storyboard may mark scenes as renderMode: "blueprint" even when
+    //     they have a viable preset. The SceneSynthesizer only creates synth-*
+    //     blueprints for gaps. This step fills the remaining blueprint files
+    //     so the validator and plan-bridge can resolve every blueprintId.
+    let materializedCount = 0;
+    const sbPath = path.join(ctx.planDir, "03-storyboard.json");
+    if (existsSync(sbPath)) {
+      try {
+        const storyboard = JSON.parse(
+          readFileSync(sbPath, "utf-8"),
+        ) as StoryboardPlan;
+        const bookSceneMap = new Map(
+          book.scenes.map((s: TypedScene) => [s.id, s]),
+        );
+        const bpDir = path.join(ctx.planDir, "06-blueprints");
+
+        for (const scene of storyboard.scenes) {
+          if (scene.renderMode !== "blueprint" || !scene.blueprintId) continue;
+
+          const bpFilePath = path.join(
+            bpDir,
+            `${scene.blueprintId}.blueprint.json`,
+          );
+          if (existsSync(bpFilePath)) continue; // already exists (e.g., from prior run)
+
+          const bookScene = bookSceneMap.get(scene.sceneId);
+          if (!bookScene) continue;
+
+          const durationFrames = Math.round(
+            scene.targetDurationSeconds * ctx.fps,
+          );
+          const resolveCtx = {
+            format: resolvedFormat,
+            theme,
+            from: 0,
+            durationFrames,
+            narrationText: bookScene.narrationText ?? "",
+          };
+
+          // Try preset blueprint system first
+          let blueprint: SceneBlueprint | null = null;
+          try {
+            blueprint = resolvePresetBlueprint(bookScene, resolveCtx);
+          } catch {
+            // Some scene types (e.g., highlight) have no preset — handled below
+          }
+
+          if (blueprint) {
+            // Override ID to match storyboard's expected blueprintId
+            (blueprint as { id: string }).id = scene.blueprintId;
+          } else {
+            // Fallback: create a minimal center-focus blueprint for types
+            // without preset support (highlight, transition, etc.)
+            const headline =
+              (bookScene as { content?: { headline?: string } }).content
+                ?.headline ??
+              (bookScene as { content?: { mainText?: string } }).content
+                ?.mainText ??
+              scene.sceneId;
+            blueprint = {
+              id: scene.blueprintId,
+              intent: scene.purpose ?? bookScene.type,
+              origin: "preset",
+              layout: "center-focus",
+              elements: [
+                {
+                  id: "headline-0",
+                  type: "text",
+                  props: { content: headline, role: "headline" },
+                },
+              ],
+              choreography: "reveal-sequence",
+              motionPreset: "heavy",
+              format: resolvedFormat,
+              theme,
+              from: 0,
+              durationFrames,
+              mediaPlan: buildDefaultMediaPlan(
+                bookScene.narrationText ?? "",
+                resolveCtx,
+              ),
+            };
+          }
+
+          saveBlueprintArtifact(ctx.bookId, scene.blueprintId, blueprint);
+          blueprintIds.push(scene.blueprintId);
+          artifactPaths.push(bpFilePath);
+          materializedCount++;
+        }
+      } catch (e) {
+        console.warn(
+          `  Warning: Failed to materialize preset blueprints: ${(e as Error).message}`,
+        );
+      }
+    }
+
+    // 12. Save summary LAST (preserves skip-if-exists contract)
     const summary = {
       blueprintCount: blueprints.length,
+      materializedCount,
       blueprintIds,
       validationPassed: validationErrors.length === 0,
       validationErrors:
@@ -225,7 +313,7 @@ export const synthesizeGapsStage: DsgsStage = {
     savePlanArtifact(ctx.bookId, "05-synthesis-summary", summary, true);
     artifactPaths.push(summaryPath);
 
-    // 12. Build log message
+    // 13. Build log message
     const lifecycleCounts = blueprints.reduce(
       (acc, bp) => {
         acc[bp.lifecycle] = (acc[bp.lifecycle] || 0) + 1;
@@ -241,6 +329,11 @@ export const synthesizeGapsStage: DsgsStage = {
     console.log(
       `  ${blueprints.length} blueprints synthesized from ${gaps.length} gaps`,
     );
+    if (materializedCount > 0) {
+      console.log(
+        `  ${materializedCount} preset blueprints materialized from storyboard`,
+      );
+    }
     console.log(`  Lifecycle: ${lcSummary}`);
     if (validationErrors.length > 0) {
       console.log(`  ${validationErrors.length} validation warnings`);
@@ -251,7 +344,7 @@ export const synthesizeGapsStage: DsgsStage = {
       status: "success",
       artifacts: artifactPaths,
       durationMs: Date.now() - start,
-      message: `Synthesized ${blueprints.length} blueprints (${lcSummary}). Validation: ${validationErrors.length === 0 ? "passed" : `${validationErrors.length} warnings`}`,
+      message: `Synthesized ${blueprints.length} blueprints (${lcSummary}), materialized ${materializedCount} preset blueprints. Validation: ${validationErrors.length === 0 ? "passed" : `${validationErrors.length} warnings`}`,
     };
   },
 };
