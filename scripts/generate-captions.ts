@@ -27,6 +27,7 @@ interface BookContent {
   }>;
   narration: {
     voice: string;
+    ttsEngine?: string;
     speed?: number;
     pitch?: string;
   };
@@ -43,6 +44,7 @@ interface TTSManifestEntry {
 
 const FPS = 30;
 const OUTPUT_DIR = path.resolve(process.cwd(), "assets/tts");
+const QWEN3_SERVER_URL = "http://127.0.0.1:9876";
 
 function getAudioDurationMs(filePath: string): number {
   try {
@@ -73,6 +75,92 @@ function getAudioDurationMs(filePath: string): number {
   }
 }
 
+async function generateViaEdgeTTS(
+  text: string,
+  narration: BookContent["narration"],
+  audioPath: string,
+  vttPath: string,
+): Promise<boolean> {
+  const args: string[] = ["--voice", narration.voice];
+
+  if (narration.speed && narration.speed !== 1.0) {
+    const pct = Math.round((narration.speed - 1) * 100);
+    args.push("--rate", `${pct > 0 ? "+" : ""}${pct}%`);
+  }
+  if (narration.pitch && narration.pitch !== "+0Hz") {
+    args.push("--pitch", narration.pitch);
+  }
+
+  args.push("--text", text);
+  args.push("--write-media", audioPath);
+  args.push("--write-subtitles", vttPath);
+
+  try {
+    execFileSync("edge-tts", args, { encoding: "utf-8", timeout: 30000 });
+    return true;
+  } catch (err) {
+    console.error(`[FAIL] edge-tts:`, err);
+    return false;
+  }
+}
+
+async function generateViaQwen3(
+  text: string,
+  audioPath: string,
+  vttPath: string,
+): Promise<boolean> {
+  try {
+    const resp = await fetch(`${QWEN3_SERVER_URL}/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text,
+        outputPath: path.resolve(audioPath),
+        whisperVtt: true,
+      }),
+      signal: AbortSignal.timeout(120000),
+    });
+
+    if (!resp.ok) {
+      const errBody = await resp.text();
+      console.error(`[FAIL] qwen3-tts server ${resp.status}: ${errBody}`);
+      return false;
+    }
+
+    const result = (await resp.json()) as {
+      audioPath: string;
+      vttPath: string | null;
+    };
+
+    // Copy VTT to expected path if server wrote it elsewhere
+    if (
+      result.vttPath &&
+      result.vttPath !== vttPath &&
+      fs.existsSync(result.vttPath)
+    ) {
+      fs.copyFileSync(result.vttPath, vttPath);
+    }
+
+    return fs.existsSync(audioPath);
+  } catch (err) {
+    console.error(`[FAIL] qwen3-tts:`, err);
+    return false;
+  }
+}
+
+async function waitForQwen3Server(): Promise<boolean> {
+  try {
+    const resp = await fetch(`${QWEN3_SERVER_URL}/health`, {
+      signal: AbortSignal.timeout(2000),
+    });
+    if (resp.ok) {
+      const data = (await resp.json()) as { status: string };
+      return data.status === "ready";
+    }
+  } catch {}
+  return false;
+}
+
 async function main() {
   const bookPath = process.argv[2];
   if (!bookPath) {
@@ -89,6 +177,23 @@ async function main() {
   const book: BookContent = JSON.parse(bookRaw);
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
+  const useQwen3 = book.narration.ttsEngine === "qwen3-tts";
+
+  if (useQwen3) {
+    console.log("[INFO] Using qwen3-tts engine");
+    const ready = await waitForQwen3Server();
+    if (!ready) {
+      console.error(
+        "[ERROR] qwen3-tts server not running. Start it first:\n" +
+          "  uv run --with qwen-tts --with faster-whisper scripts/qwen3-tts-server.py \\\n" +
+          '    --ref-audio assets/voice/myvoice.m4a --ref-text "..."',
+      );
+      process.exit(1);
+    }
+  } else {
+    console.log("[INFO] Using edge-tts engine");
+  }
 
   const manifest: TTSManifestEntry[] = [];
 
@@ -111,31 +216,39 @@ async function main() {
 
     console.log(`[TTS] ${scene.id}: "${text.slice(0, 40)}..."`);
 
-    // Generate with edge-tts
-    const args: string[] = ["--voice", book.narration.voice];
-
-    if (book.narration.speed && book.narration.speed !== 1.0) {
-      const pct = Math.round((book.narration.speed - 1) * 100);
-      args.push("--rate", `${pct > 0 ? "+" : ""}${pct}%`);
+    let success: boolean;
+    if (useQwen3) {
+      success = await generateViaQwen3(text, audioPath, vttPath);
+      // Fallback to edge-tts on failure
+      if (!success) {
+        console.warn(`[WARN] qwen3-tts failed, falling back to edge-tts`);
+        success = await generateViaEdgeTTS(
+          text,
+          book.narration,
+          audioPath,
+          vttPath,
+        );
+      }
+    } else {
+      success = await generateViaEdgeTTS(
+        text,
+        book.narration,
+        audioPath,
+        vttPath,
+      );
     }
-    if (book.narration.pitch && book.narration.pitch !== "+0Hz") {
-      args.push("--pitch", book.narration.pitch);
-    }
 
-    args.push("--text", text);
-    args.push("--write-media", audioPath);
-    args.push("--write-subtitles", vttPath);
-
-    try {
-      execFileSync("edge-tts", args, { encoding: "utf-8", timeout: 30000 });
-    } catch (err) {
-      console.error(`[FAIL] ${scene.id}:`, err);
+    if (!success) {
+      console.error(`[FAIL] ${scene.id}: TTS generation failed`);
       continue;
     }
 
     // Parse VTT → Caption[]
-    const vttContent = fs.readFileSync(vttPath, "utf-8");
-    const captions = vttToCaptions(vttContent);
+    let captions: Caption[] = [];
+    if (fs.existsSync(vttPath)) {
+      const vttContent = fs.readFileSync(vttPath, "utf-8");
+      captions = vttToCaptions(vttContent);
+    }
     fs.writeFileSync(captionsPath, JSON.stringify(captions, null, 2));
 
     // Get duration
@@ -167,7 +280,9 @@ async function main() {
     );
 
     // Clean up VTT (we have JSON now)
-    fs.unlinkSync(vttPath);
+    if (fs.existsSync(vttPath)) {
+      fs.unlinkSync(vttPath);
+    }
   }
 
   // Write manifest
