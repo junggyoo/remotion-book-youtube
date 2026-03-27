@@ -1,121 +1,107 @@
 [
   {
-    "text": "제임스",
+    "text": "강상구의",
     "startMs": 100,
-    "endMs": 523,
+    "endMs": 819,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 클리어의",
-    "startMs": 523,
-    "endMs": 946,
-    "timestampMs": 523,
+    "text": " 딱",
+    "startMs": 819,
+    "endMs": 1538,
+    "timestampMs": 819,
     "confidence": null
   },
   {
-    "text": " 아주",
-    "startMs": 946,
-    "endMs": 1368,
-    "timestampMs": 946,
+    "text": " 1년만",
+    "startMs": 1538,
+    "endMs": 2256,
+    "timestampMs": 1538,
     "confidence": null
   },
   {
-    "text": " 작은",
-    "startMs": 1368,
-    "endMs": 1791,
-    "timestampMs": 1368,
+    "text": " 미쳐라.",
+    "startMs": 2256,
+    "endMs": 2975,
+    "timestampMs": 2256,
     "confidence": null
   },
   {
-    "text": " 습관의",
-    "startMs": 1791,
-    "endMs": 2214,
-    "timestampMs": 1791,
+    "text": "평범한",
+    "startMs": 2925,
+    "endMs": 3565,
+    "timestampMs": 2925,
     "confidence": null
   },
   {
-    "text": " 힘.",
-    "startMs": 2214,
-    "endMs": 2637,
-    "timestampMs": 2214,
+    "text": " 삶을",
+    "startMs": 3565,
+    "endMs": 4204,
+    "timestampMs": 3565,
     "confidence": null
   },
   {
-    "text": " 전",
-    "startMs": 2637,
-    "endMs": 3059,
-    "timestampMs": 2637,
+    "text": " 거부하고,",
+    "startMs": 4204,
+    "endMs": 4844,
+    "timestampMs": 4204,
     "confidence": null
   },
   {
-    "text": " 세계",
-    "startMs": 3059,
-    "endMs": 3482,
-    "timestampMs": 3059,
+    "text": " 단",
+    "startMs": 4844,
+    "endMs": 5484,
+    "timestampMs": 4844,
     "confidence": null
   },
   {
-    "text": " 천만",
-    "startMs": 3482,
-    "endMs": 3905,
-    "timestampMs": 3482,
+    "text": " 1년의",
+    "startMs": 5484,
+    "endMs": 6124,
+    "timestampMs": 5484,
     "confidence": null
   },
   {
-    "text": " 부",
-    "startMs": 3905,
-    "endMs": 4328,
-    "timestampMs": 3905,
+    "text": " 집중으로",
+    "startMs": 6124,
+    "endMs": 6763,
+    "timestampMs": 6124,
     "confidence": null
   },
   {
-    "text": " 이상",
-    "startMs": 4328,
-    "endMs": 4750,
-    "timestampMs": 4328,
+    "text": " 인생을",
+    "startMs": 6763,
+    "endMs": 7403,
+    "timestampMs": 6763,
     "confidence": null
   },
   {
-    "text": " 팔린",
-    "startMs": 4750,
-    "endMs": 5173,
-    "timestampMs": 4750,
+    "text": " 뒤바꾸는",
+    "startMs": 7403,
+    "endMs": 8043,
+    "timestampMs": 7403,
     "confidence": null
   },
   {
-    "text": " 이",
-    "startMs": 5173,
-    "endMs": 5596,
-    "timestampMs": 5173,
+    "text": " 실전",
+    "startMs": 8043,
+    "endMs": 8683,
+    "timestampMs": 8043,
     "confidence": null
   },
   {
-    "text": " 책이",
-    "startMs": 5596,
-    "endMs": 6019,
-    "timestampMs": 5596,
-    "confidence": null
-  },
-  {
-    "text": " 말하는",
-    "startMs": 6019,
-    "endMs": 6441,
-    "timestampMs": 6019,
-    "confidence": null
-  },
-  {
-    "text": " 핵심을",
-    "startMs": 6441,
-    "endMs": 6864,
-    "timestampMs": 6441,
+    "text": " 전략을",
+    "startMs": 8683,
+    "endMs": 9322,
+    "timestampMs": 8683,
     "confidence": null
   },
   {
     "text": " 알아봅니다.",
-    "startMs": 6864,
-    "endMs": 7287,
-    "timestampMs": 6864,
+    "startMs": 9322,
+    "endMs": 9962,
+    "timestampMs": 9322,
     "confidence": null
   }
 ]

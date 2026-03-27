@@ -17,6 +17,7 @@ const COMPOSITION_MAP: Record<string, string> = {
   "test-book": "LongformComposition",
   "atomic-habits": "AtomicHabits",
   "millionaire-fastlane": "MillionaireFastlane",
+  "crazy-one-year": "CrazyOneYear",
 };
 
 function main() {

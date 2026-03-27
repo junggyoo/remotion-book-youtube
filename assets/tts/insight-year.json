@@ -1,0 +1,457 @@
+[
+  {
+    "text": "왜",
+    "startMs": 100,
+    "endMs": 904,
+    "timestampMs": 100,
+    "confidence": null
+  },
+  {
+    "text": " 하필",
+    "startMs": 904,
+    "endMs": 1708,
+    "timestampMs": 904,
+    "confidence": null
+  },
+  {
+    "text": " 1년일까요?",
+    "startMs": 1708,
+    "endMs": 2512,
+    "timestampMs": 1708,
+    "confidence": null
+  },
+  {
+    "text": "1년은",
+    "startMs": 2462,
+    "endMs": 3092,
+    "timestampMs": 2462,
+    "confidence": null
+  },
+  {
+    "text": " 우리",
+    "startMs": 3092,
+    "endMs": 3723,
+    "timestampMs": 3092,
+    "confidence": null
+  },
+  {
+    "text": " 사회의",
+    "startMs": 3723,
+    "endMs": 4353,
+    "timestampMs": 3723,
+    "confidence": null
+  },
+  {
+    "text": " 가장",
+    "startMs": 4353,
+    "endMs": 4984,
+    "timestampMs": 4353,
+    "confidence": null
+  },
+  {
+    "text": " 기본적인",
+    "startMs": 4984,
+    "endMs": 5614,
+    "timestampMs": 4984,
+    "confidence": null
+  },
+  {
+    "text": " 시간",
+    "startMs": 5614,
+    "endMs": 6245,
+    "timestampMs": 5614,
+    "confidence": null
+  },
+  {
+    "text": " 단위입니다.",
+    "startMs": 6245,
+    "endMs": 6875,
+    "timestampMs": 6245,
+    "confidence": null
+  },
+  {
+    "text": "계절이",
+    "startMs": 6875,
+    "endMs": 7535,
+    "timestampMs": 6875,
+    "confidence": null
+  },
+  {
+    "text": " 한",
+    "startMs": 7535,
+    "endMs": 8194,
+    "timestampMs": 7535,
+    "confidence": null
+  },
+  {
+    "text": " 바퀴",
+    "startMs": 8194,
+    "endMs": 8854,
+    "timestampMs": 8194,
+    "confidence": null
+  },
+  {
+    "text": " 돌고,",
+    "startMs": 8854,
+    "endMs": 9514,
+    "timestampMs": 8854,
+    "confidence": null
+  },
+  {
+    "text": " 학기가",
+    "startMs": 9514,
+    "endMs": 10173,
+    "timestampMs": 9514,
+    "confidence": null
+  },
+  {
+    "text": " 지나고,",
+    "startMs": 10173,
+    "endMs": 10833,
+    "timestampMs": 10173,
+    "confidence": null
+  },
+  {
+    "text": " 프로젝트가",
+    "startMs": 10833,
+    "endMs": 11493,
+    "timestampMs": 10833,
+    "confidence": null
+  },
+  {
+    "text": " 완성되는",
+    "startMs": 11493,
+    "endMs": 12152,
+    "timestampMs": 11493,
+    "confidence": null
+  },
+  {
+    "text": " 시간이죠.",
+    "startMs": 12152,
+    "endMs": 12812,
+    "timestampMs": 12152,
+    "confidence": null
+  },
+  {
+    "text": "저자는",
+    "startMs": 12812,
+    "endMs": 13931,
+    "timestampMs": 12812,
+    "confidence": null
+  },
+  {
+    "text": " 단언합니다.",
+    "startMs": 13931,
+    "endMs": 15050,
+    "timestampMs": 13931,
+    "confidence": null
+  },
+  {
+    "text": "3개월은",
+    "startMs": 15050,
+    "endMs": 15757,
+    "timestampMs": 15050,
+    "confidence": null
+  },
+  {
+    "text": " 습관이",
+    "startMs": 15757,
+    "endMs": 16464,
+    "timestampMs": 15757,
+    "confidence": null
+  },
+  {
+    "text": " 자리잡기엔",
+    "startMs": 16464,
+    "endMs": 17171,
+    "timestampMs": 16464,
+    "confidence": null
+  },
+  {
+    "text": " 짧고,",
+    "startMs": 17171,
+    "endMs": 17878,
+    "timestampMs": 17171,
+    "confidence": null
+  },
+  {
+    "text": " 3년은",
+    "startMs": 17878,
+    "endMs": 18584,
+    "timestampMs": 17878,
+    "confidence": null
+  },
+  {
+    "text": " 동기가",
+    "startMs": 18584,
+    "endMs": 19291,
+    "timestampMs": 18584,
+    "confidence": null
+  },
+  {
+    "text": " 유지되기엔",
+    "startMs": 19291,
+    "endMs": 19998,
+    "timestampMs": 19291,
+    "confidence": null
+  },
+  {
+    "text": " 너무",
+    "startMs": 19998,
+    "endMs": 20705,
+    "timestampMs": 19998,
+    "confidence": null
+  },
+  {
+    "text": " 깁니다.",
+    "startMs": 20705,
+    "endMs": 21412,
+    "timestampMs": 20705,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 21412,
+    "endMs": 21918,
+    "timestampMs": 21412,
+    "confidence": null
+  },
+  {
+    "text": " 1년이면",
+    "startMs": 21918,
+    "endMs": 22425,
+    "timestampMs": 21918,
+    "confidence": null
+  },
+  {
+    "text": " 충분히",
+    "startMs": 22425,
+    "endMs": 22931,
+    "timestampMs": 22425,
+    "confidence": null
+  },
+  {
+    "text": " 미칠",
+    "startMs": 22931,
+    "endMs": 23437,
+    "timestampMs": 22931,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 23437,
+    "endMs": 23943,
+    "timestampMs": 23437,
+    "confidence": null
+  },
+  {
+    "text": " 있고,",
+    "startMs": 23943,
+    "endMs": 24450,
+    "timestampMs": 23943,
+    "confidence": null
+  },
+  {
+    "text": " 그",
+    "startMs": 24450,
+    "endMs": 24956,
+    "timestampMs": 24450,
+    "confidence": null
+  },
+  {
+    "text": " 결과를",
+    "startMs": 24956,
+    "endMs": 25462,
+    "timestampMs": 24956,
+    "confidence": null
+  },
+  {
+    "text": " 눈으로",
+    "startMs": 25462,
+    "endMs": 25968,
+    "timestampMs": 25462,
+    "confidence": null
+  },
+  {
+    "text": " 확인할",
+    "startMs": 25968,
+    "endMs": 26475,
+    "timestampMs": 25968,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 26475,
+    "endMs": 26981,
+    "timestampMs": 26475,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 26981,
+    "endMs": 27487,
+    "timestampMs": 26981,
+    "confidence": null
+  },
+  {
+    "text": "실제로",
+    "startMs": 27487,
+    "endMs": 28850,
+    "timestampMs": 27487,
+    "confidence": null
+  },
+  {
+    "text": " 1년은",
+    "startMs": 28850,
+    "endMs": 30212,
+    "timestampMs": 28850,
+    "confidence": null
+  },
+  {
+    "text": " 8,760시간입니다.",
+    "startMs": 30212,
+    "endMs": 31575,
+    "timestampMs": 30212,
+    "confidence": null
+  },
+  {
+    "text": "하루",
+    "startMs": 31575,
+    "endMs": 32650,
+    "timestampMs": 31575,
+    "confidence": null
+  },
+  {
+    "text": " 10시간씩",
+    "startMs": 32650,
+    "endMs": 33725,
+    "timestampMs": 32650,
+    "confidence": null
+  },
+  {
+    "text": " 몰입하면",
+    "startMs": 33725,
+    "endMs": 34800,
+    "timestampMs": 33725,
+    "confidence": null
+  },
+  {
+    "text": " 3,650시간.",
+    "startMs": 34800,
+    "endMs": 35875,
+    "timestampMs": 34800,
+    "confidence": null
+  },
+  {
+    "text": "어떤",
+    "startMs": 35875,
+    "endMs": 36402,
+    "timestampMs": 35875,
+    "confidence": null
+  },
+  {
+    "text": " 분야든",
+    "startMs": 36402,
+    "endMs": 36928,
+    "timestampMs": 36402,
+    "confidence": null
+  },
+  {
+    "text": " 전문가",
+    "startMs": 36928,
+    "endMs": 37455,
+    "timestampMs": 36928,
+    "confidence": null
+  },
+  {
+    "text": " 수준에",
+    "startMs": 37455,
+    "endMs": 37981,
+    "timestampMs": 37455,
+    "confidence": null
+  },
+  {
+    "text": " 도달할",
+    "startMs": 37981,
+    "endMs": 38508,
+    "timestampMs": 37981,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 38508,
+    "endMs": 39034,
+    "timestampMs": 38508,
+    "confidence": null
+  },
+  {
+    "text": " 있는",
+    "startMs": 39034,
+    "endMs": 39561,
+    "timestampMs": 39034,
+    "confidence": null
+  },
+  {
+    "text": " 시간이죠.",
+    "startMs": 39561,
+    "endMs": 40087,
+    "timestampMs": 39561,
+    "confidence": null
+  },
+  {
+    "text": "1년은",
+    "startMs": 40087,
+    "endMs": 40620,
+    "timestampMs": 40087,
+    "confidence": null
+  },
+  {
+    "text": " 인생을",
+    "startMs": 40620,
+    "endMs": 41153,
+    "timestampMs": 40620,
+    "confidence": null
+  },
+  {
+    "text": " 바꿀",
+    "startMs": 41153,
+    "endMs": 41686,
+    "timestampMs": 41153,
+    "confidence": null
+  },
+  {
+    "text": " 수",
+    "startMs": 41686,
+    "endMs": 42219,
+    "timestampMs": 41686,
+    "confidence": null
+  },
+  {
+    "text": " 있는",
+    "startMs": 42219,
+    "endMs": 42751,
+    "timestampMs": 42219,
+    "confidence": null
+  },
+  {
+    "text": " 최소",
+    "startMs": 42751,
+    "endMs": 43284,
+    "timestampMs": 42751,
+    "confidence": null
+  },
+  {
+    "text": " 유효",
+    "startMs": 43284,
+    "endMs": 43817,
+    "timestampMs": 43284,
+    "confidence": null
+  },
+  {
+    "text": " 시간입니다.",
+    "startMs": 43817,
+    "endMs": 44350,
+    "timestampMs": 43817,
+    "confidence": null
+  }
+]

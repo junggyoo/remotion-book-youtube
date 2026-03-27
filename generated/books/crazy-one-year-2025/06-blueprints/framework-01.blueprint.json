@@ -1,0 +1,238 @@
+{
+  "id": "framework-01",
+  "intent": "Framework grid with 5 item(s) in stagger-clockwise reveal",
+  "origin": "preset",
+  "layout": "grid-expand",
+  "elements": [
+    {
+      "id": "framework-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "framework-frameworkLabel",
+      "type": "label",
+      "props": {
+        "text": "C.R.A.Z.Y 5단계",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineS",
+        "color": "signal"
+      }
+    },
+    {
+      "id": "framework-items-0-number",
+      "type": "number-display",
+      "props": {
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "C — Commanding (선언)",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-description",
+      "type": "body-text",
+      "props": {
+        "text": "미치겠다고 자신에게 명령합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-1-number",
+      "type": "number-display",
+      "props": {
+        "value": 2,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "R — Recognizing (자기인식)",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-description",
+      "type": "body-text",
+      "props": {
+        "text": "진정으로 원하는 것과 재능을 찾습니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-2-number",
+      "type": "number-display",
+      "props": {
+        "value": 3,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "A — Arranging (준비)",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-description",
+      "type": "body-text",
+      "props": {
+        "text": "현실을 직시하고 실행 계획을 세웁니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-3-number",
+      "type": "number-display",
+      "props": {
+        "value": 4,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 3
+      }
+    },
+    {
+      "id": "framework-items-3-title",
+      "type": "body-text",
+      "props": {
+        "text": "Z — Zeroing (영점 조정)",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 3
+      }
+    },
+    {
+      "id": "framework-items-3-description",
+      "type": "body-text",
+      "props": {
+        "text": "중간 점검으로 방향을 수정합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 3
+      }
+    },
+    {
+      "id": "framework-items-4-number",
+      "type": "number-display",
+      "props": {
+        "value": 5,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 4
+      }
+    },
+    {
+      "id": "framework-items-4-title",
+      "type": "body-text",
+      "props": {
+        "text": "Y — Year Theory (1년 이론)",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 4
+      }
+    },
+    {
+      "id": "framework-items-4-description",
+      "type": "body-text",
+      "props": {
+        "text": "1년에 모든 에너지를 집중합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 4
+      }
+    },
+    {
+      "id": "framework-connectors",
+      "type": "divider",
+      "props": {
+        "layer": 25,
+        "role": "item-connector",
+        "dotted": true
+      }
+    }
+  ],
+  "choreography": "stagger-clockwise",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "CRAZY 5단계는 이렇습니다. 첫째, C는 Commanding, 선언입니다. 자신에게 미치겠다고 명령하세요. 왜 미쳐야 하는지 이유를 분명히 하는 것이 시작입니다. 둘째, R은 Recognizing, 자기인식입니다. 내가 진정으로 원하는 것이 무엇인지, 나만의 다이아몬드가 될 재능은 무엇인지 찾아야 합니다. 셋째, A는 Arranging, 준비입니다. 현실을 냉정하게 직시하고, 구체적인 실행 계획을 세웁니다. 꿈만 꾸는 단계는 여기서 끝납니다. 넷째, Z는 Zeroing, 영점 조정입니다. 중간에 멈춰서 방향이 맞는지 점검합니다. 결과가 나오고 있는지, 수정할 것은 없는지 확인하는 단계입니다. 다섯째, Y는 Year Theory, 1년 이론입니다. 1년이라는 시간에 모든 에너지를 쏟습니다. 1년만 미치면 그 다음부터는 미침이 체질이 됩니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

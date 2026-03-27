@@ -1,0 +1,124 @@
+{
+  "bookId": "crazy-one-year-2025",
+  "mode": "auto",
+  "startedAt": "2026-03-27T04:17:46.943Z",
+  "stageResults": [
+    {
+      "stageId": "1-analyzer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/00-fingerprint.json"
+      ],
+      "durationMs": 1,
+      "message": "Fingerprint: genre=selfHelp, structure=framework, hook=urgency"
+    },
+    {
+      "stageId": "2-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/01-editorial-outline.json"
+      ],
+      "durationMs": 0,
+      "message": "Outline: framework-driven, 420s, 4 messages"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/02-art-direction.json"
+      ],
+      "durationMs": 0,
+      "message": "ArtDirection: palette=#10B981, shape=geometric, motion=precise"
+    },
+    {
+      "stageId": "4-scene-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/03-storyboard.json"
+      ],
+      "durationMs": 2,
+      "message": "Storyboard: 11 scenes (10 preset, 1 blueprint), 420s"
+    },
+    {
+      "stageId": "5-gap-detector",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/04-gap-analysis.json"
+      ],
+      "durationMs": 1,
+      "message": "Gaps: 5 (0 must, 5 nice), Presets: 9, Policy: min=2 max=5"
+    },
+    {
+      "stageId": "6-synthesizer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/synth-setup-0-0.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/synth-setup-1-1.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/synth-core-0-2.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/synth-core-1-3.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/synth-core-2-4.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/hook-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/cover-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/insight-year.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/chapter-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/framework-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/insight-self.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/compare-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/application-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/quote-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/insight-recap.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06-blueprints/closing-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/05-synthesis-summary.json"
+      ],
+      "durationMs": 3,
+      "message": "Synthesized 5 blueprints (5 ephemeral), materialized 11 preset blueprints. Validation: passed"
+    },
+    {
+      "stageId": "6.3-beat-composer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/06.3-beat-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Beats generated: 0 processed, 11 skipped (total 11 scenes)"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/asset-requirements.json"
+      ],
+      "durationMs": 1,
+      "message": "Assets: 2 total (needed:2)"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/crazy-one-year-2025/.validation"
+      ],
+      "durationMs": 641
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 24253,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/crazy-one-year.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "success",
+      "artifacts": [],
+      "durationMs": 140955
+    },
+    {
+      "stageId": "9-promote",
+      "status": "skipped",
+      "artifacts": [],
+      "durationMs": 0,
+      "message": "Promotion stage not yet implemented"
+    }
+  ],
+  "lastCompletedStage": "9-promote"
+}

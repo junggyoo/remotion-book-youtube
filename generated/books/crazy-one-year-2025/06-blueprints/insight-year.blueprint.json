@@ -1,0 +1,82 @@
+{
+  "id": "insight-year",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "1년이면 인생이 바뀐다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "1년"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "3개월은 짧고 3년은 길다. 1년 8,760시간, 하루 10시간 몰입이면 3,650시간. 전문가에 도달할 수 있는 시간입니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "왜 하필 1년일까요? 1년은 우리 사회의 가장 기본적인 시간 단위입니다. 계절이 한 바퀴 돌고, 학기가 지나고, 프로젝트가 완성되는 시간이죠. 저자는 단언합니다. 3개월은 습관이 자리잡기엔 짧고, 3년은 동기가 유지되기엔 너무 깁니다. 하지만 1년이면 충분히 미칠 수 있고, 그 결과를 눈으로 확인할 수 있습니다. 실제로 1년은 8,760시간입니다. 하루 10시간씩 몰입하면 3,650시간. 어떤 분야든 전문가 수준에 도달할 수 있는 시간이죠. 1년은 인생을 바꿀 수 있는 최소 유효 시간입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

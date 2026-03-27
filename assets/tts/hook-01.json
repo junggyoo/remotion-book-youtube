@@ -1,177 +1,247 @@
 [
   {
-    "text": "목표를",
+    "text": "당신은",
     "startMs": 100,
-    "endMs": 887,
+    "endMs": 647,
     "timestampMs": 100,
     "confidence": null
   },
   {
-    "text": " 세우지",
-    "startMs": 887,
-    "endMs": 1675,
-    "timestampMs": 887,
+    "text": " 지금",
+    "startMs": 647,
+    "endMs": 1194,
+    "timestampMs": 647,
     "confidence": null
   },
   {
-    "text": " 마세요.",
-    "startMs": 1675,
-    "endMs": 2462,
-    "timestampMs": 1675,
+    "text": " 서",
+    "startMs": 1194,
+    "endMs": 1741,
+    "timestampMs": 1194,
     "confidence": null
   },
   {
-    "text": "이게",
-    "startMs": 2412,
-    "endMs": 3150,
-    "timestampMs": 2412,
+    "text": " 있고,",
+    "startMs": 1741,
+    "endMs": 2288,
+    "timestampMs": 1741,
     "confidence": null
   },
   {
-    "text": " 무슨",
-    "startMs": 3150,
-    "endMs": 3887,
-    "timestampMs": 3150,
+    "text": " 다른",
+    "startMs": 2288,
+    "endMs": 2834,
+    "timestampMs": 2288,
     "confidence": null
   },
   {
-    "text": " 말일까요?",
-    "startMs": 3887,
-    "endMs": 4625,
-    "timestampMs": 3887,
+    "text": " 사람은",
+    "startMs": 2834,
+    "endMs": 3381,
+    "timestampMs": 2834,
     "confidence": null
   },
   {
-    "text": "올림픽",
-    "startMs": 4625,
-    "endMs": 5458,
-    "timestampMs": 4625,
+    "text": " 뛰고",
+    "startMs": 3381,
+    "endMs": 3928,
+    "timestampMs": 3381,
     "confidence": null
   },
   {
-    "text": " 금메달리스트도,",
-    "startMs": 5458,
-    "endMs": 6292,
-    "timestampMs": 5458,
+    "text": " 있습니다.",
+    "startMs": 3928,
+    "endMs": 4475,
+    "timestampMs": 3928,
     "confidence": null
   },
   {
-    "text": " 만년",
-    "startMs": 6292,
-    "endMs": 7125,
-    "timestampMs": 6292,
-    "confidence": null
-  },
-  {
-    "text": " 꼴찌도",
-    "startMs": 7125,
-    "endMs": 7958,
-    "timestampMs": 7125,
-    "confidence": null
-  },
-  {
-    "text": " 목표는",
-    "startMs": 7958,
-    "endMs": 8792,
-    "timestampMs": 7958,
-    "confidence": null
-  },
-  {
-    "text": " 같았습니다.",
-    "startMs": 8792,
-    "endMs": 9625,
-    "timestampMs": 8792,
-    "confidence": null
-  },
-  {
-    "text": "금메달.",
-    "startMs": 9625,
-    "endMs": 11200,
-    "timestampMs": 9625,
-    "confidence": null
-  },
-  {
-    "text": "모두가",
-    "startMs": 11200,
-    "endMs": 12008,
-    "timestampMs": 11200,
-    "confidence": null
-  },
-  {
-    "text": " 이기고",
-    "startMs": 12008,
-    "endMs": 12817,
-    "timestampMs": 12008,
-    "confidence": null
-  },
-  {
-    "text": " 싶어했죠.",
-    "startMs": 12817,
-    "endMs": 13625,
-    "timestampMs": 12817,
+    "text": "불편하신가요?",
+    "startMs": 4425,
+    "endMs": 6400,
+    "timestampMs": 4425,
     "confidence": null
   },
   {
     "text": "하지만",
-    "startMs": 13625,
-    "endMs": 14217,
-    "timestampMs": 13625,
+    "startMs": 6400,
+    "endMs": 7333,
+    "timestampMs": 6400,
     "confidence": null
   },
   {
-    "text": " 차이를",
-    "startMs": 14217,
-    "endMs": 14808,
-    "timestampMs": 14217,
+    "text": " 이것이",
+    "startMs": 7333,
+    "endMs": 8267,
+    "timestampMs": 7333,
     "confidence": null
   },
   {
-    "text": " 만든",
-    "startMs": 14808,
-    "endMs": 15400,
-    "timestampMs": 14808,
+    "text": " 현실입니다.",
+    "startMs": 8267,
+    "endMs": 9200,
+    "timestampMs": 8267,
     "confidence": null
   },
   {
-    "text": " 건",
-    "startMs": 15400,
-    "endMs": 15992,
-    "timestampMs": 15400,
+    "text": "우리는",
+    "startMs": 9200,
+    "endMs": 9965,
+    "timestampMs": 9200,
     "confidence": null
   },
   {
-    "text": " 목표가",
-    "startMs": 15992,
-    "endMs": 16583,
-    "timestampMs": 15992,
+    "text": " 10년,",
+    "startMs": 9965,
+    "endMs": 10729,
+    "timestampMs": 9965,
     "confidence": null
   },
   {
-    "text": " 아닙니다.",
-    "startMs": 16583,
-    "endMs": 17175,
-    "timestampMs": 16583,
+    "text": " 20년",
+    "startMs": 10729,
+    "endMs": 11494,
+    "timestampMs": 10729,
     "confidence": null
   },
   {
-    "text": "매일의",
-    "startMs": 17175,
-    "endMs": 18021,
-    "timestampMs": 17175,
+    "text": " 열심히",
+    "startMs": 11494,
+    "endMs": 12258,
+    "timestampMs": 11494,
     "confidence": null
   },
   {
-    "text": " 훈련",
-    "startMs": 18021,
-    "endMs": 18866,
-    "timestampMs": 18021,
+    "text": " 살겠다고",
+    "startMs": 12258,
+    "endMs": 13023,
+    "timestampMs": 12258,
     "confidence": null
   },
   {
-    "text": " 시스템입니다.",
-    "startMs": 18866,
-    "endMs": 19712,
-    "timestampMs": 18866,
+    "text": " 말합니다.",
+    "startMs": 13023,
+    "endMs": 13787,
+    "timestampMs": 13023,
+    "confidence": null
+  },
+  {
+    "text": "하지만",
+    "startMs": 13787,
+    "endMs": 14361,
+    "timestampMs": 13787,
+    "confidence": null
+  },
+  {
+    "text": " 정작",
+    "startMs": 14361,
+    "endMs": 14934,
+    "timestampMs": 14361,
+    "confidence": null
+  },
+  {
+    "text": " 단",
+    "startMs": 14934,
+    "endMs": 15508,
+    "timestampMs": 14934,
+    "confidence": null
+  },
+  {
+    "text": " 1년도",
+    "startMs": 15508,
+    "endMs": 16081,
+    "timestampMs": 15508,
+    "confidence": null
+  },
+  {
+    "text": " 제대로",
+    "startMs": 16081,
+    "endMs": 16655,
+    "timestampMs": 16081,
+    "confidence": null
+  },
+  {
+    "text": " 미쳐본",
+    "startMs": 16655,
+    "endMs": 17228,
+    "timestampMs": 16655,
+    "confidence": null
+  },
+  {
+    "text": " 적이",
+    "startMs": 17228,
+    "endMs": 17802,
+    "timestampMs": 17228,
+    "confidence": null
+  },
+  {
+    "text": " 없습니다.",
+    "startMs": 17802,
+    "endMs": 18375,
+    "timestampMs": 17802,
+    "confidence": null
+  },
+  {
+    "text": "놀라운",
+    "startMs": 18375,
+    "endMs": 19212,
+    "timestampMs": 18375,
+    "confidence": null
+  },
+  {
+    "text": " 사실이",
+    "startMs": 19212,
+    "endMs": 20050,
+    "timestampMs": 19212,
+    "confidence": null
+  },
+  {
+    "text": " 있습니다.",
+    "startMs": 20050,
+    "endMs": 20887,
+    "timestampMs": 20050,
+    "confidence": null
+  },
+  {
+    "text": "딱",
+    "startMs": 20887,
+    "endMs": 21560,
+    "timestampMs": 20887,
+    "confidence": null
+  },
+  {
+    "text": " 1년만",
+    "startMs": 21560,
+    "endMs": 22233,
+    "timestampMs": 21560,
+    "confidence": null
+  },
+  {
+    "text": " 미치면",
+    "startMs": 22233,
+    "endMs": 22906,
+    "timestampMs": 22233,
+    "confidence": null
+  },
+  {
+    "text": " 인생이",
+    "startMs": 22906,
+    "endMs": 23579,
+    "timestampMs": 22906,
+    "confidence": null
+  },
+  {
+    "text": " 완전히",
+    "startMs": 23579,
+    "endMs": 24252,
+    "timestampMs": 23579,
+    "confidence": null
+  },
+  {
+    "text": " 바뀝니다.",
+    "startMs": 24252,
+    "endMs": 24925,
+    "timestampMs": 24252,
     "confidence": null
   }
 ]

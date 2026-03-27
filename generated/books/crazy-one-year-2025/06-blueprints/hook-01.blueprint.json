@@ -1,0 +1,55 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 딱 1년만 미쳐본 적 있습니까?",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "딱 1년만 미쳐본 적 있습니까?",
+        "role": "headline"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1512,
+  "mediaPlan": {
+    "narrationText": "당신은 지금 서 있고, 다른 사람은 뛰고 있습니다. 불편하신가요? 하지만 이것이 현실입니다. 우리는 10년, 20년 열심히 살겠다고 말합니다. 하지만 정작 단 1년도 제대로 미쳐본 적이 없습니다. 놀라운 사실이 있습니다. 딱 1년만 미치면 인생이 완전히 바뀝니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

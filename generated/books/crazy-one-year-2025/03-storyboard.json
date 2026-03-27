@@ -1,0 +1,197 @@
+{
+  "bookId": "crazy-one-year-2025",
+  "totalScenes": 11,
+  "estimatedDurationSeconds": 420,
+  "scenes": [
+    {
+      "sceneId": "hook-01",
+      "order": 0,
+      "purpose": "시선을 사로잡는 후크: 딱 1년만 미쳐본 적 있습니까?",
+      "narrativeGoal": "당신은 지금 서 있고, 다른 사람은 뛰고 있습니다",
+      "visualFunction": "hook",
+      "visualIntent": "강렬한 텍스트 등장, 키워드 강조",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 50.4,
+      "onScreenText": [
+        "딱 1년만 미쳐본 적 있습니까?",
+        "당신은 서 있고, 다른 사람은 뛰고 있습니다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "blueprint",
+      "blueprintId": "hook-01"
+    },
+    {
+      "sceneId": "cover-01",
+      "order": 1,
+      "purpose": "책 표지와 브랜드 소개",
+      "narrativeGoal": "강상구의 딱 1년만 미쳐라",
+      "visualFunction": "transition",
+      "visualIntent": "표지 이미지 중심 레이아웃, 브랜드 라벨 배치",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 50.4,
+      "onScreenText": [
+        "딱 1년만 미쳐라",
+        "강상구"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "cover"
+    },
+    {
+      "sceneId": "insight-year",
+      "order": 2,
+      "purpose": "핵심 인사이트 전달: 1년이면 인생이 바뀐다",
+      "narrativeGoal": "왜 하필 1년일까요",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "1년이면 인생이 바뀐다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "chapter-01",
+      "order": 3,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "그렇다면 어떻게 미쳐야 할까요",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 16.8,
+      "onScreenText": [
+        "C.R.A.Z.Y 5단계"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "framework-01",
+      "order": 4,
+      "purpose": "핵심 프레임워크 순차 공개: C.R.A.Z.Y 5단계",
+      "narrativeGoal": "CRAZY 5단계는 이렇습니다",
+      "visualFunction": "framework",
+      "visualIntent": "항목 stagger reveal, 번호 배지 + 제목 + 설명",
+      "layoutMode": "grid-expand",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "C.R.A.Z.Y 5단계",
+        "C — Commanding (선언)",
+        "R — Recognizing (자기인식)",
+        "A — Arranging (준비)",
+        "Z — Zeroing (영점 조정)",
+        "Y — Year Theory (1년 이론)"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "framework"
+    },
+    {
+      "sceneId": "insight-self",
+      "order": 5,
+      "purpose": "핵심 인사이트 전달: 숨겨진 재능은 아무 가치가 없다",
+      "narrativeGoal": "CRAZY 5단계 중 가장 중요한 것은 두 번째, 자기인식입니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "숨겨진 재능은 아무 가치가 없다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "compare-01",
+      "order": 6,
+      "purpose": "대비를 통한 이해 강화",
+      "narrativeGoal": "미친 사람과 평범한 사람의 차이를 비교해보겠습니다",
+      "visualFunction": "compare",
+      "visualIntent": "좌우 분할 패널, 순차 공개",
+      "layoutMode": "split-compare",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "평범한 사람",
+        "미친 사람",
+        "언젠가 해야지 → 10가지 동시 진행 → 완성 없음 → 포기",
+        "지금 당장 시작 → 한 가지 집중 → 우직한 실행 → 결과 증명"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
+    },
+    {
+      "sceneId": "application-01",
+      "order": 7,
+      "purpose": "실천 방법 제시",
+      "narrativeGoal": "그렇다면 오늘부터 어떻게 미칠 수 있을까요",
+      "visualFunction": "process",
+      "visualIntent": "anchor statement 후 step 순차 공개",
+      "layoutMode": "left-anchor",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "오늘부터 시작하는 3가지 미침 실천법",
+        "미침 선언문 작성",
+        "1년 로드맵 설계",
+        "매일 미침 일기"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "application"
+    },
+    {
+      "sceneId": "quote-01",
+      "order": 8,
+      "purpose": "핵심 명언으로 감정적 임팩트: 미치면 성공으로 가는 길이 보인다.",
+      "narrativeGoal": "강상구는 이 책에서 가슴을 뜨겁게 하는 한마디를 남깁니다",
+      "visualFunction": "quote",
+      "visualIntent": "serif 서체 인용문 중앙 배치, texture 배경",
+      "layoutMode": "quote-hold",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "미치면 성공으로 가는 길이 보인다."
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "quote"
+    },
+    {
+      "sceneId": "insight-recap",
+      "order": 9,
+      "purpose": "핵심 인사이트 전달: 미치면 세상이 기억한다",
+      "narrativeGoal": "정리하겠습니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 39,
+      "onScreenText": [
+        "미치면 세상이 기억한다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "closing-01",
+      "order": 10,
+      "purpose": "행동 촉구 + CTA",
+      "narrativeGoal": "오늘, 당신이 미칠 한 가지를 정해보세요",
+      "visualFunction": "compress-recap",
+      "visualIntent": "recap statement 중앙 + CTA 텍스트 하단",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 29.4,
+      "onScreenText": [
+        "오늘, 당신이 미칠 한 가지를 정하세요",
+        "구독과 좋아요로 더 많은 인사이트를 받아보세요"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "closing"
+    }
+  ]
+}

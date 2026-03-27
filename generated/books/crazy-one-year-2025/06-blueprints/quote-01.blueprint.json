@@ -1,0 +1,83 @@
+{
+  "id": "quote-01",
+  "intent": "Quote reveal with attribution",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quote-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5,
+        "visible": true
+      }
+    },
+    {
+      "id": "quote-quoteMark",
+      "type": "shape",
+      "props": {
+        "role": "quote-mark",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "quote-quoteText",
+      "type": "quote-text",
+      "props": {
+        "text": "미치면 성공으로 가는 길이 보인다.",
+        "layer": 30,
+        "tokenRef": "typography.fontFamily.serif",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "quote-attribution",
+      "type": "caption",
+      "props": {
+        "text": "강상구",
+        "layer": 25,
+        "tokenRef": "typeScale.caption"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "강상구는 이 책에서 가슴을 뜨겁게 하는 한마디를 남깁니다. 미치면 성공으로 가는 길이 보인다. 열정이 아닌 미침입니다. 열정은 금방 식지만, 미침은 멈출 수가 없습니다. 미침은 온전한 몰입이고, 한 방향으로의 전력 질주입니다. 그 길 위에서만 성공이 보이기 시작합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

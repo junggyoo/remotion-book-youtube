@@ -1,0 +1,608 @@
+{
+  "bookId": "crazy-one-year-2025",
+  "generatedAt": "2026-03-27T04:16:09.651Z",
+  "totalScenes": 11,
+  "processedScenes": 0,
+  "skippedScenes": 11,
+  "entries": [
+    {
+      "sceneId": "hook-01",
+      "sceneType": "highlight",
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "당신은 지금 서 있고, 다른 사람은 뛰고 있습니다. 불편하신가요? 하지만 이것이 현실입니다.",
+          "activates": [
+            "mainText"
+          ],
+          "emphasisTargets": [
+            "서 있고",
+            "뛰고 있습니다"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.35,
+          "endRatio": 0.65,
+          "narrationText": "우리는 10년, 20년 열심히 살겠다고 말합니다. 하지만 정작 단 1년도 제대로 미쳐본 적이 없습니다.",
+          "activates": [
+            "subText"
+          ],
+          "emphasisTargets": [
+            "1년",
+            "미쳐본 적"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "놀라운 사실이 있습니다. 딱 1년만 미치면 인생이 완전히 바뀝니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "1년만 미치면"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "cover-01",
+      "sceneType": "cover",
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "강상구의 딱 1년만 미쳐라.",
+          "activates": [
+            "title",
+            "subtitle",
+            "author"
+          ],
+          "emphasisTargets": [
+            "딱 1년만 미쳐라"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "평범한 삶을 거부하고, 단 1년의 집중으로 인생을 뒤바꾸는 실전 전략을 알아봅니다.",
+          "activates": [
+            "brandLabel"
+          ],
+          "emphasisTargets": [
+            "1년의 집중"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-year",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "year-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.4,
+          "narrationText": "왜 하필 1년일까요? 1년은 우리 사회의 가장 기본적인 시간 단위입니다. 계절이 한 바퀴 돌고, 학기가 지나고, 프로젝트가 완성되는 시간이죠.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "1년"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "year-b2",
+          "role": "evidence",
+          "startRatio": 0.4,
+          "endRatio": 0.75,
+          "narrationText": "저자는 단언합니다. 3개월은 습관이 자리잡기엔 짧고, 3년은 동기가 유지되기엔 너무 깁니다. 하지만 1년이면 충분히 미칠 수 있고, 그 결과를 눈으로 확인할 수 있습니다. 실제로 1년은 8,760시간입니다. 하루 10시간씩 몰입하면 3,650시간. 어떤 분야든 전문가 수준에 도달할 수 있는 시간이죠.",
+          "activates": [
+            "supportText",
+            "evidenceCard"
+          ],
+          "emphasisTargets": [
+            "3개월",
+            "3년",
+            "8,760시간"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "year-b3",
+          "role": "recap",
+          "startRatio": 0.75,
+          "endRatio": 1,
+          "narrationText": "1년은 인생을 바꿀 수 있는 최소 유효 시간입니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "최소 유효 시간"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "chapter-01",
+      "sceneType": "chapterDivider",
+      "beats": [
+        {
+          "id": "chapter-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "그렇다면 어떻게 미쳐야 할까요? 저자가 제시하는 CRAZY 5단계를 하나씩 살펴보겠습니다.",
+          "activates": [
+            "chapterNumber",
+            "chapterTitle",
+            "chapterSubtitle"
+          ],
+          "emphasisTargets": [
+            "CRAZY"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "framework-01",
+      "sceneType": "framework",
+      "beats": [
+        {
+          "id": "fw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "CRAZY 5단계는 이렇습니다.",
+          "activates": [
+            "frameworkLabel"
+          ],
+          "emphasisTargets": [
+            "CRAZY"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.3,
+          "narrationText": "첫째, C는 Commanding, 선언입니다. 자신에게 미치겠다고 명령하세요. 왜 미쳐야 하는지 이유를 분명히 하는 것이 시작입니다.",
+          "activates": [
+            "item-0"
+          ],
+          "emphasisTargets": [
+            "Commanding",
+            "선언"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b3",
+          "role": "reveal",
+          "startRatio": 0.3,
+          "endRatio": 0.48,
+          "narrationText": "둘째, R은 Recognizing, 자기인식입니다. 내가 진정으로 원하는 것이 무엇인지, 나만의 다이아몬드가 될 재능은 무엇인지 찾아야 합니다.",
+          "activates": [
+            "item-1"
+          ],
+          "emphasisTargets": [
+            "Recognizing",
+            "자기인식"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b4",
+          "role": "reveal",
+          "startRatio": 0.48,
+          "endRatio": 0.65,
+          "narrationText": "셋째, A는 Arranging, 준비입니다. 현실을 냉정하게 직시하고, 구체적인 실행 계획을 세웁니다. 꿈만 꾸는 단계는 여기서 끝납니다.",
+          "activates": [
+            "item-2"
+          ],
+          "emphasisTargets": [
+            "Arranging",
+            "준비"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b5",
+          "role": "reveal",
+          "startRatio": 0.65,
+          "endRatio": 0.82,
+          "narrationText": "넷째, Z는 Zeroing, 영점 조정입니다. 중간에 멈춰서 방향이 맞는지 점검합니다. 결과가 나오고 있는지, 수정할 것은 없는지 확인하는 단계입니다.",
+          "activates": [
+            "item-3"
+          ],
+          "emphasisTargets": [
+            "Zeroing",
+            "영점 조정"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b6",
+          "role": "reveal",
+          "startRatio": 0.82,
+          "endRatio": 1,
+          "narrationText": "다섯째, Y는 Year Theory, 1년 이론입니다. 1년이라는 시간에 모든 에너지를 쏟습니다. 1년만 미치면 그 다음부터는 미침이 체질이 됩니다.",
+          "activates": [
+            "item-4"
+          ],
+          "emphasisTargets": [
+            "Year Theory",
+            "1년 이론"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-self",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "self-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.25,
+          "narrationText": "CRAZY 5단계 중 가장 중요한 것은 두 번째, 자기인식입니다. 대부분의 사람이 실패하는 이유는 뭘 원하는지 자기 자신도 모르기 때문입니다. 남들이 좋다는 것, 유행하는 것을 따라가다 결국 아무것도 이루지 못하죠.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "자기인식"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "self-b2",
+          "role": "evidence",
+          "startRatio": 0.25,
+          "endRatio": 0.6,
+          "narrationText": "저자는 말합니다. 무엇을 할지 모르는 사람은 바보다. 뼈 아픈 말이지만 사실입니다. 성공의 씨앗을 뿌리려면 자기점검이 먼저입니다. 나는 무엇을 할 때 시간을 잊는가, 나만이 가진 강점은 무엇인가. 이 질문에 답할 수 있어야 합니다.",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "바보",
+            "자기점검"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "self-b3",
+          "role": "recap",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "숨겨진 재능은 아무 가치가 없습니다. 꺼내서 갈고 닦아야 비로소 다이아몬드가 됩니다.",
+          "activates": [
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "다이아몬드"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "compare-01",
+      "sceneType": "compareContrast",
+      "beats": [
+        {
+          "id": "compare-b1",
+          "role": "compare",
+          "startRatio": 0,
+          "endRatio": 0.48,
+          "narrationText": "미친 사람과 평범한 사람의 차이를 비교해보겠습니다. 평범한 사람은 이렇게 생각합니다. 언젠가 해야지, 시간이 되면 시작해야지. 10가지를 동시에 벌여놓고, 하나도 끝내지 못합니다. 의지만 있고 계획과 실행이 없습니다.",
+          "activates": [
+            "leftLabel",
+            "leftContent"
+          ],
+          "emphasisTargets": [
+            "평범한 사람",
+            "끝내지 못합니다"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "compare-b2",
+          "role": "compare",
+          "startRatio": 0.48,
+          "endRatio": 1,
+          "narrationText": "반면 미친 사람은 완전히 다릅니다. 지금 당장 시작합니다. 딱 하나에 모든 에너지를 집중하죠. 우직하게 한우물을 파고, 1년 뒤 결과로 증명합니다. 경쟁력이 없으면 라이프 플랜도 없습니다.",
+          "activates": [
+            "rightLabel",
+            "rightContent",
+            "connector"
+          ],
+          "emphasisTargets": [
+            "미친 사람",
+            "한우물"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "application-01",
+      "sceneType": "application",
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.13,
+          "narrationText": "그렇다면 오늘부터 어떻게 미칠 수 있을까요? 세 가지 실천법이 있습니다.",
+          "activates": [
+            "anchorStatement"
+          ],
+          "emphasisTargets": [
+            "세 가지"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.13,
+          "endRatio": 0.4,
+          "narrationText": "첫째, 미침 선언문을 작성하세요. 앞으로 1년간 내가 미칠 딱 한 가지를 종이에 적습니다. 왜 이것에 미쳐야 하는지 이유를 세 줄로 씁니다. 선언이 행동의 시작입니다.",
+          "activates": [
+            "step-0"
+          ],
+          "emphasisTargets": [
+            "미침 선언문",
+            "한 가지"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.4,
+          "endRatio": 0.68,
+          "narrationText": "둘째, 1년 로드맵을 그리세요. 12개월을 4분기로 나누고, 각 분기마다 달성할 중간 목표를 설정합니다. 3개월마다 영점 조정을 하는 겁니다. 방향이 틀어지기 전에 잡는 거죠.",
+          "activates": [
+            "step-1"
+          ],
+          "emphasisTargets": [
+            "로드맵",
+            "4분기"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.68,
+          "endRatio": 1,
+          "narrationText": "셋째, 매일 미침 일기를 쓰세요. 하루 한 줄이면 됩니다. 오늘 내가 미친 일, 내일 미칠 일을 기록합니다. 기록은 지속의 연료입니다. 쓰는 순간 미침이 습관이 됩니다.",
+          "activates": [
+            "step-2"
+          ],
+          "emphasisTargets": [
+            "미침 일기",
+            "한 줄"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "quote-01",
+      "sceneType": "quote",
+      "beats": [
+        {
+          "id": "quote-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "강상구는 이 책에서 가슴을 뜨겁게 하는 한마디를 남깁니다.",
+          "activates": [
+            "attribution"
+          ],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b2",
+          "role": "headline",
+          "startRatio": 0.35,
+          "endRatio": 1,
+          "narrationText": "미치면 성공으로 가는 길이 보인다. 열정이 아닌 미침입니다. 열정은 금방 식지만, 미침은 멈출 수가 없습니다. 미침은 온전한 몰입이고, 한 방향으로의 전력 질주입니다. 그 길 위에서만 성공이 보이기 시작합니다.",
+          "activates": [
+            "quoteText"
+          ],
+          "emphasisTargets": [
+            "미치면",
+            "성공으로 가는 길"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "insight-recap",
+      "sceneType": "keyInsight",
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "정리하겠습니다. 딱 1년만 미쳐라는 단순한 동기부여 책이 아닙니다. CRAZY라는 5단계 전략을 통해 1년이라는 시간을 무기로 바꾸는 실전 가이드입니다.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "CRAZY",
+            "실전 가이드"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "recap",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "선언하고, 자기를 알고, 제대로 준비하고, 중간에 점검하며, 1년간 온전히 미쳐보세요. 행동하지 않으면 그 무엇도 얻을 수 없습니다. 미치지 않으면 아무도 당신을 기억하지 않습니다. 하지만 딱 1년만 미치면, 세상이 당신을 기억합니다.",
+          "activates": [
+            "supportText",
+            "signalBar"
+          ],
+          "emphasisTargets": [
+            "1년",
+            "기억합니다"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    },
+    {
+      "sceneId": "closing-01",
+      "sceneType": "closing",
+      "beats": [
+        {
+          "id": "closing-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "오늘, 당신이 미칠 한 가지를 정해보세요. 종이 한 장과 펜만 있으면 됩니다. 딱 1년입니다. 1년 뒤의 당신은 지금과 완전히 다른 사람이 될 수 있습니다. 시작은 언제나 오늘입니다.",
+          "activates": [
+            "recapStatement"
+          ],
+          "emphasisTargets": [
+            "한 가지",
+            "1년"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "closing-b2",
+          "role": "transition",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+          "activates": [
+            "ctaText",
+            "brandLabel"
+          ],
+          "emphasisTargets": [],
+          "transition": "enter"
+        }
+      ],
+      "rationale": {
+        "segmentationReason": "기존 beats 유지 (수동 작성)",
+        "evidenceDecision": "not-applicable",
+        "densityDecision": "기존 beats 유지",
+        "riskFlags": []
+      },
+      "skipped": true,
+      "skipReason": "기존 beats 배열 존재 — 보존"
+    }
+  ]
+}

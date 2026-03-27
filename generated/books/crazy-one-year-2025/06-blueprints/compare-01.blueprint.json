@@ -1,0 +1,148 @@
+{
+  "id": "compare-01",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "left"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "right"
+      }
+    },
+    {
+      "id": "compareContrast-divider",
+      "type": "divider",
+      "props": {
+        "layer": 30,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "compareContrast-labels-left",
+      "type": "label",
+      "props": {
+        "text": "평범한 사람",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
+      }
+    },
+    {
+      "id": "compareContrast-labels-right",
+      "type": "label",
+      "props": {
+        "text": "미친 사람",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "언젠가 해야지 → 10가지 동시 진행 → 완성 없음 → 포기",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "지금 당장 시작 → 한 가지 집중 → 우직한 실행 → 결과 증명",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "before",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "after",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
+      }
+    }
+  ],
+  "choreography": "split-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "미친 사람과 평범한 사람의 차이를 비교해보겠습니다. 평범한 사람은 이렇게 생각합니다. 언젠가 해야지, 시간이 되면 시작해야지. 10가지를 동시에 벌여놓고, 하나도 끝내지 못합니다. 의지만 있고 계획과 실행이 없습니다. 반면 미친 사람은 완전히 다릅니다. 지금 당장 시작합니다. 딱 하나에 모든 에너지를 집중하죠. 우직하게 한우물을 파고, 1년 뒤 결과로 증명합니다. 경쟁력이 없으면 라이프 플랜도 없습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

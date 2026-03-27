@@ -1,0 +1,82 @@
+{
+  "id": "insight-self",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "숨겨진 재능은 아무 가치가 없다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "자기인식"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "성공의 씨앗을 뿌리려면 자기점검이 먼저입니다. 내가 진정으로 원하는 것, 나만의 재능을 찾아 꺼내야 합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "CRAZY 5단계 중 가장 중요한 것은 두 번째, 자기인식입니다. 대부분의 사람이 실패하는 이유는 뭘 원하는지 자기 자신도 모르기 때문입니다. 남들이 좋다는 것, 유행하는 것을 따라가다 결국 아무것도 이루지 못하죠. 저자는 말합니다. 무엇을 할지 모르는 사람은 바보다. 뼈 아픈 말이지만 사실입니다. 성공의 씨앗을 뿌리려면 자기점검이 먼저입니다. 나는 무엇을 할 때 시간을 잊는가, 나만이 가진 강점은 무엇인가. 이 질문에 답할 수 있어야 합니다. 숨겨진 재능은 아무 가치가 없습니다. 꺼내서 갈고 닦아야 비로소 다이아몬드가 됩니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

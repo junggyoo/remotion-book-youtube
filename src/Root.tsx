@@ -9,6 +9,7 @@ import testBook from "../content/books/test-book.json";
 import miracleMorningBook from "../content/books/miracle-morning.json";
 import atomicHabitsBook from "../content/books/atomic-habits.json";
 import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
+import crazyOneYearBook from "../content/books/crazy-one-year.json";
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -138,6 +139,13 @@ const mfLongformProps: CompositionProps = buildCompositionProps(
   "longform",
 );
 
+// Crazy One Year — 7min longform
+const coyBook = crazyOneYearBook as unknown as BookContent;
+const coyLongformProps: CompositionProps = buildCompositionProps(
+  coyBook,
+  "longform",
+);
+
 // Build synthesized scene preview props
 const synthTheme = useTheme("dark", "selfHelp");
 const synthCtx: SynthesizerContext = {
@@ -235,6 +243,17 @@ export const RemotionRoot: React.FC = () => {
         width={mfLongformProps.width}
         height={mfLongformProps.height}
         defaultProps={mfLongformProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="CrazyOneYear"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        component={LongformComposition as any}
+        durationInFrames={coyLongformProps.totalDurationFrames}
+        fps={coyLongformProps.fps}
+        width={coyLongformProps.width}
+        height={coyLongformProps.height}
+        defaultProps={coyLongformProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition

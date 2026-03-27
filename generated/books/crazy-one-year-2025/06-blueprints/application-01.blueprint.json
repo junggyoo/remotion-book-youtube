@@ -1,0 +1,147 @@
+{
+  "id": "application-01",
+  "intent": "Application flow with 3 step(s) in path-trace reveal",
+  "origin": "preset",
+  "layout": "map-flow",
+  "elements": [
+    {
+      "id": "application-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "application-anchorStatement",
+      "type": "headline",
+      "props": {
+        "text": "오늘부터 시작하는 3가지 미침 실천법",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineM",
+        "weight": "bold"
+      }
+    },
+    {
+      "id": "application-steps-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "미침 선언문 작성",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-0-detail",
+      "type": "caption",
+      "props": {
+        "text": "1년간 미칠 한 가지와 이유를 종이에 적습니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "1년 로드맵 설계",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-1-detail",
+      "type": "caption",
+      "props": {
+        "text": "4분기로 나눠 중간 목표를 설정하고 영점 조정합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "매일 미침 일기",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "application-steps-2-detail",
+      "type": "caption",
+      "props": {
+        "text": "오늘 미친 일과 내일 미칠 일을 하루 한 줄로 기록합니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "application-paths",
+      "type": "shape",
+      "props": {
+        "role": "path-connector",
+        "layer": 25,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "application-emphasis",
+      "type": "icon",
+      "props": {
+        "role": "checkmark",
+        "layer": 40
+      }
+    }
+  ],
+  "choreography": "path-trace",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "그렇다면 오늘부터 어떻게 미칠 수 있을까요? 세 가지 실천법이 있습니다. 첫째, 미침 선언문을 작성하세요. 앞으로 1년간 내가 미칠 딱 한 가지를 종이에 적습니다. 왜 이것에 미쳐야 하는지 이유를 세 줄로 씁니다. 선언이 행동의 시작입니다. 둘째, 1년 로드맵을 그리세요. 12개월을 4분기로 나누고, 각 분기마다 달성할 중간 목표를 설정합니다. 3개월마다 영점 조정을 하는 겁니다. 방향이 틀어지기 전에 잡는 거죠. 셋째, 매일 미침 일기를 쓰세요. 하루 한 줄이면 됩니다. 오늘 내가 미친 일, 내일 미칠 일을 기록합니다. 기록은 지속의 연료입니다. 쓰는 순간 미침이 습관이 됩니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
