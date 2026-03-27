@@ -21,6 +21,7 @@ import { analyzeBook } from "./stages/book-analyzer";
 import { planNarrative } from "./stages/narrative-planner";
 import { planAssets } from "./stages/asset-planner";
 import { composeBeat } from "./stages/beat-composer";
+import { planScenes } from "./stages/scene-planner";
 
 // ============================================================
 // Core Types
@@ -219,12 +220,7 @@ const STAGES: DsgsStage[] = [
     "/opening-compose <bookPath>",
     "A", // Checkpoint A: after opening
   ),
-  createGenerationStub(
-    "4-scene-planner",
-    "ScenePlanner",
-    "03-storyboard.json",
-    "/scene-architect storyboard <bookPath>",
-  ),
+  planScenes,
   createGenerationStub(
     "5-gap-detector",
     "GapDetector",
