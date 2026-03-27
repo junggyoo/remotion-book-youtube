@@ -8,12 +8,7 @@
     "genre": "psychology",
     "coverImageUrl": "covers/test-cover.png",
     "publishYear": 1984,
-    "tags": [
-      "심리학",
-      "설득",
-      "마케팅",
-      "사회심리학"
-    ]
+    "tags": ["심리학", "설득", "마케팅", "사회심리학"]
   },
   "production": {
     "format": "both",
@@ -23,7 +18,7 @@
   },
   "narration": {
     "voice": "ko-KR-InJoonNeural",
-    "ttsEngine": "edge-tts",
+    "ttsEngine": "qwen3-tts",
     "speed": 1,
     "pitch": "+0Hz"
   },
@@ -153,9 +148,7 @@
           "startRatio": 0,
           "endRatio": 0.6,
           "narrationText": "치알디니는 이렇게 말합니다. 설득의 무기는 우리 안에 이미 장전되어 있다.",
-          "activates": [
-            "quoteText"
-          ],
+          "activates": ["quoteText"],
           "transition": "enter"
         },
         {
@@ -164,10 +157,7 @@
           "startRatio": 0.6,
           "endRatio": 1,
           "narrationText": "누군가가 방아쇠만 당기면 된다.",
-          "activates": [
-            "attribution",
-            "accentDivider"
-          ],
+          "activates": ["attribution", "accentDivider"],
           "transition": "enter"
         }
       ]
