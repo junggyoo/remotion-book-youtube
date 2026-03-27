@@ -256,13 +256,12 @@ function toStoryboardScenes(
     const sceneType = scene.type as string;
     const confidence = confidenceMap.get(sceneType) ?? 0;
     // Types with dedicated preset components always use preset renderMode.
-    // Only types without preset support (highlight, timeline, etc.) use
-    // confidence-based routing to determine if blueprint synthesis is needed.
+    // Types NOT in the whitelist (highlight, timeline, listReveal, transition,
+    // splitQuote) lack preset components — they route to blueprint mode unless
+    // confidence exceeds threshold (which is rare since matchPresets doesn't
+    // naturally score structural/newer types).
     const isPreset =
-      ALWAYS_PRESET_TYPES.has(sceneType) ||
-      (!ALWAYS_PRESET_TYPES.has(sceneType) &&
-        sceneType !== "highlight" &&
-        confidence >= threshold);
+      ALWAYS_PRESET_TYPES.has(sceneType) || confidence >= threshold;
     const layoutMode = LAYOUT_MODE_MAP[sceneType] ?? "center-focus";
 
     const budgetScene = budgetPlan.scenes[i];
