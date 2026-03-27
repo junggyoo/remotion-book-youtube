@@ -33,6 +33,7 @@ export interface CompositionProps {
   theme: Theme;
   width: number;
   height: number;
+  textureMood?: "grain" | "clean" | "paper" | "noise" | "none";
 }
 
 /**
@@ -127,5 +128,6 @@ export function buildCompositionProps(
     theme,
     width: formatConfig.width,
     height: formatConfig.height,
+    textureMood: planResult?.artInfluence?.textureMood,
   };
 }

@@ -47,6 +47,7 @@ import { SplitQuoteScene } from "@/scenes/SplitQuoteScene";
 import { CaptionLayer } from "@/components/hud/CaptionLayer";
 import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
 import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
+import { SceneWrapper } from "@/components/layout/SceneWrapper";
 import type { CustomScene } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
 import { useBeatTimeline } from "../hooks/useBeatTimeline";
@@ -278,6 +279,7 @@ export const LongformComposition: React.FC<CompositionProps> = ({
   theme,
   width,
   height,
+  textureMood,
 }) => {
   const [manifest, setManifest] = useState<TTSManifestEntry[] | null>(null);
   const { delayRender, continueRender } = useDelayRender();
@@ -324,12 +326,14 @@ export const LongformComposition: React.FC<CompositionProps> = ({
 
     return (
       <>
-        {/* Scene visual */}
-        <SceneRenderer
-          scene={sceneWithResolvedBeats}
-          format={format}
-          theme={theme}
-        />
+        {/* Scene visual with optional depth wrapper */}
+        <SceneWrapper theme={theme} format={format} textureMood={textureMood}>
+          <SceneRenderer
+            scene={sceneWithResolvedBeats}
+            format={format}
+            theme={theme}
+          />
+        </SceneWrapper>
 
         {/* TTS audio */}
         {/* TODO(P1-1): During TransitionSeries overlap, both outgoing and incoming

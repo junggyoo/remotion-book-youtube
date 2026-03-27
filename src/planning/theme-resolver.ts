@@ -10,6 +10,7 @@ export interface ResolvedArtInfluence {
   layoutBias?: "centered" | "asymmetric" | "grid-heavy" | "flow";
   motionPresetHint?: MotionPresetKey;
   shapeLanguage?: "geometric" | "organic" | "angular" | "minimal" | "mixed";
+  textureMood?: "grain" | "clean" | "paper" | "noise" | "none";
 }
 
 /** Map motionCharacter → motionPresetHint */
@@ -47,6 +48,7 @@ export function resolveBookTheme(
     layoutBias: artDirection.layoutBias,
     motionPresetHint: MOTION_CHARACTER_MAP[artDirection.motionCharacter],
     shapeLanguage: artDirection.shapeLanguage,
+    textureMood: artDirection.textureMood,
   };
 }
 
