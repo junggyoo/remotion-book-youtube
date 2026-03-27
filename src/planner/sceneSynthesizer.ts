@@ -15,6 +15,7 @@ import type {
   LayoutType,
 } from "@/types";
 import type { ResolveContext } from "@/renderer/presetBlueprints/types";
+import type { BookArtDirection } from "@/planning/types";
 import { buildDefaultMediaPlan } from "@/renderer/presetBlueprints/types";
 import { resolveLayout, selectChoreography } from "./synthesizerMappings";
 import {
@@ -41,6 +42,8 @@ const PROMOTABLE_CONFIDENCE_THRESHOLD = 0.8;
 export interface SynthesizerContext extends ResolveContext {
   /** Emotional tones from BookFingerprint for choreography selection. */
   emotionalTones: string[];
+  /** Art direction for layout bias and motion character weighting. */
+  artDirection?: BookArtDirection;
 }
 
 // ---------------------------------------------------------------------------
@@ -74,16 +77,20 @@ function synthesizeOne(
   ctx: SynthesizerContext,
   index: number,
 ): SynthesizedBlueprint {
-  // 1. Resolve layout
-  const { layout, confidence } = resolveLayout(gap.requiredCapabilities);
+  // 1. Resolve layout (with art direction layoutBias weighting)
+  const { layout, confidence } = resolveLayout(
+    gap.requiredCapabilities,
+    ctx.artDirection?.layoutBias,
+  );
 
   // 2. Build VCL elements from gap content
   const elements = buildElementsFromGap(gap, layout);
 
-  // 3. Select choreography (with layout compatibility enforcement)
+  // 3. Select choreography (with layout compatibility + art direction motion character)
   const { choreography, motionPreset } = selectChoreography(
     layout,
     ctx.emotionalTones,
+    ctx.artDirection?.motionCharacter,
   );
 
   // 4. Build media plan

@@ -35,6 +35,7 @@ import {
   savePlanArtifact,
 } from "../../src/planning/loaders/save-book-plan";
 import { resolveBaseTheme } from "../../src/design/themes/resolveBaseTheme";
+import type { BookArtDirection } from "../../src/planning/types";
 
 // ---------------------------------------------------------------------------
 // Stage export
@@ -146,12 +147,25 @@ export const synthesizeGapsStage: DsgsStage = {
         ? "longform"
         : (ctx.format as "longform" | "shorts");
 
+    // 6.5. Read art direction (optional — synthesis works without it)
+    const artDirPath =
+      ctx.artifacts.get("3-opening-composer") ??
+      path.join(ctx.planDir, "02-art-direction.json");
+    let artDirection: BookArtDirection | undefined;
+    try {
+      artDirection = JSON.parse(
+        readFileSync(artDirPath, "utf-8"),
+      ) as BookArtDirection;
+    } catch {
+      // Art direction is optional — proceed without it
+    }
+
     // 7. Construct SynthesizerContext
     const theme = resolveBaseTheme(
       book.production?.themeMode ?? "dark",
       fingerprint.genre,
     );
-    // TODO(P0-5b): Per-gap from/durationFrames should be derived from scene plan positions.
+    // TODO: Per-gap from/durationFrames should be derived from scene plan positions.
     // Currently uses placeholders — downstream composition assembly recalculates these.
     const synthCtx: SynthesizerContext = {
       format: resolvedFormat,
@@ -160,6 +174,7 @@ export const synthesizeGapsStage: DsgsStage = {
       durationFrames: 180, // DEFAULT_SYNTH_DURATION_FRAMES (6s @30fps)
       narrationText: "",
       emotionalTones: fingerprint.emotionalTone as string[],
+      artDirection,
     };
 
     // 8. Run synthesis

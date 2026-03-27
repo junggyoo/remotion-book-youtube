@@ -4,6 +4,7 @@
 // ============================================================
 
 import type { LayoutType, ChoreographyType, MotionPresetKey } from "@/types";
+import type { BookArtDirection } from "@/planning/types";
 import { layoutRegistry } from "@/renderer/layouts";
 
 // ---------------------------------------------------------------------------
@@ -133,32 +134,65 @@ const toneToChoreographyHint: Record<string, ChoreographyType> = {
 // ---------------------------------------------------------------------------
 
 /**
- * Resolves the best layout from a set of required capabilities.
- * Returns the highest-confidence mapping found.
+ * Art direction layoutBias → layout family confidence boost.
+ * Applied additively after capability-based resolution.
  */
-export function resolveLayout(requiredCapabilities: string[]): {
+const layoutBiasBoost: Record<
+  BookArtDirection["layoutBias"],
+  { layouts: LayoutType[]; boost: number }
+> = {
+  asymmetric: { layouts: ["split-two", "split-compare"], boost: 0.15 },
+  "grid-heavy": { layouts: ["grid-n", "grid-expand"], boost: 0.15 },
+  flow: { layouts: ["radial", "timeline-h", "timeline-v"], boost: 0.15 },
+  centered: { layouts: ["center-focus"], boost: 0.1 },
+};
+
+/**
+ * Resolves the best layout from a set of required capabilities.
+ * When layoutBias is provided, matching layout families get a confidence boost.
+ */
+export function resolveLayout(
+  requiredCapabilities: string[],
+  layoutBias?: BookArtDirection["layoutBias"],
+): {
   layout: LayoutType;
   confidence: number;
 } {
-  let bestLayout: LayoutType = "center-focus";
-  let bestConfidence = 0;
+  // Build candidates with base confidence
+  const candidates: Array<{ layout: LayoutType; confidence: number }> = [];
 
   for (const cap of requiredCapabilities) {
     const mapping = capabilityToLayout[cap];
-    if (mapping && mapping.confidence > bestConfidence) {
-      bestLayout = mapping.layout;
-      bestConfidence = mapping.confidence;
+    if (mapping) {
+      candidates.push({
+        layout: mapping.layout,
+        confidence: mapping.confidence,
+      });
     }
   }
 
-  if (bestConfidence === 0) {
+  if (candidates.length === 0) {
     console.warn(
       `[SceneSynthesizer] No mapping found for capabilities: [${requiredCapabilities.join(", ")}]. Using center-focus.`,
     );
     return { layout: "center-focus", confidence: 0.4 };
   }
 
-  return { layout: bestLayout, confidence: bestConfidence };
+  // Apply layoutBias boost
+  if (layoutBias) {
+    const biasConfig = layoutBiasBoost[layoutBias];
+    if (biasConfig) {
+      for (const c of candidates) {
+        if (biasConfig.layouts.includes(c.layout)) {
+          c.confidence = Math.min(1.0, c.confidence + biasConfig.boost);
+        }
+      }
+    }
+  }
+
+  // Select highest confidence
+  candidates.sort((a, b) => b.confidence - a.confidence);
+  return { layout: candidates[0].layout, confidence: candidates[0].confidence };
 }
 
 // ---------------------------------------------------------------------------
@@ -166,18 +200,38 @@ export function resolveLayout(requiredCapabilities: string[]): {
 // ---------------------------------------------------------------------------
 
 /**
+ * Art direction motionCharacter → preferred motionPreset.
+ */
+const motionCharacterPreset: Record<
+  BookArtDirection["motionCharacter"],
+  MotionPresetKey
+> = {
+  precise: "snappy",
+  fluid: "smooth",
+  weighted: "heavy",
+  snappy: "snappy",
+};
+
+/**
  * Selects choreography + motionPreset for a given layout and emotional tone.
+ * When motionCharacter is provided, it overrides the default motionPreset.
  * Enforces compatibility with layoutRegistry — never returns an incompatible pairing.
  */
 export function selectChoreography(
   layout: LayoutType,
   emotionalTones: string[],
+  motionCharacter?: BookArtDirection["motionCharacter"],
 ): ChoreographyMapping {
   // Start with layout default
   const defaultMapping =
     layoutToChoreography[layout] ?? layoutToChoreography["center-focus"];
 
-  // Try emotional tone override
+  // Determine motionPreset: art direction override > layout default
+  const resolvedMotionPreset = motionCharacter
+    ? motionCharacterPreset[motionCharacter]
+    : defaultMapping.motionPreset;
+
+  // Try emotional tone override for choreography
   for (const tone of emotionalTones) {
     const hint = toneToChoreographyHint[tone];
     if (hint) {
@@ -186,13 +240,16 @@ export function selectChoreography(
       if (reg?.compatibleChoreographies?.includes(hint)) {
         return {
           choreography: hint,
-          motionPreset: defaultMapping.motionPreset,
+          motionPreset: resolvedMotionPreset,
         };
       }
     }
   }
 
-  return defaultMapping;
+  return {
+    choreography: defaultMapping.choreography,
+    motionPreset: resolvedMotionPreset,
+  };
 }
 
 // ---------------------------------------------------------------------------
