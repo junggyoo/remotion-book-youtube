@@ -320,7 +320,12 @@ export interface ProductionConfig {
 
 export interface NarrationConfig {
   voice: string;
-  ttsEngine?: "edge-tts" | "elevenlabs" | "google-tts" | "minimax";
+  ttsEngine?:
+    | "edge-tts"
+    | "elevenlabs"
+    | "google-tts"
+    | "minimax"
+    | "qwen3-tts";
   speed?: number; // default: 1.0
   pitch?: string; // default: '+0Hz'
   subtitleMaxCharsPerLine?: number; // default: 28
