@@ -64,11 +64,12 @@ def generate_vtt(audio_path: str, vtt_path: str) -> bool:
             f.write("WEBVTT\n\n")
             for segment in segments:
                 if segment.words:
-                    for word in segment.words:
+                    for i, word in enumerate(segment.words):
                         start = format_vtt_time(word.start)
                         end = format_vtt_time(word.end)
-                        # edge-tts uses comma separator — match that format
-                        f.write(f"{start} --> {end}\n{word.word.strip()}\n\n")
+                        # edge-tts prefixes each word with a space — match that
+                        text = f" {word.word.strip()}" if i > 0 else word.word.strip()
+                        f.write(f"{start} --> {end}\n{text}\n\n")
                 else:
                     start = format_vtt_time(segment.start)
                     end = format_vtt_time(segment.end)
@@ -89,19 +90,17 @@ def format_vtt_time(seconds: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
 
 
-def wav_to_mp3(wav_path: str, mp3_path: str) -> bool:
-    """Convert WAV to MP3 using ffmpeg. Returns True on success."""
+def wav_to_mp3(wav_path: str, mp3_path: str, speed: float = 1.0) -> bool:
+    """Convert WAV to MP3 using ffmpeg, optionally with speed change."""
     try:
-        subprocess.run(
-            [
-                "ffmpeg", "-y", "-i", wav_path,
-                "-codec:a", "libmp3lame", "-q:a", "2",
-                "-loglevel", "error",
-                mp3_path,
-            ],
-            check=True,
-            capture_output=True,
-        )
+        cmd = ["ffmpeg", "-y", "-i", wav_path]
+
+        if speed != 1.0 and 0.5 <= speed <= 2.0:
+            cmd.extend(["-filter:a", f"atempo={speed}"])
+
+        cmd.extend(["-codec:a", "libmp3lame", "-q:a", "2", "-loglevel", "error", mp3_path])
+
+        subprocess.run(cmd, check=True, capture_output=True)
         return True
     except (subprocess.CalledProcessError, FileNotFoundError) as e:
         print(f"[ERROR] ffmpeg conversion failed: {e}", file=sys.stderr)
@@ -154,6 +153,7 @@ class TTSHandler(BaseHTTPRequestHandler):
         text = req.get("text", "").strip()
         output_path = req.get("outputPath", "")
         want_vtt = req.get("whisperVtt", False)
+        speed = float(req.get("speed", 1.0))
 
         if not text:
             self._send_json(400, {"error": "text is required"})
@@ -170,13 +170,13 @@ class TTSHandler(BaseHTTPRequestHandler):
         # Serialize generation (model is not thread-safe)
         with generate_lock:
             try:
-                result = self._generate(text, output_path, want_vtt)
+                result = self._generate(text, output_path, want_vtt, speed)
                 self._send_json(200, result)
             except Exception as e:
                 print(f"[ERROR] Generation failed: {e}", file=sys.stderr)
                 self._send_json(500, {"error": str(e)})
 
-    def _generate(self, text: str, output_path: str, want_vtt: bool) -> dict:
+    def _generate(self, text: str, output_path: str, want_vtt: bool, speed: float = 1.0) -> dict:
         t0 = time.time()
 
         # Generate waveform
@@ -199,7 +199,7 @@ class TTSHandler(BaseHTTPRequestHandler):
                 tmp_wav = tmp.name
             sf.write(tmp_wav, wav, sr)
 
-            if not wav_to_mp3(tmp_wav, output_path):
+            if not wav_to_mp3(tmp_wav, output_path, speed=speed):
                 # Fallback: save as WAV with .mp3 extension won't work
                 # Save as WAV with corrected extension
                 wav_path = output_path.rsplit(".", 1)[0] + ".wav"

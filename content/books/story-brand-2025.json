@@ -19,7 +19,7 @@
   "narration": {
     "voice": "ko-KR-SunHiNeural",
     "ttsEngine": "qwen3-tts",
-    "speed": 1,
+    "speed": 1.25,
     "pitch": "+0Hz"
   },
   "audio": {

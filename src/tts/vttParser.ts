@@ -62,9 +62,11 @@ export function vttToCaptions(vttContent: string): Caption[] {
       words.forEach((word, wi) => {
         const wordStart = startMs + wi * wordDuration;
         const wordEnd = startMs + (wi + 1) * wordDuration;
+        // Add space before word unless it's the very first caption
+        const prefix = wi > 0 || captions.length > 0 ? " " : "";
 
         captions.push({
-          text: (wi > 0 ? " " : "") + word,
+          text: prefix + word,
           startMs: Math.round(wordStart),
           endMs: Math.round(wordEnd),
           timestampMs: Math.round(wordStart),

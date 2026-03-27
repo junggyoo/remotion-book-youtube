@@ -44,7 +44,7 @@ interface TTSManifestEntry {
 
 const FPS = 30;
 const OUTPUT_DIR = path.resolve(process.cwd(), "assets/tts");
-const QWEN3_SERVER_URL = "http://127.0.0.1:9876";
+const QWEN3_SERVER_URL = "http://localhost:9876";
 
 function getAudioDurationMs(filePath: string): number {
   try {
@@ -108,6 +108,7 @@ async function generateViaQwen3(
   text: string,
   audioPath: string,
   vttPath: string,
+  speed: number = 1.0,
 ): Promise<boolean> {
   try {
     const resp = await fetch(`${QWEN3_SERVER_URL}/generate`, {
@@ -117,6 +118,7 @@ async function generateViaQwen3(
         text,
         outputPath: path.resolve(audioPath),
         whisperVtt: true,
+        speed,
       }),
       signal: AbortSignal.timeout(120000),
     });
@@ -218,7 +220,12 @@ async function main() {
 
     let success: boolean;
     if (useQwen3) {
-      success = await generateViaQwen3(text, audioPath, vttPath);
+      success = await generateViaQwen3(
+        text,
+        audioPath,
+        vttPath,
+        book.narration.speed ?? 1.0,
+      );
       // Fallback to edge-tts on failure
       if (!success) {
         console.warn(`[WARN] qwen3-tts failed, falling back to edge-tts`);
