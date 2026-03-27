@@ -1,0 +1,73 @@
+{
+  "bookId": "story-brand-2025",
+  "title": "스토리 설계자",
+  "startedAt": "2026-03-27T13:50:00+09:00",
+  "pipeline": [
+    {
+      "stage": 1,
+      "name": "BookAnalyzer",
+      "status": "completed",
+      "output": "00-fingerprint.json",
+      "notes": "genre=business, structure=framework, hookStrategy=contrarian"
+    },
+    {
+      "stage": 2,
+      "name": "NarrativePlanner",
+      "status": "completed",
+      "output": "01-editorial-outline.json",
+      "notes": "5 segments, target 390s, framework-driven arc"
+    },
+    {
+      "stage": 3,
+      "name": "OpeningComposer",
+      "status": "completed",
+      "output": "content/books/story-brand-2025.json (cover-01, hook-01)",
+      "notes": "contrarian hook: 브랜드가 영웅이 되려 하면 망한다"
+    },
+    {
+      "stage": 4,
+      "name": "ScenePlanner",
+      "status": "completed",
+      "output": "content/books/story-brand-2025.json (10 scenes)",
+      "notes": "8 preset + 2 synthesized (compare-01, application-01)"
+    },
+    {
+      "stage": 5,
+      "name": "GapDetector",
+      "status": "completed",
+      "output": "implicit",
+      "notes": "2 gaps identified → synthesized: compareContrast + application"
+    },
+    {
+      "stage": 6,
+      "name": "SceneSynthesizer",
+      "status": "completed",
+      "output": "06-blueprints/ (10 files)",
+      "notes": "All 10 blueprints generated with cumulative from offsets"
+    },
+    {
+      "stage": 6.3,
+      "name": "BeatComposer",
+      "status": "completed",
+      "output": "06.3-beat-plan.json",
+      "notes": "27 beats total, all quality checks passed"
+    },
+    {
+      "stage": 7,
+      "name": "BlueprintValidator",
+      "status": "completed",
+      "output": "06-blueprints/*.blueprint.json",
+      "notes": "10/10 blueprints valid, 2 synthesized with fallbackPreset"
+    }
+  ],
+  "metrics": {
+    "totalScenes": 10,
+    "totalBeats": 27,
+    "presetScenes": 8,
+    "synthesizedScenes": 2,
+    "totalNarrationChars": 2327,
+    "estimatedDurationSeconds": 408,
+    "targetDurationSeconds": 390,
+    "durationVariance": "+4.7%"
+  }
+}
