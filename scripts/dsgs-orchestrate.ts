@@ -22,6 +22,7 @@ import { planNarrative } from "./stages/narrative-planner";
 import { planAssets } from "./stages/asset-planner";
 import { composeBeat } from "./stages/beat-composer";
 import { planScenes } from "./stages/scene-planner";
+import { detectGapsStage } from "./stages/gap-detector";
 
 // ============================================================
 // Core Types
@@ -221,12 +222,7 @@ const STAGES: DsgsStage[] = [
     "A", // Checkpoint A: after opening
   ),
   planScenes,
-  createGenerationStub(
-    "5-gap-detector",
-    "GapDetector",
-    "04-asset-inventory.json",
-    "/scene-architect gaps <bookPath>",
-  ),
+  detectGapsStage,
   createGenerationStub(
     "6-synthesizer",
     "SceneSynthesizer",

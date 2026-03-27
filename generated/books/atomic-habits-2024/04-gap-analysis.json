@@ -1,0 +1,355 @@
+{
+  "presetMatches": [
+    {
+      "segment": "core",
+      "slotIndex": 3,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "",
+        "items": []
+      },
+      "confidence": 0.6225,
+      "scoreBreakdown": {
+        "delivery": 0.2857142857142857,
+        "structure": 0.95,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+      },
+      "alternativeTypes": [
+        "cover",
+        "chapterDivider",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "core",
+      "slotIndex": 4,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "",
+        "items": []
+      },
+      "confidence": 0.6225,
+      "scoreBreakdown": {
+        "delivery": 0.2857142857142857,
+        "structure": 0.95,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+      },
+      "alternativeTypes": [
+        "cover",
+        "chapterDivider",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "core",
+      "slotIndex": 5,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "",
+        "items": []
+      },
+      "confidence": 0.6225,
+      "scoreBreakdown": {
+        "delivery": 0.2857142857142857,
+        "structure": 0.95,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+      },
+      "alternativeTypes": [
+        "cover",
+        "chapterDivider",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "core",
+      "slotIndex": 6,
+      "sceneType": "framework",
+      "content": {
+        "frameworkLabel": "",
+        "items": []
+      },
+      "confidence": 0.6225,
+      "scoreBreakdown": {
+        "delivery": 0.2857142857142857,
+        "structure": 0.95,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+      },
+      "alternativeTypes": [
+        "cover",
+        "chapterDivider",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "climax",
+      "slotIndex": 0,
+      "sceneType": "keyInsight",
+      "content": {
+        "headline": "핵심 인사이트 강조",
+        "body": "",
+        "supportText": ""
+      },
+      "confidence": 0.6683333333333332,
+      "scoreBreakdown": {
+        "delivery": 0.6666666666666666,
+        "structure": 0.6,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "keyInsight: d=0.67 s=0.60 c=0.90 l=0.40 → 0.668"
+      },
+      "alternativeTypes": [
+        "chapterDivider",
+        "cover"
+      ]
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 0,
+      "sceneType": "application",
+      "content": {
+        "anchorStatement": "실생활 적용 방법",
+        "steps": []
+      },
+      "confidence": 0.8099999999999998,
+      "scoreBreakdown": {
+        "delivery": 1,
+        "structure": 0.7,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "application: d=1.00 s=0.70 c=0.90 l=0.40 → 0.810"
+      },
+      "alternativeTypes": [
+        "chapterDivider",
+        "cover",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "resolution",
+      "slotIndex": 1,
+      "sceneType": "application",
+      "content": {
+        "anchorStatement": "실천 단계",
+        "steps": []
+      },
+      "confidence": 0.8099999999999998,
+      "scoreBreakdown": {
+        "delivery": 1,
+        "structure": 0.7,
+        "contentFit": 0.9,
+        "layout": 0.4,
+        "explanation": "application: d=1.00 s=0.70 c=0.90 l=0.40 → 0.810"
+      },
+      "alternativeTypes": [
+        "chapterDivider",
+        "cover",
+        "compareContrast"
+      ]
+    },
+    {
+      "segment": "closing",
+      "slotIndex": 0,
+      "sceneType": "closing",
+      "content": {
+        "recapStatement": "핵심 요약",
+        "ctaText": ""
+      },
+      "confidence": 1,
+      "scoreBreakdown": {
+        "delivery": 1,
+        "structure": 1,
+        "contentFit": 1,
+        "layout": 1,
+        "explanation": "closing: always maps to closing preset"
+      }
+    }
+  ],
+  "gaps": [
+    {
+      "segment": "setup",
+      "slotIndex": 0,
+      "bestPresetMatch": {
+        "segment": "setup",
+        "slotIndex": 0,
+        "sceneType": "cover",
+        "content": {
+          "title": "목표를 세우지 마세요",
+          "author": "",
+          "coverImageUrl": ""
+        },
+        "confidence": 0.6183333333333334,
+        "scoreBreakdown": {
+          "delivery": 0.6666666666666666,
+          "structure": 0.5,
+          "contentFit": 0.8,
+          "layout": 0.4,
+          "explanation": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618"
+        },
+        "alternativeTypes": [
+          "chapterDivider"
+        ]
+      },
+      "gapReason": "confidence 0.618 < threshold 0.7",
+      "requiredCapabilities": [
+        "custom-composition"
+      ],
+      "priority": "nice",
+      "intent": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618"
+    },
+    {
+      "segment": "setup",
+      "slotIndex": 1,
+      "bestPresetMatch": {
+        "segment": "setup",
+        "slotIndex": 1,
+        "sceneType": "cover",
+        "content": {
+          "title": "목표를 세우지 마세요",
+          "author": "",
+          "coverImageUrl": ""
+        },
+        "confidence": 0.6183333333333334,
+        "scoreBreakdown": {
+          "delivery": 0.6666666666666666,
+          "structure": 0.5,
+          "contentFit": 0.8,
+          "layout": 0.4,
+          "explanation": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618"
+        },
+        "alternativeTypes": [
+          "chapterDivider"
+        ]
+      },
+      "gapReason": "confidence 0.618 < threshold 0.7",
+      "requiredCapabilities": [
+        "custom-composition"
+      ],
+      "priority": "nice",
+      "intent": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618"
+    },
+    {
+      "segment": "core",
+      "slotIndex": 0,
+      "bestPresetMatch": {
+        "segment": "core",
+        "slotIndex": 0,
+        "sceneType": "framework",
+        "content": {
+          "frameworkLabel": "",
+          "items": []
+        },
+        "confidence": 0.6225,
+        "scoreBreakdown": {
+          "delivery": 0.2857142857142857,
+          "structure": 0.95,
+          "contentFit": 0.9,
+          "layout": 0.4,
+          "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+        },
+        "alternativeTypes": [
+          "cover",
+          "chapterDivider",
+          "compareContrast"
+        ]
+      },
+      "gapReason": "confidence 0.623 < threshold 0.7",
+      "requiredCapabilities": [
+        "custom-composition"
+      ],
+      "priority": "nice",
+      "intent": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+    },
+    {
+      "segment": "core",
+      "slotIndex": 1,
+      "bestPresetMatch": {
+        "segment": "core",
+        "slotIndex": 1,
+        "sceneType": "framework",
+        "content": {
+          "frameworkLabel": "",
+          "items": []
+        },
+        "confidence": 0.6225,
+        "scoreBreakdown": {
+          "delivery": 0.2857142857142857,
+          "structure": 0.95,
+          "contentFit": 0.9,
+          "layout": 0.4,
+          "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+        },
+        "alternativeTypes": [
+          "cover",
+          "chapterDivider",
+          "compareContrast"
+        ]
+      },
+      "gapReason": "confidence 0.623 < threshold 0.7",
+      "requiredCapabilities": [
+        "custom-composition"
+      ],
+      "priority": "nice",
+      "intent": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+    },
+    {
+      "segment": "core",
+      "slotIndex": 2,
+      "bestPresetMatch": {
+        "segment": "core",
+        "slotIndex": 2,
+        "sceneType": "framework",
+        "content": {
+          "frameworkLabel": "",
+          "items": []
+        },
+        "confidence": 0.6225,
+        "scoreBreakdown": {
+          "delivery": 0.2857142857142857,
+          "structure": 0.95,
+          "contentFit": 0.9,
+          "layout": 0.4,
+          "explanation": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+        },
+        "alternativeTypes": [
+          "cover",
+          "chapterDivider",
+          "compareContrast"
+        ]
+      },
+      "gapReason": "confidence 0.623 < threshold 0.7",
+      "requiredCapabilities": [
+        "custom-composition"
+      ],
+      "priority": "nice",
+      "intent": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623"
+    }
+  ],
+  "policy": {
+    "presetConfidenceThreshold": 0.7,
+    "minSignatureScenes": 2,
+    "maxSynthesizedScenes": 5,
+    "openingMustBeDynamic": true,
+    "formatPolicy": {
+      "format": "longform",
+      "maxElementsPerScene": 6,
+      "captionDensity": "medium",
+      "openingDurationSecRange": [
+        20,
+        35
+      ],
+      "sceneCountRange": [
+        8,
+        18
+      ]
+    }
+  },
+  "totalSlots": 13
+}

@@ -8,7 +8,7 @@ const PLANNING_FILES = [
   "01-editorial-outline.json",
   "02-art-direction.json",
   "03-storyboard.json",
-  "04-asset-inventory.json",
+  "04-gap-analysis.json",
   "05-motion-plan.json",
 ];
 
