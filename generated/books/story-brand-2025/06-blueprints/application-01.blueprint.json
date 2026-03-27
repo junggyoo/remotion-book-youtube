@@ -1,0 +1,80 @@
+{
+  "id": "application-01",
+  "intent": "SB7 실전 적용 3단계: 브랜드스크립트 → 웹사이트 → 전 채널",
+  "origin": "synthesized",
+  "fallbackPreset": "application",
+  "layout": "map-flow",
+  "elements": [
+    {
+      "id": "anchorStatement",
+      "type": "text",
+      "props": {
+        "content": "SB7을 당장 적용하는 3가지 실전 단계",
+        "role": "headline"
+      }
+    },
+    {
+      "id": "step-0",
+      "type": "applicationStep",
+      "props": {
+        "title": "브랜드스크립트 작성",
+        "detail": "종이 한 장에 7가지 요소를 정리하라 — 모든 마케팅의 기준이 된다"
+      }
+    },
+    {
+      "id": "step-1",
+      "type": "applicationStep",
+      "props": {
+        "title": "웹사이트 재설계",
+        "detail": "고객의 욕구 → 문제 공감 → 3단계 계획 → 행동 버튼 구조로 바꿔라"
+      }
+    },
+    {
+      "id": "step-2",
+      "type": "applicationStep",
+      "props": {
+        "title": "전 채널 일관 적용",
+        "detail": "이메일, SNS, 영업 대본까지 하나의 스토리로 통일하라"
+      }
+    }
+  ],
+  "choreography": "stagger-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 6957,
+  "durationFrames": 1847,
+  "mediaPlan": {
+    "narrationText": "이 프레임워크를 당장 어떻게 적용할 수 있을까요? 세 가지 실전 단계가 있습니다. 첫째, 브랜드스크립트를 작성하세요. 종이 한 장에 이 일곱 가지를 적습니다. 고객은 누구인가, 무엇을 원하는가, 어떤 문제가 있는가, 우리가 어떻게 도울 수 있는가, 구체적 계획은 무엇인가, 어떤 행동을 촉구할 것인가, 성공과 실패는 무엇인가. 이 한 장이 모든 마케팅의 기준이 됩니다. 둘째, 웹사이트를 다시 쓰세요. 첫 화면에 고객이 원하는 것을 쓰고, 문제를 공감하고, 세 단계 계획을 보여주고, 지금 바로 행동할 버튼을 넣으세요. 브랜드스크립트가 웹사이트의 뼈대입니다. 셋째, 모든 채널에 일관되게 적용하세요. 이메일, SNS, 영업 대본까지 모두 같은 스토리 구조로 통일하세요. 메시지가 일관될수록 고객의 신뢰가 쌓입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

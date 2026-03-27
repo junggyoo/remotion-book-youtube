@@ -1,0 +1,510 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "story-brand-2025",
+    "title": "스토리 설계자",
+    "author": "도널드 밀러",
+    "originalTitle": "Building a StoryBrand",
+    "genre": "business",
+    "coverImageUrl": "covers/story-brand-cover.png",
+    "publishYear": 2017,
+    "tags": ["마케팅", "브랜딩", "스토리텔링", "SB7", "고객중심"]
+  },
+  "production": {
+    "format": "longform",
+    "targetDurationSeconds": 390,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "edge-tts",
+    "speed": 1,
+    "pitch": "+0Hz"
+  },
+  "audio": {
+    "bgmTrack": "sounds/calm-ambient-loop.mp3",
+    "bgmVolume": 0.12
+  },
+  "scenes": [
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "도널드 밀러의 스토리 설계자. 전 세계 수만 개 기업의 매출을 바꾼 스토리 브랜드 프레임워크의 핵심을 정리합니다.",
+      "content": {
+        "title": "스토리 설계자",
+        "subtitle": "고객을 영웅으로 만드는 7단계 브랜드 전략",
+        "author": "도널드 밀러",
+        "coverImageUrl": "covers/story-brand-cover.png",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "도널드 밀러의 스토리 설계자.",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["스토리 설계자"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "전 세계 수만 개 기업의 매출을 바꾼 스토리 브랜드 프레임워크의 핵심을 정리합니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["스토리 브랜드"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "narrationText": "마케팅에 돈을 쏟아붓는데 왜 고객이 반응하지 않을까요? 대부분의 기업이 같은 실수를 합니다. 자기 이야기만 하는 겁니다. 우리 회사가 얼마나 대단한지, 우리 제품이 얼마나 혁신적인지. 하지만 고객은 당신의 이야기에 관심이 없습니다. 고객은 자기 자신의 이야기에만 관심이 있습니다. 도널드 밀러는 말합니다. 브랜드가 영웅이 되려 하면 망합니다. 고객이 영웅이고, 브랜드는 가이드가 되어야 합니다.",
+      "content": {
+        "mainText": "브랜드가 영웅이 되려 하면 망한다",
+        "subText": "고객이 영웅이고, 브랜드는 가이드입니다",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "마케팅에 돈을 쏟아붓는데 왜 고객이 반응하지 않을까요? 대부분의 기업이 같은 실수를 합니다. 자기 이야기만 하는 겁니다.",
+          "activates": ["mainText"],
+          "emphasisTargets": ["실수"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.3,
+          "endRatio": 0.6,
+          "narrationText": "우리 회사가 얼마나 대단한지, 우리 제품이 얼마나 혁신적인지. 하지만 고객은 당신의 이야기에 관심이 없습니다. 고객은 자기 자신의 이야기에만 관심이 있습니다.",
+          "activates": ["subText"],
+          "emphasisTargets": ["관심이 없습니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "도널드 밀러는 말합니다. 브랜드가 영웅이 되려 하면 망합니다. 고객이 영웅이고, 브랜드는 가이드가 되어야 합니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["영웅", "가이드"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "insight-01",
+      "type": "keyInsight",
+      "narrationText": "밀러의 핵심 발견은 이겁니다. 모든 성공한 브랜드 메시지는 스토리 구조를 따릅니다. 영화를 생각해보세요. 주인공이 문제에 부딪히고, 현명한 조력자를 만나고, 계획을 세우고, 행동하고, 결국 성공합니다. 스타워즈의 루크 스카이워커에게 요다가 있었듯이, 당신의 고객에게는 당신의 브랜드가 가이드 역할을 해야 합니다. 이것이 바로 SB7 프레임워크의 출발점입니다.",
+      "content": {
+        "headline": "모든 성공한 브랜드는 스토리 구조를 따른다",
+        "supportText": "고객이 영웅, 브랜드가 가이드. 영화 속 조력자처럼 고객의 여정을 이끌어야 합니다.",
+        "underlineKeyword": "스토리 구조",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "case",
+          "value": "루크 → 요다 = 고객 → 브랜드",
+          "caption": "영웅과 가이드의 관계",
+          "source": "Building a StoryBrand, Ch.3"
+        }
+      },
+      "beats": [
+        {
+          "id": "insight-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "밀러의 핵심 발견은 이겁니다. 모든 성공한 브랜드 메시지는 스토리 구조를 따릅니다. 영화를 생각해보세요.",
+          "activates": ["headline"],
+          "emphasisTargets": ["스토리 구조"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight-b2",
+          "role": "support",
+          "startRatio": 0.35,
+          "endRatio": 0.65,
+          "narrationText": "주인공이 문제에 부딪히고, 현명한 조력자를 만나고, 계획을 세우고, 행동하고, 결국 성공합니다. 스타워즈의 루크 스카이워커에게 요다가 있었듯이,",
+          "activates": ["supportText", "evidenceCard"],
+          "emphasisTargets": ["조력자", "요다"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight-b3",
+          "role": "recap",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "당신의 고객에게는 당신의 브랜드가 가이드 역할을 해야 합니다. 이것이 바로 SB7 프레임워크의 출발점입니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["SB7"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "그렇다면 SB7 프레임워크의 구체적인 구조는 무엇일까요? 고객을 영웅으로 만드는 다섯 가지 핵심 단계를 살펴봅니다.",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "SB7 프레임워크의 핵심",
+        "chapterSubtitle": "고객을 영웅으로 만드는 스토리 구조"
+      },
+      "beats": [
+        {
+          "id": "chapter-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "그렇다면 SB7 프레임워크의 구체적인 구조는 무엇일까요? 고객을 영웅으로 만드는 다섯 가지 핵심 단계를 살펴봅니다.",
+          "activates": ["chapterNumber", "chapterTitle", "chapterSubtitle"],
+          "emphasisTargets": ["다섯 가지"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "narrationText": "SB7 프레임워크의 다섯 가지 핵심 단계입니다. 첫째, 주인공 설정. 고객이 원하는 것을 명확하게 정의하세요. 고객은 퇴직 설계를 원하는 거지, 금융 상품을 원하는 게 아닙니다. 고객의 욕구를 한 문장으로 말할 수 없다면 메시지가 흐린 겁니다. 둘째, 문제 정의. 고객의 문제는 세 층위가 있습니다. 외적 문제, 내적 문제, 그리고 철학적 문제. 외적 문제는 눈에 보이는 불편이고, 내적 문제는 좌절과 불안이며, 철학적 문제는 이건 마땅히 이래야 한다는 신념입니다. 세 가지를 모두 건드려야 고객이 반응합니다. 셋째, 가이드 등장. 브랜드는 공감과 권위를 동시에 보여줘야 합니다. 당신의 어려움을 압니다, 그리고 이 분야에서 검증된 방법이 있습니다. 이 두 가지가 가이드의 자격입니다. 넷째, 계획 제시. 고객에게 명확한 단계를 보여주세요. 세 단계면 충분합니다. 상담 예약, 맞춤 설계, 실행. 복잡하면 고객은 떠납니다. 다섯째, 행동 촉구와 결과. 고객에게 지금 당장 할 행동을 제시하고, 행동하면 얻는 성공과 행동하지 않으면 겪는 실패를 모두 보여주세요. 실패의 공포가 행동의 가장 강력한 동기입니다.",
+      "content": {
+        "frameworkLabel": "SB7 프레임워크 5대 핵심",
+        "items": [
+          {
+            "number": 1,
+            "title": "주인공 설정",
+            "description": "고객이 원하는 것을 한 문장으로 정의하라"
+          },
+          {
+            "number": 2,
+            "title": "문제 정의",
+            "description": "외적·내적·철학적 세 층위의 문제를 건드려라"
+          },
+          {
+            "number": 3,
+            "title": "가이드 등장",
+            "description": "공감과 권위를 동시에 보여줘라"
+          },
+          {
+            "number": 4,
+            "title": "계획 제시",
+            "description": "세 단계 이내의 명확한 행동 경로를 보여줘라"
+          },
+          {
+            "number": 5,
+            "title": "행동 촉구와 결과",
+            "description": "성공의 비전과 실패의 공포를 함께 제시하라"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "beats": [
+        {
+          "id": "fw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "SB7 프레임워크의 다섯 가지 핵심 단계입니다.",
+          "activates": ["frameworkLabel"],
+          "emphasisTargets": ["다섯 가지"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.28,
+          "narrationText": "첫째, 주인공 설정. 고객이 원하는 것을 명확하게 정의하세요. 고객은 퇴직 설계를 원하는 거지, 금융 상품을 원하는 게 아닙니다. 고객의 욕구를 한 문장으로 말할 수 없다면 메시지가 흐린 겁니다.",
+          "activates": ["item-0"],
+          "emphasisTargets": ["주인공"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b3",
+          "role": "reveal",
+          "startRatio": 0.28,
+          "endRatio": 0.48,
+          "narrationText": "둘째, 문제 정의. 고객의 문제는 세 층위가 있습니다. 외적 문제, 내적 문제, 그리고 철학적 문제. 외적 문제는 눈에 보이는 불편이고, 내적 문제는 좌절과 불안이며, 철학적 문제는 이건 마땅히 이래야 한다는 신념입니다. 세 가지를 모두 건드려야 고객이 반응합니다.",
+          "activates": ["item-1"],
+          "emphasisTargets": ["세 층위"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b4",
+          "role": "reveal",
+          "startRatio": 0.48,
+          "endRatio": 0.64,
+          "narrationText": "셋째, 가이드 등장. 브랜드는 공감과 권위를 동시에 보여줘야 합니다. 당신의 어려움을 압니다, 그리고 이 분야에서 검증된 방법이 있습니다. 이 두 가지가 가이드의 자격입니다.",
+          "activates": ["item-2"],
+          "emphasisTargets": ["공감", "권위"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b5",
+          "role": "reveal",
+          "startRatio": 0.64,
+          "endRatio": 0.8,
+          "narrationText": "넷째, 계획 제시. 고객에게 명확한 단계를 보여주세요. 세 단계면 충분합니다. 상담 예약, 맞춤 설계, 실행. 복잡하면 고객은 떠납니다.",
+          "activates": ["item-3"],
+          "emphasisTargets": ["세 단계"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b6",
+          "role": "reveal",
+          "startRatio": 0.8,
+          "endRatio": 1,
+          "narrationText": "다섯째, 행동 촉구와 결과. 고객에게 지금 당장 할 행동을 제시하고, 행동하면 얻는 성공과 행동하지 않으면 겪는 실패를 모두 보여주세요. 실패의 공포가 행동의 가장 강력한 동기입니다.",
+          "activates": ["item-4"],
+          "emphasisTargets": ["실패의 공포"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "narrationText": "두 가지 마케팅 방식을 비교해볼까요? 브랜드 중심 방식은 이렇습니다. 우리는 업계 최고의 기술력을 보유하고 있으며, 혁신적인 솔루션을 제공합니다. 듣기엔 그럴듯하지만 고객의 뇌는 이 메시지를 무시합니다. 자기와 관련 없는 정보니까요. 반면 고객 중심 방식은 다릅니다. 복잡한 세금 때문에 골치 아프시죠? 세 단계만 따라오세요. 이 방식은 고객의 문제로 시작하고, 고객의 성공으로 끝납니다. 차이가 느껴지시나요? 같은 서비스인데 메시지 구조만 바꿔도 반응이 완전히 달라집니다.",
+      "content": {
+        "leftLabel": "브랜드 중심",
+        "leftContent": "우리는 업계 최고의 기술력을 보유하고 혁신적 솔루션을 제공합니다",
+        "rightLabel": "고객 중심",
+        "rightContent": "세금 때문에 골치 아프시죠? 세 단계만 따라오세요",
+        "leftTag": "무시당하는 메시지",
+        "rightTag": "행동을 이끄는 메시지",
+        "showConnector": true,
+        "revealOrder": "sequential"
+      },
+      "beats": [
+        {
+          "id": "cmp-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.15,
+          "narrationText": "두 가지 마케팅 방식을 비교해볼까요?",
+          "activates": ["leftLabel", "rightLabel"],
+          "emphasisTargets": ["비교"],
+          "transition": "enter"
+        },
+        {
+          "id": "cmp-b2",
+          "role": "compare",
+          "startRatio": 0.15,
+          "endRatio": 0.5,
+          "narrationText": "브랜드 중심 방식은 이렇습니다. 우리는 업계 최고의 기술력을 보유하고 있으며, 혁신적인 솔루션을 제공합니다. 듣기엔 그럴듯하지만 고객의 뇌는 이 메시지를 무시합니다. 자기와 관련 없는 정보니까요.",
+          "activates": ["leftContent", "leftTag"],
+          "emphasisTargets": ["무시"],
+          "transition": "enter"
+        },
+        {
+          "id": "cmp-b3",
+          "role": "compare",
+          "startRatio": 0.5,
+          "endRatio": 0.85,
+          "narrationText": "반면 고객 중심 방식은 다릅니다. 복잡한 세금 때문에 골치 아프시죠? 세 단계만 따라오세요. 이 방식은 고객의 문제로 시작하고, 고객의 성공으로 끝납니다.",
+          "activates": ["rightContent", "rightTag"],
+          "emphasisTargets": ["문제", "성공"],
+          "transition": "enter"
+        },
+        {
+          "id": "cmp-b4",
+          "role": "recap",
+          "startRatio": 0.85,
+          "endRatio": 1,
+          "narrationText": "차이가 느껴지시나요? 같은 서비스인데 메시지 구조만 바꿔도 반응이 완전히 달라집니다.",
+          "activates": ["showConnector"],
+          "emphasisTargets": ["메시지 구조"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "이 프레임워크를 당장 어떻게 적용할 수 있을까요? 세 가지 실전 단계가 있습니다. 첫째, 브랜드스크립트를 작성하세요. 종이 한 장에 이 일곱 가지를 적습니다. 고객은 누구인가, 무엇을 원하는가, 어떤 문제가 있는가, 우리가 어떻게 도울 수 있는가, 구체적 계획은 무엇인가, 어떤 행동을 촉구할 것인가, 성공과 실패는 무엇인가. 이 한 장이 모든 마케팅의 기준이 됩니다. 둘째, 웹사이트를 다시 쓰세요. 첫 화면에 고객이 원하는 것을 쓰고, 문제를 공감하고, 세 단계 계획을 보여주고, 지금 바로 행동할 버튼을 넣으세요. 브랜드스크립트가 웹사이트의 뼈대입니다. 셋째, 모든 채널에 일관되게 적용하세요. 이메일, SNS, 영업 대본까지 모두 같은 스토리 구조로 통일하세요. 메시지가 일관될수록 고객의 신뢰가 쌓입니다.",
+      "content": {
+        "anchorStatement": "SB7을 당장 적용하는 3가지 실전 단계",
+        "steps": [
+          {
+            "title": "브랜드스크립트 작성",
+            "detail": "종이 한 장에 7가지 요소를 정리하라 — 모든 마케팅의 기준이 된다"
+          },
+          {
+            "title": "웹사이트 재설계",
+            "detail": "고객의 욕구 → 문제 공감 → 3단계 계획 → 행동 버튼 구조로 바꿔라"
+          },
+          {
+            "title": "전 채널 일관 적용",
+            "detail": "이메일, SNS, 영업 대본까지 하나의 스토리로 통일하라"
+          }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "이 프레임워크를 당장 어떻게 적용할 수 있을까요? 세 가지 실전 단계가 있습니다.",
+          "activates": ["anchorStatement"],
+          "emphasisTargets": ["세 가지"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.45,
+          "narrationText": "첫째, 브랜드스크립트를 작성하세요. 종이 한 장에 이 일곱 가지를 적습니다. 고객은 누구인가, 무엇을 원하는가, 어떤 문제가 있는가, 우리가 어떻게 도울 수 있는가, 구체적 계획은 무엇인가, 어떤 행동을 촉구할 것인가, 성공과 실패는 무엇인가. 이 한 장이 모든 마케팅의 기준이 됩니다.",
+          "activates": ["step-0"],
+          "emphasisTargets": ["브랜드스크립트"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.45,
+          "endRatio": 0.72,
+          "narrationText": "둘째, 웹사이트를 다시 쓰세요. 첫 화면에 고객이 원하는 것을 쓰고, 문제를 공감하고, 세 단계 계획을 보여주고, 지금 바로 행동할 버튼을 넣으세요. 브랜드스크립트가 웹사이트의 뼈대입니다.",
+          "activates": ["step-1"],
+          "emphasisTargets": ["웹사이트"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.72,
+          "endRatio": 1,
+          "narrationText": "셋째, 모든 채널에 일관되게 적용하세요. 이메일, SNS, 영업 대본까지 모두 같은 스토리 구조로 통일하세요. 메시지가 일관될수록 고객의 신뢰가 쌓입니다.",
+          "activates": ["step-2"],
+          "emphasisTargets": ["일관"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "도널드 밀러는 이렇게 말합니다. 사람들은 최고의 제품을 사는 게 아닙니다. 가장 쉽게 이해되는 제품을 삽니다. 결국 마케팅의 본질은 명확함입니다. 당신의 메시지가 복잡하면 고객은 혼란스러워하고, 혼란스러운 고객은 절대 지갑을 열지 않습니다. 단순하고 명확한 메시지만이 살아남습니다.",
+      "content": {
+        "quoteText": "사람들은 최고의 제품을 사는 게 아니라, 가장 쉽게 이해되는 제품을 산다.",
+        "attribution": "도널드 밀러",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "quote-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.25,
+          "narrationText": "도널드 밀러는 이렇게 말합니다.",
+          "activates": ["attribution"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b2",
+          "role": "headline",
+          "startRatio": 0.25,
+          "endRatio": 0.6,
+          "narrationText": "사람들은 최고의 제품을 사는 게 아닙니다. 가장 쉽게 이해되는 제품을 삽니다. 결국 마케팅의 본질은 명확함입니다.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["명확함"],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b3",
+          "role": "support",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "당신의 메시지가 복잡하면 고객은 혼란스러워하고, 혼란스러운 고객은 절대 지갑을 열지 않습니다. 단순하고 명확한 메시지만이 살아남습니다.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["혼란", "단순"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "insight-recap",
+      "type": "keyInsight",
+      "narrationText": "정리하겠습니다. 스토리 설계자의 핵심은 이것입니다. 고객이 영웅이고, 브랜드는 가이드입니다. 고객의 문제를 외적, 내적, 철학적 세 층위로 이해하고, 명확한 계획을 제시하고, 행동을 촉구하세요. 성공의 비전과 실패의 공포를 함께 보여주세요. 이 구조를 브랜드스크립트 한 장에 담으면 웹사이트부터 영업 대본까지 모든 메시지가 일관됩니다. 복잡함을 버리고 명확함을 선택하세요. 이것이 고객의 마음을 여는 유일한 열쇠입니다.",
+      "content": {
+        "headline": "고객이 영웅, 브랜드가 가이드",
+        "supportText": "문제를 정의하고, 계획을 제시하고, 행동을 촉구하라. 명확함이 마케팅의 본질이다.",
+        "underlineKeyword": "명확함",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.4,
+          "narrationText": "정리하겠습니다. 스토리 설계자의 핵심은 이것입니다. 고객이 영웅이고, 브랜드는 가이드입니다. 고객의 문제를 외적, 내적, 철학적 세 층위로 이해하고, 명확한 계획을 제시하고, 행동을 촉구하세요.",
+          "activates": ["headline"],
+          "emphasisTargets": ["영웅", "가이드"],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "recap",
+          "startRatio": 0.4,
+          "endRatio": 1,
+          "narrationText": "성공의 비전과 실패의 공포를 함께 보여주세요. 이 구조를 브랜드스크립트 한 장에 담으면 웹사이트부터 영업 대본까지 모든 메시지가 일관됩니다. 복잡함을 버리고 명확함을 선택하세요. 이것이 고객의 마음을 여는 유일한 열쇠입니다.",
+          "activates": ["supportText", "signalBar"],
+          "emphasisTargets": ["명확함", "열쇠"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "오늘 당장 해보세요. 종이 한 장을 꺼내고, 당신의 고객이 원하는 것 한 줄, 그 고객의 문제 한 줄, 당신이 제안하는 계획 세 단계를 적어보세요. 이 세 줄이 당신의 마케팅을 완전히 바꿀 수 있습니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+      "content": {
+        "recapStatement": "종이 한 장에 고객의 욕구, 문제, 계획 세 줄을 적어보세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "closing-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "오늘 당장 해보세요. 종이 한 장을 꺼내고, 당신의 고객이 원하는 것 한 줄, 그 고객의 문제 한 줄, 당신이 제안하는 계획 세 단계를 적어보세요. 이 세 줄이 당신의 마케팅을 완전히 바꿀 수 있습니다.",
+          "activates": ["recapStatement"],
+          "emphasisTargets": ["세 줄", "마케팅"],
+          "transition": "enter"
+        },
+        {
+          "id": "closing-b2",
+          "role": "transition",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+          "activates": ["ctaText", "brandLabel"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        }
+      ]
+    }
+  ]
+}

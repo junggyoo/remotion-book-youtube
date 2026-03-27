@@ -1,0 +1,23 @@
+{
+  "genre": "business",
+  "structure": "framework",
+  "keyConceptCount": 7,
+  "emotionalTone": "empowering",
+  "narrativeArcType": "instruction",
+  "urgencyLevel": "high",
+  "visualMotifs": [
+    "structured framework",
+    "split comparison",
+    "quote emphasis",
+    "step-by-step process"
+  ],
+  "spatialMetaphors": ["hero journey", "story arc", "guide-hero relationship"],
+  "hookStrategy": "contrarian",
+  "entryAngle": "당신의 브랜드가 망하는 이유는 스토리가 없어서가 아닙니다",
+  "uniqueElements": [
+    "SB7 Framework",
+    "hero-guide inversion",
+    "BrandScript tool"
+  ],
+  "contentMode": "actionable"
+}

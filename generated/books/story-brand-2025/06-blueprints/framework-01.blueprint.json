@@ -1,0 +1,100 @@
+{
+  "id": "framework-01",
+  "intent": "SB7 프레임워크 5대 핵심 단계 시각화",
+  "origin": "preset",
+  "layout": "grid-expand",
+  "elements": [
+    {
+      "id": "frameworkLabel",
+      "type": "text",
+      "props": {
+        "content": "SB7 프레임워크 5대 핵심",
+        "role": "label"
+      }
+    },
+    {
+      "id": "item-0",
+      "type": "frameworkItem",
+      "props": {
+        "number": 1,
+        "title": "주인공 설정",
+        "description": "고객이 원하는 것을 한 문장으로 정의하라"
+      }
+    },
+    {
+      "id": "item-1",
+      "type": "frameworkItem",
+      "props": {
+        "number": 2,
+        "title": "문제 정의",
+        "description": "외적·내적·철학적 세 층위의 문제를 건드려라"
+      }
+    },
+    {
+      "id": "item-2",
+      "type": "frameworkItem",
+      "props": {
+        "number": 3,
+        "title": "가이드 등장",
+        "description": "공감과 권위를 동시에 보여줘라"
+      }
+    },
+    {
+      "id": "item-3",
+      "type": "frameworkItem",
+      "props": {
+        "number": 4,
+        "title": "계획 제시",
+        "description": "세 단계 이내의 명확한 행동 경로를 보여줘라"
+      }
+    },
+    {
+      "id": "item-4",
+      "type": "frameworkItem",
+      "props": {
+        "number": 5,
+        "title": "행동 촉구와 결과",
+        "description": "성공의 비전과 실패의 공포를 함께 제시하라"
+      }
+    }
+  ],
+  "choreography": "stagger-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 2978,
+  "durationFrames": 2800,
+  "mediaPlan": {
+    "narrationText": "SB7 프레임워크의 다섯 가지 핵심 단계입니다. 첫째, 주인공 설정. 고객이 원하는 것을 명확하게 정의하세요. 고객은 퇴직 설계를 원하는 거지, 금융 상품을 원하는 게 아닙니다. 고객의 욕구를 한 문장으로 말할 수 없다면 메시지가 흐린 겁니다. 둘째, 문제 정의. 고객의 문제는 세 층위가 있습니다. 외적 문제, 내적 문제, 그리고 철학적 문제. 외적 문제는 눈에 보이는 불편이고, 내적 문제는 좌절과 불안이며, 철학적 문제는 이건 마땅히 이래야 한다는 신념입니다. 세 가지를 모두 건드려야 고객이 반응합니다. 셋째, 가이드 등장. 브랜드는 공감과 권위를 동시에 보여줘야 합니다. 당신의 어려움을 압니다, 그리고 이 분야에서 검증된 방법이 있습니다. 이 두 가지가 가이드의 자격입니다. 넷째, 계획 제시. 고객에게 명확한 단계를 보여주세요. 세 단계면 충분합니다. 상담 예약, 맞춤 설계, 실행. 복잡하면 고객은 떠납니다. 다섯째, 행동 촉구와 결과. 고객에게 지금 당장 할 행동을 제시하고, 행동하면 얻는 성공과 행동하지 않으면 겪는 실패를 모두 보여주세요. 실패의 공포가 행동의 가장 강력한 동기입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "id": "compare-01",
+  "intent": "브랜드 중심 vs 고객 중심 메시지 대비",
+  "origin": "synthesized",
+  "fallbackPreset": "compareContrast",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "leftLabel",
+      "type": "text",
+      "props": {
+        "content": "브랜드 중심",
+        "role": "label"
+      }
+    },
+    {
+      "id": "leftContent",
+      "type": "text",
+      "props": {
+        "content": "우리는 업계 최고의 기술력을 보유하고 혁신적 솔루션을 제공합니다",
+        "role": "bodyText"
+      }
+    },
+    {
+      "id": "leftTag",
+      "type": "chip",
+      "props": {
+        "content": "무시당하는 메시지",
+        "variant": "muted"
+      }
+    },
+    {
+      "id": "rightLabel",
+      "type": "text",
+      "props": {
+        "content": "고객 중심",
+        "role": "label"
+      }
+    },
+    {
+      "id": "rightContent",
+      "type": "text",
+      "props": {
+        "content": "세금 때문에 골치 아프시죠? 세 단계만 따라오세요",
+        "role": "bodyText"
+      }
+    },
+    {
+      "id": "rightTag",
+      "type": "chip",
+      "props": {
+        "content": "행동을 이끄는 메시지",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "connector",
+      "type": "divider",
+      "props": {
+        "role": "connector",
+        "orientation": "vertical"
+      }
+    }
+  ],
+  "choreography": "compare-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 5778,
+  "durationFrames": 1179,
+  "mediaPlan": {
+    "narrationText": "두 가지 마케팅 방식을 비교해볼까요? 브랜드 중심 방식은 이렇습니다. 우리는 업계 최고의 기술력을 보유하고 있으며, 혁신적인 솔루션을 제공합니다. 듣기엔 그럴듯하지만 고객의 뇌는 이 메시지를 무시합니다. 자기와 관련 없는 정보니까요. 반면 고객 중심 방식은 다릅니다. 복잡한 세금 때문에 골치 아프시죠? 세 단계만 따라오세요. 이 방식은 고객의 문제로 시작하고, 고객의 성공으로 끝납니다. 차이가 느껴지시나요? 같은 서비스인데 메시지 구조만 바꿔도 반응이 완전히 달라집니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "id": "cover-01",
+  "intent": "스토리 설계자 표지: 고객을 영웅으로 만드는 7단계 브랜드 전략",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "title",
+      "type": "text",
+      "props": {
+        "content": "스토리 설계자",
+        "role": "headline"
+      }
+    },
+    {
+      "id": "subtitle",
+      "type": "text",
+      "props": {
+        "content": "고객을 영웅으로 만드는 7단계 브랜드 전략",
+        "role": "subheadline"
+      }
+    },
+    {
+      "id": "author",
+      "type": "text",
+      "props": {
+        "content": "도널드 밀러",
+        "role": "caption"
+      }
+    },
+    {
+      "id": "coverImage",
+      "type": "image",
+      "props": {
+        "src": "covers/story-brand-cover.png",
+        "role": "cover",
+        "fallback": "surface"
+      }
+    },
+    {
+      "id": "brandLabel",
+      "type": "text",
+      "props": {
+        "content": "Editorial Signal",
+        "role": "label"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "dramatic",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 337,
+  "mediaPlan": {
+    "narrationText": "도널드 밀러의 스토리 설계자. 전 세계 수만 개 기업의 매출을 바꾼 스토리 브랜드 프레임워크의 핵심을 정리합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": ["covers/story-brand-cover.png"],
+      "fallbackMode": "text-only"
+    }
+  }
+}

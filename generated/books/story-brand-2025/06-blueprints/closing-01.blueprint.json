@@ -1,0 +1,71 @@
+{
+  "id": "closing-01",
+  "intent": "클로징: 종이 한 장으로 마케팅을 바꾸는 행동 촉구",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "recapStatement",
+      "type": "text",
+      "props": {
+        "content": "종이 한 장에 고객의 욕구, 문제, 계획 세 줄을 적어보세요",
+        "role": "headline"
+      }
+    },
+    {
+      "id": "ctaText",
+      "type": "text",
+      "props": {
+        "content": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "role": "cta"
+      }
+    },
+    {
+      "id": "brandLabel",
+      "type": "text",
+      "props": {
+        "content": "Editorial Signal",
+        "role": "label"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 10772,
+  "durationFrames": 637,
+  "mediaPlan": {
+    "narrationText": "오늘 당장 해보세요. 종이 한 장을 꺼내고, 당신의 고객이 원하는 것 한 줄, 그 고객의 문제 한 줄, 당신이 제안하는 계획 세 단계를 적어보세요. 이 세 줄이 당신의 마케팅을 완전히 바꿀 수 있습니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

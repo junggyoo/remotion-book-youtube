@@ -1,0 +1,71 @@
+{
+  "id": "hook-01",
+  "intent": "핵심 후크: 브랜드가 영웅이 되려 하면 망한다",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "mainText",
+      "type": "text",
+      "props": {
+        "content": "브랜드가 영웅이 되려 하면 망한다",
+        "role": "headline"
+      }
+    },
+    {
+      "id": "subText",
+      "type": "text",
+      "props": {
+        "content": "고객이 영웅이고, 브랜드는 가이드입니다",
+        "role": "supportText"
+      }
+    },
+    {
+      "id": "signalBar",
+      "type": "divider",
+      "props": {
+        "role": "signalBar",
+        "color": "signal"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 337,
+  "durationFrames": 1268,
+  "mediaPlan": {
+    "narrationText": "마케팅에 돈을 쏟아붓는데 왜 고객이 반응하지 않을까요? 대부분의 기업이 같은 실수를 합니다. 자기 이야기만 하는 겁니다. 우리 회사가 얼마나 대단한지, 우리 제품이 얼마나 혁신적인지. 하지만 고객은 당신의 이야기에 관심이 없습니다. 고객은 자기 자신의 이야기에만 관심이 있습니다. 도널드 밀러는 말합니다. 브랜드가 영웅이 되려 하면 망합니다. 고객이 영웅이고, 브랜드는 가이드가 되어야 합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

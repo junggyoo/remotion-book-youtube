@@ -1,0 +1,64 @@
+{
+  "id": "quote-01",
+  "intent": "밀러 인용: 가장 쉽게 이해되는 제품을 산다",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quoteText",
+      "type": "text",
+      "props": {
+        "content": "사람들은 최고의 제품을 사는 게 아니라, 가장 쉽게 이해되는 제품을 산다.",
+        "role": "quoteText",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "attribution",
+      "type": "text",
+      "props": {
+        "content": "도널드 밀러",
+        "role": "attribution"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 8804,
+  "durationFrames": 921,
+  "mediaPlan": {
+    "narrationText": "도널드 밀러는 이렇게 말합니다. 사람들은 최고의 제품을 사는 게 아닙니다. 가장 쉽게 이해되는 제품을 삽니다. 결국 마케팅의 본질은 명확함입니다. 당신의 메시지가 복잡하면 고객은 혼란스러워하고, 혼란스러운 고객은 절대 지갑을 열지 않습니다. 단순하고 명확한 메시지만이 살아남습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
