@@ -23,6 +23,7 @@ import { planAssets } from "./stages/asset-planner";
 import { composeBeat } from "./stages/beat-composer";
 import { planScenes } from "./stages/scene-planner";
 import { detectGapsStage } from "./stages/gap-detector";
+import { composeArtDirectionStage } from "./stages/opening-composer";
 
 // ============================================================
 // Core Types
@@ -214,13 +215,7 @@ const promoteStage: DsgsStage = {
 const STAGES: DsgsStage[] = [
   analyzeBook,
   planNarrative,
-  createGenerationStub(
-    "3-opening",
-    "OpeningComposer",
-    "02-art-direction.json",
-    "/opening-compose <bookPath>",
-    "A", // Checkpoint A: after opening
-  ),
+  composeArtDirectionStage,
   planScenes,
   detectGapsStage,
   createGenerationStub(

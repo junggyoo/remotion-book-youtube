@@ -1,7 +1,7 @@
 {
   "bookId": "atomic-habits-2024",
   "mode": "auto",
-  "startedAt": "2026-03-27T01:01:45.604Z",
+  "startedAt": "2026-03-27T01:10:03.283Z",
   "stageResults": [
     {
       "stageId": "1-analyzer",
@@ -485,6 +485,67 @@
       "status": "halted",
       "artifacts": [],
       "durationMs": 624,
+      "message": "Validation failed: Command failed: npx ts-node scripts/validate-plan.ts /Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/02-art-direction.json"
+      ],
+      "durationMs": 1,
+      "message": "ArtDirection: palette=#10B981, shape=geometric, motion=precise"
+    },
+    {
+      "stageId": "4-scene-planner",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/03-storyboard.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 03-storyboard.json"
+    },
+    {
+      "stageId": "5-gap-detector",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/04-gap-analysis.json"
+      ],
+      "durationMs": 1,
+      "message": "Artifact exists: 04-gap-analysis.json"
+    },
+    {
+      "stageId": "6-synthesizer",
+      "status": "skipped",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/05-motion-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Artifact exists: 05-motion-plan.json"
+    },
+    {
+      "stageId": "6.3-beat-composer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/06.3-beat-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Beats generated: 0 processed, 11 skipped (total 11 scenes)"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024/asset-requirements.json"
+      ],
+      "durationMs": 0,
+      "message": "Assets: 3 total (placeholder:3)"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 620,
       "message": "Validation failed: Command failed: npx ts-node scripts/validate-plan.ts /Users/jungq/Study/remotion-book-youtube/generated/books/atomic-habits-2024"
     }
   ],
