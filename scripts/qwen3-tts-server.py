@@ -187,7 +187,6 @@ class TTSHandler(BaseHTTPRequestHandler):
         )
 
         wav = wavs[0]
-        duration_ms = int(len(wav) / sr * 1000)
         gen_time = time.time() - t0
 
         # Save as WAV (temp), then convert to MP3
@@ -200,32 +199,38 @@ class TTSHandler(BaseHTTPRequestHandler):
             sf.write(tmp_wav, wav, sr)
 
             if not wav_to_mp3(tmp_wav, output_path, speed=speed):
-                # Fallback: save as WAV with .mp3 extension won't work
-                # Save as WAV with corrected extension
                 wav_path = output_path.rsplit(".", 1)[0] + ".wav"
                 sf.write(wav_path, wav, sr)
                 output_path = wav_path
                 print(f"[WARN] ffmpeg failed, saved as WAV: {wav_path}", file=sys.stderr)
 
-            # Keep temp WAV for whisper (if needed), clean up after
-            vtt_source = tmp_wav
+            # Cleanup temp WAV
+            try:
+                os.unlink(tmp_wav)
+            except OSError:
+                pass
         else:
             sf.write(output_path, wav, sr)
-            vtt_source = output_path
 
-        # VTT generation
+        # VTT generation — run on the FINAL output (after speed change)
+        # so timestamps match the actual playback audio
         vtt_path = None
         if want_vtt and whisper_model is not None:
             vtt_path = output_path.rsplit(".", 1)[0] + ".vtt"
-            if not generate_vtt(vtt_source, vtt_path):
+            if not generate_vtt(output_path, vtt_path):
                 vtt_path = None
 
-        # Cleanup temp WAV
-        if is_mp3 and os.path.exists(vtt_source) and vtt_source != output_path:
-            try:
-                os.unlink(vtt_source)
-            except OSError:
-                pass
+        # Get actual duration from final output file (accounts for speed change)
+        import subprocess as _sp
+        try:
+            probe = _sp.run(
+                ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", output_path],
+                capture_output=True, text=True, timeout=10
+            )
+            duration_ms = int(float(probe.stdout.strip()) * 1000)
+        except Exception:
+            # Fallback: estimate from original wav length / speed
+            duration_ms = int(len(wav) / sr * 1000 / max(speed, 0.5))
 
         print(
             f"[INFO] Generated {duration_ms}ms in {gen_time:.1f}s → {os.path.basename(output_path)}",
