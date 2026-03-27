@@ -923,6 +923,48 @@ export interface BeatPlanArtifact {
 }
 
 // ---------------------------------------------------------------------------
+// DSGS P1-5: DiagramSpec — visual metaphor → structured diagram specification
+// Enables P2-1 (AnimatedPath, NodeActivation, ZoomFocus) consumption.
+// ---------------------------------------------------------------------------
+
+export type DiagramType =
+  | "cycle" // circular processes (habit loop, feedback loop)
+  | "flow" // linear/branching progressions (growth curve, funnel)
+  | "split" // layered/divided views (iceberg, comparison)
+  | "hierarchy" // tree structures
+  | "network"; // interconnected nodes
+
+export type ConnectionPattern =
+  | "cyclic" // arrows form a loop
+  | "linear" // start-to-end
+  | "branching" // one-to-many
+  | "layered" // stacked levels
+  | "radial"; // center-outward
+
+export type AnimationHint =
+  | "path-draw" // SVG path drawing → AnimatedPath
+  | "node-activate" // sequential node highlighting → NodeActivation
+  | "fill-progress" // progressive fill/growth
+  | "zoom-focus" // zoom into specific area → ZoomFocus
+  | "split-reveal"; // two halves reveal
+
+export type DiagramLayoutHint =
+  | "circular"
+  | "vertical-stack"
+  | "horizontal-split"
+  | "grid"
+  | "freeform";
+
+export interface DiagramSpec {
+  diagramType: DiagramType;
+  nodeCount?: number;
+  connectionPattern: ConnectionPattern;
+  animationHint: AnimationHint;
+  layoutHint?: DiagramLayoutHint;
+  sourceMetaphor: string;
+}
+
+// ---------------------------------------------------------------------------
 // DSGS Stage 4-5: ScenePlanner + GapDetector types
 // ---------------------------------------------------------------------------
 

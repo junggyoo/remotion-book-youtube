@@ -149,6 +149,36 @@ export const MotionPlanSchema = z.object({
   ),
 });
 
+// 06. DiagramSpec (P1-5)
+export const DiagramSpecSchema = z.object({
+  diagramType: z.enum(["cycle", "flow", "split", "hierarchy", "network"]),
+  nodeCount: z.number().int().positive().optional(),
+  connectionPattern: z.enum([
+    "cyclic",
+    "linear",
+    "branching",
+    "layered",
+    "radial",
+  ]),
+  animationHint: z.enum([
+    "path-draw",
+    "node-activate",
+    "fill-progress",
+    "zoom-focus",
+    "split-reveal",
+  ]),
+  layoutHint: z
+    .enum([
+      "circular",
+      "vertical-stack",
+      "horizontal-split",
+      "grid",
+      "freeform",
+    ])
+    .optional(),
+  sourceMetaphor: z.string().min(1),
+});
+
 // Inferred types
 export type FingerprintInput = z.infer<typeof FingerprintSchema>;
 export type EditorialOutlineInput = z.infer<typeof EditorialOutlineSchema>;

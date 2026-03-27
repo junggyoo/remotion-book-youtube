@@ -27,3 +27,5 @@ export {
   saveBlueprintArtifact,
   saveValidationResult,
 } from "./loaders/save-book-plan";
+export { metaphorToDiagramSpec, extractDiagramSpecs } from "./diagramSpec";
+export type { DiagramSpecMatch } from "./diagramSpec";

@@ -12,7 +12,10 @@ import type {
   DsgsStageResult,
 } from "../dsgs-orchestrate";
 import type { AssetInventory } from "../../src/planning/types";
+import type { BookArtDirection } from "../../src/planning/types";
+import type { DiagramSpec } from "../../src/types";
 import { savePlanArtifact } from "../../src/planning/loaders/save-book-plan";
+import { extractDiagramSpecs } from "../../src/planning/diagramSpec";
 
 interface AssetRequirement {
   assetId: string;
@@ -21,6 +24,7 @@ interface AssetRequirement {
   sourceScenes: string[];
   status: "needed" | "placeholder" | "ready" | "generated";
   fallbackStrategy: "text-only" | "shape-placeholder" | "generic-library";
+  diagramSpec?: DiagramSpec;
 }
 
 interface AssetRequirementsReport {
@@ -36,9 +40,7 @@ function loadInventory(planDir: string): AssetInventory | null {
   return JSON.parse(readFileSync(invPath, "utf-8")) as AssetInventory;
 }
 
-function loadBlueprints(
-  planDir: string,
-): Array<{
+function loadBlueprints(planDir: string): Array<{
   id: string;
   elements: Array<{ id: string; type: string; props: Record<string, unknown> }>;
 }> {
@@ -142,6 +144,41 @@ function mergeWithInventory(
   return Array.from(merged.values());
 }
 
+function loadArtDirection(planDir: string): BookArtDirection | null {
+  const adPath = path.join(planDir, "02-art-direction.json");
+  if (!existsSync(adPath)) return null;
+  return JSON.parse(readFileSync(adPath, "utf-8")) as BookArtDirection;
+}
+
+function enrichWithDiagramSpecs(
+  requirements: AssetRequirement[],
+  artDirection: BookArtDirection | null,
+): { requirements: AssetRequirement[]; diagramMatched: number } {
+  if (!artDirection) return { requirements, diagramMatched: 0 };
+
+  const specs = extractDiagramSpecs(artDirection);
+  const specByType = new Map(specs.map((s) => [s.metaphorConcept, s.spec]));
+  let diagramMatched = 0;
+
+  for (const req of requirements) {
+    if (req.type !== "diagram") continue;
+
+    // Try matching by description against known metaphor concepts
+    for (const [concept, spec] of specByType) {
+      if (
+        req.description.toLowerCase().includes(concept.toLowerCase()) ||
+        concept.toLowerCase().includes(req.description.toLowerCase())
+      ) {
+        req.diagramSpec = spec;
+        diagramMatched++;
+        break;
+      }
+    }
+  }
+
+  return { requirements, diagramMatched };
+}
+
 export const planAssets: DsgsStage = {
   id: "6.5-asset-planner",
   name: "AssetPlanner",
@@ -149,9 +186,14 @@ export const planAssets: DsgsStage = {
     const start = Date.now();
 
     const inventory = loadInventory(ctx.planDir);
+    const artDirection = loadArtDirection(ctx.planDir);
     const blueprints = loadBlueprints(ctx.planDir);
     const extracted = extractFromBlueprints(blueprints);
-    const requirements = mergeWithInventory(extracted, inventory);
+    const merged = mergeWithInventory(extracted, inventory);
+    const { requirements, diagramMatched } = enrichWithDiagramSpecs(
+      merged,
+      artDirection,
+    );
 
     const byStatus: Record<string, number> = {};
     for (const req of requirements) {
@@ -168,6 +210,9 @@ export const planAssets: DsgsStage = {
     savePlanArtifact(ctx.bookId, "asset-requirements", report);
     const outPath = path.join(ctx.planDir, "asset-requirements.json");
 
+    const diagramMsg =
+      diagramMatched > 0 ? ` | Diagrams: ${diagramMatched} enriched` : "";
+
     return {
       stageId: "6.5-asset-planner",
       status: "success",
@@ -175,7 +220,7 @@ export const planAssets: DsgsStage = {
       durationMs: Date.now() - start,
       message: `Assets: ${requirements.length} total (${Object.entries(byStatus)
         .map(([k, v]) => `${k}:${v}`)
-        .join(", ")})`,
+        .join(", ")})${diagramMsg}`,
     };
   },
 };

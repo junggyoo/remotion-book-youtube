@@ -9,6 +9,7 @@ import type {
   MotionPresetKey,
   ThemeMode,
   Theme,
+  DiagramSpec,
 } from "@/types";
 
 // ============================================================
@@ -109,6 +110,7 @@ export interface PlanningAssetRequirement {
   usedInScenes: string[];
   status: "needed" | "placeholder" | "ready";
   fallbackStrategy: "text-only" | "shape-placeholder" | "generic-library";
+  diagramSpec?: DiagramSpec;
 }
 
 // ============================================================
