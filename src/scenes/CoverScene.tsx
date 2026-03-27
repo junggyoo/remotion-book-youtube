@@ -5,28 +5,29 @@ import { useFormat } from "@/design/themes/useFormat";
 import { sp } from "@/design/tokens/spacing";
 import { radius } from "@/design/tokens/radius";
 import { sceneInteriorTokens } from "@/design/tokens/shadow";
+import { typography } from "@/design/tokens/typography";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
-import { LabelChip } from "@/components/primitives/LabelChip";
 import { ImageMask } from "@/components/primitives/ImageMask";
+import { AccentUnderline } from "@/components/primitives/AccentUnderline";
 import { AccentLine } from "@/components/primitives/AccentLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers from scene-catalog.json → cover
+// zIndex layers
 const LAYERS = {
   background: 0,
   texture: 5,
   baseContent: 20,
   coverImage: 25,
   title: 30,
-  brandLabel: 40,
+  brandBar: 40,
 } as const;
 
 /**
- * Wildcard stagger — preserve existing ArchitecturalReveal delays.
- * shorts에서는 subtitle이 없으므로 author/brandLabel 딜레이가 다름.
+ * Wildcard stagger — cinematic cover reveal sequence.
+ * coverImage → title → underline → subtitle → author → brandBar
  */
 function buildWildcardStagger(
   isShorts: boolean,
@@ -44,23 +45,24 @@ function buildWildcardStagger(
       emphasis: false,
       motionPreset: "dramatic",
     },
+    // underline is frame-driven, not beat-driven
     subtitle: {
       visibility: "entering",
-      entryFrame: 12,
+      entryFrame: isShorts ? 12 : 21, // 0.5s after title (6 + 15)
       emphasis: false,
-      motionPreset: "dramatic",
+      motionPreset: "heavy",
     },
     author: {
       visibility: "entering",
-      entryFrame: isShorts ? 12 : 18,
+      entryFrame: isShorts ? 18 : 30, // 0.3s (9f) after subtitle
       emphasis: false,
-      motionPreset: "dramatic",
+      motionPreset: "heavy",
     },
-    brandLabel: {
+    brandBar: {
       visibility: "entering",
-      entryFrame: isShorts ? 18 : 24,
+      entryFrame: isShorts ? 24 : 36,
       emphasis: false,
-      motionPreset: "dramatic",
+      motionPreset: "smooth",
     },
   };
 }
@@ -77,15 +79,13 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
   content,
   beats,
 }) => {
-  const { typeScale } = useFormat(format);
+  const { typeScale, safeArea } = useFormat(format);
   const isShorts = format === "shorts";
 
   const bgOpacity = content.backgroundVariant === "light" ? 0.6 : 0.85;
-  const modeKey = theme.mode === "dark" ? "dark" : "light";
-  const containerBgOpacity = sceneInteriorTokens.containerBgOpacity[modeKey];
   const imageSize = isShorts
     ? { width: 200, height: 280 }
-    : { width: 280, height: 400 };
+    : { width: 260, height: 370 };
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -102,6 +102,11 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
     if (isWildcard) return wildcardStagger[key];
     return elementStates.get(key);
   };
+
+  // AccentUnderline starts after title enters
+  const titleState = getBeatState("title");
+  const underlineStartFrame = (titleState?.entryFrame ?? 6) + 18;
+  const underlineWidth = Math.round(safeArea.contentColumnWidth * 0.6);
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -139,7 +144,7 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(7),
+              gap: sp(5),
             }}
           >
             {/* Cover image */}
@@ -149,6 +154,8 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                 beatState={getBeatState("coverImage")}
                 format={format}
                 theme={theme}
+                motionType="scale"
+                scaleFrom={0.92}
               >
                 <ImageMask
                   format={format}
@@ -162,38 +169,50 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Title block — with subtle container background */}
+            {/* Title block — NO card background */}
             <div
               style={{
                 zIndex: LAYERS.title,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: sp(4),
+                gap: sp(3),
                 maxWidth: "100%",
-                backgroundColor: `rgba(${theme.mode === "dark" ? "255,255,255" : "0,0,0"}, ${containerBgOpacity})`,
-                borderRadius: radius.lg,
-                padding: `${sp(5)}px ${sp(6)}px`,
               }}
             >
+              {/* Title — headlineXL (80px) */}
               <BeatElement
                 elementKey="title"
                 beatState={getBeatState("title")}
                 format={format}
                 theme={theme}
               >
-                <TextBlock
-                  format={format}
-                  theme={theme}
-                  text={content.title}
-                  variant="headlineL"
-                  weight="bold"
-                  align="center"
-                  maxLines={3}
-                />
+                <span
+                  style={{
+                    fontFamily: typography.fontFamily.sans,
+                    fontSize: typeScale.headlineXL,
+                    fontWeight: typography.fontWeight.bold,
+                    lineHeight: typography.lineHeight.tight,
+                    letterSpacing: typography.tracking.tight,
+                    color: theme.textStrong,
+                    textAlign: "center",
+                    display: "block",
+                    textShadow: "0 2px 16px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  {content.title}
+                </span>
               </BeatElement>
 
-              {/* Subtitle — longform only */}
+              {/* AccentUnderline draw-on below title */}
+              <AccentUnderline
+                width={underlineWidth}
+                color={theme.accent}
+                startFrame={underlineStartFrame}
+                strokeWidth={3}
+              />
+
+              {/* Subtitle — headlineM, gray, 0.5s delay */}
               {!isShorts && content.subtitle && (
                 <BeatElement
                   elementKey="subtitle"
@@ -205,7 +224,7 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                     format={format}
                     theme={theme}
                     text={content.subtitle}
-                    variant="bodyL"
+                    variant="headlineM"
                     color={theme.textMuted}
                     align="center"
                     maxLines={2}
@@ -213,55 +232,56 @@ export const CoverScene: React.FC<CoverSceneProps> = ({
                 </BeatElement>
               )}
 
-              {/* Author */}
+              {/* Author — bodyM, lighter gray, 0.3s delay */}
               <BeatElement
                 elementKey="author"
                 beatState={getBeatState("author")}
                 format={format}
                 theme={theme}
               >
-                <TextBlock
-                  format={format}
-                  theme={theme}
-                  text={content.author}
-                  variant="bodyM"
-                  color={theme.textMuted}
-                  align="center"
-                />
+                <span
+                  style={{
+                    fontFamily: typography.fontFamily.sans,
+                    fontSize: typeScale.bodyM,
+                    fontWeight: typography.fontWeight.regular,
+                    letterSpacing: typography.tracking.wide,
+                    color: theme.textMuted,
+                    opacity: 0.7,
+                    textAlign: "center",
+                    display: "block",
+                  }}
+                >
+                  {content.author}
+                </span>
               </BeatElement>
             </div>
 
-            {/* Accent line + Brand label */}
+            {/* Bottom brand bar — accent colored horizontal line */}
             <div
               style={{
-                zIndex: LAYERS.brandLabel,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: sp(4),
+                zIndex: LAYERS.brandBar,
+                position: "absolute",
+                bottom: sp(6),
+                left: "50%",
+                transform: "translateX(-50%)",
               }}
             >
-              <AccentLine format={format} theme={theme} />
               <BeatElement
-                elementKey="brandLabel"
-                beatState={getBeatState("brandLabel")}
+                elementKey="brandBar"
+                beatState={getBeatState("brandBar")}
                 format={format}
                 theme={theme}
               >
-                <LabelChip
+                <AccentLine
                   format={format}
                   theme={theme}
-                  label={content.brandLabel ?? "Editorial Signal"}
-                  variant="signal"
+                  color={theme.accent}
                 />
               </BeatElement>
             </div>
           </div>
         </SafeArea>
       </div>
-
-      {/* SubtitleLayer removed — Root HUD global layer principle.
-          Subtitles are rendered by LongformComposition's CaptionLayer/SubtitleLayerWrapper. */}
     </AbsoluteFill>
   );
 };
