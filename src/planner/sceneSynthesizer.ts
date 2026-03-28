@@ -13,6 +13,7 @@ import type {
   KeyInsightContent,
   ApplicationContent,
   LayoutType,
+  DiagramSpec,
 } from "@/types";
 import type { ResolveContext } from "@/renderer/presetBlueprints/types";
 import type { BookArtDirection } from "@/planning/types";
@@ -24,9 +25,12 @@ import {
   buildSplitElements,
   buildEmphasisElements,
   buildGridElements,
+  buildDiagramElements,
   type RadialItem,
   type TimelineStep,
 } from "./elementBuilders";
+import { metaphorToDiagramSpec } from "@/planning/diagramSpec";
+import { buildDiagramGeometry } from "@/planning/diagramGeometry";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -86,6 +90,12 @@ function synthesizeOne(
   // 2. Build VCL elements from gap content
   const elements = buildElementsFromGap(gap, layout);
 
+  // 2.5. P2-1e: Try diagram pipeline — merge diagram elements if DiagramSpec matches
+  const diagramResult = tryBuildDiagramFromGap(gap, ctx);
+  if (diagramResult) {
+    elements.push(...diagramResult.elements);
+  }
+
   // 3. Select choreography (with layout compatibility + art direction motion character)
   const { choreography, motionPreset } = selectChoreography(
     layout,
@@ -120,6 +130,7 @@ function synthesizeOne(
     fallbackPreset,
     fallbackContent,
     synthesisConfidence: confidence,
+    diagramSpec: diagramResult?.spec,
   };
 }
 
@@ -152,6 +163,70 @@ function buildElementsFromGap(gap: SceneGap, layout: LayoutType): VCLElement[] {
 
   // Center-focus fallback (emphasis, dramatic, custom)
   return buildEmphasisFromContent(content, gap.intent);
+}
+
+// ---------------------------------------------------------------------------
+// P2-1e: Diagram Pipeline Integration
+// ---------------------------------------------------------------------------
+
+/** Canvas dimensions for diagram geometry (longform default). */
+const DIAGRAM_CANVAS_W = 1920;
+const DIAGRAM_CANVAS_H = 1080;
+
+interface DiagramBuildResult {
+  spec: DiagramSpec;
+  elements: VCLElement[];
+}
+
+/**
+ * Tries to build diagram elements from a gap's requiredCapabilities.
+ * Returns null if no capability matches a DiagramSpec, or if geometry
+ * generation fails (unsupported diagram type).
+ *
+ * P2-1e roadmap: try/catch wraps the pipeline so unsupported types
+ * silently fall through to the existing text-only synthesis.
+ */
+function tryBuildDiagramFromGap(
+  gap: SceneGap,
+  ctx: SynthesizerContext,
+): DiagramBuildResult | null {
+  // Try each capability string against metaphorToDiagramSpec
+  for (const cap of gap.requiredCapabilities) {
+    const spec = metaphorToDiagramSpec(cap);
+    if (!spec) continue;
+
+    // Infer nodeCount from content if available
+    const content = gap.bestPresetMatch.content;
+    if (!spec.nodeCount) {
+      spec.nodeCount = inferNodeCount(content);
+    }
+
+    try {
+      const canvasW =
+        ctx.format === "shorts" ? DIAGRAM_CANVAS_H : DIAGRAM_CANVAS_W;
+      const canvasH =
+        ctx.format === "shorts" ? DIAGRAM_CANVAS_W : DIAGRAM_CANVAS_H;
+      const geometry = buildDiagramGeometry(spec, canvasW, canvasH);
+      const elements = buildDiagramElements(spec, geometry);
+      return { spec, elements };
+    } catch {
+      // Unsupported diagram type → fall through silently (P2-1e spec)
+      continue;
+    }
+  }
+
+  return null;
+}
+
+/** Infers node count from content structure (framework items, application steps, etc.) */
+function inferNodeCount(content: SceneContent): number {
+  if (isFrameworkContent(content)) {
+    return content.items.length;
+  }
+  if (isApplicationContent(content)) {
+    return content.steps.length;
+  }
+  return 4; // sensible default
 }
 
 // ---------------------------------------------------------------------------

@@ -701,6 +701,8 @@ export interface SynthesizedBlueprint extends SceneBlueprint {
   fallbackContent: SceneContent;
   /** How well the available layout matched the requested capability (0~1). */
   synthesisConfidence?: number;
+  /** P2-1e: DiagramSpec used to generate diagram elements (if any). */
+  diagramSpec?: DiagramSpec;
 }
 
 /** DSGS Spec 3-5 */
