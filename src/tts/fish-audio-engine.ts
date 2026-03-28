@@ -23,17 +23,38 @@ const FISH_API_BASE = "https://api.fish.audio";
 // --- Emotion tag mapping ---
 
 const SCENE_EMOTION_MAP: Record<string, string> = {
-  highlight: "[excited]",
-  cover: "[confident]",
-  keyInsight: "[enthusiastic]",
-  chapterDivider: "[calm]",
-  framework: "[confident]",
-  compareContrast: "[curious]",
-  quote: "[soft tone]",
-  application: "[encouraging]",
-  closing: "[warm]",
-  data: "[confident]",
+  highlight: "[신나고 에너지 넘치는 목소리로]",
+  cover: "[차분하고 자신감 있는 목소리로]",
+  keyInsight: "[열정적이고 강조하는 톤으로]",
+  chapterDivider: "[차분하고 안정된 톤으로]",
+  framework: "[명확하고 설득력 있는 톤으로]",
+  compareContrast: "[호기심 어린 톤으로]",
+  quote: "[부드럽고 감성적인 톤으로]",
+  application: "[격려하는 따뜻한 톤으로]",
+  closing: "[따뜻하고 진심 어린 톤으로]",
+  data: "[차분하고 명확한 톤으로]",
 };
+
+/**
+ * Temperature by scene type.
+ * Higher for emotional scenes (more expressive), lower for explanatory (more stable).
+ */
+const SCENE_TEMPERATURE_MAP: Record<string, number> = {
+  highlight: 0.85,
+  cover: 0.6,
+  keyInsight: 0.8,
+  chapterDivider: 0.5,
+  framework: 0.6,
+  compareContrast: 0.75,
+  quote: 0.8,
+  application: 0.7,
+  closing: 0.75,
+  data: 0.55,
+};
+
+export function getTemperatureForScene(sceneType: string): number {
+  return SCENE_TEMPERATURE_MAP[sceneType] ?? 0.7;
+}
 
 /**
  * Prepend an emotion tag based on scene type for Fish Audio S2 models.
@@ -54,6 +75,7 @@ export interface FishAudioConfig {
   voiceModelId: string;
   model?: "s2-pro" | "s1"; // default: "s2-pro"
   format?: "mp3" | "wav" | "opus" | "pcm";
+  temperature?: number; // 0.0~1.0, default 0.7
 }
 
 export function getFishAudioConfig(): FishAudioConfig | undefined {
@@ -118,6 +140,7 @@ export async function generateFishAudio(
     chunk_length: 200,
     normalize: true,
     latency: "normal",
+    temperature: config.temperature ?? 0.7,
   });
 
   const resp = await fetch(`${FISH_API_BASE}/v1/tts`, {

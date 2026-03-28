@@ -12,8 +12,10 @@ import {
   generateCaptionsFromText,
   addEmotionTag,
   getFishAudioConfig,
+  getTemperatureForScene,
   transcribeWithFishSTT,
   sttSegmentsToCaptions,
+  type FishAudioConfig,
 } from "./fish-audio-engine";
 
 const DEFAULT_FPS = 30;
@@ -402,6 +404,10 @@ async function generateTTSViaFishAudio(
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
 
+  const configWithTemp: FishAudioConfig = {
+    ...fishConfig,
+    temperature: getTemperatureForScene(sceneType || ""),
+  };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
   const textWithEmotion = addEmotionTag(text, sceneType || "");
 
@@ -409,7 +415,7 @@ async function generateTTSViaFishAudio(
     const durationMs = await generateFishAudio(
       textWithEmotion,
       outputPath,
-      fishConfig,
+      configWithTemp,
     );
 
     if (!fs.existsSync(outputPath) || durationMs <= 0) {
@@ -438,6 +444,10 @@ async function generateTTSWithCaptionsViaFishAudio(
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
 
+  const configWithTemp: FishAudioConfig = {
+    ...fishConfig,
+    temperature: getTemperatureForScene(sceneType || ""),
+  };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
   const textWithEmotion = addEmotionTag(text, sceneType || "");
 
@@ -445,7 +455,7 @@ async function generateTTSWithCaptionsViaFishAudio(
     const durationMs = await generateFishAudio(
       textWithEmotion,
       outputPath,
-      fishConfig,
+      configWithTemp,
     );
 
     if (!fs.existsSync(outputPath) || durationMs <= 0) {

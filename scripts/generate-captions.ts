@@ -200,11 +200,15 @@ async function generateViaFishAudio(
   try {
     const engine = await loadFishEngine();
     if (!engine) return { success: false, durationMs: 0 };
+    const configWithTemp = {
+      ...config,
+      temperature: engine.getTemperatureForScene(sceneType),
+    };
     const textWithEmotion = engine.addEmotionTag(text, sceneType);
     const durationMs = await engine.generateFishAudio(
       textWithEmotion,
       audioPath,
-      config,
+      configWithTemp,
     );
     return { success: fs.existsSync(audioPath) && durationMs > 0, durationMs };
   } catch (err) {
