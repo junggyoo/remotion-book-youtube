@@ -113,11 +113,45 @@ beat 작성 규칙:
 - beat.transition: `"enter" | "replace" | "emphasis"`
 - 최소 beat 길이: endRatio - startRatio >= 0.12
 
+### 2-5.5. Thumbnail 자동 생성
+
+BookFingerprint에서 thumbnail 필드를 자동 생성한다.
+
+`src/thumbnail/auto-config.ts`의 `generateThumbnailConfig(fingerprint)` 함수를 참고하여
+아래 매핑 규칙에 따라 thumbnail 객체를 생성한다:
+
+| BookFingerprint 필드                 | → ThumbnailConfig 필드                             |
+| ------------------------------------ | -------------------------------------------------- |
+| entryAngle                           | hookText (30자 이내로 절삭)                        |
+| coreFramework 또는 uniqueElements[0] | accentWord                                         |
+| hookStrategy                         | expression, gesture (매핑 테이블 참조)             |
+| urgencyLevel                         | mood (high→urgent, medium→dramatic, low→confident) |
+| genre                                | backgroundStyle (장르별 기본값)                    |
+
+**hookStrategy → expression/gesture 매핑:**
+
+| hookStrategy   | expression            | gesture                            |
+| -------------- | --------------------- | ---------------------------------- |
+| pain           | 깊은 고민에 빠진 표정 | 양손으로 머리를 감싸는 제스처      |
+| contrarian     | 자신감 넘치는 표정    | X자 제스처                         |
+| transformation | 확신에 찬 표정        | 검지 손가락을 세움                 |
+| identity       | 진지하고 단호한 표정  | 가슴에 손을 얹는 제스처            |
+| question       | 의아한 표정           | 턱에 손을 대고 생각하는 포즈       |
+| system         | 분석적인 표정         | 양손으로 구조를 설명하는 손짓      |
+| urgency        | 긴박한 표정           | 양손으로 얼굴을 받치며 놀란 제스처 |
+
+**규칙:**
+
+- 사용자가 이미 thumbnail 필드를 직접 작성한 경우, 자동 생성을 건너뛴다
+- **hookText는 entryAngle 기반 초안이다.** 클릭 유도력이 약하면 더 강한 카피로 수정할 것. entryAngle은 영상 진입 각도 설명이고, hookText는 썸네일 클릭 유도 카피이므로 성격이 다를 수 있다.
+- accentWord가 hookText에 포함되지 않으면 accentWord를 생략한다
+
 ### 2-6. JSON 파일 저장
 
 content/books/{book-id}.json으로 저장.
 
 - narration 있는 씬에 durationFrames 직접 명시 금지 (TTS가 결정)
+- thumbnail 필드는 Step 2-5.5에서 자동 생성됨 (사용자가 직접 작성한 경우 유지)
 
 ## Step 3: 스키마 검증
 
