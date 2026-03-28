@@ -507,7 +507,7 @@ MP3가 없으면 `npm run make:video`가 자동 생성한다.
 
 ### TTS 엔진
 
-기본 TTS: Fish Audio S2 (`FISH_API_KEY` + `FISH_VOICE_MODEL_ID` 환경변수 필요)
+기본 TTS: Fish Audio S2-Pro (`FISH_API_KEY` + `FISH_VOICE_MODEL_ID` 환경변수 필요)
 fallback: edge-tts → silent
 
 환경변수:
@@ -523,9 +523,19 @@ fallback: edge-tts → silent
 3. `FISH_API_KEY`가 있으면 fish-audio 자동 선택
 4. edge-tts (최종 fallback)
 
-Fish Audio S2는 씬 타입별 감정 태그(`[excited]`, `[confident]` 등)를 자동 삽입한다.
+**자막 타이밍:** Fish Audio STT API(`POST /v1/asr`)로 생성된 MP3를 분석하여
+segment-level 타임스탬프를 얻는다. STT 실패 시 글자 수 비례 추정 fallback.
+
+**한국어 감정 태그:** 씬 타입별 한국어 자연어 태그를 자동 삽입한다.
+예: `[신나고 에너지 넘치는 목소리로]`, `[차분하고 자신감 있는 목소리로]` 등.
 태그는 `src/tts/fish-audio-engine.ts`의 `SCENE_EMOTION_MAP`에서 관리.
 content JSON에는 감정 태그를 넣지 않는다 (generate-captions.ts에서 자동 처리).
+
+**temperature:** 씬 타입별 temperature 자동 적용 (0.5~0.85).
+감정이 강한 씬(highlight: 0.85)은 높게, 설명 씬(chapterDivider: 0.5)은 낮게.
+`SCENE_TEMPERATURE_MAP` + `getTemperatureForScene()`에서 관리.
+
+**prosody.speed:** content JSON의 `narration.speed`가 Fish Audio `prosody.speed`로 매핑된다 (0.5~2.0).
 
 ---
 
