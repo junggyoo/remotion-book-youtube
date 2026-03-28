@@ -231,8 +231,11 @@ export async function fetchBookCover(
       }
     }
 
-    // Step 1: Search Aladin
-    const itemId = await searchAladinItemId(title, author);
+    // Step 1: Search Aladin (with author fallback: title+author → title-only)
+    let itemId = await searchAladinItemId(title, author);
+    if (!itemId && author) {
+      itemId = await searchAladinItemId(title, "");
+    }
     if (!itemId) {
       return {
         success: false,
