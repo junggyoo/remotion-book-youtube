@@ -43,3 +43,48 @@ export function resolveBeatNarration(
 
   return narratedBeats.map((b) => b.narrationText!).join(" ");
 }
+
+/**
+ * Beat별 narrationText를 emotionTag와 함께 합산한다.
+ * Fish Audio 경로 전용 — TTS API에 전달할 텍스트를 생성한다.
+ *
+ * - emotionTag가 있는 beat: "[태그] 나레이션텍스트"
+ * - emotionTag가 없는 beat: "나레이션텍스트" (태그 없이)
+ *
+ * edge-tts/qwen3 경로에서는 이 함수 대신 resolveBeatNarration()을 사용한다.
+ * QA-13A 글자수 검증에도 resolveBeatNarration()을 사용한다 (태그 미포함).
+ */
+export function resolveBeatNarrationWithEmotions(
+  scene: SceneWithBeats,
+): string | undefined {
+  if (!scene.beats || scene.beats.length === 0) {
+    return scene.narrationText;
+  }
+
+  const narratedBeats = scene.beats.filter(
+    (b) => b.narrationText && b.narrationText.trim().length > 0,
+  );
+
+  if (narratedBeats.length === 0) {
+    return scene.narrationText;
+  }
+
+  for (let i = 1; i < narratedBeats.length; i++) {
+    if (narratedBeats[i].startRatio < narratedBeats[i - 1].startRatio) {
+      console.warn(
+        `[beatNarrationResolver] Beat order mismatch: ${narratedBeats[i].id} startRatio < ${narratedBeats[i - 1].id}. Using scene narration fallback.`,
+      );
+      return scene.narrationText;
+    }
+  }
+
+  return narratedBeats
+    .map((b) => {
+      const text = b.narrationText!.trim();
+      if (b.emotionTag && b.emotionTag.trim()) {
+        return `${b.emotionTag.trim()} ${text}`;
+      }
+      return text;
+    })
+    .join(" ");
+}

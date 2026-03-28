@@ -1,6 +1,10 @@
 // TTS pipeline — barrel export
 export { generateTTS, generateTTSWithCaptions } from "./ttsClient";
 export {
+  resolveBeatNarration,
+  resolveBeatNarrationWithEmotions,
+} from "./beatNarrationResolver";
+export {
   generateSubtitles,
   generateSentenceSubtitles,
   splitToLines,
