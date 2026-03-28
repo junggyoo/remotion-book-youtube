@@ -33,13 +33,18 @@ async function removeGreenScreen(imageBuffer: Buffer): Promise<Buffer> {
     const g = data[offset + 1];
     const b = data[offset + 2];
 
-    // Green-dominant: G is significantly higher than R and B
-    const isGreen = g > 100 && g > r * 1.4 && g > b * 1.4;
+    // Green-dominant: G is higher than R and B (relaxed threshold for edge cleanup)
+    const isGreen = g > 80 && g > r * 1.2 && g > b * 1.2;
 
     if (isGreen) {
-      // Soft edge: partial transparency for near-green pixels
-      const greenness = Math.min(1, (g - Math.max(r, b)) / 100);
+      // Soft edge: partial transparency based on green dominance
+      const greenness = Math.min(1, (g - Math.max(r, b)) / 60);
       data[offset + 3] = Math.round(255 * (1 - greenness));
+
+      // Despill: reduce green tint on semi-transparent edge pixels
+      if (data[offset + 3] > 0) {
+        data[offset + 1] = Math.min(g, Math.max(r, b));
+      }
     }
   }
 
