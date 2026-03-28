@@ -2,72 +2,72 @@
   "captions": [
     {
       "text": "그렇다면",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 0,
+      "endMs": 520,
+      "timestampMs": 0,
       "confidence": null
     },
     {
       "text": " 이런",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 520,
+      "endMs": 880,
+      "timestampMs": 520,
       "confidence": null
     },
     {
       "text": " 칭공식은",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 880,
+      "endMs": 1560,
+      "timestampMs": 880,
       "confidence": null
     },
     {
       "text": " 구체적으로",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1560,
+      "endMs": 2220,
+      "timestampMs": 1560,
       "confidence": null
     },
     {
       "text": " 어떻게",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2220,
+      "endMs": 2540,
+      "timestampMs": 2220,
       "confidence": null
     },
     {
       "text": " 작동할까요?",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2540,
+      "endMs": 3280,
+      "timestampMs": 2540,
       "confidence": null
     },
     {
       "text": " PLF의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4140,
+      "endMs": 4640,
+      "timestampMs": 4140,
       "confidence": null
     },
     {
       "text": " 4단계를",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4640,
+      "endMs": 5120,
+      "timestampMs": 4640,
       "confidence": null
     },
     {
       "text": " 하나씩",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5120,
+      "endMs": 5540,
+      "timestampMs": 5120,
       "confidence": null
     },
     {
       "text": " 살펴보겠습니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5540,
+      "endMs": 6080,
+      "timestampMs": 5540,
       "confidence": null
     }
   ],
@@ -75,8 +75,8 @@
   "beatTimings": [
     {
       "beatId": "ch1-b1",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 0,
+      "resolvedEndFrame": 182,
       "originalStartRatio": 0,
       "originalEndRatio": 1
     }

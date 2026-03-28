@@ -2,387 +2,387 @@
   "captions": [
     {
       "text": "관곱이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 0,
+      "endMs": 600,
+      "timestampMs": 0,
       "confidence": null
     },
     {
       "text": " 영원,",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 600,
+      "endMs": 900,
+      "timestampMs": 600,
       "confidence": null
     },
     {
       "text": " 직원도",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1740,
+      "endMs": 2140,
+      "timestampMs": 1740,
       "confidence": null
     },
     {
       "text": " 없고",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2140,
+      "endMs": 2460,
+      "timestampMs": 2140,
       "confidence": null
     },
     {
       "text": " 사무실도",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2460,
+      "endMs": 3280,
+      "timestampMs": 2460,
       "confidence": null
     },
     {
       "text": " 없습니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 3280,
+      "endMs": 3680,
+      "timestampMs": 3280,
       "confidence": null
     },
     {
       "text": " 그런데",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4360,
+      "endMs": 4940,
+      "timestampMs": 4360,
       "confidence": null
     },
     {
       "text": " 제품",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4940,
+      "endMs": 5260,
+      "timestampMs": 4940,
       "confidence": null
     },
     {
       "text": " 출시",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5260,
+      "endMs": 5640,
+      "timestampMs": 5260,
       "confidence": null
     },
     {
       "text": " ,10억",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5800,
+      "endMs": 6300,
+      "timestampMs": 5800,
       "confidence": null
     },
     {
       "text": " 원의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 6300,
+      "endMs": 6460,
+      "timestampMs": 6300,
       "confidence": null
     },
     {
       "text": " 매출이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 6460,
+      "endMs": 6860,
+      "timestampMs": 6460,
       "confidence": null
     },
     {
       "text": " 터졌습니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 6860,
+      "endMs": 7340,
+      "timestampMs": 6860,
       "confidence": null
     },
     {
       "text": " 말도",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8240,
+      "endMs": 8500,
+      "timestampMs": 8240,
       "confidence": null
     },
     {
       "text": " 안",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8500,
+      "endMs": 8660,
+      "timestampMs": 8500,
       "confidence": null
     },
     {
       "text": " 되는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8660,
+      "endMs": 8800,
+      "timestampMs": 8660,
       "confidence": null
     },
     {
       "text": " 이야기처럼",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8800,
+      "endMs": 9380,
+      "timestampMs": 8800,
       "confidence": null
     },
     {
       "text": " 들리시죠?",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 9380,
+      "endMs": 9840,
+      "timestampMs": 9380,
       "confidence": null
     },
     {
       "text": " 운이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 10660,
+      "endMs": 10980,
+      "timestampMs": 10660,
       "confidence": null
     },
     {
       "text": " 좋았던",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 10980,
+      "endMs": 11300,
+      "timestampMs": 10980,
       "confidence": null
     },
     {
       "text": " 걸까요?",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 11300,
+      "endMs": 11660,
+      "timestampMs": 11300,
       "confidence": null
     },
     {
       "text": " 아닙니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 12560,
+      "endMs": 13020,
+      "timestampMs": 12560,
       "confidence": null
     },
     {
       "text": " 이건",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 13860,
+      "endMs": 14120,
+      "timestampMs": 13860,
       "confidence": null
     },
     {
       "text": " 철저하게",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 14120,
+      "endMs": 14660,
+      "timestampMs": 14120,
       "confidence": null
     },
     {
       "text": " 설계된",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 14660,
+      "endMs": 15080,
+      "timestampMs": 14660,
       "confidence": null
     },
     {
       "text": " 공식입니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 15080,
+      "endMs": 15720,
+      "timestampMs": 15080,
       "confidence": null
     },
     {
       "text": " 실리콘",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 16620,
+      "endMs": 16980,
+      "timestampMs": 16620,
       "confidence": null
     },
     {
       "text": " 벨리에",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 16980,
+      "endMs": 17320,
+      "timestampMs": 16980,
       "confidence": null
     },
     {
       "text": " 참재들만",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 17320,
+      "endMs": 17800,
+      "timestampMs": 17320,
       "confidence": null
     },
     {
       "text": " 쓰는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 17800,
+      "endMs": 18060,
+      "timestampMs": 17800,
       "confidence": null
     },
     {
       "text": " 비밀",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 18060,
+      "endMs": 18500,
+      "timestampMs": 18060,
       "confidence": null
     },
     {
       "text": " 전략이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 18500,
+      "endMs": 18900,
+      "timestampMs": 18500,
       "confidence": null
     },
     {
       "text": " 아닙니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 18900,
+      "endMs": 19300,
+      "timestampMs": 18900,
       "confidence": null
     },
     {
       "text": " 제품",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 20200,
+      "endMs": 20360,
+      "timestampMs": 20200,
       "confidence": null
     },
     {
       "text": " 워커가",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 20360,
+      "endMs": 20760,
+      "timestampMs": 20360,
       "confidence": null
     },
     {
       "text": " 만든",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 20760,
+      "endMs": 20980,
+      "timestampMs": 20760,
       "confidence": null
     },
     {
       "text": " 피엘랩프",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 20980,
+      "endMs": 21620,
+      "timestampMs": 20980,
       "confidence": null
     },
     {
       "text": " 프로덕트론",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 21620,
+      "endMs": 22320,
+      "timestampMs": 21620,
       "confidence": null
     },
     {
       "text": " 칭포밀로",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 22320,
+      "endMs": 22820,
+      "timestampMs": 22320,
       "confidence": null
     },
     {
       "text": " 이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 23400,
+      "endMs": 23820,
+      "timestampMs": 23400,
       "confidence": null
     },
     {
       "text": " 공식",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 23820,
+      "endMs": 24080,
+      "timestampMs": 23820,
       "confidence": null
     },
     {
       "text": " 하나로",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 24080,
+      "endMs": 24500,
+      "timestampMs": 24080,
       "confidence": null
     },
     {
       "text": " 전",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 24500,
+      "endMs": 24800,
+      "timestampMs": 24500,
       "confidence": null
     },
     {
       "text": " 세계",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 24800,
+      "endMs": 25040,
+      "timestampMs": 24800,
       "confidence": null
     },
     {
       "text": " 수천",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 25040,
+      "endMs": 25300,
+      "timestampMs": 25040,
       "confidence": null
     },
     {
       "text": " 명의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 25300,
+      "endMs": 25560,
+      "timestampMs": 25300,
       "confidence": null
     },
     {
       "text": " 평범한",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 25560,
+      "endMs": 25980,
+      "timestampMs": 25560,
       "confidence": null
     },
     {
       "text": " 사업가가",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 25980,
+      "endMs": 26500,
+      "timestampMs": 25980,
       "confidence": null
     },
     {
       "text": " 수조원의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 26500,
+      "endMs": 27020,
+      "timestampMs": 26500,
       "confidence": null
     },
     {
       "text": " 매출을",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 27020,
+      "endMs": 27460,
+      "timestampMs": 27020,
       "confidence": null
     },
     {
       "text": " 만들어냈습니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 27460,
+      "endMs": 28140,
+      "timestampMs": 27460,
       "confidence": null
     },
     {
       "text": " 지금부터",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 28140,
+      "endMs": 29580,
+      "timestampMs": 28140,
       "confidence": null
     },
     {
       "text": " 그",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 29580,
+      "endMs": 29940,
+      "timestampMs": 29580,
       "confidence": null
     },
     {
       "text": " 비밀을",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 29940,
+      "endMs": 30320,
+      "timestampMs": 29940,
       "confidence": null
     },
     {
       "text": " 공개합니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 30320,
+      "endMs": 30840,
+      "timestampMs": 30320,
       "confidence": null
     }
   ],
@@ -390,22 +390,22 @@
   "beatTimings": [
     {
       "beatId": "hook-b1",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 0,
+      "resolvedEndFrame": 339,
       "originalStartRatio": 0,
       "originalEndRatio": 0.35
     },
     {
       "beatId": "hook-b2",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 339,
+      "resolvedEndFrame": 629,
       "originalStartRatio": 0.35,
       "originalEndRatio": 0.6
     },
     {
       "beatId": "hook-b3",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 629,
+      "resolvedEndFrame": 925,
       "originalStartRatio": 0.6,
       "originalEndRatio": 1
     }

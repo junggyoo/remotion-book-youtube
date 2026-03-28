@@ -8,17 +8,16 @@
 import type { Caption } from "@remotion/captions";
 
 /**
- * Parse an edge-tts VTT timestamp string to milliseconds.
- * Format: "HH:MM:SS,mmm" (comma-separated, not dot)
+ * Parse a VTT timestamp string to milliseconds.
+ * Handles both comma (edge-tts: "HH:MM:SS,mmm") and dot (standard WebVTT: "HH:MM:SS.mmm").
  */
 export function parseVttTimestamp(ts: string): number {
-  // "00:00:04,500" → 4500 ms
   const parts = ts.split(":");
   const hours = parseInt(parts[0], 10);
   const minutes = parseInt(parts[1], 10);
-  const secMs = parts[2].split(",");
+  const secMs = parts[2].split(/[.,]/);
   const seconds = parseInt(secMs[0], 10);
-  const ms = parseInt(secMs[1], 10);
+  const ms = parseInt(secMs[1] ?? "0", 10);
   return hours * 3600000 + minutes * 60000 + seconds * 1000 + ms;
 }
 

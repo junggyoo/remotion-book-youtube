@@ -2,79 +2,79 @@
   "captions": [
     {
       "text": "이로는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 0,
+      "endMs": 460,
+      "timestampMs": 0,
       "confidence": null
     },
     {
       "text": " 충분합니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 460,
+      "endMs": 1120,
+      "timestampMs": 460,
       "confidence": null
     },
     {
       "text": " 이제",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1700,
+      "endMs": 2160,
+      "timestampMs": 1700,
       "confidence": null
     },
     {
       "text": " 아무것도",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2160,
+      "endMs": 2640,
+      "timestampMs": 2160,
       "confidence": null
     },
     {
       "text": " 없는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2640,
+      "endMs": 2880,
+      "timestampMs": 2640,
       "confidence": null
     },
     {
       "text": " 상태에서",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2880,
+      "endMs": 3420,
+      "timestampMs": 2880,
       "confidence": null
     },
     {
       "text": " 차도는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 3420,
+      "endMs": 3880,
+      "timestampMs": 3420,
       "confidence": null
     },
     {
       "text": " 침을",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 3880,
+      "endMs": 4100,
+      "timestampMs": 3880,
       "confidence": null
     },
     {
       "text": " 시작하는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4100,
+      "endMs": 4500,
+      "timestampMs": 4100,
       "confidence": null
     },
     {
       "text": " 방법을",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4500,
+      "endMs": 4940,
+      "timestampMs": 4500,
       "confidence": null
     },
     {
       "text": " 알아보겠습니다.",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4940,
+      "endMs": 5460,
+      "timestampMs": 4940,
       "confidence": null
     }
   ],
@@ -82,8 +82,8 @@
   "beatTimings": [
     {
       "beatId": "ch2-b1",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 0,
+      "resolvedEndFrame": 164,
       "originalStartRatio": 0,
       "originalEndRatio": 1
     }

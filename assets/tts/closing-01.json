@@ -2,261 +2,261 @@
   "captions": [
     {
       "text": "오늘",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 0,
+      "endMs": 380,
+      "timestampMs": 0,
       "confidence": null
     },
     {
       "text": " 당신의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 380,
+      "endMs": 1220,
+      "timestampMs": 380,
       "confidence": null
     },
     {
       "text": " 리스트",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1220,
+      "endMs": 1500,
+      "timestampMs": 1220,
       "confidence": null
     },
     {
       "text": " 첫",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1500,
+      "endMs": 1740,
+      "timestampMs": 1500,
       "confidence": null
     },
     {
       "text": " 번째",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1740,
+      "endMs": 1960,
+      "timestampMs": 1740,
       "confidence": null
     },
     {
       "text": " 사람을",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 1960,
+      "endMs": 2400,
+      "timestampMs": 1960,
       "confidence": null
     },
     {
       "text": " 떠올려보세요",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 2400,
+      "endMs": 2940,
+      "timestampMs": 2400,
       "confidence": null
     },
     {
       "text": " 그",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 3520,
+      "endMs": 3980,
+      "timestampMs": 3520,
       "confidence": null
     },
     {
       "text": " 사람에게",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 3980,
+      "endMs": 4340,
+      "timestampMs": 3980,
       "confidence": null
     },
     {
       "text": " 가장",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4340,
+      "endMs": 4600,
+      "timestampMs": 4340,
       "confidence": null
     },
     {
       "text": " 어려운",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 4600,
+      "endMs": 5020,
+      "timestampMs": 4600,
       "confidence": null
     },
     {
       "text": " 게",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5020,
+      "endMs": 5140,
+      "timestampMs": 5020,
       "confidence": null
     },
     {
       "text": " 뭔지",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5140,
+      "endMs": 5560,
+      "timestampMs": 5140,
       "confidence": null
     },
     {
       "text": " 물어보세요",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 5560,
+      "endMs": 6000,
+      "timestampMs": 5560,
       "confidence": null
     },
     {
       "text": " 그",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 6580,
+      "endMs": 7040,
+      "timestampMs": 6580,
       "confidence": null
     },
     {
       "text": " 한마디가",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 7040,
+      "endMs": 7540,
+      "timestampMs": 7040,
       "confidence": null
     },
     {
       "text": " 당신의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 7540,
+      "endMs": 8180,
+      "timestampMs": 7540,
       "confidence": null
     },
     {
       "text": " 첫",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8180,
+      "endMs": 8280,
+      "timestampMs": 8180,
       "confidence": null
     },
     {
       "text": " 론층의",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8280,
+      "endMs": 8760,
+      "timestampMs": 8280,
       "confidence": null
     },
     {
       "text": " 시작입니다",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 8760,
+      "endMs": 9260,
+      "timestampMs": 8760,
       "confidence": null
     },
     {
       "text": " 완벽한",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 10040,
+      "endMs": 10600,
+      "timestampMs": 10040,
       "confidence": null
     },
     {
       "text": " 준비는",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 10600,
+      "endMs": 10960,
+      "timestampMs": 10600,
       "confidence": null
     },
     {
       "text": " 필요",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 10960,
+      "endMs": 11160,
+      "timestampMs": 10960,
       "confidence": null
     },
     {
       "text": " 없습니다",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 11160,
+      "endMs": 11620,
+      "timestampMs": 11160,
       "confidence": null
     },
     {
       "text": " 시작이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 12440,
+      "endMs": 12940,
+      "timestampMs": 12440,
       "confidence": null
     },
     {
       "text": " 필요합니다",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 12940,
+      "endMs": 13560,
+      "timestampMs": 12940,
       "confidence": null
     },
     {
       "text": " 이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 13980,
+      "endMs": 14440,
+      "timestampMs": 13980,
       "confidence": null
     },
     {
       "text": " 영상이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 14440,
+      "endMs": 14840,
+      "timestampMs": 14440,
       "confidence": null
     },
     {
       "text": " 도움이",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 14840,
+      "endMs": 15100,
+      "timestampMs": 14840,
       "confidence": null
     },
     {
       "text": " 되셨다면",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 15100,
+      "endMs": 15620,
+      "timestampMs": 15100,
       "confidence": null
     },
     {
       "text": " 구독과",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 15620,
+      "endMs": 16380,
+      "timestampMs": 15620,
       "confidence": null
     },
     {
       "text": " 좋아요",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 16380,
+      "endMs": 16660,
+      "timestampMs": 16380,
       "confidence": null
     },
     {
       "text": " 부탁드립니다",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 16660,
+      "endMs": 17420,
+      "timestampMs": 16660,
       "confidence": null
     },
     {
       "text": " 다음",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 18060,
+      "endMs": 18520,
+      "timestampMs": 18060,
       "confidence": null
     },
     {
       "text": " 영상에서",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 18520,
+      "endMs": 19060,
+      "timestampMs": 18520,
       "confidence": null
     },
     {
       "text": " 또",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 19060,
+      "endMs": 19280,
+      "timestampMs": 19060,
       "confidence": null
     },
     {
       "text": " 만나겠습니다",
-      "startMs": null,
-      "endMs": null,
-      "timestampMs": null,
+      "startMs": 19280,
+      "endMs": 19800,
+      "timestampMs": 19280,
       "confidence": null
     }
   ],
@@ -264,8 +264,8 @@
   "beatTimings": [
     {
       "beatId": "cls-b1",
-      "resolvedStartFrame": null,
-      "resolvedEndFrame": null,
+      "resolvedStartFrame": 0,
+      "resolvedEndFrame": 500,
       "originalStartRatio": 0,
       "originalEndRatio": 0.6
     },
