@@ -51,7 +51,7 @@ export function addEmotionTag(
 export interface FishAudioConfig {
   apiKey: string;
   voiceModelId: string;
-  backend?: string; // "speech-1.6" default
+  model?: "s2-pro" | "s1"; // default: "s2-pro"
   format?: "mp3" | "wav" | "opus" | "pcm";
 }
 
@@ -107,7 +107,7 @@ export async function generateFishAudio(
   outputPath: string,
   config: FishAudioConfig,
 ): Promise<number> {
-  const backend = config.backend || "speech-1.6";
+  const model = config.model || "s2-pro";
   const format = config.format || "mp3";
 
   const resp = await fetch(`${FISH_API_BASE}/v1/tts`, {
@@ -115,6 +115,7 @@ export async function generateFishAudio(
     headers: {
       Authorization: `Bearer ${config.apiKey}`,
       "Content-Type": "application/json",
+      model,
     },
     body: JSON.stringify({
       text,
@@ -122,8 +123,7 @@ export async function generateFishAudio(
       format,
       chunk_length: 200,
       normalize: true,
-      latency: "balanced",
-      backend,
+      latency: "normal",
     }),
   });
 
