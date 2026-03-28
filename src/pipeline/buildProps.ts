@@ -16,12 +16,24 @@ import {
   mapTransitionIntent,
   type TransitionIntent,
 } from "@/transitions/mapTransitionIntent";
+import {
+  resolveDirectionFromFingerprint,
+  adaptPresetToSceneSpec,
+  resolveMotionParams,
+} from "@/direction";
+import type {
+  DirectionProfile,
+  SceneSpec,
+  ResolvedMotionParams,
+} from "@/direction";
 
 export type PlannedScene = TypedScene & {
   from: number;
   resolvedDuration: number;
   tts?: TTSResult;
   subtitles?: SubtitleEntry[];
+  sceneSpec?: SceneSpec;
+  resolvedMotion?: ResolvedMotionParams;
 };
 
 export interface CompositionProps {
@@ -91,11 +103,38 @@ export function buildCompositionProps(
     };
   });
 
+  // Direction enrichment (Phase 0)
+  const fingerprintHint = {
+    genre: (book.metadata?.genre ?? "selfHelp") as any,
+    structure: (planResult as any)?.fingerprint?.structure ?? "framework",
+    emotionalTone: (planResult as any)?.fingerprint?.emotionalTone ?? [],
+  };
+  const bookDirection = resolveDirectionFromFingerprint(fingerprintHint);
+
+  const directionEnrichedScenes = scenesWithBlueprints.map((scene) => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: scene.id,
+        type: scene.type,
+        narrationText: (scene as any).narrationText ?? "",
+        content: (scene as any).content ?? {},
+      },
+      bookDirection,
+      fingerprintHint.structure,
+    );
+    const resolvedMotion = resolveMotionParams(
+      bookDirection.base,
+      scene.resolvedDuration ?? 150,
+    );
+    return { ...scene, sceneSpec: spec, resolvedMotion };
+  });
+
   // Calculate totalDurationFrames, subtracting transition overlaps when storyboard exists
   const naiveTotalDuration =
-    scenesWithBlueprints.length > 0
-      ? scenesWithBlueprints[scenesWithBlueprints.length - 1].from +
-        scenesWithBlueprints[scenesWithBlueprints.length - 1].resolvedDuration
+    directionEnrichedScenes.length > 0
+      ? directionEnrichedScenes[directionEnrichedScenes.length - 1].from +
+        directionEnrichedScenes[directionEnrichedScenes.length - 1]
+          .resolvedDuration
       : 0;
 
   // Transition overlap: each non-"cut" transition shortens total duration
@@ -103,8 +142,8 @@ export function buildCompositionProps(
   // Last scene's transitionIntent is ignored (nothing after it)
   let transitionOverlap = 0;
   if (planResult?.hasPlan) {
-    for (let i = 0; i < scenesWithBlueprints.length - 1; i++) {
-      const storyboard = (scenesWithBlueprints[i] as any)._storyboard as
+    for (let i = 0; i < directionEnrichedScenes.length - 1; i++) {
+      const storyboard = (directionEnrichedScenes[i] as any)._storyboard as
         | StoryboardScene
         | undefined;
       const intent = storyboard?.transitionIntent as
@@ -121,7 +160,7 @@ export function buildCompositionProps(
 
   return {
     bookId: book.metadata.id,
-    scenes: scenesWithBlueprints,
+    scenes: directionEnrichedScenes,
     totalDurationFrames,
     fps,
     format,
