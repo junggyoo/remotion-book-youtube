@@ -15,7 +15,8 @@
     "build": "remotion bundle",
     "test": "vitest run",
     "test:watch": "vitest",
-    "thumbnail": "ts-node scripts/generate-thumbnail.ts"
+    "thumbnail": "ts-node scripts/generate-thumbnail.ts",
+    "budget": "ts-node scripts/budget.ts"
   },
   "keywords": [],
   "author": "",
