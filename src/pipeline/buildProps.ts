@@ -29,11 +29,20 @@ import type {
 import type { SceneFamily } from "@/direction/types";
 
 // Near the top — composed path activation config
-// TODO(Phase 2B): Move to experiment config / feature flag when more families are added.
+// TODO(Phase 2B-2): Move to experiment config / feature flag when more families are added.
 const COMPOSED_FAMILIES: SceneFamily[] = [
+  // Phase 2A
   "concept-introduction",
   "system-model",
   "progression-journey",
+  // Phase 2B
+  "closing-synthesis",
+  "structural-bridge",
+  "opening-hook",
+  "reflective-anchor",
+  "mechanism-explanation",
+  "tension-comparison",
+  "evidence-stack",
 ];
 import { tryComposeScene } from "@/composition/compositionPathRouter";
 import type { CompositionContext } from "@/composition/types";
