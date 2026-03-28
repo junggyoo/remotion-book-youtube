@@ -28,6 +28,26 @@ export const CHANNEL_PRIORITY: readonly ChannelKey[] = [
   "camera",
 ] as const;
 
+const DEFAULT_PRIORITY: ChannelKey[] = [
+  "sceneText",
+  "subtitle",
+  "background",
+  "camera",
+];
+
+const SCENE_PRIORITY_OVERRIDES: Partial<Record<SceneType, ChannelKey[]>> = {
+  highlight: ["camera", "sceneText", "subtitle", "background"],
+  data: ["background", "subtitle", "sceneText", "camera"],
+};
+
+/**
+ * Get channel priority ordering for a given scene type.
+ * Returns scene-specific override if defined, otherwise the default priority.
+ */
+export function getChannelPriority(sceneType: SceneType): ChannelKey[] {
+  return SCENE_PRIORITY_OVERRIDES[sceneType] ?? DEFAULT_PRIORITY;
+}
+
 // ---------------------------------------------------------------------------
 // Recovery window
 // ---------------------------------------------------------------------------
@@ -194,6 +214,7 @@ export function shouldChannelActivate(
   activeChannels: Set<ChannelKey>,
   cap: number,
   isInRecoveryWindow: boolean,
+  sceneType?: SceneType,
 ): boolean {
   // Channel disabled by policy
   if (!policy[channelKey]) return false;
@@ -204,11 +225,14 @@ export function shouldChannelActivate(
   // Already active — stay active
   if (activeChannels.has(channelKey)) return true;
 
+  // Use scene-type-specific priority if provided, otherwise global default
+  const priority = sceneType ? getChannelPriority(sceneType) : CHANNEL_PRIORITY;
+
   // Cap check: if at capacity, only higher-priority channels can activate
   if (activeChannels.size >= cap) {
-    const myPriority = CHANNEL_PRIORITY.indexOf(channelKey);
+    const myPriority = priority.indexOf(channelKey);
     const lowestActivePriority = Math.max(
-      ...Array.from(activeChannels).map((ch) => CHANNEL_PRIORITY.indexOf(ch)),
+      ...Array.from(activeChannels).map((ch) => priority.indexOf(ch)),
     );
     // Can only activate if higher priority (lower index) than lowest active
     return myPriority < lowestActivePriority;
