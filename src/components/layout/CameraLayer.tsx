@@ -367,4 +367,31 @@ const GuidedWrapper: React.FC<GuidedWrapperProps> = ({
   );
 };
 
+// ---------------------------------------------------------------------------
+// layersToLayoutMeta — convert static pixel positions to normalized anchors
+// ---------------------------------------------------------------------------
+
+/**
+ * Convert static LAYERS-style position constants to SceneElementLayoutMeta[].
+ * Normalizes pixel positions to 0~1 anchors based on canvas size.
+ * Used by preset scenes (e.g. HighlightScene) whose element positions are
+ * defined as static pixel/percentage values rather than a dynamic positionById Map.
+ */
+export function layersToLayoutMeta(
+  layers: Record<
+    string,
+    { top?: number; left?: number; width?: number; height?: number }
+  >,
+  canvasWidth: number,
+  canvasHeight: number,
+): SceneElementLayoutMeta[] {
+  return Object.entries(layers).map(([id, pos]) => ({
+    elementId: id,
+    anchorX: ((pos.left ?? 0) + (pos.width ?? 0) / 2) / canvasWidth,
+    anchorY: ((pos.top ?? 0) + (pos.height ?? 0) / 2) / canvasHeight,
+    widthRatio: (pos.width ?? 0) / canvasWidth,
+    heightRatio: (pos.height ?? 0) / canvasHeight,
+  }));
+}
+
 export default CameraLayer;

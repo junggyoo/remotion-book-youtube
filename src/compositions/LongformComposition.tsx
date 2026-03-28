@@ -53,12 +53,66 @@ import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
 import {
   CameraLayer,
   SCENE_CAMERA_DEFAULTS,
+  layersToLayoutMeta,
 } from "@/components/layout/CameraLayer";
 import { SceneWrapper } from "@/components/layout/SceneWrapper";
 import { BackgroundMotion } from "@/components/layout/BackgroundMotion";
-import type { CustomScene } from "@/types";
+import type { CustomScene, SceneElementLayoutMeta } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
 import { useBeatTimeline } from "../hooks/useBeatTimeline";
+
+// ---------------------------------------------------------------------------
+// Highlight scene approximate element positions (px, longform 1920x1080)
+// Derived from HighlightScene.tsx CSS: mainText at ~8% left, flex-centered vertically;
+// signalBar at 8% left, 42% top; subText below mainText.
+// ---------------------------------------------------------------------------
+const HIGHLIGHT_ELEMENT_POSITIONS: Record<
+  string,
+  { top: number; left: number; width: number; height: number }
+> = {
+  mainText: { top: 380, left: 154, width: 1280, height: 200 },
+  signalBar: { top: 454, left: 154, width: 768, height: 3 },
+  subText: { top: 600, left: 154, width: 1280, height: 80 },
+};
+
+const HIGHLIGHT_LAYOUT_META: SceneElementLayoutMeta[] = layersToLayoutMeta(
+  HIGHLIGHT_ELEMENT_POSITIONS,
+  1920,
+  1080,
+);
+
+// ---------------------------------------------------------------------------
+// HighlightCameraWrapper — beat-driven CameraLayer for HighlightScene
+// ---------------------------------------------------------------------------
+const HighlightCameraWrapper: React.FC<{
+  beats?: Beat[];
+  durationFrames: number;
+  format: CompositionProps["format"];
+  children: React.ReactNode;
+}> = ({ beats, durationFrames, format, children }) => {
+  const { activeBeat, activeChannels, isInRecoveryWindow } = useBeatTimeline(
+    beats ?? [],
+    durationFrames,
+    "heavy",
+    { sceneType: "highlight", format },
+  );
+
+  return (
+    <CameraLayer
+      mode={format === "shorts" ? "static" : "guided"}
+      format={format}
+      sceneType="highlight"
+      durationFrames={durationFrames}
+      layoutMeta={HIGHLIGHT_LAYOUT_META}
+      activeBeat={activeBeat}
+      primaryFocusId="mainText"
+      emphasisGateActive={activeChannels?.has?.("sceneText") ?? true}
+      isRecovering={isInRecoveryWindow}
+    >
+      {children}
+    </CameraLayer>
+  );
+};
 
 interface TTSManifestEntry {
   sceneId: string;
@@ -225,6 +279,19 @@ const SceneRenderer: React.FC<{
 
   // P2-2: Wrap preset scenes with CameraLayer
   // Static mode is a passthrough (no transform), so wrapping is always safe
+  // P2-7A: Highlight scenes use HighlightCameraWrapper with beat-driven guided camera
+  if (scene.type === "highlight") {
+    return (
+      <HighlightCameraWrapper
+        beats={scene.beats}
+        durationFrames={scene.resolvedDuration}
+        format={format}
+      >
+        <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
+      </HighlightCameraWrapper>
+    );
+  }
+
   return (
     <CameraLayer
       mode={cameraMode}
