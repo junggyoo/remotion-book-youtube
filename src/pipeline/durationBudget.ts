@@ -108,7 +108,7 @@ export function extractSceneComposition(scenes: any[]): SceneComposition[] {
  *
  * @param targetDurationSeconds - desired total video length
  * @param scenes - scene composition (id, type, itemCount)
- * @param options.cps - override Korean chars-per-second (default: 5.7)
+ * @param options.cps - override Korean chars-per-second (default: 7.5, Fish Audio S2-Pro)
  * @param options.ttsSpeed - TTS speed multiplier (default: 1). CPS scales proportionally.
  */
 export function calculateBudget(
