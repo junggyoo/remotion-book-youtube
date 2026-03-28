@@ -12,6 +12,10 @@ import {
   RECOVERY_WINDOW_FRAMES,
   getActiveChannelCap,
 } from "@/design/tokens/emphasisPolicy";
+import {
+  getRhythmModifier,
+  RHYTHM_PROFILES,
+} from "@/design/tokens/rhythmProfile";
 
 /**
  * 모션 프리셋별 entering 애니메이션 duration (프레임).
@@ -67,11 +71,22 @@ export function useBeatTimeline(
   const activatedElements = new Set<string>();
   const deactivatedElements = new Set<string>();
 
-  for (const beat of beats) {
+  // P2-6: Rhythm profile — scene-type-aware stagger pacing
+  const sceneType = options?.sceneType as
+    | import("@/types").SceneType
+    | undefined;
+  const rhythmProfile = sceneType
+    ? (RHYTHM_PROFILES[sceneType] ?? "even")
+    : "even";
+
+  for (let beatIdx = 0; beatIdx < beats.length; beatIdx++) {
+    const beat = beats[beatIdx];
     const beatStart = Math.round(durationFrames * beat.startRatio);
     const beatEnd = Math.round(durationFrames * beat.endRatio);
     const preset = beat.motionPreset ?? defaultMotionPreset;
-    const enteringDur = ENTERING_DURATION[preset];
+    const beatPosition = beats.length > 1 ? beatIdx / (beats.length - 1) : 0;
+    const rhythmMod = getRhythmModifier(rhythmProfile, beatPosition);
+    const enteringDur = Math.round(ENTERING_DURATION[preset] / rhythmMod);
 
     if (frame >= beatStart) {
       // activates 처리
