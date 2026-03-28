@@ -404,6 +404,8 @@ export interface BaseSceneProps {
   tts?: TTSResult;
   subtitles?: SubtitleEntry[];
   beats?: Beat[];
+  /** P2-3: VTT captions file path for narration sync (relative to staticFile) */
+  captionsFile?: string;
 }
 
 // --- Format Layout ---

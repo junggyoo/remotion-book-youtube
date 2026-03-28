@@ -91,6 +91,8 @@ const SceneRenderer: React.FC<{
     tts: scene.tts,
     subtitles: scene.subtitles,
     beats: scene.beats,
+    // P2-3: Caption file for narration sync
+    captionsFile: (scene as any)._captionsFile as string | undefined,
   };
 
   // P2-2: Determine camera mode — shorts forces static
@@ -369,7 +371,12 @@ export const LongformComposition: React.FC<CompositionProps> = ({
             scene.resolvedDuration,
           )
         : scene.beats;
-    const sceneWithResolvedBeats = { ...scene, beats: resolvedBeats };
+    const sceneWithResolvedBeats = {
+      ...scene,
+      beats: resolvedBeats,
+      // P2-3: Attach captionsFile for narration sync in scene components
+      _captionsFile: ttsEntry ? `tts/${ttsEntry.captionsFile}` : undefined,
+    };
 
     return (
       <>

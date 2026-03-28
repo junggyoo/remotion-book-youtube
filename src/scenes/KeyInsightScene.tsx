@@ -19,10 +19,13 @@ import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { KineticText } from "@/components/primitives/KineticText";
 import { AccentBar } from "@/components/primitives/AccentBar";
+import { TextBlock } from "@/components/primitives/TextBlock";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import { motionPresets } from "@/design/tokens";
 import motionPresetsData from "@/design/tokens/motion-presets.json";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
 
 // zIndex layers
 const LAYERS = {
@@ -203,11 +206,15 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showSupportText = !isShorts && !!content.supportText;
+
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -219,9 +226,20 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
     },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat } = useBeatTimeline(
+    resolvedBeats,
+    durationFrames,
+  );
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  // P2-3: Narration sync — emphasis words glow in scene text
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "keyInsight",
+    format,
+  });
 
   const getBeatState = (key: string): ElementBeatState | undefined => {
     if (isWildcard) return WILDCARD_STAGGER[key];
@@ -377,18 +395,16 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                   format={format}
                   theme={theme}
                 >
-                  <div
-                    style={{
-                      fontFamily: typography.fontFamily.sans,
-                      fontSize: typographyHierarchy.bodyL.fontSize,
-                      fontWeight: typography.fontWeight.regular,
-                      color: theme.textMuted,
-                      lineHeight: typography.lineHeight.relaxed,
-                      letterSpacing: typography.tracking.normal,
-                      maxWidth: "90%",
-                    }}
-                  >
-                    {content.supportText}
+                  <div style={{ maxWidth: "90%" }}>
+                    <TextBlock
+                      format={format}
+                      theme={theme}
+                      text={content.supportText!}
+                      variant="bodyL"
+                      color={theme.textMuted}
+                      emphasisWords={narrationSync.activeEmphasisTargets}
+                      emphasisProgress={narrationSync.emphasisProgress}
+                    />
                   </div>
                 </BeatElement>
               </div>
