@@ -19,6 +19,9 @@ import { BeatElement } from "@/components/motion/BeatElement";
 import { KineticText } from "@/components/primitives/KineticText";
 import { AccentUnderline } from "@/components/primitives/AccentUnderline";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import motionPresetsData from "@/design/tokens/motion-presets.json";
 
@@ -71,6 +74,7 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -84,12 +88,46 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
         ? theme.premium
         : theme.signal;
 
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
+
   // Beat resolution
   const resolvedBeats = resolveBeats(
     { id: `highlight-${from}`, type: "highlight", beats, narrationText: "" },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "highlight",
+      format,
+    });
+  // P2-3: Narration sync — emphasis words drive pulse intensity
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "highlight",
+    format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "highlight",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
+
+  // P2-4: Gate background channel
+  const { isChannelActive: bgActive } = useEmphasisGate({
+    channelKey: "background",
+    sceneType: "highlight",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -137,12 +175,18 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
   const subTextBlur = interpolate(subTextSpring, [0, 1], [8, 0]);
 
   // --- Background radial pulse on emphasis ---
-  const bgPulseProgress = interpolate(
+  const bgPulseProgressRaw = interpolate(
     frame,
     [bgPulseFrame, bgPulseFrame + 20, bgPulseFrame + 50],
     [0, 0.12, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
+  // P2-4: Add narration-driven background glow when bg channel is active
+  const narrationBgGlow = bgActive ? gatedEmphasisProgress * 0.04 : 0;
+  const bgPulseProgress = bgActive ? bgPulseProgressRaw + narrationBgGlow : 0;
+
+  // P2-3: mainText emphasis scale (1.03 base → 1.05 on emphasis)
+  const mainTextEmphasisScale = 1.03 + gatedEmphasisProgress * 0.02;
 
   // Extract emphasis keyword from mainText
   const emphasisKeyword = extractEmphasisKeyword(content.mainText);
@@ -200,27 +244,35 @@ export const HighlightScene: React.FC<HighlightSceneProps> = ({
             }}
           >
             {/* Main text — headlineXL, punchy word-by-word reveal */}
-            <BeatElement
-              elementKey="mainText"
-              beatState={getBeatState("mainText")}
-              format={format}
-              theme={theme}
-              motionType="none"
+            <div
+              style={{
+                transform: `scale(${mainTextEmphasisScale})`,
+                transformOrigin: "left center",
+                willChange: gatedEmphasisProgress > 0 ? "transform" : undefined,
+              }}
             >
-              <KineticText
+              <BeatElement
+                elementKey="mainText"
+                beatState={getBeatState("mainText")}
                 format={format}
                 theme={theme}
-                text={content.mainText}
-                variant="headlineXL"
-                weight="bold"
-                color={theme.textStrong}
-                align="left"
-                staggerDelay={STAGGER_DELAY}
-                motionPreset="punchy"
-                delay={isWildcard ? MAIN_TEXT_START : 0}
-                emphasisWord={emphasisKeyword}
-              />
-            </BeatElement>
+                motionType="none"
+              >
+                <KineticText
+                  format={format}
+                  theme={theme}
+                  text={content.mainText}
+                  variant="headlineXL"
+                  weight="bold"
+                  color={theme.textStrong}
+                  align="left"
+                  staggerDelay={STAGGER_DELAY}
+                  motionPreset="punchy"
+                  delay={isWildcard ? MAIN_TEXT_START : 0}
+                  emphasisWord={emphasisKeyword}
+                />
+              </BeatElement>
+            </div>
 
             {/* Emphasis accent wipe — colored bar behind emphasis keyword */}
             {emphasisKeyword && (

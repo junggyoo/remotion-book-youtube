@@ -18,6 +18,9 @@ import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
 const LAYERS = {
@@ -60,11 +63,15 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showDetail = !isShorts;
+
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -76,7 +83,31 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
     },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "application",
+      format,
+    });
+
+  // P2-3: Narration sync — emphasis words highlight active step
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "application",
+    format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "application",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
+
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -170,6 +201,18 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                 const stepKey = `step-${index}`;
                 const visibility = getStepVisibility(index);
                 const stepState = getBeatState(stepKey, index);
+                const isCurrent = visibility === "current";
+
+                // P2-3: Emphasis-driven scale for current step title
+                const stepTitleScale = isCurrent
+                  ? 1.0 + gatedEmphasisProgress * 0.03
+                  : 1.0;
+                // P2-3: Emphasis-driven bullet opacity (0.5→1.0)
+                const bulletOpacity = isCurrent
+                  ? 0.5 + gatedEmphasisProgress * 0.5
+                  : visibility === "past"
+                    ? 0.5
+                    : 1.0;
 
                 // Dim logic: past steps dim
                 let stepOpacity = 1;
@@ -225,28 +268,38 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                           gap: sp(4),
                         }}
                       >
-                        {/* Accent bullet circle */}
+                        {/* Accent bullet circle — P2-3: opacity driven by emphasis */}
                         <div
                           style={{
                             width: BULLET_SIZE,
                             height: BULLET_SIZE,
                             borderRadius: BULLET_SIZE / 2,
-                            backgroundColor:
-                              visibility === "current"
-                                ? theme.accent
-                                : theme.lineSubtle,
+                            backgroundColor: isCurrent
+                              ? theme.accent
+                              : theme.lineSubtle,
                             flexShrink: 0,
                             marginTop: sp(2),
+                            opacity: bulletOpacity,
+                            willChange:
+                              isCurrent && gatedEmphasisProgress > 0
+                                ? "opacity"
+                                : undefined,
                           }}
                         />
 
-                        {/* Step text */}
+                        {/* Step text — P2-3: title scale driven by emphasis */}
                         <div
                           style={{
                             display: "flex",
                             flexDirection: "column",
                             gap: sp(2),
                             flex: 1,
+                            transform: `scale(${stepTitleScale})`,
+                            transformOrigin: "left center",
+                            willChange:
+                              isCurrent && gatedEmphasisProgress > 0
+                                ? "transform"
+                                : undefined,
                           }}
                         >
                           <TextBlock
@@ -255,6 +308,10 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                             text={step.title}
                             variant="bodyL"
                             weight="bold"
+                            emphasisWords={narrationSync.activeEmphasisTargets}
+                            emphasisProgress={
+                              isCurrent ? gatedEmphasisProgress : 0
+                            }
                           />
 
                           {showDetail && step.detail && (
@@ -265,6 +322,12 @@ export const ApplicationScene: React.FC<ApplicationSceneProps> = ({
                               variant="bodyS"
                               color={theme.textMuted}
                               maxLines={3}
+                              emphasisWords={
+                                narrationSync.activeEmphasisTargets
+                              }
+                              emphasisProgress={
+                                isCurrent ? gatedEmphasisProgress : 0
+                              }
                             />
                           )}
                         </div>

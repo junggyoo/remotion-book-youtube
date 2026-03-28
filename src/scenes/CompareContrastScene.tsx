@@ -22,6 +22,9 @@ import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
@@ -189,12 +192,16 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const { typeScale } = useFormat(format);
   const revealOrder = content.revealOrder ?? "simultaneous";
+
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -206,14 +213,42 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     },
     format,
   );
-  const { elementStates, activeBeat } = useBeatTimeline(
-    resolvedBeats,
-    durationFrames,
-  );
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "compareContrast",
+      format,
+    });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
   const wildcardStagger = buildWildcardStagger(revealOrder);
+
+  // P2-3: Narration sync — emphasis words drive label tint
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "compareContrast",
+    format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "compareContrast",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
+
+  // P2-4: Gate background channel
+  const { isChannelActive: bgActive } = useEmphasisGate({
+    channelKey: "background",
+    sceneType: "compareContrast",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
 
   const getBeatState = (key: string): ElementBeatState | undefined => {
     if (isWildcard) return wildcardStagger[key];
@@ -295,7 +330,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   });
 
   // --- Right panel accent glow on entrance ---
-  const rightGlowProgress = rightIsActive
+  const rightGlowProgressRaw = rightIsActive
     ? interpolate(
         frame,
         [rightEntry, rightEntry + 12, rightEntry + 40],
@@ -303,6 +338,14 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
       )
     : 0;
+  // P2-4: Gate background glow and add narration-driven micro glow
+  const narrationBgGlow = bgActive ? gatedEmphasisProgress * 0.04 : 0;
+  const rightGlowProgress = bgActive
+    ? rightGlowProgressRaw + narrationBgGlow
+    : 0;
+
+  // P2-3: Divider accent glow driven by emphasis (micro glow on divider)
+  const dividerEmphasisGlow = bgActive ? gatedEmphasisProgress * 0.3 : 0;
 
   // hex → rgb for glow
   const ar = parseInt(theme.accent.slice(1, 3), 16);
@@ -334,6 +377,16 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
 
   const panelTextShadow = shadow.float;
 
+  // P2-3: Active side label emphasis — signal color tint on emphasis
+  const leftIsEmphasisTarget = leftIsActive && !rightIsActive;
+  const rightIsEmphasisTarget = rightIsActive;
+  const leftLabelScale = leftIsEmphasisTarget
+    ? 1.0 + gatedEmphasisProgress * 0.03
+    : 1.0;
+  const rightLabelScale = rightIsEmphasisTarget
+    ? 1.0 + gatedEmphasisProgress * 0.03
+    : 1.0;
+
   const leftPanel = (
     <div
       style={{
@@ -356,7 +409,18 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
           />
         </div>
       )}
-      <div style={{ zIndex: LAYERS.labels, marginBottom: sp(2) }}>
+      <div
+        style={{
+          zIndex: LAYERS.labels,
+          marginBottom: sp(2),
+          transform: `scale(${leftLabelScale})`,
+          transformOrigin: "left center",
+          willChange:
+            leftIsEmphasisTarget && gatedEmphasisProgress > 0
+              ? "transform"
+              : undefined,
+        }}
+      >
         <LabelChip
           format={format}
           theme={theme}
@@ -370,6 +434,8 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         text={content.leftContent}
         variant="bodyL"
         maxLines={6}
+        emphasisWords={narrationSync.activeEmphasisTargets}
+        emphasisProgress={leftIsEmphasisTarget ? gatedEmphasisProgress : 0}
       />
     </div>
   );
@@ -396,7 +462,18 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
           />
         </div>
       )}
-      <div style={{ zIndex: LAYERS.labels, marginBottom: sp(2) }}>
+      <div
+        style={{
+          zIndex: LAYERS.labels,
+          marginBottom: sp(2),
+          transform: `scale(${rightLabelScale})`,
+          transformOrigin: "left center",
+          willChange:
+            rightIsEmphasisTarget && gatedEmphasisProgress > 0
+              ? "transform"
+              : undefined,
+        }}
+      >
         <LabelChip
           format={format}
           theme={theme}
@@ -410,6 +487,8 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         text={content.rightContent}
         variant="bodyL"
         maxLines={6}
+        emphasisWords={narrationSync.activeEmphasisTargets}
+        emphasisProgress={rightIsEmphasisTarget ? gatedEmphasisProgress : 0}
       />
     </div>
   );
@@ -510,7 +589,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
                 <DrawOnDivider
                   orientation={isShorts ? "horizontal" : "vertical"}
                   color={theme.lineSubtle}
-                  glowColor={`rgba(${ar},${ag},${ab},1)`}
+                  glowColor={`rgba(${ar},${ag},${ab},${1 + dividerEmphasisGlow})`}
                   progress={dividerProgress}
                 />
               )}
