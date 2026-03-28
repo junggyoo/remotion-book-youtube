@@ -139,6 +139,11 @@ export interface SceneSpec {
     derivedFrom: string[];
     whyThisFamily?: string;
     whyThisDirection?: string;
+    alternativeChoices?: Array<{
+      family: string;
+      score: number;
+      shortReason: string;
+    }>;
   };
 
   constraintHints?: {
