@@ -12,6 +12,8 @@ import type {
   ConnectionPattern,
   AnimationHint,
   DiagramLayoutHint,
+  DiagramRevealMode,
+  DiagramCompletionBehavior,
 } from "@/types";
 import type { BookArtDirection } from "./types";
 
@@ -34,6 +36,8 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
       connectionPattern: "cyclic",
       animationHint: "path-draw",
       layoutHint: "circular",
+      revealMode: "trace",
+      completionBehavior: "hold",
     },
   },
   {
@@ -44,6 +48,8 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
       connectionPattern: "linear",
       animationHint: "fill-progress",
       layoutHint: "horizontal-split",
+      revealMode: "construct",
+      completionBehavior: "hold",
     },
   },
   {
@@ -54,6 +60,8 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
       connectionPattern: "layered",
       animationHint: "node-activate",
       layoutHint: "vertical-stack",
+      revealMode: "cascade",
+      completionBehavior: "hold",
     },
   },
   {
@@ -64,6 +72,32 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
       connectionPattern: "linear",
       animationHint: "split-reveal",
       layoutHint: "horizontal-split",
+      revealMode: "construct",
+      completionBehavior: "hold",
+    },
+  },
+  {
+    regex: /timeline|progression.*through|chronolog|milestone/i,
+    keywords: ["timeline", "milestone", "progression", "chronological"],
+    spec: {
+      diagramType: "timeline",
+      connectionPattern: "linear",
+      animationHint: "path-draw",
+      layoutHint: "horizontal-split",
+      revealMode: "trace",
+      completionBehavior: "hold",
+    },
+  },
+  {
+    regex: /pyramid|hierarchy.*tier|stacked.*level|priority.*tier/i,
+    keywords: ["pyramid", "tier", "stacked"],
+    spec: {
+      diagramType: "pyramid",
+      connectionPattern: "layered",
+      animationHint: "node-activate",
+      layoutHint: "vertical-stack",
+      revealMode: "cascade",
+      completionBehavior: "zoom-node",
     },
   },
 ];

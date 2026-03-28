@@ -941,7 +941,13 @@ export type DiagramType =
   | "flow" // linear/branching progressions (growth curve, funnel)
   | "split" // layered/divided views (iceberg, comparison)
   | "hierarchy" // tree structures
-  | "network"; // interconnected nodes
+  | "network" // interconnected nodes
+  | "timeline" // horizontal/vertical time progression
+  | "pyramid" // stacked layers (Maslow, priority tiers)
+  | "ladder" // TODO P2-1: sequential ascending steps
+  | "hub-spoke" // TODO P2-1: center node with radiating connections
+  | "matrix2x2" // TODO P2-1: 2x2 quadrant grid
+  | "funnel"; // TODO P2-1: narrowing stages
 
 export type ConnectionPattern =
   | "cyclic" // arrows form a loop
@@ -964,6 +970,9 @@ export type DiagramLayoutHint =
   | "grid"
   | "freeform";
 
+export type DiagramRevealMode = "trace" | "construct" | "cascade";
+export type DiagramCompletionBehavior = "hold" | "zoom-node";
+
 export interface DiagramSpec {
   diagramType: DiagramType;
   nodeCount?: number;
@@ -971,6 +980,10 @@ export interface DiagramSpec {
   animationHint: AnimationHint;
   layoutHint?: DiagramLayoutHint;
   sourceMetaphor: string;
+  /** P2-1a: 다이어그램 요소 등장 방식 */
+  revealMode?: DiagramRevealMode;
+  /** P2-1a: 완성 후 행동 */
+  completionBehavior?: DiagramCompletionBehavior;
 }
 
 // ---------------------------------------------------------------------------

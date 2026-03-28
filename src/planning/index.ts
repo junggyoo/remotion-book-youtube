@@ -29,3 +29,9 @@ export {
 } from "./loaders/save-book-plan";
 export { metaphorToDiagramSpec, extractDiagramSpecs } from "./diagramSpec";
 export type { DiagramSpecMatch } from "./diagramSpec";
+export { buildDiagramGeometry } from "./diagramGeometry";
+export type {
+  DiagramGeometry,
+  DiagramNode,
+  DiagramConnection,
+} from "./diagramGeometry";

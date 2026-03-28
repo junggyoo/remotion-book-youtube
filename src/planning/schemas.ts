@@ -157,7 +157,19 @@ export const MotionPlanSchema = z.object({
 
 // 06. DiagramSpec (P1-5)
 export const DiagramSpecSchema = z.object({
-  diagramType: z.enum(["cycle", "flow", "split", "hierarchy", "network"]),
+  diagramType: z.enum([
+    "cycle",
+    "flow",
+    "split",
+    "hierarchy",
+    "network",
+    "timeline",
+    "pyramid",
+    "ladder",
+    "hub-spoke",
+    "matrix2x2",
+    "funnel",
+  ]),
   nodeCount: z.number().int().positive().optional(),
   connectionPattern: z.enum([
     "cyclic",
@@ -183,6 +195,8 @@ export const DiagramSpecSchema = z.object({
     ])
     .optional(),
   sourceMetaphor: z.string().min(1),
+  revealMode: z.enum(["trace", "construct", "cascade"]).optional(),
+  completionBehavior: z.enum(["hold", "zoom-node"]).optional(),
 });
 
 // Inferred types
