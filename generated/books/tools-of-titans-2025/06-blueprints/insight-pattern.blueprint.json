@@ -1,0 +1,82 @@
+{
+  "id": "insight-pattern",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "200명 중 80%가 같은 습관을 한다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM",
+        "underlineKeyword": "80%"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "팀 패리스가 10년간 인터뷰한 200명의 타이탄 중 80% 이상이 매일 아침 명상을 합니다. 분야가 다르지만 도구는 수렴합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "팀 패리스가 200명을 인터뷰하면서 충격적인 패턴을 발견합니다. 분야가 완전히 다른 사람들이에요. 실리콘밸리 투자자, 브라질리안 유술 챔피언, 베스트셀러 작가... 그런데 놀랍게도 80% 이상이 매일 아침 같은 한 가지를 합니다. 바로 명상입니다. 5분이든 20분이든 형태는 달라도, 하루를 고요함으로 시작한다는 점은 동일합니다. 우연이라고 보기엔 너무 일관적이죠? 이건 단순한 취향이 아닙니다. 최고의 성과를 만드는 공통 운영체제인 겁니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

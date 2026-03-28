@@ -1,0 +1,148 @@
+{
+  "id": "compare-01",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "left"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "right"
+      }
+    },
+    {
+      "id": "compareContrast-divider",
+      "type": "divider",
+      "props": {
+        "layer": 30,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "compareContrast-labels-left",
+      "type": "label",
+      "props": {
+        "text": "일반인의 아침",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
+      }
+    },
+    {
+      "id": "compareContrast-labels-right",
+      "type": "label",
+      "props": {
+        "text": "타이탄의 아침",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "알람 → 스마트폰 확인 → 뉴스 스크롤 → 급하게 준비 → 스트레스 출근",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "5분 명상 → 저널링 → 차가운 샤워 → 운동 → 집중 업무",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "common",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "author",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
+      }
+    }
+  ],
+  "choreography": "split-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "자, 여기서 흥미로운 비교를 해볼까요? 일반적인 우리의 아침을 떠올려보세요. 알람이 울리면 본능적으로 스마트폰부터 집어 듭니다. SNS 피드를 스크롤하고, 뉴스를 훑어보고, 답장할 메시지를 확인하죠. 벌써 뇌는 남의 정보로 가득 찬 상태입니다. 급하게 준비해서 이미 지친 채로 하루가 시작됩니다. 반면 타이탄의 아침은 완전히 다릅니다. 눈 뜨자마자 5분 명상으로 마음을 비웁니다. 감사 저널 세 줄로 관점을 세팅합니다. 차가운 샤워로 몸 전체를 깨웁니다. 그 다음에야 운동과 집중 업무에 들어갑니다. 아침의 첫 한 시간을 누가 설계하느냐... 나인지, 스마트폰인지. 그 차이가 하루 전체의 품질을 결정합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

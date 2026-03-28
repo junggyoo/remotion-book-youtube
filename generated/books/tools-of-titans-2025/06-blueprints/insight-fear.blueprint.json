@@ -1,0 +1,82 @@
+{
+  "id": "insight-fear",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "공포 설정: 최악을 시뮬레이션하라",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM",
+        "underlineKeyword": "공포 설정"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "팀 패리스가 가장 강조하는 도구입니다. 목표를 세우는 대신 최악의 시나리오를 구체적으로 적어보세요. 대부분의 공포는 예방 가능하고, 회복 가능합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "타이탄들이 가장 자주 꺼내는 의사결정 도구가 있습니다. 바로 공포 설정입니다. 보통 사람들은 어떤 결정 앞에서 목표부터 세우죠? 성공하면 어떻게 될까 상상합니다. 하지만 팀 패리스는 정반대를 합니다. 이걸 안 하면 최악의 상황은 뭘까? 그 최악은 예방할 수 있는가? 혹시 벌어지더라도 복구할 수 있는가? 이 세 가지 질문을 종이에 적어보는 겁니다. 그러면 놀라운 일이 벌어집니다. 막막하게 느껴졌던 공포의 실체가 드러납니다. 대부분은 예방 가능하고, 복구도 가능합니다. 결국 행동을 막는 건 진짜 위험이 아니라 머릿속의 막연한 불안이었던 거죠.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

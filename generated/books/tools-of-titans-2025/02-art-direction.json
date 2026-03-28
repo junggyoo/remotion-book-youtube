@@ -1,0 +1,34 @@
+{
+  "bookId": "tools-of-titans-2025",
+  "palette": {
+    "primary": "#10B981",
+    "secondary": "#356DFF",
+    "contrast": "high"
+  },
+  "signalColor": "#356DFF",
+  "shapeLanguage": "geometric",
+  "textureMood": "grain",
+  "visualMetaphors": [
+    {
+      "concept": "structured framework",
+      "metaphor": "circular multi-step cycle with directional arrows",
+      "usage": "framework scene — 핵심 구조 시각화"
+    },
+    {
+      "concept": "split comparison",
+      "metaphor": "side-by-side contrasting panels with divider",
+      "usage": "compareContrast scene — 전/후 또는 대비 시각화"
+    },
+    {
+      "concept": "quote emphasis",
+      "metaphor": "large serif typography with subtle texture overlay",
+      "usage": "quote scene — 인용구 강조 및 여백 활용"
+    }
+  ],
+  "layoutBias": "grid-heavy",
+  "motionCharacter": "precise",
+  "typographyMood": "warm",
+  "revealDensity": "sparse",
+  "simultaneousMotionCap": 2,
+  "emphasisStyle": "text-first"
+}

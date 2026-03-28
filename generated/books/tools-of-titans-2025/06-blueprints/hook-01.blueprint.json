@@ -1,0 +1,55 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 세계 최고 200명의 공통점은 단 하나",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "세계 최고 200명의 공통점은 단 하나",
+        "role": "headline"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1728,
+  "mediaPlan": {
+    "narrationText": "억만장자, 올림픽 챔피언, 네이비 실 대원, 체스 천재... 전혀 다른 분야에서 정상에 선 사람들입니다. 그런데 이 사람들에게 놀랍도록 겹치는 공통점이 하나 있습니다. 타고난 재능이 아닙니다. 특별한 교육도 아닙니다. 누구나 내일 아침부터 시작할 수 있는 하나의 습관입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

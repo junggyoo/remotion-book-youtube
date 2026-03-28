@@ -17,6 +17,7 @@ import nightCompass2025Book from "../content/books/night-compass-2025.json";
 import richDadPoorDadBook from "../content/books/rich-dad-poor-dad.json";
 import startupDesignerBook from "../content/books/startup-designer.json";
 import storyBrand2025Book from "../content/books/story-brand-2025.json";
+import toolsOfTitans2025Book from "../content/books/tools-of-titans-2025.json";
 // --- AUTO-GENERATED IMPORTS END ---
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
@@ -180,6 +181,10 @@ const storyBrand2025Props: CompositionProps = buildCompositionProps(
   storyBrand2025Book as unknown as BookContent,
   "longform",
 );
+const toolsOfTitans2025Props: CompositionProps = buildCompositionProps(
+  toolsOfTitans2025Book as unknown as BookContent,
+  "longform",
+);
 // --- AUTO-GENERATED BOOKS END ---
 
 // Build synthesized scene preview props
@@ -337,6 +342,16 @@ export const RemotionRoot: React.FC = () => {
         width={nightCompass2025Props.width}
         height={nightCompass2025Props.height}
         defaultProps={nightCompass2025Props as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="ToolsOfTitans2025"
+        component={LongformComposition as any}
+        durationInFrames={toolsOfTitans2025Props.totalDurationFrames}
+        fps={toolsOfTitans2025Props.fps}
+        width={toolsOfTitans2025Props.width}
+        height={toolsOfTitans2025Props.height}
+        defaultProps={toolsOfTitans2025Props as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       {/* --- AUTO-GENERATED COMPOSITIONS END --- */}

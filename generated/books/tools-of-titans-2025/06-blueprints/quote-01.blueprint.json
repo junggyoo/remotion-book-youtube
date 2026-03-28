@@ -1,0 +1,83 @@
+{
+  "id": "quote-01",
+  "intent": "Quote reveal with attribution",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quote-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5,
+        "visible": true
+      }
+    },
+    {
+      "id": "quote-quoteMark",
+      "type": "shape",
+      "props": {
+        "role": "quote-mark",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "quote-quoteText",
+      "type": "quote-text",
+      "props": {
+        "text": "성공한 사람들은 남들이 하기 싫어하는 일을 습관으로 만든 사람들이다.",
+        "layer": 30,
+        "tokenRef": "typography.fontFamily.serif",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "quote-attribution",
+      "type": "caption",
+      "props": {
+        "text": "팀 패리스",
+        "layer": 25,
+        "tokenRef": "typeScale.caption"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "팀 패리스는 이 책의 핵심을 한마디로 요약합니다. 성공한 사람들은 남들이 하기 싫어하는 일을 습관으로 만든 사람들이다. 생각해보세요. 차가운 물에 뛰어들고 싶은 사람이 있을까요? 새벽에 일어나 명상하고 싶은 사람이 있을까요? 하기 싫은 걸 매일 반복하는 시스템을 만든 거죠. 재능이 아닙니다. 불편함을 루틴으로 바꾼 겁니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

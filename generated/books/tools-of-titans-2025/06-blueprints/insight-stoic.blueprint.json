@@ -1,0 +1,82 @@
+{
+  "id": "insight-stoic",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "스토아 철학: 타이탄의 정신적 운영체제",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM",
+        "underlineKeyword": "스토아"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "내가 통제할 수 있는 것과 없는 것을 구분하라. 통제 불가능한 것에 에너지를 쓰지 마라. 2000년 전 철학이 실리콘밸리에서 부활했습니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "흥미로운 점이 하나 더 있습니다. 200명의 타이탄 중 상당수가 스토아 철학을 실천합니다. 2000년 전 로마 황제 마르쿠스 아우렐리우스의 철학이 실리콘밸리에서 부활한 겁니다. 핵심은 간단합니다. 내가 통제할 수 있는 것과 없는 것을 구분하라. 통제 불가능한 것에 에너지를 쓰지 마라. 이게 왜 중요할까요? 타이탄들은 결과가 아니라 과정에 집중합니다. 실패가 찾아와도 흔들리지 않습니다. 왜냐면 통제할 수 있는 영역에서 최선을 다했다는 걸 알기 때문입니다. 스토아 철학은 타이탄의 정신적 운영체제입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

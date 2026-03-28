@@ -1,0 +1,172 @@
+{
+  "id": "framework-01",
+  "intent": "Framework grid with 3 item(s) in stagger-clockwise reveal",
+  "origin": "preset",
+  "layout": "grid-expand",
+  "elements": [
+    {
+      "id": "framework-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "framework-frameworkLabel",
+      "type": "label",
+      "props": {
+        "text": "타이탄의 3대 축",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineS",
+        "color": "signal"
+      }
+    },
+    {
+      "id": "framework-items-0-number",
+      "type": "number-display",
+      "props": {
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "Healthy — 건강",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-description",
+      "type": "body-text",
+      "props": {
+        "text": "차가운 샤워, 간헐적 단식, 아침 명상",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-1-number",
+      "type": "number-display",
+      "props": {
+        "value": 2,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "Wealthy — 부",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-description",
+      "type": "body-text",
+      "props": {
+        "text": "공포 설정, 80/20 법칙, 작게 시작하기",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-2-number",
+      "type": "number-display",
+      "props": {
+        "value": 3,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "Wise — 지혜",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-description",
+      "type": "body-text",
+      "props": {
+        "text": "저널링, 독서 루틴, 멘토 네트워크",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-connectors",
+      "type": "divider",
+      "props": {
+        "layer": 25,
+        "role": "item-connector",
+        "dotted": true
+      }
+    }
+  ],
+  "choreography": "stagger-clockwise",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1170,
+  "mediaPlan": {
+    "narrationText": "타이탄의 도구는 세 가지 축으로 나뉩니다. 첫째, 건강입니다. 핵심 도구는 차가운 샤워, 간헐적 단식, 아침 명상입니다. 웜 홉은 매일 얼음물에 몸을 담그고, 토니 로빈스도 찬물로 하루를 시작합니다. 극한의 불편함이 집중력을 폭발시킵니다. 둘째, 부입니다. 가장 강력한 도구는 공포 설정입니다. 최악의 시나리오를 먼저 쓰고, 80/20 법칙으로 임팩트 큰 20%에 집중합니다. 피터 틸은 말하죠. 10년 계획 대신 6개월 안에 끝낼 방법을 찾아라. 셋째, 지혜입니다. 거의 모든 타이탄이 저널링을 합니다. 감사한 것 세 가지, 하루의 우선순위를 매일 적습니다. 여기에 독서와 멘토 네트워크가 더해지면 복리처럼 지혜가 쌓입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
