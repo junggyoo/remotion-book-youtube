@@ -456,6 +456,205 @@ function buildPyramidGeometry(
   return { nodes, connections };
 }
 
+function buildLadderGeometry(
+  spec: DiagramSpec,
+  w: number,
+  h: number,
+): DiagramGeometry {
+  const count = spec.nodeCount ?? 4;
+  const labelB = defaultLabelBounds(w, h);
+  const topMargin = h * 0.1;
+  const bottomMargin = h * 0.1;
+  const usableH = h - topMargin - bottomMargin;
+  const ySpacing = usableH / Math.max(count - 1, 1);
+  const leftX = w * 0.3;
+  const rightX = w * 0.7;
+  const baseCurvature = 0.25;
+
+  const nodes: DiagramNode[] = [];
+  for (let i = 0; i < count; i++) {
+    // Odd indices (0, 2, 4) = left, even indices (1, 3, 5) = right
+    const isLeft = i % 2 === 0;
+    nodes.push({
+      id: makeNodeId(i),
+      cx: isLeft ? leftX : rightX,
+      cy: topMargin + i * ySpacing,
+      label: spec.nodeLabels?.[i] ?? `Rung ${i + 1}`,
+      labelBounds: labelB,
+    });
+  }
+
+  // Zigzag connections between alternating sides
+  const connections: DiagramConnection[] = [];
+  for (let i = 0; i < count - 1; i++) {
+    const from = nodes[i];
+    const to = nodes[i + 1];
+    connections.push({
+      fromNodeId: from.id,
+      toNodeId: to.id,
+      pathData: buildCurvedPath(from.cx, from.cy, to.cx, to.cy, baseCurvature),
+      curvature: baseCurvature,
+    });
+  }
+
+  return { nodes, connections: normalizeCurvatures(connections) };
+}
+
+function buildHubSpokeGeometry(
+  spec: DiagramSpec,
+  w: number,
+  h: number,
+): DiagramGeometry {
+  const spokeCount = (spec.nodeCount ?? 5) - 1; // First node is hub
+  const totalCount = spokeCount + 1;
+  const labelB = defaultLabelBounds(w, h);
+  const cx = w / 2;
+  const cy = h / 2;
+  const radius = Math.min(w, h) * 0.35;
+  const baseCurvature = 0.1;
+
+  const nodes: DiagramNode[] = [];
+
+  // Hub node at center
+  nodes.push({
+    id: makeNodeId(0),
+    cx,
+    cy,
+    label: spec.nodeLabels?.[0] ?? "Hub",
+    labelBounds: labelB,
+  });
+
+  // Spoke nodes equally spaced on circle, starting at 12 o'clock
+  const startAngle = -Math.PI / 2;
+  for (let i = 0; i < spokeCount; i++) {
+    const angle = startAngle + (i / spokeCount) * 2 * Math.PI;
+    nodes.push({
+      id: makeNodeId(i + 1),
+      cx: cx + radius * Math.cos(angle),
+      cy: cy + radius * Math.sin(angle),
+      label: spec.nodeLabels?.[i + 1] ?? `Spoke ${i + 1}`,
+      labelBounds: labelB,
+    });
+  }
+
+  // Connections from hub to each spoke
+  const connections: DiagramConnection[] = [];
+  for (let i = 1; i < totalCount; i++) {
+    connections.push({
+      fromNodeId: nodes[0].id,
+      toNodeId: nodes[i].id,
+      pathData: buildCurvedPath(
+        nodes[0].cx,
+        nodes[0].cy,
+        nodes[i].cx,
+        nodes[i].cy,
+        baseCurvature,
+      ),
+      curvature: baseCurvature,
+    });
+  }
+
+  return { nodes, connections: normalizeCurvatures(connections) };
+}
+
+function buildMatrix2x2Geometry(
+  spec: DiagramSpec,
+  w: number,
+  h: number,
+): DiagramGeometry {
+  const labelB = defaultLabelBounds(w, h);
+  const baseCurvature = 0;
+
+  // 4 quadrant positions
+  const marginX = w * 0.25;
+  const marginY = h * 0.25;
+  const positions = [
+    { cx: marginX, cy: marginY }, // top-left (Q0)
+    { cx: w - marginX, cy: marginY }, // top-right (Q1)
+    { cx: marginX, cy: h - marginY }, // bottom-left (Q2)
+    { cx: w - marginX, cy: h - marginY }, // bottom-right (Q3)
+  ];
+
+  const nodes: DiagramNode[] = positions.map((pos, i) => ({
+    id: makeNodeId(i),
+    cx: pos.cx,
+    cy: pos.cy,
+    label: spec.nodeLabels?.[i] ?? `Quadrant ${i + 1}`,
+    labelBounds: labelB,
+  }));
+
+  // Grid connections: horizontal (0-1, 2-3) and vertical (0-2, 1-3)
+  const connectionPairs: [number, number][] = [
+    [0, 1],
+    [2, 3],
+    [0, 2],
+    [1, 3],
+  ];
+  const connections: DiagramConnection[] = connectionPairs.map(([a, b]) => ({
+    fromNodeId: nodes[a].id,
+    toNodeId: nodes[b].id,
+    pathData: buildCurvedPath(
+      nodes[a].cx,
+      nodes[a].cy,
+      nodes[b].cx,
+      nodes[b].cy,
+      baseCurvature,
+    ),
+    curvature: baseCurvature,
+  }));
+
+  return { nodes, connections };
+}
+
+function buildFunnelGeometry(
+  spec: DiagramSpec,
+  w: number,
+  h: number,
+): DiagramGeometry {
+  const count = spec.nodeCount ?? 4;
+  const labelB = defaultLabelBounds(w, h);
+  const topMargin = h * 0.1;
+  const bottomMargin = h * 0.1;
+  const usableH = h - topMargin - bottomMargin;
+  const ySpacing = usableH / Math.max(count - 1, 1);
+  const baseCurvature = 0;
+
+  const nodes: DiagramNode[] = [];
+  for (let i = 0; i < count; i++) {
+    // Width decreases per node: widest at top, narrowest at bottom
+    const widthRatio = 1 - (i / Math.max(count - 1, 1)) * 0.6;
+    nodes.push({
+      id: makeNodeId(i),
+      cx: w / 2,
+      cy: topMargin + i * ySpacing,
+      label: spec.nodeLabels?.[i] ?? `Stage ${i + 1}`,
+      labelBounds: {
+        width: Math.round(w * widthRatio * LABEL_WIDTH_RATIO * 2),
+        height: labelB.height,
+      },
+    });
+  }
+
+  // Sequential vertical connections
+  const connections: DiagramConnection[] = [];
+  for (let i = 0; i < count - 1; i++) {
+    connections.push({
+      fromNodeId: nodes[i].id,
+      toNodeId: nodes[i + 1].id,
+      pathData: buildCurvedPath(
+        nodes[i].cx,
+        nodes[i].cy,
+        nodes[i + 1].cx,
+        nodes[i + 1].cy,
+        baseCurvature,
+      ),
+      curvature: baseCurvature,
+    });
+  }
+
+  return { nodes, connections };
+}
+
 // ============================================================
 // Main Builder
 // ============================================================
@@ -471,6 +670,10 @@ const LAYOUT_BUILDERS: Partial<
   split: buildSplitGeometry,
   timeline: buildTimelineGeometry,
   pyramid: buildPyramidGeometry,
+  ladder: buildLadderGeometry,
+  "hub-spoke": buildHubSpokeGeometry,
+  matrix2x2: buildMatrix2x2Geometry,
+  funnel: buildFunnelGeometry,
 };
 
 /**

@@ -198,20 +198,232 @@ describe("buildDiagramGeometry", () => {
         ),
       ).toThrow("Not implemented: hierarchy");
     });
+  });
 
-    it("throws for hub-spoke", () => {
-      expect(() =>
-        buildDiagramGeometry(
-          {
-            diagramType: "hub-spoke",
-            connectionPattern: "radial",
-            animationHint: "node-activate",
-            sourceMetaphor: "test",
-          },
-          LONGFORM_W,
-          LONGFORM_H,
-        ),
-      ).toThrow("Not implemented: hub-spoke");
+  describe("ladder", () => {
+    function makeLadderSpec(nodeCount = 4): DiagramSpec {
+      return {
+        diagramType: "ladder",
+        nodeCount,
+        connectionPattern: "linear",
+        animationHint: "node-activate",
+        layoutHint: "vertical-stack",
+        sourceMetaphor: "ladder steps ascending",
+        revealMode: "cascade",
+        completionBehavior: "hold",
+      };
+    }
+
+    it("generates ladder geometry with alternating left-right nodes", () => {
+      const geo = buildDiagramGeometry(
+        makeLadderSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.nodes).toHaveLength(4);
+      // Odd indices (0, 2) = left, even indices (1, 3) = right
+      expect(geo.nodes[0].cx).toBeLessThan(960);
+      expect(geo.nodes[1].cx).toBeGreaterThan(960);
+      expect(geo.nodes[2].cx).toBeLessThan(960);
+      expect(geo.nodes[3].cx).toBeGreaterThan(960);
+    });
+
+    it("nodes are vertically distributed top to bottom", () => {
+      const geo = buildDiagramGeometry(
+        makeLadderSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      for (let i = 0; i < geo.nodes.length - 1; i++) {
+        expect(geo.nodes[i].cy).toBeLessThan(geo.nodes[i + 1].cy);
+      }
+    });
+
+    it("generates N-1 zigzag connections", () => {
+      const geo = buildDiagramGeometry(
+        makeLadderSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.connections).toHaveLength(3);
+      for (const conn of geo.connections) {
+        expect(isValidSvgPath(conn.pathData)).toBe(true);
+      }
+    });
+  });
+
+  describe("hub-spoke", () => {
+    function makeHubSpokeSpec(nodeCount = 5): DiagramSpec {
+      return {
+        diagramType: "hub-spoke",
+        nodeCount,
+        connectionPattern: "radial",
+        animationHint: "node-activate",
+        layoutHint: "circular",
+        sourceMetaphor: "hub and spoke central radial",
+        revealMode: "construct",
+        completionBehavior: "hold",
+      };
+    }
+
+    it("generates hub-spoke geometry with center hub", () => {
+      const geo = buildDiagramGeometry(
+        makeHubSpokeSpec(5),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.nodes).toHaveLength(5);
+      // First node is hub at center
+      expect(geo.nodes[0].cx).toBeCloseTo(960, -1);
+      expect(geo.nodes[0].cy).toBeCloseTo(540, -1);
+    });
+
+    it("spoke nodes are equally spaced on a circle", () => {
+      const geo = buildDiagramGeometry(
+        makeHubSpokeSpec(5),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      const hub = geo.nodes[0];
+      const spokes = geo.nodes.slice(1);
+      // All spokes should be roughly the same distance from hub
+      const distances = spokes.map((s) =>
+        Math.sqrt((s.cx - hub.cx) ** 2 + (s.cy - hub.cy) ** 2),
+      );
+      const avgDist = distances.reduce((a, b) => a + b, 0) / distances.length;
+      for (const d of distances) {
+        expect(Math.abs(d - avgDist)).toBeLessThan(1);
+      }
+    });
+
+    it("connections go from hub to each spoke", () => {
+      const geo = buildDiagramGeometry(
+        makeHubSpokeSpec(5),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.connections).toHaveLength(4); // 4 spokes
+      for (const conn of geo.connections) {
+        expect(conn.fromNodeId).toBe("node-0");
+        expect(isValidSvgPath(conn.pathData)).toBe(true);
+      }
+    });
+  });
+
+  describe("matrix2x2", () => {
+    function makeMatrix2x2Spec(): DiagramSpec {
+      return {
+        diagramType: "matrix2x2",
+        nodeCount: 4,
+        connectionPattern: "linear",
+        animationHint: "node-activate",
+        layoutHint: "grid",
+        sourceMetaphor: "matrix quadrant 2x2",
+        revealMode: "construct",
+        completionBehavior: "hold",
+      };
+    }
+
+    it("generates matrix2x2 geometry with 4 quadrant nodes", () => {
+      const geo = buildDiagramGeometry(
+        makeMatrix2x2Spec(),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.nodes).toHaveLength(4);
+    });
+
+    it("nodes are in quadrant positions", () => {
+      const geo = buildDiagramGeometry(
+        makeMatrix2x2Spec(),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      const cx = LONGFORM_W / 2;
+      const cy = LONGFORM_H / 2;
+      // Top-left
+      expect(geo.nodes[0].cx).toBeLessThan(cx);
+      expect(geo.nodes[0].cy).toBeLessThan(cy);
+      // Top-right
+      expect(geo.nodes[1].cx).toBeGreaterThan(cx);
+      expect(geo.nodes[1].cy).toBeLessThan(cy);
+      // Bottom-left
+      expect(geo.nodes[2].cx).toBeLessThan(cx);
+      expect(geo.nodes[2].cy).toBeGreaterThan(cy);
+      // Bottom-right
+      expect(geo.nodes[3].cx).toBeGreaterThan(cx);
+      expect(geo.nodes[3].cy).toBeGreaterThan(cy);
+    });
+
+    it("has 4 grid connections (2 horizontal + 2 vertical)", () => {
+      const geo = buildDiagramGeometry(
+        makeMatrix2x2Spec(),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.connections).toHaveLength(4);
+      for (const conn of geo.connections) {
+        expect(isValidSvgPath(conn.pathData)).toBe(true);
+      }
+    });
+  });
+
+  describe("funnel", () => {
+    function makeFunnelSpec(nodeCount = 4): DiagramSpec {
+      return {
+        diagramType: "funnel",
+        nodeCount,
+        connectionPattern: "linear",
+        animationHint: "fill-progress",
+        layoutHint: "vertical-stack",
+        sourceMetaphor: "funnel filter narrowing",
+        revealMode: "cascade",
+        completionBehavior: "hold",
+      };
+    }
+
+    it("generates funnel geometry with decreasing width", () => {
+      const geo = buildDiagramGeometry(
+        makeFunnelSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.nodes).toHaveLength(4);
+      // Label bounds width should decrease top to bottom
+      for (let i = 0; i < geo.nodes.length - 1; i++) {
+        expect(geo.nodes[i].labelBounds.width).toBeGreaterThan(
+          geo.nodes[i + 1].labelBounds.width,
+        );
+      }
+    });
+
+    it("nodes are centered horizontally and distributed vertically", () => {
+      const geo = buildDiagramGeometry(
+        makeFunnelSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      const cx = LONGFORM_W / 2;
+      for (const node of geo.nodes) {
+        expect(node.cx).toBeCloseTo(cx, -1);
+      }
+      for (let i = 0; i < geo.nodes.length - 1; i++) {
+        expect(geo.nodes[i].cy).toBeLessThan(geo.nodes[i + 1].cy);
+      }
+    });
+
+    it("has sequential vertical connections", () => {
+      const geo = buildDiagramGeometry(
+        makeFunnelSpec(4),
+        LONGFORM_W,
+        LONGFORM_H,
+      );
+      expect(geo.connections).toHaveLength(3);
+      for (let i = 0; i < geo.connections.length; i++) {
+        expect(geo.connections[i].fromNodeId).toBe(`node-${i}`);
+        expect(geo.connections[i].toNodeId).toBe(`node-${i + 1}`);
+        expect(isValidSvgPath(geo.connections[i].pathData)).toBe(true);
+      }
     });
   });
 });
@@ -336,5 +548,40 @@ describe("atomic-habits integration", () => {
     expect(spec!.diagramType).toBe("pyramid");
     expect(spec!.revealMode).toBe("cascade");
     expect(spec!.completionBehavior).toBe("zoom-node");
+  });
+
+  it("ladder metaphor requires 2+ keywords (conservative)", () => {
+    // Single keyword: should NOT match
+    const single = metaphorToDiagramSpec("a simple ladder");
+    expect(single?.diagramType).not.toBe("ladder");
+
+    // Two keywords: should match
+    const double = metaphorToDiagramSpec("ladder with alternating steps");
+    expect(double).not.toBeNull();
+    expect(double!.diagramType).toBe("ladder");
+  });
+
+  it("hub-spoke metaphor requires 2+ keywords (conservative)", () => {
+    const single = metaphorToDiagramSpec("a central idea");
+    expect(single?.diagramType).not.toBe("hub-spoke");
+
+    const double = metaphorToDiagramSpec("hub and spoke connections");
+    expect(double).not.toBeNull();
+    expect(double!.diagramType).toBe("hub-spoke");
+  });
+
+  it("matrix2x2 metaphor maps via regex", () => {
+    const spec = metaphorToDiagramSpec("matrix quadrant layout");
+    expect(spec).not.toBeNull();
+    expect(spec!.diagramType).toBe("matrix2x2");
+  });
+
+  it("funnel metaphor requires 2+ keywords (conservative)", () => {
+    const single = metaphorToDiagramSpec("a narrow passage");
+    expect(single?.diagramType).not.toBe("funnel");
+
+    const double = metaphorToDiagramSpec("funnel with narrowing filter");
+    expect(double).not.toBeNull();
+    expect(double!.diagramType).toBe("funnel");
   });
 });

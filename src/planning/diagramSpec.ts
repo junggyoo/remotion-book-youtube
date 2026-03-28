@@ -100,11 +100,67 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
       completionBehavior: "zoom-node",
     },
   },
+  {
+    regex: /ladder.*steps|steps.*ladder|alternating.*ascend/i,
+    keywords: ["ladder", "steps", "alternating"],
+    spec: {
+      diagramType: "ladder",
+      connectionPattern: "linear",
+      animationHint: "node-activate",
+      layoutHint: "vertical-stack",
+      revealMode: "cascade",
+      completionBehavior: "hold",
+    },
+  },
+  {
+    regex: /hub.*spoke|spoke.*hub|central.*radial|radial.*central/i,
+    keywords: ["hub", "spoke", "central", "radial"],
+    spec: {
+      diagramType: "hub-spoke",
+      connectionPattern: "radial",
+      animationHint: "node-activate",
+      layoutHint: "circular",
+      revealMode: "construct",
+      completionBehavior: "hold",
+    },
+  },
+  {
+    regex: /matrix.*quadrant|quadrant.*matrix|2x2.*grid|grid.*2x2/i,
+    keywords: ["matrix", "quadrant", "2x2"],
+    spec: {
+      diagramType: "matrix2x2",
+      connectionPattern: "linear",
+      animationHint: "node-activate",
+      layoutHint: "grid",
+      revealMode: "construct",
+      completionBehavior: "hold",
+    },
+  },
+  {
+    regex: /funnel.*filter|filter.*funnel|narrowing.*stages/i,
+    keywords: ["funnel", "filter", "narrow"],
+    spec: {
+      diagramType: "funnel",
+      connectionPattern: "linear",
+      animationHint: "fill-progress",
+      layoutHint: "vertical-stack",
+      revealMode: "cascade",
+      completionBehavior: "hold",
+    },
+  },
 ];
 
 // ---------------------------------------------------------------------------
 // Mapping Functions
 // ---------------------------------------------------------------------------
+
+/** Diagram types that require 2+ keyword matches (conservative matching) */
+const WEAK_METAPHOR_TYPES: Set<DiagramType> = new Set([
+  "ladder",
+  "hub-spoke",
+  "matrix2x2",
+  "funnel",
+]);
 
 /**
  * Maps a single visual metaphor string to a DiagramSpec.
@@ -112,7 +168,9 @@ const DIAGRAM_PATTERNS: DiagramPattern[] = [
  *
  * Matching strategy:
  * 1. Try regex patterns (first match wins)
- * 2. Fallback: check if metaphor contains any keywords
+ * 2. Fallback: check if metaphor contains keywords
+ *    - Strong metaphors (P1 types): 1+ keyword match
+ *    - Weak metaphors (P3 types): 2+ keyword match (conservative)
  */
 export function metaphorToDiagramSpec(metaphor: string): DiagramSpec | null {
   if (!metaphor) return null;
@@ -128,8 +186,12 @@ export function metaphorToDiagramSpec(metaphor: string): DiagramSpec | null {
 
   // Phase 2: keyword fallback
   for (const pattern of DIAGRAM_PATTERNS) {
-    const matched = pattern.keywords.some((kw) => lower.includes(kw));
-    if (matched) {
+    const matchCount = pattern.keywords.filter((kw) =>
+      lower.includes(kw),
+    ).length;
+    const isWeak = WEAK_METAPHOR_TYPES.has(pattern.spec.diagramType);
+    const threshold = isWeak ? 2 : 1;
+    if (matchCount >= threshold) {
       return { ...pattern.spec, sourceMetaphor: metaphor };
     }
   }
