@@ -50,6 +50,18 @@ def try_load_whisper():
         print(f"[WARN] faster-whisper load failed: {e}", file=sys.stderr)
 
 
+def get_audio_duration_sec(audio_path: str) -> float | None:
+    """Get audio duration in seconds via ffprobe."""
+    try:
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audio_path],
+            capture_output=True, text=True, timeout=10,
+        )
+        return float(result.stdout.strip())
+    except Exception:
+        return None
+
+
 def generate_vtt(audio_path: str, vtt_path: str) -> bool:
     """Generate VTT from audio using faster-whisper. Returns True on success."""
     if whisper_model is None:
@@ -60,20 +72,33 @@ def generate_vtt(audio_path: str, vtt_path: str) -> bool:
             audio_path, language="ko", word_timestamps=True
         )
 
+        # Collect all words first to fix tail gap
+        all_words = []
+        word_index = 0
+        for segment in segments:
+            if segment.words:
+                for word in segment.words:
+                    all_words.append((word.start, word.end, word.word.strip()))
+            else:
+                all_words.append((segment.start, segment.end, segment.text.strip()))
+
+        if not all_words:
+            return False
+
+        # Extend last word to audio end (fixes whisper tail gap)
+        audio_dur = get_audio_duration_sec(audio_path)
+        if audio_dur and all_words[-1][1] < audio_dur - 0.05:
+            last = all_words[-1]
+            all_words[-1] = (last[0], audio_dur, last[2])
+
         with open(vtt_path, "w", encoding="utf-8") as f:
             f.write("WEBVTT\n\n")
-            for segment in segments:
-                if segment.words:
-                    for i, word in enumerate(segment.words):
-                        start = format_vtt_time(word.start)
-                        end = format_vtt_time(word.end)
-                        # edge-tts prefixes each word with a space — match that
-                        text = f" {word.word.strip()}" if i > 0 else word.word.strip()
-                        f.write(f"{start} --> {end}\n{text}\n\n")
-                else:
-                    start = format_vtt_time(segment.start)
-                    end = format_vtt_time(segment.end)
-                    f.write(f"{start} --> {end}\n{segment.text.strip()}\n\n")
+            for i, (start, end, text) in enumerate(all_words):
+                start_ts = format_vtt_time(start)
+                end_ts = format_vtt_time(end)
+                # edge-tts prefixes each word with a space — match that
+                prefix_text = f" {text}" if i > 0 else text
+                f.write(f"{start_ts} --> {end_ts}\n{prefix_text}\n\n")
 
         return True
     except Exception as e:

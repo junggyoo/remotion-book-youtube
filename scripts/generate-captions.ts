@@ -276,17 +276,26 @@ async function main() {
       continue;
     }
 
+    // Get duration first (needed for caption alignment)
+    const durationMs = getAudioDurationMs(audioPath);
+    const durationFrames = Math.ceil((durationMs / 1000) * FPS);
+
     // Parse VTT → Caption[]
     let captions: Caption[] = [];
     if (fs.existsSync(vttPath)) {
       const vttContent = fs.readFileSync(vttPath, "utf-8");
       captions = vttToCaptions(vttContent);
     }
-    fs.writeFileSync(captionsPath, JSON.stringify(captions, null, 2));
 
-    // Get duration
-    const durationMs = getAudioDurationMs(audioPath);
-    const durationFrames = Math.ceil((durationMs / 1000) * FPS);
+    // Align last caption endMs to audio duration (fixes whisper tail gap)
+    if (captions.length > 0 && durationMs > 0) {
+      const lastCap = captions[captions.length - 1];
+      if (lastCap.endMs < durationMs - 50) {
+        captions[captions.length - 1] = { ...lastCap, endMs: durationMs };
+      }
+    }
+
+    fs.writeFileSync(captionsPath, JSON.stringify(captions, null, 2));
 
     const entry: TTSManifestEntry = {
       sceneId: scene.id,
