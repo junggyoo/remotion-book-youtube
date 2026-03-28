@@ -76,6 +76,7 @@ export interface FishAudioConfig {
   model?: "s2-pro" | "s1"; // default: "s2-pro"
   format?: "mp3" | "wav" | "opus" | "pcm";
   temperature?: number; // 0.0~1.0, default 0.7
+  speed?: number; // 0.5~2.0, default 1.0
 }
 
 export function getFishAudioConfig(): FishAudioConfig | undefined {
@@ -141,6 +142,9 @@ export async function generateFishAudio(
     normalize: true,
     latency: "normal",
     temperature: config.temperature ?? 0.7,
+    prosody: {
+      speed: config.speed ?? 1.0,
+    },
   });
 
   const resp = await fetch(`${FISH_API_BASE}/v1/tts`, {

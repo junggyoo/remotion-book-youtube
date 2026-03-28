@@ -400,13 +400,15 @@ async function generateTTSViaFishAudio(
   text: string,
   outputDir: string,
   sceneType?: string,
+  narrationSpeed?: number,
 ): Promise<TTSResult | undefined> {
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
 
-  const configWithTemp: FishAudioConfig = {
+  const configWithParams: FishAudioConfig = {
     ...fishConfig,
     temperature: getTemperatureForScene(sceneType || ""),
+    speed: narrationSpeed ?? 1.0,
   };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
   const textWithEmotion = addEmotionTag(text, sceneType || "");
@@ -415,7 +417,7 @@ async function generateTTSViaFishAudio(
     const durationMs = await generateFishAudio(
       textWithEmotion,
       outputPath,
-      configWithTemp,
+      configWithParams,
     );
 
     if (!fs.existsSync(outputPath) || durationMs <= 0) {
@@ -440,13 +442,15 @@ async function generateTTSWithCaptionsViaFishAudio(
   text: string,
   outputDir: string,
   sceneType?: string,
+  narrationSpeed?: number,
 ): Promise<TTSResultWithCaptions | undefined> {
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
 
-  const configWithTemp: FishAudioConfig = {
+  const configWithParams: FishAudioConfig = {
     ...fishConfig,
     temperature: getTemperatureForScene(sceneType || ""),
+    speed: narrationSpeed ?? 1.0,
   };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
   const textWithEmotion = addEmotionTag(text, sceneType || "");
@@ -455,7 +459,7 @@ async function generateTTSWithCaptionsViaFishAudio(
     const durationMs = await generateFishAudio(
       textWithEmotion,
       outputPath,
-      configWithTemp,
+      configWithParams,
     );
 
     if (!fs.existsSync(outputPath) || durationMs <= 0) {
@@ -540,6 +544,7 @@ export async function generateTTS(
       text,
       outputDir,
       sceneType,
+      config.speed,
     );
     if (result) return result;
     console.warn(
@@ -587,6 +592,7 @@ export async function generateTTSWithCaptions(
       text,
       outputDir,
       sceneType,
+      config.speed,
     );
     if (result) return result;
     console.warn(

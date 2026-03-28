@@ -196,19 +196,21 @@ async function generateViaFishAudio(
   audioPath: string,
   config: FishAudioConfig,
   sceneType: string,
+  speed?: number,
 ): Promise<{ success: boolean; durationMs: number }> {
   try {
     const engine = await loadFishEngine();
     if (!engine) return { success: false, durationMs: 0 };
-    const configWithTemp = {
+    const configWithParams = {
       ...config,
       temperature: engine.getTemperatureForScene(sceneType),
+      speed: speed ?? 1.0,
     };
     const textWithEmotion = engine.addEmotionTag(text, sceneType);
     const durationMs = await engine.generateFishAudio(
       textWithEmotion,
       audioPath,
-      configWithTemp,
+      configWithParams,
     );
     return { success: fs.existsSync(audioPath) && durationMs > 0, durationMs };
   } catch (err) {
@@ -323,6 +325,7 @@ async function main() {
         audioPath,
         fishConfig,
         scene.type,
+        book.narration.speed,
       );
       success = fishResult.success;
       fishDurationMs = fishResult.durationMs;
