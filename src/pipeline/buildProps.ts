@@ -57,6 +57,7 @@ export interface CompositionProps {
   width: number;
   height: number;
   textureMood?: "grain" | "clean" | "paper" | "noise" | "none";
+  bgmTrack?: string;
 }
 
 /**
@@ -207,5 +208,6 @@ export function buildCompositionProps(
     width: formatConfig.width,
     height: formatConfig.height,
     textureMood: planResult?.artInfluence?.textureMood,
+    bgmTrack: book.audio?.bgmTrack,
   };
 }

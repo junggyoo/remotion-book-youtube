@@ -13,6 +13,8 @@ import {
   type TransitionIntent,
 } from "@/transitions/mapTransitionIntent";
 import { resolveTransitionSfx, SFX_VOLUME } from "@/transitions/transitionSfx";
+import { computeBgmVolume, DEFAULT_DUCKING_CONFIG } from "@/audio/bgmDucker";
+import type { Caption } from "@remotion/captions";
 import type { StoryboardScene } from "@/planning/types";
 import type { PlannedScene, CompositionProps } from "@/pipeline/buildProps";
 import type {
@@ -331,22 +333,52 @@ export const LongformComposition: React.FC<CompositionProps> = ({
   width,
   height,
   textureMood,
+  bgmTrack,
 }) => {
   const [manifest, setManifest] = useState<TTSManifestEntry[] | null>(null);
+  const [allCaptions, setAllCaptions] = useState<Caption[]>([]);
   const { delayRender, continueRender } = useDelayRender();
   const [handle] = useState(() => delayRender());
 
   const loadManifest = useCallback(async () => {
     try {
       const res = await fetch(staticFile("tts/manifest.json"));
-      const data = await res.json();
+      const data: TTSManifestEntry[] = await res.json();
       setManifest(data);
+
+      // Build global captions for BGM ducking — offset each scene's captions
+      // by its absolute start time in the composition
+      if (bgmTrack) {
+        const globalCaptions: Caption[] = [];
+        for (const scene of scenes) {
+          const entry = data.find((e) => e.sceneId === scene.id);
+          if (!entry) continue;
+          try {
+            const capRes = await fetch(staticFile(`tts/${entry.captionsFile}`));
+            const raw = await capRes.json();
+            const caps: Caption[] = Array.isArray(raw)
+              ? raw
+              : (raw.captions ?? []);
+            const offsetMs = (scene.from / fps) * 1000;
+            for (const c of caps) {
+              globalCaptions.push({
+                ...c,
+                startMs: c.startMs + offsetMs,
+                endMs: c.endMs + offsetMs,
+              });
+            }
+          } catch {
+            // Skip scenes with no caption data
+          }
+        }
+        setAllCaptions(globalCaptions);
+      }
     } catch {
       // No TTS manifest — render without audio/captions
       setManifest([]);
     }
     continueRender(handle);
-  }, [continueRender, handle]);
+  }, [continueRender, handle, bgmTrack, scenes, fps]);
 
   useEffect(() => {
     loadManifest();
@@ -438,6 +470,17 @@ export const LongformComposition: React.FC<CompositionProps> = ({
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
+      {/* BGM layer with auto-ducking under narration */}
+      {bgmTrack && (
+        <Audio
+          src={staticFile(bgmTrack)}
+          volume={(f) =>
+            computeBgmVolume(f, allCaptions, DEFAULT_DUCKING_CONFIG, fps)
+          }
+          loop
+        />
+      )}
+
       {hasStoryboard
         ? // ── TransitionSeries path (storyboard-driven with transitions) ──
           // TODO(P1-1-sunset): Remove Sequence fallback once all books use storyboard.

@@ -342,6 +342,20 @@ export interface AudioConfig {
   sonicLogo?: string;
 }
 
+/** BGM auto-ducking configuration for narration-dominant mixing */
+export interface BGMDuckingConfig {
+  /** Volume during narration (0~1). Default 0.04 */
+  narratingVolume: number;
+  /** Volume during silence/gaps (0~1). Default 0.12 */
+  silenceVolume: number;
+  /** Fade-in frames when ducking starts. Default 6 */
+  attackFrames: number;
+  /** Fade-out frames when ducking releases. Default 18 */
+  releaseFrames: number;
+  /** Minimum silence frames before release triggers. Prevents pumping. Default 12 */
+  minSilenceBeforeRelease: number;
+}
+
 export interface BookContent {
   $schema?: string;
   metadata: BookMetadata;
