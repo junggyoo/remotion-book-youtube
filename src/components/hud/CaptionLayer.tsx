@@ -28,12 +28,15 @@ interface SentencePage {
 const MAX_PAGE_CHARS = 56; // 28자 × 2줄
 
 function buildSentencePages(captions: Caption[]): SentencePage[] {
-  if (captions.length === 0) return [];
+  const valid = captions.filter(
+    (c) => c && typeof c.startMs === "number" && typeof c.endMs === "number",
+  );
+  if (valid.length === 0) return [];
 
   const pages: SentencePage[] = [];
   let currentTokens: SentencePage["tokens"] = [];
   let currentText = "";
-  let pageStartMs = captions[0].startMs;
+  let pageStartMs = valid[0].startMs;
 
   const flushPage = (endMs: number) => {
     if (currentTokens.length === 0) return;
@@ -47,8 +50,8 @@ function buildSentencePages(captions: Caption[]): SentencePage[] {
     currentText = "";
   };
 
-  for (let i = 0; i < captions.length; i++) {
-    const cap = captions[i];
+  for (let i = 0; i < valid.length; i++) {
+    const cap = valid[i];
     const tokenText = cap.text;
     const trimmedToken = tokenText.trimEnd();
 
@@ -60,14 +63,14 @@ function buildSentencePages(captions: Caption[]): SentencePage[] {
     currentText += tokenText;
 
     const isSentenceEnd = /[.?!]$/.test(trimmedToken);
-    const nextText = currentText + (captions[i + 1]?.text ?? "");
+    const nextText = currentText + (valid[i + 1]?.text ?? "");
     const wouldOverflow =
       currentText.replace(/\s/g, "").length > MAX_PAGE_CHARS;
 
     if (isSentenceEnd || wouldOverflow) {
       flushPage(cap.endMs);
-      if (i + 1 < captions.length) {
-        pageStartMs = captions[i + 1].startMs;
+      if (i + 1 < valid.length) {
+        pageStartMs = valid[i + 1].startMs;
       }
     }
   }
@@ -137,7 +140,9 @@ export const CaptionLayer: React.FC<CaptionLayerProps> = ({
   const fetchCaptions = useCallback(async () => {
     try {
       const response = await fetch(staticFile(captionsFile));
-      const data: Caption[] = await response.json();
+      const raw = await response.json();
+      // Support both { captions: Caption[] } wrapper and flat Caption[] formats
+      const data: Caption[] = Array.isArray(raw) ? raw : (raw.captions ?? []);
       setCaptions(data);
       continueRender(handle);
     } catch (e) {
