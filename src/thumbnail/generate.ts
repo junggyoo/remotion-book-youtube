@@ -5,6 +5,7 @@ import type { ThumbnailConfig } from "./types";
 import type { BookMetadata, GenreKey } from "@/types";
 import { buildPrompt } from "./prompt-builder";
 import { compositeText } from "./composite";
+import { generate3dCover } from "./cover-3d";
 import designTokens from "../design/tokens/design-tokens-draft.json";
 
 // --- Genre accent color resolution ---
@@ -143,8 +144,8 @@ export async function generateThumbnail(
         if (part.inlineData?.data) {
           const rawImage = Buffer.from(part.inlineData.data, "base64");
           const accentColor = resolveAccentColor(metadata.genre);
-          // Resolve book cover path from coverDir
-          let coverPath: string | undefined;
+          // Generate 3D book cover via Gemini
+          let coverBuffer: Buffer | null = null;
           if (coverDir) {
             const coverFiles = fs
               .readdirSync(coverDir)
@@ -156,7 +157,12 @@ export async function generateThumbnail(
                   /\.(jpg|jpeg|png)$/i.test(f),
               );
             if (coverFiles.length > 0) {
-              coverPath = path.join(coverDir, coverFiles[0]);
+              const coverPath = path.join(coverDir, coverFiles[0]);
+              coverBuffer = await generate3dCover(coverPath, apiKey);
+              // Fallback to flat cover if 3D generation fails
+              if (!coverBuffer) {
+                coverBuffer = fs.readFileSync(coverPath);
+              }
             }
           }
           const composited = await compositeText(
@@ -164,7 +170,7 @@ export async function generateThumbnail(
             thumbnail.hookText,
             thumbnail.accentWord,
             accentColor,
-            coverPath,
+            coverBuffer,
           );
           return saveThumbnail(outputBase, metadata.id, composited, prompt);
         }
