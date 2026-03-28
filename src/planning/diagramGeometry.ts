@@ -224,11 +224,13 @@ function buildCycleGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 4;
   const cx = w / 2;
   const cy = h / 2;
-  const radius = Math.min(w, h) * 0.35;
+  const radiusRatio = format === "shorts" ? 0.25 : 0.35;
+  const radius = Math.min(w, h) * radiusRatio;
   const labelB = defaultLabelBounds(w, h);
   const baseCurvature = 0.3;
 
@@ -266,23 +268,40 @@ function buildFlowGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 4;
   const labelB = defaultLabelBounds(w, h);
-  const margin = w * 0.1;
-  const spacing = (w - margin * 2) / Math.max(count - 1, 1);
-  const centerY = h / 2;
   const baseCurvature = 0.15;
+  const isVertical = format === "shorts";
 
   let nodes: DiagramNode[] = [];
-  for (let i = 0; i < count; i++) {
-    nodes.push({
-      id: makeNodeId(i),
-      cx: margin + i * spacing,
-      cy: centerY,
-      label: spec.nodeLabels?.[i] ?? `Step ${i + 1}`,
-      labelBounds: labelB,
-    });
+  if (isVertical) {
+    const margin = h * 0.1;
+    const spacing = (h - margin * 2) / Math.max(count - 1, 1);
+    const centerX = w / 2;
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        id: makeNodeId(i),
+        cx: centerX,
+        cy: margin + i * spacing,
+        label: spec.nodeLabels?.[i] ?? `Step ${i + 1}`,
+        labelBounds: labelB,
+      });
+    }
+  } else {
+    const margin = w * 0.1;
+    const spacing = (w - margin * 2) / Math.max(count - 1, 1);
+    const centerY = h / 2;
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        id: makeNodeId(i),
+        cx: margin + i * spacing,
+        cy: centerY,
+        label: spec.nodeLabels?.[i] ?? `Step ${i + 1}`,
+        labelBounds: labelB,
+      });
+    }
   }
 
   let connections: DiagramConnection[] = [];
@@ -311,6 +330,7 @@ function buildSplitGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  _format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 2;
   const labelB = defaultLabelBounds(w, h);
@@ -366,23 +386,41 @@ function buildTimelineGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 5;
   const labelB = defaultLabelBounds(w, h);
-  const margin = w * 0.08;
-  const spacing = (w - margin * 2) / Math.max(count - 1, 1);
-  const centerY = h / 2;
   const baseCurvature = 0;
+  const isShorts = format === "shorts";
 
+  // Timeline is already horizontal; in shorts reduce horizontal spread and use vertical layout
   let nodes: DiagramNode[] = [];
-  for (let i = 0; i < count; i++) {
-    nodes.push({
-      id: makeNodeId(i),
-      cx: margin + i * spacing,
-      cy: centerY,
-      label: spec.nodeLabels?.[i] ?? `Event ${i + 1}`,
-      labelBounds: labelB,
-    });
+  if (isShorts) {
+    const marginY = h * 0.08;
+    const spacing = (h - marginY * 2) / Math.max(count - 1, 1);
+    const centerX = w / 2;
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        id: makeNodeId(i),
+        cx: centerX,
+        cy: marginY + i * spacing,
+        label: spec.nodeLabels?.[i] ?? `Event ${i + 1}`,
+        labelBounds: labelB,
+      });
+    }
+  } else {
+    const margin = w * 0.08;
+    const spacing = (w - margin * 2) / Math.max(count - 1, 1);
+    const centerY = h / 2;
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        id: makeNodeId(i),
+        cx: margin + i * spacing,
+        cy: centerY,
+        label: spec.nodeLabels?.[i] ?? `Event ${i + 1}`,
+        labelBounds: labelB,
+      });
+    }
   }
 
   let connections: DiagramConnection[] = [];
@@ -411,6 +449,7 @@ function buildPyramidGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 4;
   const labelB = defaultLabelBounds(w, h);
@@ -419,11 +458,14 @@ function buildPyramidGeometry(
   const usableH = h - topMargin - bottomMargin;
   const layerHeight = usableH / count;
   const baseCurvature = 0;
+  const isShorts = format === "shorts";
 
   const nodes: DiagramNode[] = [];
   for (let i = 0; i < count; i++) {
     // 상단(i=0)이 가장 좁고, 하단이 가장 넓음
-    const widthRatio = 0.3 + (i / Math.max(count - 1, 1)) * 0.5;
+    // Shorts: reduce base width spread (0.3 instead of 0.5)
+    const maxSpread = isShorts ? 0.3 : 0.5;
+    const widthRatio = 0.3 + (i / Math.max(count - 1, 1)) * maxSpread;
     nodes.push({
       id: makeNodeId(i),
       cx: w / 2,
@@ -460,6 +502,7 @@ function buildLadderGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 4;
   const labelB = defaultLabelBounds(w, h);
@@ -467,8 +510,10 @@ function buildLadderGeometry(
   const bottomMargin = h * 0.1;
   const usableH = h - topMargin - bottomMargin;
   const ySpacing = usableH / Math.max(count - 1, 1);
-  const leftX = w * 0.3;
-  const rightX = w * 0.7;
+  // Shorts: tighter horizontal spread (vertical-first compact)
+  const isShorts = format === "shorts";
+  const leftX = isShorts ? w * 0.35 : w * 0.3;
+  const rightX = isShorts ? w * 0.65 : w * 0.7;
   const baseCurvature = 0.25;
 
   const nodes: DiagramNode[] = [];
@@ -504,13 +549,15 @@ function buildHubSpokeGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const spokeCount = (spec.nodeCount ?? 5) - 1; // First node is hub
   const totalCount = spokeCount + 1;
   const labelB = defaultLabelBounds(w, h);
   const cx = w / 2;
   const cy = h / 2;
-  const radius = Math.min(w, h) * 0.35;
+  const radiusRatio = format === "shorts" ? 0.25 : 0.35;
+  const radius = Math.min(w, h) * radiusRatio;
   const baseCurvature = 0.1;
 
   const nodes: DiagramNode[] = [];
@@ -561,13 +608,15 @@ function buildMatrix2x2Geometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const labelB = defaultLabelBounds(w, h);
   const baseCurvature = 0;
+  const isShorts = format === "shorts";
 
-  // 4 quadrant positions
-  const marginX = w * 0.25;
-  const marginY = h * 0.25;
+  // 4 quadrant positions — shorts: tighter horizontal, more vertical spread
+  const marginX = isShorts ? w * 0.3 : w * 0.25;
+  const marginY = isShorts ? h * 0.2 : h * 0.25;
   const positions = [
     { cx: marginX, cy: marginY }, // top-left (Q0)
     { cx: w - marginX, cy: marginY }, // top-right (Q1)
@@ -610,6 +659,7 @@ function buildFunnelGeometry(
   spec: DiagramSpec,
   w: number,
   h: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const count = spec.nodeCount ?? 4;
   const labelB = defaultLabelBounds(w, h);
@@ -618,11 +668,14 @@ function buildFunnelGeometry(
   const usableH = h - topMargin - bottomMargin;
   const ySpacing = usableH / Math.max(count - 1, 1);
   const baseCurvature = 0;
+  const isShorts = format === "shorts";
 
   const nodes: DiagramNode[] = [];
   for (let i = 0; i < count; i++) {
     // Width decreases per node: widest at top, narrowest at bottom
-    const widthRatio = 1 - (i / Math.max(count - 1, 1)) * 0.6;
+    // Shorts: narrower overall (0.4 spread instead of 0.6)
+    const maxSpread = isShorts ? 0.4 : 0.6;
+    const widthRatio = 1 - (i / Math.max(count - 1, 1)) * maxSpread;
     nodes.push({
       id: makeNodeId(i),
       cx: w / 2,
@@ -662,7 +715,12 @@ function buildFunnelGeometry(
 const LAYOUT_BUILDERS: Partial<
   Record<
     DiagramType,
-    (spec: DiagramSpec, w: number, h: number) => DiagramGeometry
+    (
+      spec: DiagramSpec,
+      w: number,
+      h: number,
+      format?: "longform" | "shorts",
+    ) => DiagramGeometry
   >
 > = {
   cycle: buildCycleGeometry,
@@ -686,13 +744,14 @@ export function buildDiagramGeometry(
   spec: DiagramSpec,
   canvasWidth: number,
   canvasHeight: number,
+  format: "longform" | "shorts" = "longform",
 ): DiagramGeometry {
   const builder = LAYOUT_BUILDERS[spec.diagramType];
   if (!builder) {
     throw new Error(`Not implemented: ${spec.diagramType}`);
   }
 
-  const geometry = builder(spec, canvasWidth, canvasHeight);
+  const geometry = builder(spec, canvasWidth, canvasHeight, format);
 
   // Rule 1: 최소 노드 거리 적용
   const diagonal = canvasDiagonal(canvasWidth, canvasHeight);

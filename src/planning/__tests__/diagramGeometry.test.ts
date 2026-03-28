@@ -429,6 +429,166 @@ describe("buildDiagramGeometry", () => {
 });
 
 // ============================================================
+// Shorts Format Geometry
+// ============================================================
+
+const SHORTS_W = 1080;
+const SHORTS_H = 1920;
+
+describe("buildDiagramGeometry — shorts format", () => {
+  it("cycle uses tighter radius in shorts", () => {
+    const longGeo = buildDiagramGeometry(
+      makeCycleSpec(4),
+      LONGFORM_W,
+      LONGFORM_H,
+      "longform",
+    );
+    const shortsGeo = buildDiagramGeometry(
+      makeCycleSpec(4),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    const longRadius = Math.hypot(
+      longGeo.nodes[1].cx - longGeo.nodes[0].cx,
+      longGeo.nodes[1].cy - longGeo.nodes[0].cy,
+    );
+    const shortsRadius = Math.hypot(
+      shortsGeo.nodes[1].cx - shortsGeo.nodes[0].cx,
+      shortsGeo.nodes[1].cy - shortsGeo.nodes[0].cy,
+    );
+    expect(shortsRadius).toBeLessThan(longRadius);
+  });
+
+  it("flow switches to vertical in shorts", () => {
+    const shortsGeo = buildDiagramGeometry(
+      makeFlowSpec(3),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    // Nodes should be vertically ordered (increasing cy)
+    expect(shortsGeo.nodes[0].cy).toBeLessThan(shortsGeo.nodes[1].cy);
+    expect(shortsGeo.nodes[1].cy).toBeLessThan(shortsGeo.nodes[2].cy);
+    // All at same cx (centered)
+    expect(shortsGeo.nodes[0].cx).toBeCloseTo(shortsGeo.nodes[1].cx, 0);
+  });
+
+  it("timeline switches to vertical in shorts", () => {
+    const shortsGeo = buildDiagramGeometry(
+      makeTimelineSpec(4),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    for (let i = 0; i < shortsGeo.nodes.length - 1; i++) {
+      expect(shortsGeo.nodes[i].cy).toBeLessThan(shortsGeo.nodes[i + 1].cy);
+    }
+  });
+
+  it("pyramid has narrower base in shorts", () => {
+    const longGeo = buildDiagramGeometry(
+      makePyramidSpec(4),
+      LONGFORM_W,
+      LONGFORM_H,
+      "longform",
+    );
+    const shortsGeo = buildDiagramGeometry(
+      makePyramidSpec(4),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    // Bottom node (last) label width should be narrower in shorts
+    const longBottom = longGeo.nodes[longGeo.nodes.length - 1];
+    const shortsBottom = shortsGeo.nodes[shortsGeo.nodes.length - 1];
+    // Compare width ratio relative to canvas width
+    const longRatio = longBottom.labelBounds.width / LONGFORM_W;
+    const shortsRatio = shortsBottom.labelBounds.width / SHORTS_W;
+    expect(shortsRatio).toBeLessThan(longRatio);
+  });
+
+  it("hub-spoke uses tighter radius in shorts", () => {
+    function makeHubSpokeSpec(nodeCount = 5): DiagramSpec {
+      return {
+        diagramType: "hub-spoke",
+        nodeCount,
+        connectionPattern: "radial",
+        animationHint: "node-activate",
+        sourceMetaphor: "hub and spoke",
+      };
+    }
+    const longGeo = buildDiagramGeometry(
+      makeHubSpokeSpec(5),
+      LONGFORM_W,
+      LONGFORM_H,
+      "longform",
+    );
+    const shortsGeo = buildDiagramGeometry(
+      makeHubSpokeSpec(5),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    // Spoke distance from hub should be smaller in shorts
+    const longDist = Math.hypot(
+      longGeo.nodes[1].cx - longGeo.nodes[0].cx,
+      longGeo.nodes[1].cy - longGeo.nodes[0].cy,
+    );
+    const shortsDist = Math.hypot(
+      shortsGeo.nodes[1].cx - shortsGeo.nodes[0].cx,
+      shortsGeo.nodes[1].cy - shortsGeo.nodes[0].cy,
+    );
+    expect(shortsDist).toBeLessThan(longDist);
+  });
+
+  it("ladder has tighter horizontal spread in shorts", () => {
+    function makeLadderSpec(nodeCount = 4): DiagramSpec {
+      return {
+        diagramType: "ladder",
+        nodeCount,
+        connectionPattern: "linear",
+        animationHint: "node-activate",
+        sourceMetaphor: "ladder steps ascending",
+      };
+    }
+    const longGeo = buildDiagramGeometry(
+      makeLadderSpec(4),
+      LONGFORM_W,
+      LONGFORM_H,
+      "longform",
+    );
+    const shortsGeo = buildDiagramGeometry(
+      makeLadderSpec(4),
+      SHORTS_W,
+      SHORTS_H,
+      "shorts",
+    );
+    // Horizontal spread (right - left) should be tighter in shorts relative to canvas width
+    const longSpread = (longGeo.nodes[1].cx - longGeo.nodes[0].cx) / LONGFORM_W;
+    const shortsSpread =
+      (shortsGeo.nodes[1].cx - shortsGeo.nodes[0].cx) / SHORTS_W;
+    expect(Math.abs(shortsSpread)).toBeLessThan(Math.abs(longSpread));
+  });
+
+  it("defaults to longform when format is omitted", () => {
+    const withFormat = buildDiagramGeometry(
+      makeCycleSpec(4),
+      LONGFORM_W,
+      LONGFORM_H,
+      "longform",
+    );
+    const withoutFormat = buildDiagramGeometry(
+      makeCycleSpec(4),
+      LONGFORM_W,
+      LONGFORM_H,
+    );
+    expect(withFormat.nodes[0].cx).toEqual(withoutFormat.nodes[0].cx);
+    expect(withFormat.nodes[0].cy).toEqual(withoutFormat.nodes[0].cy);
+  });
+});
+
+// ============================================================
 // Layout Quality Rules
 // ============================================================
 
