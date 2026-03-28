@@ -43,6 +43,9 @@ voice/output/
 # Planning validation results (ephemeral)
 generated/books/**/.validation/
 
+# Scene registry (generated, not source)
+generated/registry/
+
 # Pre-resolved planning data for Remotion (derived from generated/)
 assets/planning/
 

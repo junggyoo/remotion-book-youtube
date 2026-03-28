@@ -45,6 +45,7 @@ import { planScenes } from "./stages/scene-planner";
 import { detectGapsStage } from "./stages/gap-detector";
 import { composeArtDirectionStage } from "./stages/opening-composer";
 import { synthesizeGapsStage } from "./stages/scene-synthesizer";
+import { registrySyncStage } from "./stages/scene-registry-sync";
 
 // ============================================================
 // Core Types
@@ -429,6 +430,7 @@ const STAGES: DsgsStage[] = [
   planScenes,
   detectGapsStage,
   synthesizeGapsStage,
+  registrySyncStage,
   composeBeat,
   planAssets,
   validatePlanStage,
