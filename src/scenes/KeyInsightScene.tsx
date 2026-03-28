@@ -236,11 +236,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   const evidenceState = getBeatState("evidenceCard");
   const evidenceEntryFrame = evidenceState?.entryFrame ?? 42;
 
-  // --- Slow-zoom: cinematic 1.0→1.03 over scene duration ---
-  const slowZoom = interpolate(frame, [0, durationFrames], [1.0, 1.03], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+  // P2-2: slow-zoom is now handled by CameraLayer wrapper in SceneRenderer
 
   // --- Background radial pulse on headline entrance ---
   const headlineEntryFrame = getBeatState("headline")?.entryFrame ?? 6;
@@ -297,15 +293,12 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         }}
       />
 
-      {/* Main content — wrapped in slow-zoom */}
+      {/* Main content */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           zIndex: LAYERS.headline,
-          transform: `scale(${slowZoom})`,
-          transformOrigin: "30% 40%",
-          willChange: "transform",
         }}
       >
         <SafeArea format={format} theme={theme}>

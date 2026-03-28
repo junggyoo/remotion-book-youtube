@@ -48,6 +48,10 @@ import { SplitQuoteScene } from "@/scenes/SplitQuoteScene";
 import { CaptionLayer } from "@/components/hud/CaptionLayer";
 import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
 import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
+import {
+  CameraLayer,
+  SCENE_CAMERA_DEFAULTS,
+} from "@/components/layout/CameraLayer";
 import { SceneWrapper } from "@/components/layout/SceneWrapper";
 import type { CustomScene } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
@@ -89,97 +93,120 @@ const SceneRenderer: React.FC<{
     beats: scene.beats,
   };
 
+  // P2-2: Determine camera mode — shorts forces static
+  const cameraMode =
+    format === "shorts"
+      ? ("static" as const)
+      : (SCENE_CAMERA_DEFAULTS[scene.type] ?? "static");
+
+  let sceneContent: React.ReactNode = null;
+
   switch (scene.type) {
     case "cover":
-      return (
+      sceneContent = (
         <CoverScene {...baseProps} content={scene.content as CoverContent} />
       );
+      break;
     case "chapterDivider":
-      return (
+      sceneContent = (
         <ChapterDividerScene
           {...baseProps}
           content={scene.content as ChapterDividerContent}
         />
       );
+      break;
     case "keyInsight":
-      return (
+      sceneContent = (
         <KeyInsightScene
           {...baseProps}
           content={scene.content as KeyInsightContent}
         />
       );
+      break;
     case "compareContrast":
-      return (
+      sceneContent = (
         <CompareContrastScene
           {...baseProps}
           content={scene.content as CompareContrastContent}
         />
       );
+      break;
     case "quote":
-      return (
+      sceneContent = (
         <QuoteScene {...baseProps} content={scene.content as QuoteContent} />
       );
+      break;
     case "framework":
-      return (
+      sceneContent = (
         <FrameworkScene
           {...baseProps}
           content={scene.content as FrameworkContent}
         />
       );
+      break;
     case "application":
-      return (
+      sceneContent = (
         <ApplicationScene
           {...baseProps}
           content={scene.content as ApplicationContent}
         />
       );
+      break;
     case "data":
-      return (
+      sceneContent = (
         <DataScene {...baseProps} content={scene.content as DataContent} />
       );
+      break;
     case "closing":
-      return (
+      sceneContent = (
         <ClosingScene
           {...baseProps}
           content={scene.content as ClosingContent}
         />
       );
+      break;
     case "timeline":
-      return (
+      sceneContent = (
         <TimelineScene
           {...baseProps}
           content={scene.content as TimelineContent}
         />
       );
+      break;
     case "highlight":
-      return (
+      sceneContent = (
         <HighlightScene
           {...baseProps}
           content={scene.content as HighlightContent}
         />
       );
+      break;
     case "transition":
-      return (
+      sceneContent = (
         <TransitionScene
           {...baseProps}
           content={scene.content as TransitionContent}
         />
       );
+      break;
     case "listReveal":
-      return (
+      sceneContent = (
         <ListRevealScene
           {...baseProps}
           content={scene.content as ListRevealContent}
         />
       );
+      break;
     case "splitQuote":
-      return (
+      sceneContent = (
         <SplitQuoteScene
           {...baseProps}
           content={scene.content as SplitQuoteContent}
         />
       );
+      break;
     case "custom":
+      // Custom scenes use BlueprintRenderer which has its own CameraLayer
       return (
         <BlueprintRenderer
           blueprint={(scene as unknown as CustomScene).blueprint}
@@ -188,6 +215,19 @@ const SceneRenderer: React.FC<{
     default:
       return null;
   }
+
+  // P2-2: Wrap preset scenes with CameraLayer
+  // Static mode is a passthrough (no transform), so wrapping is always safe
+  return (
+    <CameraLayer
+      mode={cameraMode}
+      format={format}
+      sceneType={scene.type}
+      durationFrames={scene.resolvedDuration}
+    >
+      {sceneContent}
+    </CameraLayer>
+  );
 };
 
 /** Wrapper to provide useCurrentFrame() to SubtitleLayer inside a Sequence */

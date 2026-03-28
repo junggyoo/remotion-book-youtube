@@ -136,11 +136,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   // Dark overlay via theme-relative approach
   const darkOverlayOpacity = theme.mode === "dark" ? 0.1 : 0.05;
 
-  // --- Slow-zoom: very gentle 1.0→1.015 for contemplative feel ---
-  const slowZoom = interpolate(frame, [0, durationFrames], [1.0, 1.015], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+  // P2-2: slow-zoom is now handled by CameraLayer wrapper in SceneRenderer
 
   // --- Accent vertical line: draw-on from top (left side quote bar) ---
   const accentLineProgress = spring({
@@ -204,15 +200,12 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
         }}
       />
 
-      {/* Main content — wrapped in slow-zoom */}
+      {/* Main content */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           zIndex: LAYERS.quoteText,
-          transform: `scale(${slowZoom})`,
-          transformOrigin: "50% 50%",
-          willChange: "transform",
         }}
       >
         <SafeArea format={format} theme={theme}>
