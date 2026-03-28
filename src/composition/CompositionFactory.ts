@@ -2,16 +2,54 @@ import type {
   SceneBlueprint,
   LayoutType,
   ChoreographyType,
+  VCLElement,
   MediaPlan,
 } from "@/types";
 import type { SceneSpec } from "@/direction/types";
 import type { CompositionContext } from "./types";
+import type { SceneRegistry } from "@/registry/SceneRegistry";
+import type { RegistryEntry, ElementTemplate } from "@/registry/types";
 import { recipeRegistry } from "./familyRecipes";
 import { resolveElements } from "./elementResolver";
 
 /**
+ * Build VCLElements from a RegistryEntry's elementTemplate + scene content.
+ * D9: v1 uses simple text-oriented substitution only.
+ */
+function resolveElementsFromRegistry(
+  entry: RegistryEntry,
+  sceneId: string,
+  content: Record<string, unknown>,
+): VCLElement[] {
+  return entry.recipe.elementTemplate.map((tmpl: ElementTemplate) => {
+    const props: Record<string, unknown> = { ...tmpl.props, layer: tmpl.layer };
+
+    // D9: simple text substitution — if content has a value for the activation key, set props.text
+    if (
+      tmpl.beatActivationKey &&
+      content[tmpl.beatActivationKey] !== undefined
+    ) {
+      const val = content[tmpl.beatActivationKey];
+      if (typeof val === "string") {
+        props.text = val;
+      }
+    }
+
+    return {
+      id: `${sceneId}::${tmpl.id}`,
+      type: tmpl.type as VCLElement["type"],
+      props,
+    };
+  });
+}
+
+/**
  * Compose a SceneBlueprint from a SceneSpec + pipeline context.
  * Returns null if no recipe is registered or elements are empty.
+ *
+ * Recipe lookup priority (D3: bridge/coexistence):
+ *   1. Hardcoded recipeRegistry (family recipes)
+ *   2. SceneRegistry fallback (if provided)
  *
  * Layout/choreography priority:
  *   1. spec explicit value (if interpretationMeta says it was explicitly chosen)
@@ -21,9 +59,18 @@ import { resolveElements } from "./elementResolver";
 export function composeBlueprint(
   spec: SceneSpec,
   ctx: CompositionContext,
+  registry?: SceneRegistry,
 ): SceneBlueprint | null {
   const recipe = recipeRegistry[spec.family];
+
+  // D3 bridge: if no hardcoded recipe, try SceneRegistry fallback
   if (!recipe) {
+    if (registry) {
+      const registryEntry = registry.getBestRecipe(spec.family);
+      if (registryEntry) {
+        return composeBlueprintFromRegistry(registryEntry, spec, ctx);
+      }
+    }
     console.warn(
       `[CompositionFactory] No recipe for family "${spec.family}". Returning null.`,
     );
@@ -81,6 +128,83 @@ export function composeBlueprint(
   };
 
   // 5. Build SceneBlueprint
+  return {
+    id: spec.id,
+    intent: spec.intent,
+    origin: "composed",
+    layout,
+    elements,
+    choreography,
+    motionPreset: ctx.motionPreset,
+    format: ctx.format,
+    theme: ctx.theme,
+    from: ctx.from,
+    durationFrames: ctx.durationFrames,
+    mediaPlan,
+  };
+}
+
+/**
+ * Build a SceneBlueprint from a SceneRegistry entry (D3 fallback path).
+ * Uses simple text substitution for element resolution (D9 v1 limits).
+ */
+function composeBlueprintFromRegistry(
+  entry: RegistryEntry,
+  spec: SceneSpec,
+  ctx: CompositionContext,
+): SceneBlueprint | null {
+  const elements = resolveElementsFromRegistry(
+    entry,
+    spec.id,
+    spec.content ?? {},
+  );
+
+  if (elements.length === 0) {
+    console.warn(
+      `[CompositionFactory] Registry entry "${entry.id}" produced 0 elements for scene "${spec.id}".`,
+    );
+    return null;
+  }
+
+  // Layout/choreography: spec explicit > registry default (same priority logic)
+  const specLayoutIsExplicit =
+    spec.interpretationMeta?.derivedFrom?.some((d) =>
+      d.startsWith("layout:"),
+    ) ?? false;
+  const layout: LayoutType = specLayoutIsExplicit
+    ? spec.layout
+    : entry.recipe.defaultLayout;
+
+  const specChoreographyIsExplicit =
+    spec.interpretationMeta?.derivedFrom?.some((d) =>
+      d.startsWith("choreography:"),
+    ) ?? false;
+  const choreography: ChoreographyType = specChoreographyIsExplicit
+    ? spec.choreography
+    : entry.recipe.defaultChoreography;
+
+  const mediaPlan: MediaPlan = {
+    narrationText: spec.narrationText,
+    captionPlan: {
+      mode: "sentence-by-sentence",
+      maxCharsPerLine: 28,
+      maxLines: 2,
+      leadFrames: 0,
+      trailFrames: 3,
+      transitionStyle: "fade-slide",
+    },
+    audioPlan: {
+      ttsEngine: "fish-audio-s2",
+      voiceKey: "default",
+      speed: 1.0,
+      pitch: "+0Hz",
+    },
+    assetPlan: {
+      required: [],
+      fallbackMode: "text-only",
+    },
+  };
+
   return {
     id: spec.id,
     intent: spec.intent,

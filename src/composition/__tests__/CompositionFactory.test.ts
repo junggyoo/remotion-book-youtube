@@ -1,9 +1,13 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import * as fs from "fs";
+import * as path from "path";
+import * as os from "os";
 import { composeBlueprint } from "../CompositionFactory";
 import type { CompositionContext } from "../types";
 import type { SceneSpec } from "@/direction/types";
 import { getDirectionProfile } from "@/direction/profiles";
 import { useTheme } from "@/design/themes/useTheme";
+import { SceneRegistry } from "@/registry/SceneRegistry";
 
 const testTheme = useTheme("dark", "psychology");
 
@@ -149,5 +153,153 @@ describe("composeBlueprint", () => {
       "fish-audio-s2",
       "elevenlabs",
     ]).toContain(blueprint!.mediaPlan.audioPlan.ttsEngine);
+  });
+});
+
+describe("composeBlueprint with registry (D3: bridge/coexistence)", () => {
+  let registryFilePath: string;
+
+  function createTestRegistry(): SceneRegistry {
+    const registry = SceneRegistry.create(registryFilePath);
+    registry.register({
+      id: "test-transformation-shift-001",
+      family: "transformation-shift",
+      lifecycleStatus: "active",
+      origin: "manual",
+      recipe: {
+        defaultLayout: "split-two",
+        defaultChoreography: "cross-fade",
+        elementTemplate: [
+          {
+            id: "headline-el",
+            type: "TextBlock",
+            props: { layer: 20 },
+            layer: 20,
+            beatActivationKey: "headline",
+          },
+          {
+            id: "support-el",
+            type: "TextBlock",
+            props: { layer: 30 },
+            layer: 30,
+            beatActivationKey: "supportText",
+          },
+        ],
+      },
+      observations: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    registry.save();
+    return registry;
+  }
+
+  beforeEach(() => {
+    registryFilePath = path.join(
+      os.tmpdir(),
+      `test-registry-${Date.now()}.json`,
+    );
+  });
+
+  afterEach(() => {
+    if (fs.existsSync(registryFilePath)) {
+      fs.unlinkSync(registryFilePath);
+    }
+  });
+
+  it("falls back to SceneRegistry when no hardcoded recipe exists", () => {
+    const registry = createTestRegistry();
+
+    const spec = makeSpec({
+      id: "ts-01",
+      family: "transformation-shift",
+      content: { headline: "변화의 전환점", supportText: "보조 텍스트" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    expect(blueprint!.id).toBe("ts-01");
+    expect(blueprint!.layout).toBe("split-two");
+    expect(blueprint!.choreography).toBe("cross-fade");
+    expect(blueprint!.elements.length).toBe(2);
+    expect(blueprint!.origin).toBe("composed");
+    expect(blueprint!.format).toBe("longform");
+  });
+
+  it("hardcoded recipe takes priority over registry (D3 bridge rule)", () => {
+    const registry = createTestRegistry();
+    // concept-introduction has a hardcoded recipe — registry should NOT override it
+    const spec = makeSpec({
+      id: "ci-bridge-01",
+      family: "concept-introduction",
+      content: { headline: "하드코딩 우선 테스트" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    // Should use hardcoded recipe default layout, not registry's split-two
+    expect(blueprint!.layout).not.toBe("split-two");
+  });
+
+  it("registry elements get text substitution from content", () => {
+    const registry = createTestRegistry();
+
+    const spec = makeSpec({
+      id: "sub-01",
+      family: "transformation-shift",
+      content: { headline: "텍스트 치환 테스트", supportText: "서포트 치환" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    const headlineEl = blueprint!.elements.find((e) =>
+      e.id.includes("headline-el"),
+    );
+    expect(headlineEl).toBeDefined();
+    expect((headlineEl!.props as Record<string, unknown>).text).toBe(
+      "텍스트 치환 테스트",
+    );
+
+    const supportEl = blueprint!.elements.find((e) =>
+      e.id.includes("support-el"),
+    );
+    expect(supportEl).toBeDefined();
+    expect((supportEl!.props as Record<string, unknown>).text).toBe(
+      "서포트 치환",
+    );
+  });
+
+  it("element IDs are prefixed with sceneId for namespacing", () => {
+    const registry = createTestRegistry();
+
+    const spec = makeSpec({
+      id: "ns-reg-42",
+      family: "transformation-shift",
+      content: { headline: "네임스페이스" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    blueprint!.elements.forEach((el) => {
+      expect(el.id).toContain("ns-reg-42");
+    });
+  });
+
+  it("returns null when neither hardcoded recipe nor registry has entry", () => {
+    const registry = createTestRegistry();
+    // opening-hook has no hardcoded recipe AND no registry entry for it
+    const spec = makeSpec({
+      id: "oh-reg-01",
+      family: "opening-hook",
+      content: { headline: "없는 패밀리" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).toBeNull();
   });
 });
