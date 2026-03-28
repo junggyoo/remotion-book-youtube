@@ -12,15 +12,10 @@ import type { TransitionIntent } from "./mapTransitionIntent";
 /** Maps each transition intent to its SFX file (or null for silence). */
 export const TRANSITION_SFX: Record<TransitionIntent, string | null> = {
   fade: null,
-  directional: "whoosh-placeholder.mp3",
+  directional: "whoosh.mp3",
   cut: null,
-  morph: "shimmer-placeholder.mp3",
+  morph: "shimmer.mp3",
 };
-
-// TODO: Replace placeholder files with production CC0/royalty-free SFX:
-//   - whoosh.mp3: short directional whoosh (~0.3s)
-//   - shimmer.mp3: soft shimmer/morph sound (~0.4s)
-// After replacement, update filenames here and in assets/sounds/LICENSE.md
 
 /** SFX volume range (narration-subordinate) */
 export const SFX_VOLUME = 0.35;

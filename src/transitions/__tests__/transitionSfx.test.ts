@@ -8,11 +8,11 @@ import type { TransitionIntent } from "../mapTransitionIntent";
 
 describe("TRANSITION_SFX constant", () => {
   it("maps directional to whoosh", () => {
-    expect(TRANSITION_SFX.directional).toBe("whoosh-placeholder.mp3");
+    expect(TRANSITION_SFX.directional).toBe("whoosh.mp3");
   });
 
   it("maps morph to shimmer", () => {
-    expect(TRANSITION_SFX.morph).toBe("shimmer-placeholder.mp3");
+    expect(TRANSITION_SFX.morph).toBe("shimmer.mp3");
   });
 
   it("maps fade to null (silent)", () => {
@@ -34,7 +34,7 @@ describe("SFX_VOLUME", () => {
 describe("resolveTransitionSfx", () => {
   it("returns whoosh for directional transition", () => {
     const result = resolveTransitionSfx(["directional"]);
-    expect(result).toEqual(["whoosh-placeholder.mp3"]);
+    expect(result).toEqual(["whoosh.mp3"]);
   });
 
   it("returns null for fade transition", () => {
@@ -49,7 +49,7 @@ describe("resolveTransitionSfx", () => {
 
   it("returns shimmer for morph transition", () => {
     const result = resolveTransitionSfx(["morph"]);
-    expect(result).toEqual(["shimmer-placeholder.mp3"]);
+    expect(result).toEqual(["shimmer.mp3"]);
   });
 
   it("returns null for undefined intent", () => {
@@ -63,7 +63,7 @@ describe("resolveTransitionSfx", () => {
       "directional",
     ];
     const result = resolveTransitionSfx(intents);
-    expect(result).toEqual(["whoosh-placeholder.mp3", null]);
+    expect(result).toEqual(["whoosh.mp3", null]);
   });
 
   it("does not dedup when different SFX are between", () => {
@@ -73,11 +73,7 @@ describe("resolveTransitionSfx", () => {
       "directional",
     ];
     const result = resolveTransitionSfx(intents);
-    expect(result).toEqual([
-      "whoosh-placeholder.mp3",
-      "shimmer-placeholder.mp3",
-      "whoosh-placeholder.mp3",
-    ]);
+    expect(result).toEqual(["whoosh.mp3", "shimmer.mp3", "whoosh.mp3"]);
   });
 
   it("dedup applies even with null intents between", () => {
@@ -89,11 +85,7 @@ describe("resolveTransitionSfx", () => {
       "directional",
     ];
     const result = resolveTransitionSfx(intents);
-    expect(result).toEqual([
-      "whoosh-placeholder.mp3",
-      null,
-      "whoosh-placeholder.mp3",
-    ]);
+    expect(result).toEqual(["whoosh.mp3", null, "whoosh.mp3"]);
   });
 
   it("handles mixed sequence correctly", () => {
@@ -108,10 +100,10 @@ describe("resolveTransitionSfx", () => {
     const result = resolveTransitionSfx(intents);
     expect(result).toEqual([
       null, // fade → silent
-      "whoosh-placeholder.mp3", // directional → whoosh
+      "whoosh.mp3", // directional → whoosh
       null, // directional → dedup'd
       null, // cut → silent
-      "shimmer-placeholder.mp3", // morph → shimmer
+      "shimmer.mp3", // morph → shimmer
       null, // morph → dedup'd
     ]);
   });
