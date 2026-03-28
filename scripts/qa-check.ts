@@ -82,6 +82,53 @@ if (bookScenes.length > 0 && targetDuration) {
   warnings.push(
     `📊 Budget: 실제 ${actualChars}자 / 예상 ${budget.estimatedNarrationChars}자 (CPS=${budget.koreanCPS}, target=${targetDuration}s)`,
   );
+
+  // QA-13A 실패 시 씬별 부족분 + 액셔너블 수정 지시 출력
+  if (deviation > 0.25) {
+    const totalMin = Math.round(budget.estimatedNarrationChars * 0.75);
+    const totalGap = totalMin - actualChars;
+
+    console.log("\n📋 씬별 나레이션 분량 상세:");
+    console.log(
+      "  " +
+        ["씬 ID", "타입", "실제", "최소", "권장", "상태"]
+          .map((h, i) => (i < 2 ? h.padEnd(22) : h.padStart(6)))
+          .join("  "),
+    );
+
+    const sceneShortfalls: { id: string; gap: number }[] = [];
+    for (const sb of budget.scenes) {
+      const scene = bookScenes.find((s: any) => s.id === sb.sceneId);
+      const actual = scene?.narrationText?.length ?? 0;
+      const gap = actual < sb.minChars ? sb.minChars - actual : 0;
+      const marker = gap > 0 ? `⚠ -${gap}자` : actual === 0 ? "미작성" : "✅";
+
+      if (gap > 0) sceneShortfalls.push({ id: sb.sceneId, gap });
+
+      console.log(
+        "  " +
+          [
+            sb.sceneId.padEnd(22),
+            sb.type.padEnd(22),
+            String(actual).padStart(6),
+            String(sb.minChars).padStart(6),
+            String(sb.recommendedChars).padStart(6),
+            marker.padStart(6),
+          ].join("  "),
+      );
+    }
+
+    if (sceneShortfalls.length > 0) {
+      console.log(
+        `\n🔧 수정 필요 (${sceneShortfalls.length}개 씬, 총 ${totalGap}자 부족):`,
+      );
+      for (const sf of sceneShortfalls) {
+        const sentences = Math.ceil(sf.gap / 25);
+        console.log(`   ${sf.id}: ${sf.gap}자 추가 필요 (약 ${sentences}문장)`);
+      }
+    }
+    console.log();
+  }
 }
 
 // QA-14: Per-scene minimum narration check
