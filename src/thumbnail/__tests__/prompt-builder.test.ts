@@ -10,7 +10,7 @@ const mockMetadata = {
 };
 
 describe("buildPrompt", () => {
-  it("includes all required parts in the prompt", () => {
+  it("includes layout, person, and negative rules", () => {
     const config: ThumbnailConfig = {
       hookText: "작은 습관의 힘",
       expression: "확신에 찬 표정",
@@ -23,9 +23,36 @@ describe("buildPrompt", () => {
     expect(prompt).toContain("1280x720");
     expect(prompt).toContain("확신에 찬 표정");
     expect(prompt).toContain("손가락으로 가리킴");
-    expect(prompt).toContain("작은 습관의 힘");
     expect(prompt).toContain("selfHelp");
     expect(prompt).toContain("Do not");
+  });
+
+  it("does NOT include hookText or text style instructions", () => {
+    const config: ThumbnailConfig = {
+      hookText: "작은 습관의 힘",
+      expression: "확신에 찬 표정",
+      gesture: "손가락으로 가리킴",
+    };
+
+    const prompt = buildPrompt(config, mockMetadata);
+
+    expect(prompt).not.toContain("작은 습관의 힘");
+    expect(prompt).not.toContain("Korean text on image");
+    expect(prompt).not.toContain("Text style");
+    expect(prompt).not.toContain("bold white Korean text");
+  });
+
+  it("includes whitespace reservation for text overlay", () => {
+    const config: ThumbnailConfig = {
+      hookText: "테스트",
+      expression: "놀란 표정",
+      gesture: "손 들기",
+    };
+
+    const prompt = buildPrompt(config, mockMetadata);
+
+    expect(prompt).toContain("upper-left");
+    expect(prompt).toContain("text overlay");
   });
 
   it("uses default mood and background when not specified", () => {
@@ -55,18 +82,5 @@ describe("buildPrompt", () => {
     expect(prompt).toContain("mysterious");
     expect(prompt).toContain("foggy blue atmosphere");
     expect(prompt).not.toContain("dark cinematic gradient");
-  });
-
-  it("includes genre context from metadata", () => {
-    const config: ThumbnailConfig = {
-      hookText: "테스트",
-      expression: "놀란 표정",
-      gesture: "손 들기",
-    };
-    const psychologyMeta = { ...mockMetadata, genre: "psychology" as const };
-
-    const prompt = buildPrompt(config, psychologyMeta);
-
-    expect(prompt).toContain("psychology");
   });
 });

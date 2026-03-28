@@ -3,26 +3,26 @@ import type { BookMetadata } from "@/types";
 
 // --- Brand constants (modify these to tune prompt quality) ---
 
-const BRAND_TEXT_STYLE = `
-  bold white Korean text with black outline stroke,
-  premium editorial feel, not cheap clickbait,
-  large enough to read on mobile, maximum 2 lines
-`.trim();
-
 const BASE_LAYOUT = `
   YouTube thumbnail, 16:9 aspect ratio, 1280x720.
-  Overlay composition: person fills most of the frame,
-  hook text overlaid on upper-left area.
+  Overlay composition: person fills most of the frame.
   Clean composition with one dominant focal point.
+  Do not include any text, titles, captions, or watermarks in the image.
+`.trim();
+
+const TEXT_WHITESPACE = `
+  Leave the upper-left area of the image relatively clean and uncluttered
+  for text overlay to be added later. Do not put the person's face or
+  important elements in the upper-left quadrant.
 `.trim();
 
 const BRAND_NEGATIVE_RULES = `
   Do not add extra decorative objects.
   Do not make the composition busy or cluttered.
-  Do not use tiny unreadable Korean text.
   Do not create more than one dominant focal point.
   Do not use meme-style cheap clickbait expressions.
   Do not make it look childish or low quality.
+  Do not render any text or letters on the image.
 `.trim();
 
 // --- Prompt builder ---
@@ -37,8 +37,7 @@ export function buildPrompt(
     `Person: ${thumbnail.expression}, ${thumbnail.gesture}.`,
     `Background: ${thumbnail.backgroundStyle ?? "dark cinematic gradient"}.`,
     `Mood: ${thumbnail.mood ?? "dramatic"}.`,
-    `Korean text on image: "${thumbnail.hookText}"`,
-    `Text style: ${BRAND_TEXT_STYLE}`,
+    TEXT_WHITESPACE,
     BRAND_NEGATIVE_RULES,
   ];
 
