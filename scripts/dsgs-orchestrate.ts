@@ -13,10 +13,30 @@
 
 import "tsconfig-paths/register";
 import { execFileSync } from "child_process";
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  readdirSync,
+} from "fs";
 import path from "path";
-import type { BookContent, FormatKey } from "../src/types";
-import type { PlanBridgeResult } from "../src/planning/types";
+import type {
+  BookContent,
+  FormatKey,
+  SceneBlueprint,
+  Beat,
+  BeatTimingResolution,
+} from "../src/types";
+import { runRenderQA } from "../src/validator/renderFailureCodes";
+import { autoFixBlueprint } from "../src/validator/autoFix";
+import {
+  observeBlueprint,
+  checkPromotionEligibility,
+  type PromotionObservation,
+} from "../src/validator/promotionObserver";
+import type { PlanBridgeResult, BookArtDirection } from "../src/planning/types";
+import type { BeatPlanEntry } from "../src/types";
 import { analyzeBook } from "./stages/book-analyzer";
 import { planNarrative } from "./stages/narrative-planner";
 import { planAssets } from "./stages/asset-planner";
@@ -111,36 +131,122 @@ function createGenerationStub(
 // Execution Stages (Real)
 // ============================================================
 
+/**
+ * Run auto-fix on all blueprints in the book's 06-blueprints dir.
+ * Returns count of fixed blueprints and applied fix descriptions.
+ */
+function runAutoFixOnBlueprints(planDir: string): {
+  fixedCount: number;
+  fixes: string[];
+} {
+  const bpDir = path.join(planDir, "06-blueprints");
+  if (!existsSync(bpDir)) return { fixedCount: 0, fixes: [] };
+
+  const bpFiles = readdirSync(bpDir).filter((f: string) =>
+    f.endsWith(".blueprint.json"),
+  );
+  let fixedCount = 0;
+  const fixes: string[] = [];
+
+  for (const file of bpFiles) {
+    const filePath = path.join(bpDir, file);
+    let bp: SceneBlueprint;
+    try {
+      bp = JSON.parse(readFileSync(filePath, "utf-8")) as SceneBlueprint;
+    } catch {
+      continue;
+    }
+
+    const format = bp.format || "longform";
+    const qa = runRenderQA(bp, format);
+    if (qa.overallLevel === "PASS") continue;
+
+    const result = autoFixBlueprint(bp, qa);
+    if (result.fixed) {
+      writeFileSync(
+        filePath,
+        JSON.stringify(result.blueprint, null, 2),
+        "utf-8",
+      );
+      fixedCount++;
+      fixes.push(...result.appliedFixes);
+    }
+  }
+
+  return { fixedCount, fixes };
+}
+
+const MAX_AUTOFIX_ATTEMPTS = 2;
+
 const validatePlanStage: DsgsStage = {
   id: "7-validate",
   name: "BlueprintValidator",
   async run(ctx: DsgsContext): Promise<DsgsStageResult> {
     const start = Date.now();
-    try {
-      execFileSync(
-        "npx",
-        ["ts-node", "scripts/validate-plan.ts", ctx.planDir],
-        {
-          stdio: "pipe",
-          encoding: "utf-8",
-        },
-      );
-      return {
-        stageId: "7-validate",
-        status: "success",
-        artifacts: [path.join(ctx.planDir, ".validation")],
-        durationMs: Date.now() - start,
-      };
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err);
-      return {
-        stageId: "7-validate",
-        status: "halted",
-        artifacts: [],
-        durationMs: Date.now() - start,
-        message: `Validation failed: ${msg.slice(0, 200)}`,
-      };
+    const allFixes: string[] = [];
+
+    for (let attempt = 0; attempt <= MAX_AUTOFIX_ATTEMPTS; attempt++) {
+      try {
+        execFileSync(
+          "npx",
+          ["ts-node", "scripts/validate-plan.ts", ctx.planDir],
+          {
+            stdio: "pipe",
+            encoding: "utf-8",
+          },
+        );
+
+        const msg =
+          allFixes.length > 0
+            ? `Passed after ${attempt} auto-fix round(s): ${allFixes.join("; ")}`
+            : "완료";
+        return {
+          stageId: "7-validate",
+          status: "success",
+          artifacts: [path.join(ctx.planDir, ".validation")],
+          durationMs: Date.now() - start,
+          message: msg,
+        };
+      } catch (err: unknown) {
+        if (attempt >= MAX_AUTOFIX_ATTEMPTS) {
+          const msg = err instanceof Error ? err.message : String(err);
+          return {
+            stageId: "7-validate",
+            status: "halted",
+            artifacts: [],
+            durationMs: Date.now() - start,
+            message: `Validation failed after ${attempt} auto-fix attempt(s): ${msg.slice(0, 200)}`,
+          };
+        }
+
+        // Attempt auto-fix on failing blueprints
+        const { fixedCount, fixes } = runAutoFixOnBlueprints(ctx.planDir);
+        if (fixedCount === 0) {
+          const msg = err instanceof Error ? err.message : String(err);
+          return {
+            stageId: "7-validate",
+            status: "halted",
+            artifacts: [],
+            durationMs: Date.now() - start,
+            message: `Validation failed, no safe auto-fixes available: ${msg.slice(0, 200)}`,
+          };
+        }
+
+        allFixes.push(...fixes);
+        console.log(
+          `  🔧 Auto-fix round ${attempt + 1}: ${fixedCount} blueprint(s) fixed`,
+        );
+        for (const f of fixes) console.log(`     ${f}`);
+      }
     }
+
+    // Unreachable, but TypeScript needs it
+    return {
+      stageId: "7-validate",
+      status: "halted",
+      artifacts: [],
+      durationMs: Date.now() - start,
+    };
   },
 };
 
@@ -198,13 +304,116 @@ const promoteStage: DsgsStage = {
   name: "ScenePromoter",
   async run(ctx: DsgsContext): Promise<DsgsStageResult> {
     const start = Date.now();
-    // Stub in v1 — promotion logic TBD
+    const observations: PromotionObservation[] = [];
+
+    // 1. Load blueprints
+    const bpDir = path.join(ctx.planDir, "06-blueprints");
+    if (!existsSync(bpDir)) {
+      return {
+        stageId: "9-promote",
+        status: "skipped",
+        artifacts: [],
+        durationMs: Date.now() - start,
+        message: "No blueprints directory found",
+      };
+    }
+
+    const bpFiles = readdirSync(bpDir).filter((f) =>
+      f.endsWith(".blueprint.json"),
+    );
+
+    // 2. Load beat plan
+    const beatPlanPath = path.join(ctx.planDir, "06.3-beat-plan.json");
+    let beatPlanEntries: BeatPlanEntry[] = [];
+    if (existsSync(beatPlanPath)) {
+      try {
+        const raw = JSON.parse(readFileSync(beatPlanPath, "utf-8"));
+        beatPlanEntries = raw.entries ?? [];
+      } catch {
+        /* ignore parse error */
+      }
+    }
+
+    // 3. Load TTS manifest for beatTimings
+    const manifestPath = path.resolve("assets/tts/manifest.json");
+    let manifestEntries: Array<{
+      sceneId: string;
+      beatTimings?: BeatTimingResolution[];
+    }> = [];
+    if (existsSync(manifestPath)) {
+      try {
+        manifestEntries = JSON.parse(readFileSync(manifestPath, "utf-8"));
+      } catch {
+        /* ignore parse error */
+      }
+    }
+
+    // 4. Load art direction
+    const artDirPath = path.join(ctx.planDir, "02-art-direction.json");
+    let artDirection: BookArtDirection | undefined;
+    if (existsSync(artDirPath)) {
+      try {
+        artDirection = JSON.parse(readFileSync(artDirPath, "utf-8"));
+      } catch {
+        /* ignore */
+      }
+    }
+
+    // 5. Observe each blueprint
+    for (const file of bpFiles) {
+      try {
+        const bp: SceneBlueprint = JSON.parse(
+          readFileSync(path.join(bpDir, file), "utf-8"),
+        );
+
+        // Find beats from beat plan
+        const beatEntry = beatPlanEntries.find((e) => e.sceneId === bp.id);
+        const beats: Beat[] = beatEntry?.beats ?? [];
+
+        // Find beat timings from TTS manifest
+        const manifestEntry = manifestEntries.find((e) => e.sceneId === bp.id);
+        const beatTimings: BeatTimingResolution[] =
+          manifestEntry?.beatTimings ?? [];
+
+        const obs = observeBlueprint(
+          bp,
+          ctx.bookId,
+          beats,
+          beatTimings,
+          artDirection,
+        );
+        if (obs) observations.push(obs);
+      } catch {
+        /* skip malformed blueprints */
+      }
+    }
+
+    if (observations.length === 0) {
+      return {
+        stageId: "9-promote",
+        status: "skipped",
+        artifacts: [],
+        durationMs: Date.now() - start,
+        message: "No synthesized blueprints to observe",
+      };
+    }
+
+    // 6. Log observations
+    const outPath = path.join(ctx.planDir, "promotion-observations.json");
+    const summary = observations.map((obs) => ({
+      ...obs,
+      ...checkPromotionEligibility(obs),
+    }));
+    writeFileSync(outPath, JSON.stringify(summary, null, 2), "utf-8");
+
+    const eligible = summary.filter((s) => s.eligible).length;
+
     return {
       stageId: "9-promote",
-      status: "skipped",
-      artifacts: [],
+      status: "success",
+      artifacts: [outPath],
       durationMs: Date.now() - start,
-      message: "Promotion stage not yet implemented",
+      message: `Observed ${observations.length} synthesized blueprints. ${eligible}/${observations.length} promotion-eligible.`,
     };
   },
 };
