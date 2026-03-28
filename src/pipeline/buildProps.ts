@@ -148,12 +148,13 @@ export function buildCompositionProps(
     };
 
     if (spec.source === "composed") {
+      const composedFormat = format === "both" ? "longform" : format;
       const compositionCtx: CompositionContext = {
-        format,
+        format: composedFormat,
         theme,
         from: scene.from,
         durationFrames: scene.resolvedDuration,
-        motionPreset: resolvedMotion?.preset ?? "heavy",
+        motionPreset: resolvedMotion?.enterPreset ?? "heavy",
       };
       const composedBlueprint = tryComposeScene(spec, compositionCtx);
       if (composedBlueprint) {
