@@ -1,5 +1,5 @@
 import type { SceneType } from "@/types";
-import type { SceneSpec, DirectionProfile } from "./types";
+import type { SceneSpec, DirectionProfile, SceneFamily } from "./types";
 import { resolveSceneFamily } from "./interpretationBootstrap";
 import { analyzeNarrationSemantics } from "./beat/BeatSemanticAnalyzer";
 import { resolveBeatProfile } from "./beat/BeatProfileResolver";
@@ -46,10 +46,16 @@ interface MinimalScene {
   content: Record<string, unknown>;
 }
 
+interface AdaptOptions {
+  /** Families that should use composed path instead of preset. Type-safe SceneFamily[]. */
+  composedFamilies?: SceneFamily[];
+}
+
 export function adaptPresetToSceneSpec(
   scene: MinimalScene,
   direction: DirectionProfile,
   bookStructure?: string,
+  options?: AdaptOptions,
 ): SceneSpec {
   const family = resolveSceneFamily(scene.type, bookStructure);
   const layout = (PRESET_LAYOUT_MAP[scene.type] ?? "center-focus") as any;
@@ -64,6 +70,12 @@ export function adaptPresetToSceneSpec(
     beatProfile = compileBeatTimeline(semanticPlan, resolved, direction);
   }
 
+  const source: SceneSpec["source"] = options?.composedFamilies?.includes(
+    family,
+  )
+    ? "composed"
+    : "preset";
+
   return {
     id: scene.id,
     family,
@@ -74,7 +86,7 @@ export function adaptPresetToSceneSpec(
     direction,
     beatProfile,
     durationStrategy: { mode: scene.narrationText ? "tts-driven" : "fixed" },
-    source: "preset",
+    source,
     confidence: 1.0,
     fallbackPreset: scene.type as SceneType,
     narrationText: scene.narrationText,
