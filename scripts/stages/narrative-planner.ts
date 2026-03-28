@@ -115,7 +115,7 @@ function estimateTargetDuration(book: BookContent): number {
   );
 
   if (totalChars > 0) {
-    const estimated = Math.round(totalChars / 5.7);
+    const estimated = Math.round(totalChars / 7.5);
     return Math.max(120, Math.min(600, estimated));
   }
 

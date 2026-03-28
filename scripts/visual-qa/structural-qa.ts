@@ -62,8 +62,8 @@ export interface VisualQAReport {
 // Constants
 // ---------------------------------------------------------------------------
 
-/** Characters per second for Korean TTS (edge-tts ko-KR-SunHiNeural speed=1) */
-const DEFAULT_CPS = 5.7;
+/** Characters per second for Korean TTS (Fish Audio S2-Pro 실측 7.49) */
+const DEFAULT_CPS = 7.5;
 const FPS = 30;
 
 /** Max headline length per CLAUDE.md */

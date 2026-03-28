@@ -74,6 +74,6 @@ thumbnail 필드가 이미 존재하면 이 단계를 건너뛴다.
 
 ## CPS 참조
 
-- edge-tts ko-KR-SunHiNeural speed=1 기준: ~5.7 chars/sec
-- speed 변경 시 비례 조정 (speed=1.2 → CPS ≈ 6.8)
+- Fish Audio S2-Pro 기준: ~7.5 chars/sec (실측 7.49)
+- speed 변경 시 비례 조정 (speed=1.2 → CPS ≈ 9.0)
 - QA-13A가 pre-TTS 글자수 검증, QA-13B가 post-TTS 실제 시간 검증

@@ -4,7 +4,7 @@ import type {
   EditorialOutline,
 } from "../types";
 
-const KOREAN_CPS = 5.7;
+const KOREAN_CPS = 7.5;
 
 export function validateDuration(
   storyboard: StoryboardPlan,

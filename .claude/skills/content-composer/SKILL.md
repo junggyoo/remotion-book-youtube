@@ -81,8 +81,8 @@ content-generation-contract.md의 절차를 따른다:
 
 1. `production.targetDurationSeconds` 설정 (보통 300~480초)
 2. 총 나레이션 글자수 = targetDurationSeconds × CPS
-   - qwen3-tts speed=1.25 기준: CPS ≈ 7.1
-   - edge-tts speed=1 기준: CPS ≈ 5.7
+   - Fish Audio S2-Pro 기준: CPS ≈ 7.5 (실측 7.49)
+   - edge-tts fallback 기준: CPS ≈ 5.7
 3. 각 씬의 글자수 = 씬 duration 비율에 비례하여 배분
 4. 씬별 minChars 이상 필수, maxChars 초과 금지
 

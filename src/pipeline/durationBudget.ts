@@ -40,10 +40,11 @@ export interface SceneBudgetPlan {
 // ---------------------------------------------------------------------------
 
 /**
- * Korean characters per second for edge-tts ko-KR-SunHiNeural at speed 1.
- * Calibrated from actual TTS output: 981 chars / 171.9s ≈ 5.7 CPS.
+ * Korean characters per second for Fish Audio S2-Pro.
+ * Calibrated from actual TTS output: Fish Audio 실측 7.49 CPS.
+ * (이전 edge-tts 기준 5.7에서 변경)
  */
-const KOREAN_CPS_DEFAULT = 5.7;
+const KOREAN_CPS_DEFAULT = 7.5;
 
 /** Per-scene type minimum character formulas: base + perItem × itemCount */
 const CHAR_FORMULAS: Record<string, { base: number; perItem: number }> = {
