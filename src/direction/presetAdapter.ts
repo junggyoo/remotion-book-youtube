@@ -4,6 +4,7 @@ import { resolveSceneFamily } from "./interpretationBootstrap";
 import { analyzeNarrationSemantics } from "./beat/BeatSemanticAnalyzer";
 import { resolveBeatProfile } from "./beat/BeatProfileResolver";
 import { compileBeatTimeline } from "./beat/BeatTimelineCompiler";
+import type { InterpretationResult } from "@/interpretation/types";
 
 const PRESET_LAYOUT_MAP: Record<string, string> = {
   cover: "center-focus",
@@ -49,6 +50,8 @@ interface MinimalScene {
 interface AdaptOptions {
   /** Families that should use composed path instead of preset. Type-safe SceneFamily[]. */
   composedFamilies?: SceneFamily[];
+  /** Optional interpretation result to override family, layout, choreography, and meta. */
+  interpretation?: InterpretationResult;
 }
 
 export function adaptPresetToSceneSpec(
@@ -57,10 +60,25 @@ export function adaptPresetToSceneSpec(
   bookStructure?: string,
   options?: AdaptOptions,
 ): SceneSpec {
-  const family = resolveSceneFamily(scene.type, bookStructure);
-  const layout = (PRESET_LAYOUT_MAP[scene.type] ?? "center-focus") as any;
-  const choreography = (PRESET_CHOREOGRAPHY_MAP[scene.type] ??
+  const interpretation = options?.interpretation;
+
+  // Resolve family: interpretation wins over bootstrap
+  const family = interpretation
+    ? interpretation.family
+    : resolveSceneFamily(scene.type, bookStructure);
+
+  // Resolve layout: interpretation hint wins over preset default
+  const presetLayout = (PRESET_LAYOUT_MAP[scene.type] ?? "center-focus") as any;
+  const layout = interpretation?.layoutHint
+    ? (interpretation.layoutHint as any)
+    : presetLayout;
+
+  // Resolve choreography: interpretation hint wins over preset default
+  const presetChoreography = (PRESET_CHOREOGRAPHY_MAP[scene.type] ??
     "reveal-sequence") as any;
+  const choreography = interpretation?.choreographyHint
+    ? (interpretation.choreographyHint as any)
+    : presetChoreography;
 
   // Phase 1: Semantic beat profile
   let beatProfile;
@@ -70,11 +88,38 @@ export function adaptPresetToSceneSpec(
     beatProfile = compileBeatTimeline(semanticPlan, resolved, direction);
   }
 
+  // Source is determined by the FINAL family vs composedFamilies
   const source: SceneSpec["source"] = options?.composedFamilies?.includes(
     family,
   )
     ? "composed"
     : "preset";
+
+  // Build interpretationMeta
+  const derivedFrom = interpretation
+    ? [
+        ...interpretation.trace.derivedFrom,
+        ...(interpretation.layoutHint
+          ? [`layout:${interpretation.layoutHint}`]
+          : []),
+        ...(interpretation.choreographyHint
+          ? [`choreography:${interpretation.choreographyHint}`]
+          : []),
+      ]
+    : [`preset:${scene.type}`, `direction:${direction.name}`];
+
+  const interpretationMeta: SceneSpec["interpretationMeta"] = {
+    derivedFrom,
+    whyThisFamily: interpretation
+      ? interpretation.trace.whyThisFamily
+      : `${scene.type} → ${family} (preset adapter default mapping)`,
+    whyThisDirection:
+      interpretation?.trace.whyThisDirection ??
+      `${direction.name} (book-level direction from interpretation bootstrap)`,
+    ...(interpretation?.trace.alternativeChoices
+      ? { alternativeChoices: interpretation.trace.alternativeChoices }
+      : {}),
+  };
 
   return {
     id: scene.id,
@@ -87,15 +132,11 @@ export function adaptPresetToSceneSpec(
     beatProfile,
     durationStrategy: { mode: scene.narrationText ? "tts-driven" : "fixed" },
     source,
-    confidence: 1.0,
+    confidence: interpretation ? interpretation.familyConfidence : 1.0,
     fallbackPreset: scene.type as SceneType,
     narrationText: scene.narrationText,
     content: scene.content,
-    interpretationMeta: {
-      derivedFrom: [`preset:${scene.type}`, `direction:${direction.name}`],
-      whyThisFamily: `${scene.type} → ${family} (preset adapter default mapping)`,
-      whyThisDirection: `${direction.name} (book-level direction from interpretation bootstrap)`,
-    },
+    interpretationMeta,
     constraintHints: { accentBudget: 2, subtitleMode: "standard" },
     brandValidation: { status: "pending" },
   };
