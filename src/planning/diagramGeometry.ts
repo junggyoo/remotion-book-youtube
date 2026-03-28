@@ -242,7 +242,7 @@ function buildCycleGeometry(
       id: makeNodeId(i),
       cx: cx + radius * Math.cos(angle),
       cy: cy + radius * Math.sin(angle),
-      label: `Node ${i + 1}`,
+      label: spec.nodeLabels?.[i] ?? `Node ${i + 1}`,
       labelBounds: labelB,
     });
   }
@@ -280,7 +280,7 @@ function buildFlowGeometry(
       id: makeNodeId(i),
       cx: margin + i * spacing,
       cy: centerY,
-      label: `Step ${i + 1}`,
+      label: spec.nodeLabels?.[i] ?? `Step ${i + 1}`,
       labelBounds: labelB,
     });
   }
@@ -325,7 +325,7 @@ function buildSplitGeometry(
         id: makeNodeId(i),
         cx: spacing * (i + 1),
         cy: h / 2,
-        label: `Part ${i + 1}`,
+        label: spec.nodeLabels?.[i] ?? `Part ${i + 1}`,
         labelBounds: labelB,
       });
     }
@@ -336,7 +336,7 @@ function buildSplitGeometry(
         id: makeNodeId(i),
         cx: w / 2,
         cy: spacing * (i + 1),
-        label: `Layer ${i + 1}`,
+        label: spec.nodeLabels?.[i] ?? `Layer ${i + 1}`,
         labelBounds: labelB,
       });
     }
@@ -380,7 +380,7 @@ function buildTimelineGeometry(
       id: makeNodeId(i),
       cx: margin + i * spacing,
       cy: centerY,
-      label: `Event ${i + 1}`,
+      label: spec.nodeLabels?.[i] ?? `Event ${i + 1}`,
       labelBounds: labelB,
     });
   }
@@ -428,7 +428,7 @@ function buildPyramidGeometry(
       id: makeNodeId(i),
       cx: w / 2,
       cy: topMargin + i * layerHeight + layerHeight / 2,
-      label: `Level ${i + 1}`,
+      label: spec.nodeLabels?.[i] ?? `Level ${i + 1}`,
       labelBounds: {
         width: Math.round(w * widthRatio * LABEL_WIDTH_RATIO * 2),
         height: labelB.height,

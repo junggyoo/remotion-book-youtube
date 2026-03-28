@@ -134,6 +134,8 @@ export interface FrameworkContent {
   items: FrameworkItem[]; // max 5
   showConnectors?: boolean;
   showDescriptions?: boolean;
+  /** P2-1f: metaphor string for diagram pipeline (e.g., "circular cycle", "timeline") */
+  diagramHint?: string;
 }
 
 export interface ApplicationStep {
@@ -1024,6 +1026,8 @@ export type DiagramCompletionBehavior = "hold" | "zoom-node";
 export interface DiagramSpec {
   diagramType: DiagramType;
   nodeCount?: number;
+  /** P2-1f: 실제 노드 라벨 텍스트 (없으면 geometry builder 기본값 사용) */
+  nodeLabels?: string[];
   connectionPattern: ConnectionPattern;
   animationHint: AnimationHint;
   layoutHint?: DiagramLayoutHint;

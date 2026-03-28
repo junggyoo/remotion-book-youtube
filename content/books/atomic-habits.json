@@ -237,7 +237,8 @@
           }
         ],
         "showConnectors": true,
-        "showDescriptions": true
+        "showDescriptions": true,
+        "diagramHint": "circular cycle"
       },
       "beats": [
         {
