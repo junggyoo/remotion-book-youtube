@@ -22,16 +22,22 @@ import { AccentBar } from "@/components/primitives/AccentBar";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import { motionPresets } from "@/design/tokens";
+import motionPresetsData from "@/design/tokens/motion-presets.json";
 
 // zIndex layers
 const LAYERS = {
   background: 0,
+  bgPulse: 2,
   texture: 5,
   accentBar: 20,
   headline: 30,
   supportText: 25,
   evidenceBar: 35,
 } as const;
+
+// --- Choreography timing ---
+const ACCENT_BAR_LENGTH = 64;
+const HEADLINE_STAGGER = 5;
 
 // Wildcard stagger — sequential entrance when no explicit beats
 const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
@@ -43,19 +49,19 @@ const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
   },
   headline: {
     visibility: "entering",
-    entryFrame: 9, // ~0.3s after AccentBar
+    entryFrame: 6,
     emphasis: false,
-    motionPreset: "wordReveal",
+    motionPreset: "punchy",
   },
   supportText: {
     visibility: "entering",
-    entryFrame: 24, // ~0.3s after headline start + stagger
+    entryFrame: 28,
     emphasis: false,
-    motionPreset: "heavy",
+    motionPreset: "smooth",
   },
   evidenceCard: {
     visibility: "entering",
-    entryFrame: 39, // ~0.5s after supportText
+    entryFrame: 42,
     emphasis: false,
     motionPreset: "smooth",
   },
@@ -66,8 +72,8 @@ interface KeyInsightSceneProps extends BaseSceneProps {
 }
 
 /**
- * EvidenceBar — full-width bottom bar with accent background.
- * Replaces the old card-style EvidenceCard.
+ * EvidenceBar — full-width bottom bar with accent background + glow.
+ * Slide-up entrance with accent glow pulse.
  */
 const EvidenceBar: React.FC<{
   value: string;
@@ -93,15 +99,28 @@ const EvidenceBar: React.FC<{
   const { typeScale } = useFormat(format);
 
   const localFrame = Math.max(0, frame - startFrame);
+
+  // Slide-up with punchy spring
   const progress = spring({
     frame: localFrame,
     fps,
-    config: motionPresets.presets.smooth.config,
-    durationInFrames: 24,
+    config: motionPresetsData.presets.punchy.config,
   });
 
-  const translateY = interpolate(progress, [0, 1], [60, 0]);
+  const translateY = interpolate(progress, [0, 1], [40, 0]);
   const opacity = interpolate(progress, [0, 1], [0, 1]);
+  const blur = interpolate(progress, [0, 1], [4, 0]);
+
+  // Accent glow pulse after entrance
+  const glowProgress = interpolate(localFrame, [10, 20, 40], [0, 0.25, 0.08], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // hex → rgb
+  const ar = parseInt(accentColor.slice(1, 3), 16);
+  const ag = parseInt(accentColor.slice(3, 5), 16);
+  const ab = parseInt(accentColor.slice(5, 7), 16);
 
   return (
     <div
@@ -112,7 +131,8 @@ const EvidenceBar: React.FC<{
         right: 0,
         transform: `translateY(${translateY}px)`,
         opacity,
-        willChange: "opacity, transform",
+        filter: `blur(${blur}px)`,
+        willChange: "opacity, transform, filter",
       }}
     >
       <div
@@ -121,6 +141,19 @@ const EvidenceBar: React.FC<{
           opacity: 0.15,
           position: "absolute",
           inset: 0,
+        }}
+      />
+      {/* Accent glow line at top edge */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 2,
+          backgroundColor: accentColor,
+          boxShadow: `0 0 ${sp(4)}px rgba(${ar},${ag},${ab},${glowProgress})`,
+          opacity: interpolate(progress, [0, 1], [0, 0.8]),
         }}
       />
       <div
@@ -171,6 +204,8 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   content,
   beats,
 }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showSupportText = !isShorts && !!content.supportText;
 
@@ -199,13 +234,58 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
 
   // Evidence bar entry frame
   const evidenceState = getBeatState("evidenceCard");
-  const evidenceEntryFrame = evidenceState?.entryFrame ?? 39;
+  const evidenceEntryFrame = evidenceState?.entryFrame ?? 42;
+
+  // --- Slow-zoom: cinematic 1.0→1.03 over scene duration ---
+  const slowZoom = interpolate(frame, [0, durationFrames], [1.0, 1.03], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // --- Background radial pulse on headline entrance ---
+  const headlineEntryFrame = getBeatState("headline")?.entryFrame ?? 6;
+  const bgPulseStart = headlineEntryFrame + 8;
+  const bgPulseProgress = interpolate(
+    frame,
+    [bgPulseStart, bgPulseStart + 15, bgPulseStart + 45],
+    [0, 0.1, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+
+  // hex → rgb for accent color
+  const ar = parseInt(theme.accent.slice(1, 3), 16);
+  const ag = parseInt(theme.accent.slice(3, 5), 16);
+  const ab = parseInt(theme.accent.slice(5, 7), 16);
+
+  // --- SupportText entrance (wildcard mode) ---
+  const supportTextState = getBeatState("supportText");
+  const supportTextEntry = supportTextState?.entryFrame ?? 28;
+  const supportTextSpring = isWildcard
+    ? spring({
+        frame: Math.max(0, frame - supportTextEntry),
+        fps,
+        config: motionPresetsData.presets.smooth.config,
+      })
+    : 1;
+  const supportTextBlur = interpolate(supportTextSpring, [0, 1], [6, 0]);
+  const supportTextTranslateY = interpolate(supportTextSpring, [0, 1], [20, 0]);
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
       {/* Background */}
       <AbsoluteFill
         style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
+      />
+
+      {/* Background radial pulse */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.bgPulse,
+          background: `radial-gradient(ellipse 60% 45% at 30% 35%, rgba(${ar},${ag},${ab},${bgPulseProgress}) 0%, transparent 70%)`,
+          pointerEvents: "none",
+        }}
       />
 
       {/* Texture */}
@@ -217,8 +297,17 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         }}
       />
 
-      {/* Main content */}
-      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.headline }}>
+      {/* Main content — wrapped in slow-zoom */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.headline,
+          transform: `scale(${slowZoom})`,
+          transformOrigin: "30% 40%",
+          willChange: "transform",
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
@@ -230,7 +319,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
               paddingTop: isShorts ? sp(6) : sp(10),
             }}
           >
-            {/* Vertical AccentBar — top-left anchor */}
+            {/* Vertical AccentBar — top-left anchor, extended + glow */}
             <div style={{ zIndex: LAYERS.accentBar, marginBottom: sp(5) }}>
               <BeatElement
                 elementKey="accentBar"
@@ -239,16 +328,22 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                 theme={theme}
                 motionType="none"
               >
-                <AccentBar
-                  direction="vertical"
-                  length={48}
-                  color={theme.accent}
-                  startFrame={accentBarEntryFrame}
-                />
+                <div
+                  style={{
+                    filter: `drop-shadow(0 0 ${sp(2)}px rgba(${ar},${ag},${ab},0.3))`,
+                  }}
+                >
+                  <AccentBar
+                    direction="vertical"
+                    length={ACCENT_BAR_LENGTH}
+                    color={theme.accent}
+                    startFrame={accentBarEntryFrame}
+                  />
+                </div>
               </BeatElement>
             </div>
 
-            {/* Headline — KineticText word stagger, left-aligned */}
+            {/* Headline — punchy word-by-word reveal */}
             <div style={{ zIndex: LAYERS.headline, marginBottom: sp(5) }}>
               <BeatElement
                 elementKey="headline"
@@ -264,16 +359,25 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                   variant="headlineXL"
                   weight="bold"
                   align="left"
-                  motionPreset="wordReveal"
-                  delay={getBeatState("headline")?.entryFrame ?? 9}
+                  motionPreset="punchy"
+                  staggerDelay={HEADLINE_STAGGER}
+                  delay={getBeatState("headline")?.entryFrame ?? 6}
                   emphasisWord={content.underlineKeyword}
                 />
               </BeatElement>
             </div>
 
-            {/* Support text — bodyL, muted, left-aligned */}
+            {/* Support text — blur-in + translateY spring entrance */}
             {showSupportText && (
-              <div style={{ zIndex: LAYERS.supportText }}>
+              <div
+                style={{
+                  zIndex: LAYERS.supportText,
+                  opacity: interpolate(supportTextSpring, [0, 1], [0, 1]),
+                  transform: `translateY(${supportTextTranslateY}px)`,
+                  filter: `blur(${supportTextBlur}px)`,
+                  willChange: "opacity, transform, filter",
+                }}
+              >
                 <BeatElement
                   elementKey="supportText"
                   beatState={getBeatState("supportText")}
@@ -300,7 +404,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
         </SafeArea>
       </div>
 
-      {/* Evidence bar — full-width bottom accent bar */}
+      {/* Evidence bar — full-width bottom accent bar with glow */}
       {content.evidenceCard && (
         <div
           style={{ position: "absolute", inset: 0, zIndex: LAYERS.evidenceBar }}
