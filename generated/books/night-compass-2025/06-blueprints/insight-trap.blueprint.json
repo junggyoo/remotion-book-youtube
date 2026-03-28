@@ -1,0 +1,82 @@
+{
+  "id": "insight-trap",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "논리가 곧 함정이 되는 순간",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "함정"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "뢰넌의 추론은 정확했습니다. 하지만 그 정확함이야말로 살인마 슈아흐만이 설계한 함정이었습니다. 탐정은 자기 논리에 이끌려 마지막 살인 장소로 스스로 걸어갑니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1560,
+  "mediaPlan": {
+    "narrationText": "여기서 소름끼치는 반전이 옵니다. 뢰넌은 네 번째 살인 장소를 추론해냅니다. 마름모의 마지막 꼭짓점을 계산한 거죠. 그리고 그곳으로 직접 찾아갑니다. 범인을 잡겠다는 확신에 가득 차서요. 하지만... 그곳에서 기다리고 있던 건 범인이 아니라, 범인이 설치한 함정이었습니다. 슈아흐만은 처음부터 뢰넌의 논리를 이용했습니다. 뢰넌이 추론하게 만들고, 추론이 이끄는 곳으로 오게 만든 겁니다. 탐정의 논리가 정확할수록, 함정은 더 완벽해졌습니다. 이것이 보르헤스가 말하는 이성의 자기파괴입니다. 우리가 가진 가장 강력한 무기인 논리와 이성이, 바로 그 힘 때문에 우리를 가장 깊은 함정으로 이끌 수 있다는 것. 당신의 무기가 곧 당신의 약점이 되는 순간입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "id": "application-01",
+  "intent": "Application flow with 3 step(s) in path-trace reveal",
+  "origin": "preset",
+  "layout": "map-flow",
+  "elements": [
+    {
+      "id": "application-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "application-anchorStatement",
+      "type": "headline",
+      "props": {
+        "text": "이성의 함정을 피하는 3가지 태도",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineM",
+        "weight": "bold"
+      }
+    },
+    {
+      "id": "application-steps-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "확신을 의심하라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-0-detail",
+      "type": "caption",
+      "props": {
+        "text": "논리가 완벽해 보일수록 한 발 물러서서 전제를 점검하세요",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "다른 패턴을 상상하라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-1-detail",
+      "type": "caption",
+      "props": {
+        "text": "하나의 해석에 몰입하지 말고 대안 가설을 항상 열어두세요",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "행동 전에 멈춰라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "application-steps-2-detail",
+      "type": "caption",
+      "props": {
+        "text": "확신이 행동을 재촉할 때가 가장 위험한 순간입니다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "application-paths",
+      "type": "shape",
+      "props": {
+        "role": "path-connector",
+        "layer": 25,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "application-emphasis",
+      "type": "icon",
+      "props": {
+        "role": "checkmark",
+        "layer": 40
+      }
+    }
+  ],
+  "choreography": "path-trace",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1560,
+  "mediaPlan": {
+    "narrationText": "그렇다면 이 이야기가 우리 삶에 주는 교훈은 뭘까요? 이성의 함정을 피하는 세 가지 태도가 있습니다. 첫째, 확신을 의심하세요. 논리가 완벽해 보일수록 한 발 물러서야 합니다. 투자에서든, 인간관계에서든, 내 분석이 틀림없어라고 느끼는 바로 그 순간이 가장 위험합니다. 뢰넌처럼 자기 추론에 도취하지 마세요. 둘째, 다른 패턴을 상상하세요. 뢰넌의 실수는 삼각형만 보고 마름모를 상상하지 못한 겁니다. 하나의 해석에 매몰되면 다른 가능성이 사라집니다. 항상 이렇게 물어보세요. 내가 놓치고 있는 다른 패턴은 없을까? 셋째, 확신이 행동을 재촉할 때 멈추세요. 뢰넌은 네 번째 장소를 확신하자마자 달려갔습니다. 하지만 그 확신이 바로 함정이었죠. 중대한 결정 앞에서 확신이 조급함으로 바뀔 때, 그때가 멈춰야 할 순간입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

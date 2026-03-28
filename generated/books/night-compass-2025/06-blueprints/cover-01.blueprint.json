@@ -1,0 +1,99 @@
+{
+  "id": "cover-01",
+  "intent": "Book cover reveal with title, author, and brand",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "cover-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "cover-image",
+      "type": "image",
+      "props": {
+        "src": "covers/night-compass-cover.jpg",
+        "layer": 25,
+        "role": "book-cover"
+      }
+    },
+    {
+      "id": "cover-title",
+      "type": "headline",
+      "props": {
+        "text": "밤과 나침반",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL"
+      }
+    },
+    {
+      "id": "cover-subtitle",
+      "type": "body-text",
+      "props": {
+        "text": "이성이 스스로를 파괴하는 미로",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyM"
+      }
+    },
+    {
+      "id": "cover-author",
+      "type": "body-text",
+      "props": {
+        "text": "호르헤 루이스 보르헤스",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyS"
+      }
+    },
+    {
+      "id": "cover-brandLabel",
+      "type": "label",
+      "props": {
+        "text": "Editorial Signal",
+        "layer": 40,
+        "tokenRef": "typeScale.label"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "dramatic",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1728,
+  "mediaPlan": {
+    "narrationText": "호르헤 루이스 보르헤스의 밤과 나침반. 아르헨티나가 낳은 세계 문학의 거장이 1942년에 발표한 이 단편은 20세기 최고의 추리 문학 중 하나로 꼽힙니다. 이 작품이 던지는 질문을 함께 파헤쳐 봅니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

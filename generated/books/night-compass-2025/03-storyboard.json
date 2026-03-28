@@ -1,0 +1,176 @@
+{
+  "bookId": "night-compass-2025",
+  "totalScenes": 10,
+  "estimatedDurationSeconds": 480,
+  "scenes": [
+    {
+      "sceneId": "hook-01",
+      "order": 0,
+      "purpose": "시선을 사로잡는 후크: 추론이 정확할수록 죽음에 가까워진다",
+      "narrativeGoal": "여러분, 추리소설에서 가장 똑똑한 탐정이 범인을 잡으러 갔는데",
+      "visualFunction": "hook",
+      "visualIntent": "강렬한 텍스트 등장, 키워드 강조",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "추론이 정확할수록 죽음에 가까워진다",
+        "가장 똑똑한 탐정이 자기 논리로 파멸한 이야기"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "blueprint",
+      "blueprintId": "hook-01"
+    },
+    {
+      "sceneId": "cover-01",
+      "order": 1,
+      "purpose": "책 표지와 브랜드 소개",
+      "narrativeGoal": "호르헤 루이스 보르헤스의 밤과 나침반",
+      "visualFunction": "transition",
+      "visualIntent": "표지 이미지 중심 레이아웃, 브랜드 라벨 배치",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "밤과 나침반",
+        "호르헤 루이스 보르헤스"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "cover"
+    },
+    {
+      "sceneId": "insight-detective",
+      "order": 2,
+      "purpose": "핵심 인사이트 전달: 탐정 뢰넌, 카발라에 빠지다",
+      "narrativeGoal": "이야기는 1940년대 부에노스아이레스에서 시작됩니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "탐정 뢰넌, 카발라에 빠지다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "chapter-01",
+      "order": 3,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "그런데 여기서 정말 중요한 질문이 있습니다",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 19.2,
+      "onScreenText": [
+        "미로 속으로"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "compare-01",
+      "order": 4,
+      "purpose": "대비를 통한 이해 강화",
+      "narrativeGoal": "여기서 핵심적인 대비가 드러납니다",
+      "visualFunction": "compare",
+      "visualIntent": "좌우 분할 패널, 순차 공개",
+      "layoutMode": "split-compare",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "탐정의 추론 (삼각형)",
+        "살인마의 계획 (마름모)",
+        "살인은 3회 → 삼각형 패턴 → 카발라의 신성한 숫자 3 → 사건 종결",
+        "살인은 4회 → 마름모 패턴 → 4번째 꼭짓점이 함정 → 탐정 유인"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
+    },
+    {
+      "sceneId": "insight-trap",
+      "order": 5,
+      "purpose": "핵심 인사이트 전달: 논리가 곧 함정이 되는 순간",
+      "narrativeGoal": "여기서 소름끼치는 반전이 옵니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "논리가 곧 함정이 되는 순간"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "quote-01",
+      "order": 6,
+      "purpose": "핵심 명언으로 감정적 임팩트: 미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기",
+      "narrativeGoal": "보르헤스는 이 이야기의 핵심을 단 한 문장에 담았습니다",
+      "visualFunction": "quote",
+      "visualIntent": "serif 서체 인용문 중앙 배치, texture 배경",
+      "layoutMode": "quote-hold",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다."
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "quote"
+    },
+    {
+      "sceneId": "application-01",
+      "order": 7,
+      "purpose": "실천 방법 제시",
+      "narrativeGoal": "그렇다면 이 이야기가 우리 삶에 주는 교훈은 뭘까요",
+      "visualFunction": "process",
+      "visualIntent": "anchor statement 후 step 순차 공개",
+      "layoutMode": "left-anchor",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "이성의 함정을 피하는 3가지 태도",
+        "확신을 의심하라",
+        "다른 패턴을 상상하라",
+        "행동 전에 멈춰라"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "application"
+    },
+    {
+      "sceneId": "insight-recap",
+      "order": 8,
+      "purpose": "핵심 인사이트 전달: 이성은 도구이지, 나침반이 아니다",
+      "narrativeGoal": "정리하겠습니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 52,
+      "onScreenText": [
+        "이성은 도구이지, 나침반이 아니다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "closing-01",
+      "order": 9,
+      "purpose": "행동 촉구 + CTA",
+      "narrativeGoal": "오늘 어떤 확신이 드셨을 때, 한 번만 멈춰보세요",
+      "visualFunction": "compress-recap",
+      "visualIntent": "recap statement 중앙 + CTA 텍스트 하단",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 33.6,
+      "onScreenText": [
+        "확신이 클수록, 한 발 물러서세요",
+        "구독과 좋아요로 더 많은 인사이트를 받아보세요"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "closing"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "synth-setup-0-0",
+  "intent": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618",
+  "origin": "synthesized",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "synth-emphasis-bg",
+      "type": "color-block",
+      "props": {
+        "colorKey": "surface",
+        "layer": 0
+      }
+    },
+    {
+      "id": "synth-emphasis-headline",
+      "type": "headline",
+      "props": {
+        "text": "추론이 정확할수록 죽음에 가까워진다",
+        "layer": 40,
+        "tokenRef": "typeScale.headlineM",
+        "weight": "bold",
+        "align": "center"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "snappy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 180,
+  "mediaPlan": {
+    "narrationText": "cover: d=0.67 s=0.50 c=0.80 l=0.40 → 0.618",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  },
+  "lifecycle": "ephemeral",
+  "fallbackPreset": "cover",
+  "fallbackContent": {
+    "title": "추론이 정확할수록 죽음에 가까워진다",
+    "author": "",
+    "coverImageUrl": "covers/placeholder.png"
+  },
+  "synthesisConfidence": 0.5
+}

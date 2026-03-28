@@ -1,0 +1,29 @@
+{
+  "bookId": "night-compass-2025",
+  "palette": {
+    "primary": "#6366F1",
+    "secondary": "#475569",
+    "contrast": "medium"
+  },
+  "signalColor": "#6366F1",
+  "shapeLanguage": "geometric",
+  "textureMood": "paper",
+  "visualMetaphors": [
+    {
+      "concept": "split comparison",
+      "metaphor": "side-by-side contrasting panels with divider",
+      "usage": "compareContrast scene — 전/후 또는 대비 시각화"
+    },
+    {
+      "concept": "quote emphasis",
+      "metaphor": "large serif typography with subtle texture overlay",
+      "usage": "quote scene — 인용구 강조 및 여백 활용"
+    }
+  ],
+  "layoutBias": "grid-heavy",
+  "motionCharacter": "precise",
+  "typographyMood": "editorial",
+  "revealDensity": "sparse",
+  "simultaneousMotionCap": 1,
+  "emphasisStyle": "text-first"
+}

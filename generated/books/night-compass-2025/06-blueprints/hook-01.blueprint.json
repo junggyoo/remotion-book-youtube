@@ -1,0 +1,55 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 추론이 정확할수록 죽음에 가까워진다",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "추론이 정확할수록 죽음에 가까워진다",
+        "role": "headline"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1728,
+  "mediaPlan": {
+    "narrationText": "여러분, 추리소설에서 가장 똑똑한 탐정이 범인을 잡으러 갔는데... 그 장소가 바로 자기가 죽을 곳이라면 어떨까요? 더 무서운 건, 그 장소를 찾아낸 것도 탐정 자신의 완벽한 추론이었다는 겁니다. 생각해보세요. 추론이 틀려서 실패한 게 아니에요. 추론이 정확했기 때문에 함정에 빠진 겁니다. 논리가 정확할수록 죽음에 가까워지는 이 소름끼치는 역설. 보르헤스가 그린 이 이야기, 지금부터 함께 들어가봅니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

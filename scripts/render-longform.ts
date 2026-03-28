@@ -22,6 +22,8 @@ const COMPOSITION_MAP: Record<string, string> = {
   "rich-dad-poor-dad": "RichDadPoorDad",
   "startup-designer": "StartupDesigner",
   "linchpin-2025": "Linchpin2025",
+  "brain-success-2025": "BrainSuccess2025",
+  "night-compass-2025": "NightCompass2025",
 };
 
 function main() {

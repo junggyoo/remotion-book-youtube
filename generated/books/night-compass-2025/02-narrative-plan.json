@@ -1,0 +1,52 @@
+{
+  "videoNarrativePlan": {
+    "totalDurationSec": 480,
+    "segments": [
+      {
+        "role": "opening",
+        "durationRatio": 0.08,
+        "intent": "contrarian 전략으로 시청자 주의 확보",
+        "requiredDelivery": ["hook: contrarian", "attention-grab"]
+      },
+      {
+        "role": "setup",
+        "durationRatio": 0.12,
+        "intent": "philosophy 장르의 맥락 설정 — \"가장 똑똑한 탐정이 자신의 추론에 의해 스스로 죽음을 향해 걸어가는 역설\"",
+        "requiredDelivery": ["context-setting", "book-intro"]
+      },
+      {
+        "role": "core",
+        "durationRatio": 0.5,
+        "intent": "핵심 개념 4개 전달 — 이성의 자기파괴, 3과 4의 대립, 마름모 함정, 카발라 수비학",
+        "requiredDelivery": ["key-concepts", "evidence"]
+      },
+      {
+        "role": "climax",
+        "durationRatio": 0.13,
+        "intent": "핵심 인사이트 강조 — narrative 모드: 뢰넌이 스스로 함정을 향해 걸어가는 순간",
+        "requiredDelivery": ["peak-insight", "emotional-peak"]
+      },
+      {
+        "role": "resolution",
+        "durationRatio": 0.13,
+        "intent": "적용 방법 및 실생활 연결 — 이성의 오만, 지식의 함정이 현실에서 어떻게 반복되는가",
+        "requiredDelivery": ["application", "real-life-example"]
+      },
+      {
+        "role": "closing",
+        "durationRatio": 0.04,
+        "intent": "요약 및 CTA",
+        "requiredDelivery": ["recap", "cta"]
+      }
+    ],
+    "emotionalCurve": [
+      { "timestamp": 0.0, "intensity": 0.19, "label": "opening-start" },
+      { "timestamp": 0.08, "intensity": 0.31, "label": "setup-start" },
+      { "timestamp": 0.2, "intensity": 0.38, "label": "core-start" },
+      { "timestamp": 0.7, "intensity": 0.53, "label": "climax-start" },
+      { "timestamp": 0.83, "intensity": 0.44, "label": "resolution-start" },
+      { "timestamp": 0.96, "intensity": 0.25, "label": "closing-start" },
+      { "timestamp": 1.0, "intensity": 0.19, "label": "end" }
+    ]
+  }
+}

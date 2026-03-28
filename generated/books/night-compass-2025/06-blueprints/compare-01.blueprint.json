@@ -1,0 +1,148 @@
+{
+  "id": "compare-01",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "left"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "right"
+      }
+    },
+    {
+      "id": "compareContrast-divider",
+      "type": "divider",
+      "props": {
+        "layer": 30,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "compareContrast-labels-left",
+      "type": "label",
+      "props": {
+        "text": "탐정의 추론 (삼각형)",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
+      }
+    },
+    {
+      "id": "compareContrast-labels-right",
+      "type": "label",
+      "props": {
+        "text": "살인마의 계획 (마름모)",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "살인은 3회 → 삼각형 패턴 → 카발라의 신성한 숫자 3 → 사건 종결",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "살인은 4회 → 마름모 패턴 → 4번째 꼭짓점이 함정 → 탐정 유인",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "myth",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "fact",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
+      }
+    }
+  ],
+  "choreography": "split-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1560,
+  "mediaPlan": {
+    "narrationText": "여기서 핵심적인 대비가 드러납니다. 뢰넌이 본 세계와 실제 세계는 완전히 달랐습니다. 뢰넌의 추론은 이랬죠. 세 번의 살인이 삼각형을 이루고 있어. 카발라에서 3은 신성한 숫자야. 범인은 이 패턴을 완성한 뒤 멈출 거야. 논리적으로 완벽했습니다. 사건은 끝났다고 확신하죠. 하지만... 살인마 슈아흐만의 계획은 완전히 달랐습니다. 그는 처음부터 네 번의 살인을 설계했습니다. 삼각형이 아니라 마름모였던 겁니다. 마름모에는 꼭짓점이 네 개 있죠? 세 번째까지는 탐정에게 삼각형처럼 보이도록 일부러 배치한 겁니다. 네 번째 꼭짓점은 비어있었고... 그곳이 바로 뢰넌을 유인할 함정이었습니다. 뢰넌이 삼각형에 매달리는 동안, 슈아흐만은 마름모를 완성하고 있었던 겁니다. 소름끼치지 않나요?",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

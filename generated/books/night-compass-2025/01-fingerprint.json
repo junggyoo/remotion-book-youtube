@@ -1,0 +1,39 @@
+{
+  "bookInfo": {
+    "title": "밤과 나침반",
+    "originalTitle": "La Muerte y la Brújula (Death and the Compass)",
+    "author": "호르헤 루이스 보르헤스 (Jorge Luis Borges)",
+    "genre": "philosophy",
+    "summary": "탐정 뢰넌은 카발라 수비학에 집착하여 연쇄 살인의 패턴을 분석한다. 그는 살인이 삼각형(3)이 아닌 마름모(4) 패턴임을 끝내 깨닫지 못하고, 자신의 추론이 이끈 '마지막 살인 장소'에 직접 찾아가 함정에 빠져 죽는다. 살인마 슈아흐만이 뢰넌 자신의 논리로 뢰넌을 함정에 빠뜨린 것이다. 이성과 지식의 자기파괴, 미로로서의 세계가 핵심 주제.",
+    "targetDurationMin": 8
+  },
+
+  "analysisNotes": {
+    "Q1_structure": "argument — 단계형 프레임워크 없이 '이성은 자신의 논리에 의해 파괴된다'는 명제를 역전 서사로 논증",
+    "Q2_relationship": "대립 — 탐정의 추론(3, 삼각형)과 살인마의 계획(4, 마름모)이 충돌하며 결국 탐정의 파멸로 해소됨 → warning",
+    "Q3_numbers": "3 (뢰넌이 집착한 카발라 숫자), 4 (실제 마름모 꼭짓점 수, 살인 지점 수), 4개 방위 (북/동/서/남)",
+    "Q4_emotion": "intense + reflective — 지적 긴장감과 아이러니한 비극, 미로 속 불안감. urgency: medium",
+    "Q5_visual": "compass(나침반), diamond(마름모), labyrinth(미로), night-city(밤의 도시) — 기하학적 대칭과 역전"
+  },
+
+  "bookFingerprint": {
+    "genre": "philosophy",
+    "subGenre": "metaphysical-detective",
+    "structure": "argument",
+    "coreFramework": "이성의 자기파괴 — 3(삼각형)과 4(마름모)의 대립, 논리가 함정이 되는 역전 구조",
+    "keyConceptCount": 4,
+    "emotionalTone": ["intense", "reflective"],
+    "narrativeArcType": "warning",
+    "urgencyLevel": "medium",
+    "visualMotifs": ["compass", "diamond", "labyrinth", "night-city", "mirror"],
+    "spatialMetaphors": ["미로", "대칭", "역전", "함정"],
+    "hookStrategy": "contrarian",
+    "entryAngle": "가장 똑똑한 탐정이 자신의 추론에 의해 스스로 죽음을 향해 걸어가는 역설",
+    "uniqueElements": [
+      "마름모 4개 꼭짓점 살인 지점 지도 시각화 (북/동/서/남 방위 레이아웃)",
+      "3(삼각형) vs 4(마름모) 수비학적 대립 도식",
+      "카발라 기호와 탐정 추론 노트의 혼합 레이어"
+    ],
+    "contentMode": "narrative"
+  }
+}

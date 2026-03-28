@@ -7,14 +7,16 @@ import { buildCompositionProps } from "@/pipeline/buildProps";
 import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
 // --- AUTO-GENERATED IMPORTS START ---
-import miracleMorningBook from "../content/books/miracle-morning.json";
 import atomicHabitsBook from "../content/books/atomic-habits.json";
-import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
+import brainSuccess2025Book from "../content/books/brain-success-2025.json";
 import crazyOneYearBook from "../content/books/crazy-one-year.json";
-import storyBrandBook from "../content/books/story-brand-2025.json";
-import richDadBook from "../content/books/rich-dad-poor-dad.json";
-import startupDesignerBook from "../content/books/startup-designer.json";
 import linchpin2025Book from "../content/books/linchpin-2025.json";
+import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
+import miracleMorningBook from "../content/books/miracle-morning.json";
+import nightCompass2025Book from "../content/books/night-compass-2025.json";
+import richDadPoorDadBook from "../content/books/rich-dad-poor-dad.json";
+import startupDesignerBook from "../content/books/startup-designer.json";
+import storyBrand2025Book from "../content/books/story-brand-2025.json";
 // --- AUTO-GENERATED IMPORTS END ---
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
@@ -142,8 +144,16 @@ const atomicHabitsProps: CompositionProps = buildCompositionProps(
   atomicHabitsBook as unknown as BookContent,
   "longform",
 );
+const brainSuccess2025Props: CompositionProps = buildCompositionProps(
+  brainSuccess2025Book as unknown as BookContent,
+  "longform",
+);
 const crazyOneYearProps: CompositionProps = buildCompositionProps(
   crazyOneYearBook as unknown as BookContent,
+  "longform",
+);
+const linchpin2025Props: CompositionProps = buildCompositionProps(
+  linchpin2025Book as unknown as BookContent,
   "longform",
 );
 const millionaireFastlaneProps: CompositionProps = buildCompositionProps(
@@ -154,8 +164,12 @@ const miracleMorningProps: CompositionProps = buildCompositionProps(
   miracleMorningBook as unknown as BookContent,
   "longform",
 );
+const nightCompass2025Props: CompositionProps = buildCompositionProps(
+  nightCompass2025Book as unknown as BookContent,
+  "longform",
+);
 const richDadPoorDadProps: CompositionProps = buildCompositionProps(
-  richDadBook as unknown as BookContent,
+  richDadPoorDadBook as unknown as BookContent,
   "longform",
 );
 const startupDesignerProps: CompositionProps = buildCompositionProps(
@@ -163,12 +177,7 @@ const startupDesignerProps: CompositionProps = buildCompositionProps(
   "longform",
 );
 const storyBrand2025Props: CompositionProps = buildCompositionProps(
-  storyBrandBook as unknown as BookContent,
-  "longform",
-);
-
-const linchpin2025Props: CompositionProps = buildCompositionProps(
-  linchpin2025Book as unknown as BookContent,
+  storyBrand2025Book as unknown as BookContent,
   "longform",
 );
 // --- AUTO-GENERATED BOOKS END ---
@@ -241,6 +250,16 @@ export const RemotionRoot: React.FC = () => {
       />
       {/* --- AUTO-GENERATED COMPOSITIONS START --- */}
       <Composition
+        id="BrainSuccess2025"
+        component={LongformComposition as any}
+        durationInFrames={brainSuccess2025Props.totalDurationFrames}
+        fps={brainSuccess2025Props.fps}
+        width={brainSuccess2025Props.width}
+        height={brainSuccess2025Props.height}
+        defaultProps={brainSuccess2025Props as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
         id="AtomicHabits"
         component={LongformComposition as any}
         durationInFrames={atomicHabitsProps.totalDurationFrames}
@@ -308,6 +327,16 @@ export const RemotionRoot: React.FC = () => {
         width={storyBrand2025Props.width}
         height={storyBrand2025Props.height}
         defaultProps={storyBrand2025Props as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="NightCompass2025"
+        component={LongformComposition as any}
+        durationInFrames={nightCompass2025Props.totalDurationFrames}
+        fps={nightCompass2025Props.fps}
+        width={nightCompass2025Props.width}
+        height={nightCompass2025Props.height}
+        defaultProps={nightCompass2025Props as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       {/* --- AUTO-GENERATED COMPOSITIONS END --- */}

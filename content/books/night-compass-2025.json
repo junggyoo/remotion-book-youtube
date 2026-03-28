@@ -1,0 +1,512 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "night-compass-2025",
+    "title": "밤과 나침반",
+    "author": "호르헤 루이스 보르헤스",
+    "originalTitle": "La Muerte y la Brújula",
+    "genre": "philosophy",
+    "coverImageUrl": "covers/night-compass-cover.jpg",
+    "publishYear": 1942,
+    "tags": ["철학", "추리", "보르헤스", "이성의 한계", "미로"]
+  },
+  "production": {
+    "format": "longform",
+    "targetDurationSeconds": 400,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "fish-audio",
+    "speed": 1,
+    "pitch": "+0Hz"
+  },
+  "audio": {
+    "bgmTrack": "sounds/calm-ambient-loop.mp3",
+    "bgmVolume": 0.12
+  },
+  "thumbnail": {
+    "hookText": "추론이 정확할수록 죽음에 가까워진다",
+    "accentWord": "추론",
+    "expression": "자신감 넘치는 표정",
+    "gesture": "X자 제스처",
+    "mood": "dramatic",
+    "backgroundStyle": "dark gradient with cool blue accents"
+  },
+  "scenes": [
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "narrationText": "여러분, 추리소설에서 가장 똑똑한 탐정이 범인을 잡으러 갔는데... 그 장소가 바로 자기가 죽을 곳이라면 어떨까요? 더 무서운 건, 그 장소를 찾아낸 것도 탐정 자신의 완벽한 추론이었다는 겁니다. 생각해보세요. 추론이 틀려서 실패한 게 아니에요. 추론이 정확했기 때문에 함정에 빠진 겁니다. 논리가 정확할수록 죽음에 가까워지는 이 소름끼치는 역설. 보르헤스가 그린 이 이야기, 지금부터 함께 들어가봅니다.",
+      "content": {
+        "mainText": "추론이 정확할수록 죽음에 가까워진다",
+        "subText": "가장 똑똑한 탐정이 자기 논리로 파멸한 이야기",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "여러분, 추리소설에서 가장 똑똑한 탐정이 범인을 잡으러 갔는데... 그 장소가 바로 자기가 죽을 곳이라면 어떨까요?",
+          "activates": ["mainText"],
+          "emphasisTargets": ["탐정", "죽을 곳"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.35,
+          "endRatio": 0.65,
+          "narrationText": "더 무서운 건, 그 장소를 찾아낸 것도 탐정 자신의 완벽한 추론이었다는 겁니다. 생각해보세요. 추론이 틀려서 실패한 게 아니에요. 추론이 정확했기 때문에 함정에 빠진 겁니다. 논리가 정확할수록 죽음에 가까워지는 이 소름끼치는 역설.",
+          "activates": ["subText"],
+          "emphasisTargets": ["완벽한 추론", "역설"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "보르헤스가 그린 이 이야기, 지금부터 함께 들어가봅니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["보르헤스"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "contrarian hook 3단계: 질문형 반전 → 역설 강화 → 영상 진입 안내",
+        "evidenceDecision": "해당 없음 — hook 씬",
+        "densityDecision": "3-beat — hook, 시각 변화 유지",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "호르헤 루이스 보르헤스의 밤과 나침반. 아르헨티나가 낳은 세계 문학의 거장이 1942년에 발표한 이 단편은 20세기 최고의 추리 문학 중 하나로 꼽힙니다. 이 작품이 던지는 질문을 함께 파헤쳐 봅니다.",
+      "content": {
+        "title": "밤과 나침반",
+        "subtitle": "이성이 스스로를 파괴하는 미로",
+        "author": "호르헤 루이스 보르헤스",
+        "coverImageUrl": "covers/night-compass-cover.jpg",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "호르헤 루이스 보르헤스의 밤과 나침반.",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["밤과 나침반"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "아르헨티나가 낳은 세계 문학의 거장이 1942년에 발표한 이 단편은 20세기 최고의 추리 문학 중 하나로 꼽힙니다. 이 작품이 던지는 질문을 함께 파헤쳐 봅니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["20세기 최고"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "마침표 뒤 시점 전환 (저자 소개 → 영상 주제)",
+        "evidenceDecision": "해당 없음 — cover 씬",
+        "densityDecision": "2-beat — cover는 시각 임팩트 중심",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-detective",
+      "type": "keyInsight",
+      "narrationText": "이야기는 1940년대 부에노스아이레스에서 시작됩니다. 유대교 학회가 열린 호텔에서 랍비 한 명이 살해됩니다. 가슴에 칼이 꽂혀 있었고, 방 안에는 의미심장한 문장이 남겨져 있었죠. 경찰은 단순 강도 사건이라고 결론짓습니다. 하지만 탐정 에릭 뢰넌은 달랐습니다. 그는 현장에 남겨진 카발라 문구에 주목합니다. 신의 이름에는 네 글자가 있다... 뢰넌의 눈이 번뜩입니다. 이건 단순한 범죄가 아니야. 그는 확신합니다. 이건 카발라의 수비학적 패턴을 따르는 연쇄 살인이라고. 한 달 뒤, 두 번째 살인이 벌어집니다. 또 다시 의미심장한 문구가 남아있었죠. 그리고 세 번째 살인. 뢰넌의 확신은 점점 강해집니다. 살인 장소를 지도에 찍었더니... 정확히 정삼각형이 그려진 겁니다. 놀랍지 않나요? 그의 추론은 완벽해 보였습니다.",
+      "content": {
+        "headline": "탐정 뢰넌, 카발라에 빠지다",
+        "supportText": "랍비 살인 사건을 조사하던 탐정 뢰넌은 카발라 수비학의 패턴에 매료됩니다. 그는 살인이 우연이 아니라 신비로운 규칙을 따른다고 확신합니다.",
+        "underlineKeyword": "카발라",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "detective-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "이야기는 1940년대 부에노스아이레스에서 시작됩니다. 유대교 학회가 열린 호텔에서 랍비 한 명이 살해됩니다. 가슴에 칼이 꽂혀 있었고, 방 안에는 의미심장한 문장이 남겨져 있었죠. 경찰은 단순 강도 사건이라고 결론짓습니다. 하지만 탐정 에릭 뢰넌은 달랐습니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["뢰넌", "달랐습니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "detective-b2",
+          "role": "evidence",
+          "startRatio": 0.3,
+          "endRatio": 0.6,
+          "narrationText": "그는 현장에 남겨진 카발라 문구에 주목합니다. 신의 이름에는 네 글자가 있다... 뢰넌의 눈이 번뜩입니다. 이건 단순한 범죄가 아니야. 그는 확신합니다. 이건 카발라의 수비학적 패턴을 따르는 연쇄 살인이라고.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["카발라", "연쇄 살인"],
+          "transition": "enter"
+        },
+        {
+          "id": "detective-b3",
+          "role": "recap",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "한 달 뒤, 두 번째 살인이 벌어집니다. 또 다시 의미심장한 문구가 남아있었죠. 그리고 세 번째 살인. 뢰넌의 확신은 점점 강해집니다. 살인 장소를 지도에 찍었더니... 정확히 정삼각형이 그려진 겁니다. 놀랍지 않나요? 그의 추론은 완벽해 보였습니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["삼각형", "완벽"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "서사 3단계: 사건 도입 → 카발라 발견 → 패턴 확신",
+        "evidenceDecision": "해당 없음 — 서사 전개 씬",
+        "densityDecision": "3-beat — 충분한 서사 호흡",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "그런데 여기서 정말 중요한 질문이 있습니다. 뢰넌이 본 패턴은 삼각형이었습니다. 하지만 과연 진짜 패턴은 무엇이었을까요?",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "미로 속으로",
+        "chapterSubtitle": "삼각형과 마름모, 두 개의 진실"
+      },
+      "beats": [
+        {
+          "id": "chapter-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "그런데 여기서 정말 중요한 질문이 있습니다. 뢰넌이 본 패턴은 삼각형이었습니다. 하지만 과연 진짜 패턴은 무엇이었을까요?",
+          "activates": ["chapterNumber", "chapterTitle", "chapterSubtitle"],
+          "emphasisTargets": ["삼각형", "진짜 패턴"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "짧은 전환 씬 — 1-beat 적합",
+        "evidenceDecision": "해당 없음 — divider 씬",
+        "densityDecision": "1-beat — 전환에 분할 불필요",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "narrationText": "여기서 핵심적인 대비가 드러납니다. 뢰넌이 본 세계와 실제 세계는 완전히 달랐습니다. 뢰넌의 추론은 이랬죠. 세 번의 살인이 삼각형을 이루고 있어. 카발라에서 3은 신성한 숫자야. 범인은 이 패턴을 완성한 뒤 멈출 거야. 논리적으로 완벽했습니다. 사건은 끝났다고 확신하죠. 하지만... 살인마 슈아흐만의 계획은 완전히 달랐습니다. 그는 처음부터 네 번의 살인을 설계했습니다. 삼각형이 아니라 마름모였던 겁니다. 마름모에는 꼭짓점이 네 개 있죠? 세 번째까지는 탐정에게 삼각형처럼 보이도록 일부러 배치한 겁니다. 네 번째 꼭짓점은 비어있었고... 그곳이 바로 뢰넌을 유인할 함정이었습니다. 뢰넌이 삼각형에 매달리는 동안, 슈아흐만은 마름모를 완성하고 있었던 겁니다. 소름끼치지 않나요?",
+      "content": {
+        "leftLabel": "탐정의 추론 (삼각형)",
+        "leftContent": "살인은 3회 → 삼각형 패턴 → 카발라의 신성한 숫자 3 → 사건 종결",
+        "rightLabel": "살인마의 계획 (마름모)",
+        "rightContent": "살인은 4회 → 마름모 패턴 → 4번째 꼭짓점이 함정 → 탐정 유인",
+        "leftTag": "myth",
+        "rightTag": "fact",
+        "showConnector": true,
+        "revealOrder": "left-first"
+      },
+      "beats": [
+        {
+          "id": "compare-b1",
+          "role": "compare",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "여기서 핵심적인 대비가 드러납니다. 뢰넌이 본 세계와 실제 세계는 완전히 달랐습니다. 뢰넌의 추론은 이랬죠. 세 번의 살인이 삼각형을 이루고 있어. 카발라에서 3은 신성한 숫자야. 범인은 이 패턴을 완성한 뒤 멈출 거야. 논리적으로 완벽했습니다. 사건은 끝났다고 확신하죠.",
+          "activates": ["leftPanel"],
+          "emphasisTargets": ["삼각형", "확신"],
+          "transition": "enter"
+        },
+        {
+          "id": "compare-b2",
+          "role": "compare",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "하지만... 살인마 슈아흐만의 계획은 완전히 달랐습니다. 그는 처음부터 네 번의 살인을 설계했습니다. 삼각형이 아니라 마름모였던 겁니다. 마름모에는 꼭짓점이 네 개 있죠? 세 번째까지는 탐정에게 삼각형처럼 보이도록 일부러 배치한 겁니다. 네 번째 꼭짓점은 비어있었고... 그곳이 바로 뢰넌을 유인할 함정이었습니다. 뢰넌이 삼각형에 매달리는 동안, 슈아흐만은 마름모를 완성하고 있었던 겁니다. 소름끼치지 않나요?",
+          "activates": ["rightPanel", "connector"],
+          "emphasisTargets": ["마름모", "함정"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "좌우 패널 순차 reveal. '하지만' 전환에서 분리",
+        "evidenceDecision": "해당 없음 — 비교 씬",
+        "densityDecision": "2-beat — left-first reveal에 자연스러운 2분할",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-trap",
+      "type": "keyInsight",
+      "narrationText": "여기서 소름끼치는 반전이 옵니다. 뢰넌은 네 번째 살인 장소를 추론해냅니다. 마름모의 마지막 꼭짓점을 계산한 거죠. 그리고 그곳으로 직접 찾아갑니다. 범인을 잡겠다는 확신에 가득 차서요. 하지만... 그곳에서 기다리고 있던 건 범인이 아니라, 범인이 설치한 함정이었습니다. 슈아흐만은 처음부터 뢰넌의 논리를 이용했습니다. 뢰넌이 추론하게 만들고, 추론이 이끄는 곳으로 오게 만든 겁니다. 탐정의 논리가 정확할수록, 함정은 더 완벽해졌습니다. 이것이 보르헤스가 말하는 이성의 자기파괴입니다. 우리가 가진 가장 강력한 무기인 논리와 이성이, 바로 그 힘 때문에 우리를 가장 깊은 함정으로 이끌 수 있다는 것. 당신의 무기가 곧 당신의 약점이 되는 순간입니다.",
+      "content": {
+        "headline": "논리가 곧 함정이 되는 순간",
+        "supportText": "뢰넌의 추론은 정확했습니다. 하지만 그 정확함이야말로 살인마 슈아흐만이 설계한 함정이었습니다. 탐정은 자기 논리에 이끌려 마지막 살인 장소로 스스로 걸어갑니다.",
+        "underlineKeyword": "함정",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "case",
+          "value": "미로의 역설",
+          "caption": "미로를 풀수록 미로의 중심에 갇힌다",
+          "source": "밤과 나침반, 보르헤스"
+        }
+      },
+      "beats": [
+        {
+          "id": "trap-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "여기서 소름끼치는 반전이 옵니다. 뢰넌은 네 번째 살인 장소를 추론해냅니다. 마름모의 마지막 꼭짓점을 계산한 거죠. 그리고 그곳으로 직접 찾아갑니다. 범인을 잡겠다는 확신에 가득 차서요.",
+          "activates": ["headline"],
+          "emphasisTargets": ["반전", "네 번째"],
+          "transition": "enter"
+        },
+        {
+          "id": "trap-b2",
+          "role": "evidence",
+          "startRatio": 0.3,
+          "endRatio": 0.65,
+          "narrationText": "하지만... 그곳에서 기다리고 있던 건 범인이 아니라, 범인이 설치한 함정이었습니다. 슈아흐만은 처음부터 뢰넌의 논리를 이용했습니다. 뢰넌이 추론하게 만들고, 추론이 이끄는 곳으로 오게 만든 겁니다. 탐정의 논리가 정확할수록, 함정은 더 완벽해졌습니다.",
+          "activates": ["supportText", "evidenceCard"],
+          "emphasisTargets": ["함정", "정확할수록"],
+          "transition": "enter"
+        },
+        {
+          "id": "trap-b3",
+          "role": "recap",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "이것이 보르헤스가 말하는 이성의 자기파괴입니다. 우리가 가진 가장 강력한 무기인 논리와 이성이, 바로 그 힘 때문에 우리를 가장 깊은 함정으로 이끌 수 있다는 것. 당신의 무기가 곧 당신의 약점이 되는 순간입니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["자기파괴", "무기", "약점"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "climax 3단계: 추론 완성 → 반전 → 주제 선언",
+        "evidenceDecision": "evidenceCard 사용 — B등급 (미로의 역설 비유, 원전 명시)",
+        "densityDecision": "3-beat — climax에 충분한 긴장감 확보",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "보르헤스는 이 이야기의 핵심을 단 한 문장에 담았습니다. 미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다. 한번 생각해보세요. 뢰넌을 가둔 건 물리적 미로가 아니었습니다. 자기 머릿속의 논리, 바로 그것이 미로였죠. 우리도 마찬가지 아닐까요? 스스로 만든 확신의 미로에 갇혀 있진 않은지.",
+      "content": {
+        "quoteText": "미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다.",
+        "attribution": "호르헤 루이스 보르헤스",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "quote-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.2,
+          "narrationText": "보르헤스는 이 이야기의 핵심을 단 한 문장에 담았습니다.",
+          "activates": ["attribution"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b2",
+          "role": "headline",
+          "startRatio": 0.2,
+          "endRatio": 0.55,
+          "narrationText": "미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["미로", "마음속"],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b3",
+          "role": "recap",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "한번 생각해보세요. 뢰넌을 가둔 건 물리적 미로가 아니었습니다. 자기 머릿속의 논리, 바로 그것이 미로였죠. 우리도 마찬가지 아닐까요? 스스로 만든 확신의 미로에 갇혀 있진 않은지.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["논리", "확신의 미로"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "도입 → 인용 본문 → 해석/여운 3단계",
+        "evidenceDecision": "해당 없음 — quote 씬",
+        "densityDecision": "3-beat — 인용에 도입과 해석 포함, 충분한 여운",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "그렇다면 이 이야기가 우리 삶에 주는 교훈은 뭘까요? 이성의 함정을 피하는 세 가지 태도가 있습니다. 첫째, 확신을 의심하세요. 논리가 완벽해 보일수록 한 발 물러서야 합니다. 투자에서든, 인간관계에서든, 내 분석이 틀림없어라고 느끼는 바로 그 순간이 가장 위험합니다. 뢰넌처럼 자기 추론에 도취하지 마세요. 둘째, 다른 패턴을 상상하세요. 뢰넌의 실수는 삼각형만 보고 마름모를 상상하지 못한 겁니다. 하나의 해석에 매몰되면 다른 가능성이 사라집니다. 항상 이렇게 물어보세요. 내가 놓치고 있는 다른 패턴은 없을까? 셋째, 확신이 행동을 재촉할 때 멈추세요. 뢰넌은 네 번째 장소를 확신하자마자 달려갔습니다. 하지만 그 확신이 바로 함정이었죠. 중대한 결정 앞에서 확신이 조급함으로 바뀔 때, 그때가 멈춰야 할 순간입니다.",
+      "content": {
+        "anchorStatement": "이성의 함정을 피하는 3가지 태도",
+        "steps": [
+          {
+            "title": "확신을 의심하라",
+            "detail": "논리가 완벽해 보일수록 한 발 물러서서 전제를 점검하세요"
+          },
+          {
+            "title": "다른 패턴을 상상하라",
+            "detail": "하나의 해석에 몰입하지 말고 대안 가설을 항상 열어두세요"
+          },
+          {
+            "title": "행동 전에 멈춰라",
+            "detail": "확신이 행동을 재촉할 때가 가장 위험한 순간입니다"
+          }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "그렇다면 이 이야기가 우리 삶에 주는 교훈은 뭘까요? 이성의 함정을 피하는 세 가지 태도가 있습니다.",
+          "activates": ["anchorStatement"],
+          "emphasisTargets": ["세 가지"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.42,
+          "narrationText": "첫째, 확신을 의심하세요. 논리가 완벽해 보일수록 한 발 물러서야 합니다. 투자에서든, 인간관계에서든, 내 분석이 틀림없어라고 느끼는 바로 그 순간이 가장 위험합니다. 뢰넌처럼 자기 추론에 도취하지 마세요.",
+          "activates": ["step-0"],
+          "emphasisTargets": ["확신을 의심"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.42,
+          "endRatio": 0.72,
+          "narrationText": "둘째, 다른 패턴을 상상하세요. 뢰넌의 실수는 삼각형만 보고 마름모를 상상하지 못한 겁니다. 하나의 해석에 매몰되면 다른 가능성이 사라집니다. 항상 이렇게 물어보세요. 내가 놓치고 있는 다른 패턴은 없을까?",
+          "activates": ["step-1"],
+          "emphasisTargets": ["다른 패턴"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.72,
+          "endRatio": 1,
+          "narrationText": "셋째, 확신이 행동을 재촉할 때 멈추세요. 뢰넌은 네 번째 장소를 확신하자마자 달려갔습니다. 하지만 그 확신이 바로 함정이었죠. 중대한 결정 앞에서 확신이 조급함으로 바뀔 때, 그때가 멈춰야 할 순간입니다.",
+          "activates": ["step-2"],
+          "emphasisTargets": ["멈추세요"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "3단계 순차 공개. 각 태도를 별도 beat로 분리",
+        "evidenceDecision": "해당 없음 — 실천 방법 씬",
+        "densityDecision": "4-beat — 실천법 소개+anchor 포함",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-recap",
+      "type": "keyInsight",
+      "narrationText": "정리하겠습니다. 밤과 나침반은 단순한 추리소설이 아닙니다. 80년 전에 쓰여진 이 짧은 단편이 지금도 읽히는 이유가 있습니다. 바로 이성의 한계에 대한 가장 날카로운 경고이기 때문입니다. 탐정 뢰넌은 자신의 논리가 완벽하다고 믿었습니다. 하지만 완벽한 논리가 완벽한 함정이 되었죠. 보르헤스는 묻습니다. 당신이 믿는 그 패턴은 진짜인가요, 아니면 당신이 보고 싶은 패턴인가요? 우리는 매일 패턴을 찾습니다. 주식 차트에서, 사람들의 행동에서, 세상의 흐름에서. 하지만 그 패턴이 진짜인지, 내가 만들어낸 환상인지 구별하기는 정말 어렵습니다. 이성은 세계를 이해하는 도구이지, 세계 그 자체가 아닙니다. 나침반을 믿되, 나침반이 가리키는 곳이 반드시 안전하리란 보장은 없습니다.",
+      "content": {
+        "headline": "이성은 도구이지, 나침반이 아니다",
+        "supportText": "보르헤스는 이성을 맹신하는 인간의 오만을 경고합니다. 논리는 세계를 이해하는 도구이지, 세계 그 자체가 아닙니다.",
+        "underlineKeyword": "도구",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "정리하겠습니다. 밤과 나침반은 단순한 추리소설이 아닙니다. 80년 전에 쓰여진 이 짧은 단편이 지금도 읽히는 이유가 있습니다. 바로 이성의 한계에 대한 가장 날카로운 경고이기 때문입니다. 탐정 뢰넌은 자신의 논리가 완벽하다고 믿었습니다. 하지만 완벽한 논리가 완벽한 함정이 되었죠.",
+          "activates": ["headline"],
+          "emphasisTargets": ["날카로운 경고"],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "support",
+          "startRatio": 0.35,
+          "endRatio": 0.7,
+          "narrationText": "보르헤스는 묻습니다. 당신이 믿는 그 패턴은 진짜인가요, 아니면 당신이 보고 싶은 패턴인가요? 우리는 매일 패턴을 찾습니다. 주식 차트에서, 사람들의 행동에서, 세상의 흐름에서. 하지만 그 패턴이 진짜인지, 내가 만들어낸 환상인지 구별하기는 정말 어렵습니다. 이성은 세계를 이해하는 도구이지, 세계 그 자체가 아닙니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["패턴", "도구"],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b3",
+          "role": "recap",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "나침반을 믿되, 나침반이 가리키는 곳이 반드시 안전하리란 보장은 없습니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["나침반", "안전"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "요약 3단계: 책 정의 → 핵심 질문 → 여운",
+        "evidenceDecision": "해당 없음 — 요약 씬",
+        "densityDecision": "3-beat — recap에 충분한 호흡과 여운",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "오늘 어떤 확신이 드셨을 때, 한 번만 멈춰보세요. 정말 이게 전부일까? 혹시 내가 보고 싶은 패턴만 보고 있는 건 아닐까? 뢰넌은 멈추지 못했습니다. 하지만 여러분은 멈출 수 있습니다. 그 한 번의 멈춤이 여러분을 미로에서 꺼내줄 겁니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+      "content": {
+        "recapStatement": "확신이 클수록, 한 발 물러서세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "closing-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.6,
+          "narrationText": "오늘 어떤 확신이 드셨을 때, 한 번만 멈춰보세요. 정말 이게 전부일까? 혹시 내가 보고 싶은 패턴만 보고 있는 건 아닐까? 뢰넌은 멈추지 못했습니다. 하지만 여러분은 멈출 수 있습니다. 그 한 번의 멈춤이 여러분을 미로에서 꺼내줄 겁니다.",
+          "activates": ["recapStatement"],
+          "emphasisTargets": ["멈춰보세요", "미로"],
+          "transition": "enter"
+        },
+        {
+          "id": "closing-b2",
+          "role": "transition",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 다음 영상에서 또 만나겠습니다.",
+          "activates": ["ctaText", "brandLabel"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "행동 촉구와 채널 CTA 분리",
+        "evidenceDecision": "해당 없음 — closing 씬",
+        "densityDecision": "2-beat — 마무리에 적절",
+        "riskFlags": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "id": "quote-01",
+  "intent": "Quote reveal with attribution",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quote-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5,
+        "visible": true
+      }
+    },
+    {
+      "id": "quote-quoteMark",
+      "type": "shape",
+      "props": {
+        "role": "quote-mark",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "quote-quoteText",
+      "type": "quote-text",
+      "props": {
+        "text": "미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다.",
+        "layer": 30,
+        "tokenRef": "typography.fontFamily.serif",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "quote-attribution",
+      "type": "caption",
+      "props": {
+        "text": "호르헤 루이스 보르헤스",
+        "layer": 25,
+        "tokenRef": "typeScale.caption"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1560,
+  "mediaPlan": {
+    "narrationText": "보르헤스는 이 이야기의 핵심을 단 한 문장에 담았습니다. 미로는 존재하지 않는다. 왜냐하면 미로란 길을 잃은 자의 마음속에만 있기 때문이다. 한번 생각해보세요. 뢰넌을 가둔 건 물리적 미로가 아니었습니다. 자기 머릿속의 논리, 바로 그것이 미로였죠. 우리도 마찬가지 아닐까요? 스스로 만든 확신의 미로에 갇혀 있진 않은지.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

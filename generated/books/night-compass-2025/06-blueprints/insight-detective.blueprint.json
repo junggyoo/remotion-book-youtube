@@ -1,0 +1,82 @@
+{
+  "id": "insight-detective",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "탐정 뢰넌, 카발라에 빠지다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "카발라"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "랍비 살인 사건을 조사하던 탐정 뢰넌은 카발라 수비학의 패턴에 매료됩니다. 그는 살인이 우연이 아니라 신비로운 규칙을 따른다고 확신합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "philosophy",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#6366F1",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1560,
+  "mediaPlan": {
+    "narrationText": "이야기는 1940년대 부에노스아이레스에서 시작됩니다. 유대교 학회가 열린 호텔에서 랍비 한 명이 살해됩니다. 가슴에 칼이 꽂혀 있었고, 방 안에는 의미심장한 문장이 남겨져 있었죠. 경찰은 단순 강도 사건이라고 결론짓습니다. 하지만 탐정 에릭 뢰넌은 달랐습니다. 그는 현장에 남겨진 카발라 문구에 주목합니다. 신의 이름에는 네 글자가 있다... 뢰넌의 눈이 번뜩입니다. 이건 단순한 범죄가 아니야. 그는 확신합니다. 이건 카발라의 수비학적 패턴을 따르는 연쇄 살인이라고. 한 달 뒤, 두 번째 살인이 벌어집니다. 또 다시 의미심장한 문구가 남아있었죠. 그리고 세 번째 살인. 뢰넌의 확신은 점점 강해집니다. 살인 장소를 지도에 찍었더니... 정확히 정삼각형이 그려진 겁니다. 놀랍지 않나요? 그의 추론은 완벽해 보였습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
