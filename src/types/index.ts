@@ -894,6 +894,34 @@ export interface BeatTimingResolution {
 }
 
 // ---------------------------------------------------------------------------
+// P2-3: NarrationSync types
+// ---------------------------------------------------------------------------
+
+/** Emphasis timing policy for sync — onset/hold/decay in frames */
+export interface EmphasisTimingPolicy {
+  onsetFrames: number;
+  holdFrames: number;
+  decayFrames: number;
+}
+
+/** Sync policy mode per scene type */
+export type SyncPolicyMode = "concept" | "phrase" | "none";
+
+/** useNarrationSync hook return type */
+export interface NarrationSyncState {
+  /** Currently spoken word from VTT captions (null if between words) */
+  currentWord: string | null;
+  /** Whether the current word matches an emphasisTarget */
+  isEmphasisWord: boolean;
+  /** Currently active emphasis targets (from beat timeline) */
+  activeEmphasisTargets: string[];
+  /** Emphasis progress 0~1 based on onset/hold/decay timing */
+  emphasisProgress: number;
+  /** The matched emphasis target string (null if no match) */
+  matchedTarget: string | null;
+}
+
+// ---------------------------------------------------------------------------
 // DSGS Stage 6.3: BeatComposer types
 // ---------------------------------------------------------------------------
 
