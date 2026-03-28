@@ -989,6 +989,30 @@ export interface DiagramSpec {
 }
 
 // ---------------------------------------------------------------------------
+// P2-2: CameraLayer types
+// ---------------------------------------------------------------------------
+
+/** Camera behavior mode for CameraLayer. */
+export type CameraMode = "static" | "slow-zoom" | "guided";
+
+/**
+ * Normalized element position within a scene canvas (0~1 range).
+ * Used by CameraLayer guided mode to compute camera target.
+ * Blueprint scenes: derived from BlueprintRenderer's positionById Map.
+ */
+export interface SceneElementLayoutMeta {
+  elementId: string;
+  /** Normalized X anchor (0~1, where 0.5 = center) */
+  anchorX: number;
+  /** Normalized Y anchor (0~1, where 0.5 = center) */
+  anchorY: number;
+  /** Element width as ratio of canvas width (optional) */
+  widthRatio?: number;
+  /** Element height as ratio of canvas height (optional) */
+  heightRatio?: number;
+}
+
+// ---------------------------------------------------------------------------
 // DSGS Stage 4-5: ScenePlanner + GapDetector types
 // ---------------------------------------------------------------------------
 
