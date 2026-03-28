@@ -26,6 +26,15 @@ import type {
   SceneSpec,
   ResolvedMotionParams,
 } from "@/direction";
+import type { SceneFamily } from "@/direction/types";
+
+// Near the top — composed path activation config
+// TODO(Phase 2B): Move to experiment config / feature flag when more families are added.
+const COMPOSED_FAMILIES: SceneFamily[] = [
+  "concept-introduction",
+  "system-model",
+  "progression-journey",
+];
 import { tryComposeScene } from "@/composition/compositionPathRouter";
 import type { CompositionContext } from "@/composition/types";
 
@@ -123,6 +132,7 @@ export function buildCompositionProps(
       },
       bookDirection,
       fingerprintHint.structure,
+      { composedFamilies: COMPOSED_FAMILIES },
     );
     const resolvedMotion = resolveMotionParams(
       bookDirection.base,
