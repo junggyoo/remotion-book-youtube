@@ -20,6 +20,7 @@ import type { SceneBlueprint, VCLElement, MotionPresetKey } from "@/types";
 const SAFE_FIX_CODES = new Set<RenderFailureCode>([
   RenderFailureCode.LAYOUT_WRAP_FAIL,
   RenderFailureCode.TRANSITION_TOO_LONG_WARN,
+  RenderFailureCode.KINETIC_TEXT_OVERFLOW_FAIL,
 ]);
 
 /** Headline tokenRef step-down chain (larger → smaller). */
@@ -183,11 +184,43 @@ function fixTransitionTooLong(blueprint: SceneBlueprint): string | null {
   return `TRANSITION_TOO_LONG_WARN: motionPreset ${oldPreset} → ${candidate.key} (maxEnter ${maxEnter}f → ${candidate.maxDuration}f, limit ${maxAllowed}f at 15% of ${blueprint.durationFrames}f)`;
 }
 
+// --- Fix: KINETIC_TEXT_OVERFLOW_FAIL ---
+
+const KINETIC_MIN_STAGGER = 1;
+const KINETIC_MAX_FIX_ATTEMPTS = 2;
+
+function fixKineticTextOverflow(blueprint: SceneBlueprint): string | null {
+  const config = blueprint.choreographyConfig;
+  const currentDelay = config?.staggerDelay;
+
+  // Nothing to reduce if no config or already at minimum
+  if (currentDelay === undefined || currentDelay <= KINETIC_MIN_STAGGER) {
+    return null;
+  }
+
+  // Check how many times we've already fixed this code
+  const pastFixes = (blueprint.fixHistory ?? []).filter(
+    (code) => code === "KINETIC_TEXT_OVERFLOW_FAIL",
+  ).length;
+  if (pastFixes >= KINETIC_MAX_FIX_ATTEMPTS) return null;
+
+  const newDelay = Math.max(KINETIC_MIN_STAGGER, currentDelay - 1);
+  if (newDelay === currentDelay) return null;
+
+  blueprint.choreographyConfig = { ...config, staggerDelay: newDelay };
+  blueprint.fixHistory = [
+    ...(blueprint.fixHistory ?? []),
+    "KINETIC_TEXT_OVERFLOW_FAIL",
+  ];
+
+  return `KINETIC_TEXT_OVERFLOW_FAIL: staggerDelay ${currentDelay} → ${newDelay} (attempt ${pastFixes + 1}/${KINETIC_MAX_FIX_ATTEMPTS})`;
+}
+
 // --- Public API ---
 
 /**
  * Attempt safe auto-fixes on a blueprint based on QA results.
- * Only fixes LAYOUT_WRAP_FAIL and TRANSITION_TOO_LONG_WARN.
+ * Only fixes LAYOUT_WRAP_FAIL, TRANSITION_TOO_LONG_WARN, and KINETIC_TEXT_OVERFLOW_FAIL.
  * Returns a deep-cloned blueprint (original is not mutated).
  */
 export function autoFixBlueprint(
@@ -217,6 +250,9 @@ export function autoFixBlueprint(
         break;
       case RenderFailureCode.TRANSITION_TOO_LONG_WARN:
         fixMsg = fixTransitionTooLong(bp);
+        break;
+      case RenderFailureCode.KINETIC_TEXT_OVERFLOW_FAIL:
+        fixMsg = fixKineticTextOverflow(bp);
         break;
     }
 

@@ -98,6 +98,7 @@ describe("autoFix: LAYOUT_WRAP_FAIL", () => {
     const shortText = "짧은 제목";
     const bp = makeBlueprint({
       elements: [makeHeadlineElement(shortText, "typeScale.headlineL")],
+      motionPreset: "gentle", // interpolate type — won't trigger TRANSITION fix
     });
 
     const qa = runRenderQA(bp, "longform");
@@ -218,8 +219,8 @@ describe("autoFix: excluded codes", () => {
     }
   });
 
-  it("does not attempt fix for KINETIC_TEXT_OVERFLOW_FAIL", () => {
-    const bp = makeBlueprint();
+  it("does not skip KINETIC_TEXT_OVERFLOW_FAIL (now has auto-fix)", () => {
+    const bp = makeBlueprint({ choreographyConfig: { staggerDelay: 3 } });
     const qa = runRenderQA(bp, "longform");
 
     // Manually inject a failing check
@@ -231,9 +232,83 @@ describe("autoFix: excluded codes", () => {
     });
 
     const result = autoFixBlueprint(bp, qa);
-    expect(result.skippedCodes).toContain(
+    expect(result.skippedCodes).not.toContain(
       RenderFailureCode.KINETIC_TEXT_OVERFLOW_FAIL,
     );
+    expect(result.fixed).toBe(true);
+  });
+});
+
+// --- KINETIC_TEXT_OVERFLOW_FAIL tests ---
+
+function injectKineticOverflow(
+  qa: ReturnType<typeof runRenderQA>,
+): ReturnType<typeof runRenderQA> {
+  qa.checks.push({
+    code: RenderFailureCode.KINETIC_TEXT_OVERFLOW_FAIL,
+    level: "BLOCKED",
+    passed: false,
+    message: "Simulated kinetic text overflow",
+  });
+  qa.overallLevel = "BLOCKED";
+  return qa;
+}
+
+describe("autoFix: KINETIC_TEXT_OVERFLOW_FAIL", () => {
+  it("reduces stagger delay when text overflows", () => {
+    const bp = makeBlueprint({ choreographyConfig: { staggerDelay: 3 } });
+    const qa = injectKineticOverflow(runRenderQA(bp, "longform"));
+
+    const result = autoFixBlueprint(bp, qa);
+    expect(result.fixed).toBe(true);
+    expect(result.blueprint.choreographyConfig?.staggerDelay).toBeLessThan(3);
+    expect(result.blueprint.choreographyConfig?.staggerDelay).toBe(2);
+  });
+
+  it("does not reduce stagger below 1 frame", () => {
+    const bp = makeBlueprint({
+      choreographyConfig: { staggerDelay: 1 },
+      motionPreset: "gentle", // avoid TRANSITION fix interfering
+    });
+    const qa = injectKineticOverflow(runRenderQA(bp, "longform"));
+
+    const result = autoFixBlueprint(bp, qa);
+    expect(result.fixed).toBe(false);
+    expect(result.blueprint.choreographyConfig?.staggerDelay).toBe(1);
+  });
+
+  it("records fix in fixHistory", () => {
+    const bp = makeBlueprint({ choreographyConfig: { staggerDelay: 3 } });
+    const qa = injectKineticOverflow(runRenderQA(bp, "longform"));
+
+    const result = autoFixBlueprint(bp, qa);
+    expect(result.blueprint.fixHistory).toContain("KINETIC_TEXT_OVERFLOW_FAIL");
+  });
+
+  it("stops after max 2 fix attempts", () => {
+    const bp = makeBlueprint({
+      choreographyConfig: { staggerDelay: 5 },
+      fixHistory: ["KINETIC_TEXT_OVERFLOW_FAIL", "KINETIC_TEXT_OVERFLOW_FAIL"],
+      motionPreset: "gentle", // avoid TRANSITION fix interfering
+    });
+    const qa = injectKineticOverflow(runRenderQA(bp, "longform"));
+
+    const result = autoFixBlueprint(bp, qa);
+    // Already 2 past fixes, should not fix again
+    expect(result.fixed).toBe(false);
+    expect(result.blueprint.choreographyConfig?.staggerDelay).toBe(5);
+  });
+
+  it("does not fix when choreographyConfig is missing", () => {
+    const bp = makeBlueprint();
+    const qa = injectKineticOverflow(runRenderQA(bp, "longform"));
+
+    const result = autoFixBlueprint(bp, qa);
+    // No choreographyConfig to reduce
+    const kineticFix = result.appliedFixes.find((f) =>
+      f.includes("KINETIC_TEXT_OVERFLOW"),
+    );
+    expect(kineticFix).toBeUndefined();
   });
 });
 
@@ -274,7 +349,10 @@ describe("autoFixWithRetry", () => {
       size: { width: "auto", height: "auto" },
     })) as VCLElement[];
 
-    const bp = makeBlueprint({ elements: denseElements });
+    const bp = makeBlueprint({
+      elements: denseElements,
+      motionPreset: "gentle", // avoid TRANSITION fix interfering
+    });
     const { totalFixes, attempts } = autoFixWithRetry(bp);
 
     // Should not have applied any fixes
