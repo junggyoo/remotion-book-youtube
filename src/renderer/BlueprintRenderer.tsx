@@ -23,6 +23,7 @@ import { useChoreography } from "./choreography";
 import { getPrimitive, SELF_ANIMATED_TYPES } from "./primitiveRegistry";
 import { MotionWrapper } from "./MotionWrapper";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 
 // --- Node/Edge classification ---
 
@@ -112,12 +113,22 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
   const radialCenter = computeRadialCenter(nodePositions);
 
   // 6. Beat timeline for element visibility + CameraLayer guided mode (P2-2)
-  const { activeBeat, elementStates } = useBeatTimeline(
-    beats ?? [],
-    blueprint.durationFrames,
-    blueprint.motionPreset,
-    sceneType ? { sceneType, format: blueprint.format } : undefined,
-  );
+  const { activeBeat, elementStates, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(
+      beats ?? [],
+      blueprint.durationFrames,
+      blueprint.motionPreset,
+      sceneType ? { sceneType, format: blueprint.format } : undefined,
+    );
+
+  // P2-4: Gate camera channel
+  const { isChannelActive: cameraGateActive, isRecovering: cameraRecovering } =
+    useEmphasisGate({
+      channelKey: "camera",
+      sceneType: sceneType ?? "custom",
+      format: blueprint.format,
+      beatTimeline: { activeChannels, isInRecoveryWindow },
+    });
 
   // 6b. Build beat-driven timing overrides: map beat.activates keys → element IDs
   const beatTimingOverrides = useMemo(() => {
@@ -230,6 +241,8 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
         sceneType={sceneType}
         activeBeat={activeBeat}
         durationFrames={blueprint.durationFrames}
+        emphasisGateActive={cameraGateActive}
+        isRecovering={cameraRecovering}
       >
         {blueprint.elements.map((el, originalIndex) => {
           const adapter = getPrimitive(el.type);

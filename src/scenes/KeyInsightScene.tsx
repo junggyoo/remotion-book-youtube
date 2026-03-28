@@ -26,6 +26,7 @@ import { motionPresets } from "@/design/tokens";
 import motionPresetsData from "@/design/tokens/motion-presets.json";
 import { useCaptions } from "@/hooks/useCaptions";
 import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 
 // zIndex layers
 const LAYERS = {
@@ -226,10 +227,11 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
     },
     format,
   );
-  const { elementStates, activeBeat } = useBeatTimeline(
-    resolvedBeats,
-    durationFrames,
-  );
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "keyInsight",
+      format,
+    });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -239,6 +241,25 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
     emphasisTargets: activeBeat?.emphasisTargets ?? [],
     sceneType: "keyInsight",
     format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "keyInsight",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
+
+  // P2-4: Gate background channel
+  const { isChannelActive: bgActive } = useEmphasisGate({
+    channelKey: "background",
+    sceneType: "keyInsight",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
   });
 
   const getBeatState = (key: string): ElementBeatState | undefined => {
@@ -259,12 +280,14 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   // --- Background radial pulse on headline entrance ---
   const headlineEntryFrame = getBeatState("headline")?.entryFrame ?? 6;
   const bgPulseStart = headlineEntryFrame + 8;
-  const bgPulseProgress = interpolate(
+  const bgPulseRaw = interpolate(
     frame,
     [bgPulseStart, bgPulseStart + 15, bgPulseStart + 45],
     [0, 0.1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
+  // P2-4: suppress background pulse when background channel is gated
+  const bgPulseProgress = bgActive ? bgPulseRaw : 0;
 
   // hex → rgb for accent color
   const ar = parseInt(theme.accent.slice(1, 3), 16);
@@ -403,7 +426,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                       variant="bodyL"
                       color={theme.textMuted}
                       emphasisWords={narrationSync.activeEmphasisTargets}
-                      emphasisProgress={narrationSync.emphasisProgress}
+                      emphasisProgress={gatedEmphasisProgress}
                     />
                   </div>
                 </BeatElement>

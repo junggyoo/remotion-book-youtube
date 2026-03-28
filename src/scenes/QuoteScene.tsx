@@ -20,6 +20,7 @@ import { BeatElement } from "@/components/motion/BeatElement";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { useCaptions } from "@/hooks/useCaptions";
 import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import { matchEmphasisTarget } from "@/utils/matchEmphasisTarget";
 
@@ -108,10 +109,11 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
     { id: `quote-${from}`, type: "quote", beats, narrationText: "" },
     format,
   );
-  const { elementStates, activeBeat } = useBeatTimeline(
-    resolvedBeats,
-    durationFrames,
-  );
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "quote",
+      format,
+    });
 
   // P2-3: Narration sync — emphasis words glow in quote text
   const narrationSync = useNarrationSync({
@@ -120,6 +122,17 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
     sceneType: "quote",
     format,
   });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "quote",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -321,7 +334,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                   // P2-3: Split line into word segments for emphasis
                   const hasEmphasis =
                     narrationSync.activeEmphasisTargets.length > 0 &&
-                    narrationSync.emphasisProgress > 0;
+                    gatedEmphasisProgress > 0;
                   const segments = line.split(/(\s+)/).map((seg, j) => {
                     if (/^\s+$/.test(seg))
                       return { text: seg, isEmphasis: false, key: j };
@@ -334,9 +347,8 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                     return { text: seg, isEmphasis: matched !== null, key: j };
                   });
 
-                  const emphasisGlowOpacity =
-                    narrationSync.emphasisProgress * 0.5;
-                  const emphasisGlow = `0 0 ${8 * narrationSync.emphasisProgress}px rgba(${ar},${ag},${ab},${emphasisGlowOpacity})`;
+                  const emphasisGlowOpacity = gatedEmphasisProgress * 0.5;
+                  const emphasisGlow = `0 0 ${8 * gatedEmphasisProgress}px rgba(${ar},${ag},${ab},${emphasisGlowOpacity})`;
 
                   return (
                     <p
@@ -362,7 +374,7 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                                 key={seg.key}
                                 style={{
                                   color: interpolateColors(
-                                    narrationSync.emphasisProgress,
+                                    gatedEmphasisProgress,
                                     [0, 1],
                                     [theme.textStrong, theme.accent],
                                   ),

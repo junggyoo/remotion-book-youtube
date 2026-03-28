@@ -23,6 +23,7 @@ import { TextBlock } from "@/components/primitives/TextBlock";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { useCaptions } from "@/hooks/useCaptions";
 import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import { metaphorToDiagramSpec } from "@/planning/diagramSpec";
 import { buildDiagramGeometry } from "@/planning/diagramGeometry";
@@ -166,10 +167,11 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
     },
     format,
   );
-  const { elementStates, activeBeat } = useBeatTimeline(
-    resolvedBeats,
-    durationFrames,
-  );
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "framework",
+      format,
+    });
 
   // P2-3: Narration sync — emphasis words glow in scene text
   const narrationSync = useNarrationSync({
@@ -178,6 +180,26 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
     sceneType: "framework",
     format,
   });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "framework",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
+
+  // P2-4: Gate background channel
+  const { isChannelActive: bgActive } = useEmphasisGate({
+    channelKey: "background",
+    sceneType: "framework",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -226,7 +248,7 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
   });
 
   // --- Completion pulse: subtle radial glow when all items revealed ---
-  const completionPulse = allVisible
+  const completionPulseRaw = allVisible
     ? interpolate(
         frame,
         [completionFrame, completionFrame + 12, completionFrame + 40],
@@ -234,6 +256,8 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
         { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
       )
     : 0;
+  // P2-4: suppress background pulse when background channel is gated
+  const completionPulse = bgActive ? completionPulseRaw : 0;
 
   // --- P2-1f: Diagram geometry (computed once, memoized) ---
   const diagramGeometry = React.useMemo<DiagramGeometry | null>(() => {
@@ -519,7 +543,7 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                             variant="headlineM"
                             weight="bold"
                             emphasisWords={narrationSync.activeEmphasisTargets}
-                            emphasisProgress={narrationSync.emphasisProgress}
+                            emphasisProgress={gatedEmphasisProgress}
                           />
 
                           {showDescriptions && item.description && (
@@ -533,7 +557,7 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                               emphasisWords={
                                 narrationSync.activeEmphasisTargets
                               }
-                              emphasisProgress={narrationSync.emphasisProgress}
+                              emphasisProgress={gatedEmphasisProgress}
                             />
                           )}
                         </div>
