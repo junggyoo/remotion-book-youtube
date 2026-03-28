@@ -17,6 +17,13 @@ import { vttToCaptions } from "../src/tts/vttParser";
 import type { Beat, BeatTimingResolution } from "../src/types";
 import { resolveBeatNarration } from "../src/tts/beatNarrationResolver";
 import { resolveBeatTimings } from "../src/tts/beatTimingResolver";
+import {
+  generateFishAudio,
+  generateCaptionsFromText,
+  addEmotionTag,
+  getFishAudioConfig,
+  type FishAudioConfig,
+} from "../src/tts/fish-audio-engine";
 
 interface BookContent {
   scenes: Array<{
@@ -176,6 +183,26 @@ async function generateViaQwen3(
   }
 }
 
+async function generateViaFishAudio(
+  text: string,
+  audioPath: string,
+  config: FishAudioConfig,
+  sceneType: string,
+): Promise<{ success: boolean; durationMs: number }> {
+  try {
+    const textWithEmotion = addEmotionTag(text, sceneType);
+    const durationMs = await generateFishAudio(
+      textWithEmotion,
+      audioPath,
+      config,
+    );
+    return { success: fs.existsSync(audioPath) && durationMs > 0, durationMs };
+  } catch (err) {
+    console.error(`[FAIL] fish-audio:`, err);
+    return { success: false, durationMs: 0 };
+  }
+}
+
 async function waitForQwen3Server(): Promise<boolean> {
   try {
     const resp = curlRequest(`${QWEN3_SERVER_URL}/health`, {
@@ -187,6 +214,28 @@ async function waitForQwen3Server(): Promise<boolean> {
     }
   } catch {}
   return false;
+}
+
+/**
+ * Resolve which TTS engine to use.
+ * Priority: TTS_ENGINE env > content JSON ttsEngine > auto-detect (fish-audio if available).
+ */
+function resolveEngine(
+  bookEngine?: string,
+): "fish-audio" | "qwen3-tts" | "edge-tts" {
+  const envEngine = process.env.TTS_ENGINE;
+  if (
+    envEngine === "fish-audio" ||
+    envEngine === "qwen3-tts" ||
+    envEngine === "edge-tts"
+  ) {
+    return envEngine;
+  }
+  if (bookEngine === "fish-audio") return "fish-audio";
+  if (bookEngine === "qwen3-tts") return "qwen3-tts";
+  // Auto-detect: prefer fish-audio if configured
+  if (getFishAudioConfig()) return "fish-audio";
+  return "edge-tts";
 }
 
 async function main() {
@@ -206,9 +255,12 @@ async function main() {
 
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  const useQwen3 = book.narration.ttsEngine === "qwen3-tts";
+  const engine = resolveEngine(book.narration.ttsEngine);
+  const fishConfig = engine === "fish-audio" ? getFishAudioConfig() : undefined;
 
-  if (useQwen3) {
+  if (engine === "fish-audio" && fishConfig) {
+    console.log("[INFO] Using fish-audio engine");
+  } else if (engine === "qwen3-tts") {
     console.log("[INFO] Using qwen3-tts engine");
     const ready = await waitForQwen3Server();
     if (!ready) {
@@ -244,25 +296,46 @@ async function main() {
 
     console.log(`[TTS] ${scene.id}: "${text.slice(0, 40)}..."`);
 
-    let success: boolean;
-    if (useQwen3) {
-      success = await generateViaQwen3(
+    let success = false;
+    let fishDurationMs = 0;
+    let usedFishAudio = false;
+
+    // 1) Fish Audio (if selected)
+    if (engine === "fish-audio" && fishConfig) {
+      const fishResult = await generateViaFishAudio(
         text,
         audioPath,
-        vttPath,
-        book.narration.speed ?? 1.0,
+        fishConfig,
+        scene.type,
       );
-      // Fallback to edge-tts on failure
+      success = fishResult.success;
+      fishDurationMs = fishResult.durationMs;
+      usedFishAudio = success;
       if (!success) {
-        console.warn(`[WARN] qwen3-tts failed, falling back to edge-tts`);
-        success = await generateViaEdgeTTS(
+        console.warn(`[WARN] fish-audio failed, falling back to edge-tts`);
+      }
+    }
+
+    // 2) Qwen3 (if selected or fish-audio failed)
+    if (
+      !success &&
+      (engine === "qwen3-tts" || (engine === "fish-audio" && !usedFishAudio))
+    ) {
+      if (engine === "qwen3-tts") {
+        success = await generateViaQwen3(
           text,
-          book.narration,
           audioPath,
           vttPath,
+          book.narration.speed ?? 1.0,
         );
+        if (!success) {
+          console.warn(`[WARN] qwen3-tts failed, falling back to edge-tts`);
+        }
       }
-    } else {
+    }
+
+    // 3) edge-tts (final fallback)
+    if (!success) {
       success = await generateViaEdgeTTS(
         text,
         book.narration,
@@ -276,18 +349,25 @@ async function main() {
       continue;
     }
 
-    // Get duration first (needed for caption alignment)
-    const durationMs = getAudioDurationMs(audioPath);
+    // Get duration (Fish Audio already measured it; otherwise use ffprobe)
+    const durationMs =
+      usedFishAudio && fishDurationMs > 0
+        ? fishDurationMs
+        : getAudioDurationMs(audioPath);
     const durationFrames = Math.ceil((durationMs / 1000) * FPS);
 
-    // Parse VTT → Caption[]
+    // Generate captions:
+    // - Fish Audio: proportional character-based (no VTT)
+    // - Qwen3/edge-tts: parse VTT file
     let captions: Caption[] = [];
-    if (fs.existsSync(vttPath)) {
+    if (usedFishAudio) {
+      captions = generateCaptionsFromText(text, durationMs);
+    } else if (fs.existsSync(vttPath)) {
       const vttContent = fs.readFileSync(vttPath, "utf-8");
       captions = vttToCaptions(vttContent);
     }
 
-    // Align last caption endMs to audio duration (fixes whisper tail gap)
+    // Align last caption endMs to audio duration (fixes tail gap)
     if (captions.length > 0 && durationMs > 0) {
       const lastCap = captions[captions.length - 1];
       if (lastCap.endMs < durationMs - 50) {

@@ -461,7 +461,7 @@ Props 타입:     컴포넌트명 + Props      (KeyInsightSceneProps)
 | --------------- | -------------------- | ------------------------------------------------------------- |
 | 이미지 누락     | `ImageMask.tsx`      | `onError` -> surfaceMuted 컬러 rect                           |
 | 폰트 실패       | `typography.ts`      | `Pretendard -> Inter -> system-ui -> sans-serif`              |
-| TTS 실패        | `ttsClient.ts`       | silent + 자막만                                               |
+| TTS 실패        | `ttsClient.ts`       | fish-audio → edge-tts → silent + 자막만                       |
 | 텍스트 오버플로 | `TextBlock.tsx`      | 폰트 1단계 축소 -> `bodyS` 최소. 이후 말줄임표                |
 | 아이콘 누락     | `IconWrapper.tsx`    | `visibility: hidden` (공간 보존)                              |
 | 렌더 실패       | `render-longform.ts` | 3회 재시도 -> FAIL_FAST (process.exit(1)) + render-errors.log |
@@ -504,6 +504,28 @@ npm run tts content/books/miracle-morning.json
 
 MP3가 없으면 `npm run make:video`가 자동 생성한다.
 렌더 전 `qa-check.ts`가 asset 존재를 자동 검사한다.
+
+### TTS 엔진
+
+기본 TTS: Fish Audio S2 (`FISH_API_KEY` + `FISH_VOICE_MODEL_ID` 환경변수 필요)
+fallback: edge-tts → silent
+
+환경변수:
+
+- `FISH_API_KEY`: Fish Audio API 키
+- `FISH_VOICE_MODEL_ID`: 클론된 목소리 model ID
+- `TTS_ENGINE`: 강제 엔진 선택 (선택사항, `fish-audio` | `edge-tts` | `qwen3-tts`)
+
+엔진 선택 우선순위:
+
+1. `TTS_ENGINE` 환경변수
+2. content JSON의 `narration.ttsEngine`
+3. `FISH_API_KEY`가 있으면 fish-audio 자동 선택
+4. edge-tts (최종 fallback)
+
+Fish Audio S2는 씬 타입별 감정 태그(`[excited]`, `[confident]` 등)를 자동 삽입한다.
+태그는 `src/tts/fish-audio-engine.ts`의 `SCENE_EMOTION_MAP`에서 관리.
+content JSON에는 감정 태그를 넣지 않는다 (generate-captions.ts에서 자동 처리).
 
 ---
 

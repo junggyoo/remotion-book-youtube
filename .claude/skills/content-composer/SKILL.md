@@ -156,7 +156,7 @@ Stage 8에서 TTS + 렌더가 자동으로 진행된다.
 | compareContrast.rightTag     | `"after"\|"fact"\|"right"\|"author"\|"custom"`                | 자유 텍스트                        |
 | compareContrast.revealOrder  | `"simultaneous"\|"left-first"\|"right-first"`                 | `"sequential"`                     |
 | compareContrast content      | `leftContent`, `rightContent` (string)                        | `leftItems` (array)                |
-| narration.ttsEngine          | `"qwen3-tts"` (현재 기본)                                     | `"edge-tts"` (구 기본)             |
+| narration.ttsEngine          | `"fish-audio"` (권장) / `"qwen3-tts"` / `"edge-tts"`          | 더 이상 사용하지 않는 엔진         |
 
 ## BeatElement Key 참조
 
@@ -165,6 +165,28 @@ Stage 8에서 TTS + 렌더가 자동으로 진행된다.
 
 각 씬 타입별로 beat.activates에 사용할 수 있는 키가 정의되어 있다.
 존재하지 않는 키를 사용하면 해당 beat의 시각 효과가 동작하지 않는다 (silent failure).
+
+## TTS 감정 태그 (Fish Audio S2)
+
+Fish Audio S2 사용 시, narrationText에 감정 태그를 자동 삽입한다.
+태그는 generate-captions.ts에서 씬 타입별로 자동 삽입되므로,
+content JSON에는 태그를 넣지 않는다.
+
+자동 매핑:
+
+- hook (highlight) → [excited]
+- cover → [confident]
+- keyInsight → [enthusiastic]
+- chapterDivider → [calm]
+- framework → [confident]
+- compareContrast → [curious]
+- quote → [soft tone]
+- application → [encouraging]
+- closing → [warm]
+- data → [confident]
+
+수동으로 특정 beat에 감정을 지정하고 싶으면,
+beat.\_emotionOverride 필드를 추가할 수 있다 (선택사항).
 
 ## 절대 금지
 

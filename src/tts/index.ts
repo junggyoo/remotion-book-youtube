@@ -15,3 +15,11 @@ export { syncDuration, framesToMs, msToFrames } from "./durationSync";
 export { vttToCaptions, parseVttTimestamp } from "./vttParser";
 export { executeMediaPlan } from "./mediaPlanExecutor";
 export type { MediaPlanResult } from "./mediaPlanExecutor";
+export {
+  generateFishAudio,
+  generateCaptionsFromText,
+  addEmotionTag,
+  isFishAudioAvailable,
+  getFishAudioConfig,
+} from "./fish-audio-engine";
+export type { FishAudioConfig } from "./fish-audio-engine";

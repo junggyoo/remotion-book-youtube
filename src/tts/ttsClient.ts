@@ -7,6 +7,12 @@ import type {
   NarrationConfig,
 } from "@/types";
 import { vttToCaptions } from "./vttParser";
+import {
+  generateFishAudio,
+  generateCaptionsFromText,
+  addEmotionTag,
+  getFishAudioConfig,
+} from "./fish-audio-engine";
 
 const DEFAULT_FPS = 30;
 const QWEN3_SERVER_URL = "http://127.0.0.1:9876";
@@ -383,18 +389,117 @@ function generateTTSWithCaptionsViaEdgeTTS(
   }
 }
 
+// --- Fish Audio generation ---
+
+async function generateTTSViaFishAudio(
+  sceneId: string,
+  text: string,
+  outputDir: string,
+  sceneType?: string,
+): Promise<TTSResult | undefined> {
+  const fishConfig = getFishAudioConfig();
+  if (!fishConfig) return undefined;
+
+  const outputPath = path.join(outputDir, `${sceneId}.mp3`);
+  const textWithEmotion = addEmotionTag(text, sceneType || "");
+
+  try {
+    const durationMs = await generateFishAudio(
+      textWithEmotion,
+      outputPath,
+      fishConfig,
+    );
+
+    if (!fs.existsSync(outputPath) || durationMs <= 0) {
+      console.error(`[TTS] Fish Audio output invalid for scene ${sceneId}`);
+      return undefined;
+    }
+
+    return {
+      sceneId,
+      audioFilePath: outputPath,
+      durationFrames: Math.ceil((durationMs / 1000) * DEFAULT_FPS),
+      durationMs,
+    };
+  } catch (err) {
+    console.error(`[TTS] Fish Audio failed for scene ${sceneId}:`, err);
+    return undefined;
+  }
+}
+
+async function generateTTSWithCaptionsViaFishAudio(
+  sceneId: string,
+  text: string,
+  outputDir: string,
+  sceneType?: string,
+): Promise<TTSResultWithCaptions | undefined> {
+  const fishConfig = getFishAudioConfig();
+  if (!fishConfig) return undefined;
+
+  const outputPath = path.join(outputDir, `${sceneId}.mp3`);
+  const textWithEmotion = addEmotionTag(text, sceneType || "");
+
+  try {
+    const durationMs = await generateFishAudio(
+      textWithEmotion,
+      outputPath,
+      fishConfig,
+    );
+
+    if (!fs.existsSync(outputPath) || durationMs <= 0) {
+      console.error(`[TTS] Fish Audio output invalid for scene ${sceneId}`);
+      return undefined;
+    }
+
+    const durationFrames = Math.ceil((durationMs / 1000) * DEFAULT_FPS);
+    const captions = generateCaptionsFromText(text, durationMs);
+
+    return {
+      sceneId,
+      audioFilePath: outputPath,
+      durationFrames,
+      durationMs,
+      captions,
+      vttPath: undefined as any,
+    };
+  } catch (err) {
+    console.error(`[TTS] Fish Audio failed for scene ${sceneId}:`, err);
+    return undefined;
+  }
+}
+
 // --- Public API ---
 
 /**
+ * Resolve TTS engine from config + environment.
+ * Priority: TTS_ENGINE env > config.ttsEngine > auto-detect.
+ */
+function resolveEngine(
+  config: NarrationConfig,
+): "fish-audio" | "qwen3-tts" | "edge-tts" {
+  const envEngine = process.env.TTS_ENGINE;
+  if (
+    envEngine === "fish-audio" ||
+    envEngine === "qwen3-tts" ||
+    envEngine === "edge-tts"
+  ) {
+    return envEngine;
+  }
+  if (config.ttsEngine === "fish-audio") return "fish-audio";
+  if (config.ttsEngine === "qwen3-tts") return "qwen3-tts";
+  return "edge-tts";
+}
+
+/**
  * Generate TTS audio for a scene.
- * Routes to qwen3-tts server or edge-tts CLI based on config.ttsEngine.
- * On qwen3-tts failure, falls back to edge-tts.
+ * Fallback chain: fish-audio -> qwen3-tts -> edge-tts (based on engine selection).
  */
 export async function generateTTS(
   sceneId: string,
   text: string,
   config: NarrationConfig,
   outputDir: string,
+  sceneType?: string,
 ): Promise<TTSResult | undefined> {
   if (!text || text.trim().length === 0) {
     return undefined;
@@ -404,12 +509,25 @@ export async function generateTTS(
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const engine = config.ttsEngine ?? "edge-tts";
+  const engine = resolveEngine(config);
+
+  if (engine === "fish-audio") {
+    const result = await generateTTSViaFishAudio(
+      sceneId,
+      text,
+      outputDir,
+      sceneType,
+    );
+    if (result) return result;
+    console.warn(
+      `[TTS] Fish Audio failed for scene ${sceneId}, falling back to edge-tts`,
+    );
+    return generateTTSViaEdgeTTS(sceneId, text, config, outputDir);
+  }
 
   if (engine === "qwen3-tts") {
     const result = await generateTTSViaQwen3(sceneId, text, outputDir);
     if (result) return result;
-
     console.warn(
       `[TTS] Qwen3 failed for scene ${sceneId}, falling back to edge-tts`,
     );
@@ -420,15 +538,15 @@ export async function generateTTS(
 }
 
 /**
- * Generate TTS audio WITH VTT subtitle data for DSGS pipeline.
- * Routes to qwen3-tts server or edge-tts CLI based on config.ttsEngine.
- * On qwen3-tts failure, falls back to edge-tts.
+ * Generate TTS audio WITH caption data for DSGS pipeline.
+ * Fallback chain: fish-audio -> qwen3-tts -> edge-tts (based on engine selection).
  */
 export async function generateTTSWithCaptions(
   sceneId: string,
   text: string,
   config: NarrationConfig,
   outputDir: string,
+  sceneType?: string,
 ): Promise<TTSResultWithCaptions | undefined> {
   if (!text || text.trim().length === 0) {
     return undefined;
@@ -438,7 +556,21 @@ export async function generateTTSWithCaptions(
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const engine = config.ttsEngine ?? "edge-tts";
+  const engine = resolveEngine(config);
+
+  if (engine === "fish-audio") {
+    const result = await generateTTSWithCaptionsViaFishAudio(
+      sceneId,
+      text,
+      outputDir,
+      sceneType,
+    );
+    if (result) return result;
+    console.warn(
+      `[TTS] Fish Audio failed for scene ${sceneId}, falling back to edge-tts`,
+    );
+    return generateTTSWithCaptionsViaEdgeTTS(sceneId, text, config, outputDir);
+  }
 
   if (engine === "qwen3-tts") {
     const result = await generateTTSWithCaptionsViaQwen3(
@@ -447,7 +579,6 @@ export async function generateTTSWithCaptions(
       outputDir,
     );
     if (result) return result;
-
     console.warn(
       `[TTS] Qwen3 failed for scene ${sceneId}, falling back to edge-tts`,
     );

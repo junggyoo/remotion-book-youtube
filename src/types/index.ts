@@ -325,7 +325,8 @@ export interface NarrationConfig {
     | "elevenlabs"
     | "google-tts"
     | "minimax"
-    | "qwen3-tts";
+    | "qwen3-tts"
+    | "fish-audio";
   speed?: number; // default: 1.0
   pitch?: string; // default: '+0Hz'
   subtitleMaxCharsPerLine?: number; // default: 28
