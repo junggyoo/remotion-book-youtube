@@ -710,6 +710,13 @@ export interface SceneBlueprint {
   from: number;
   durationFrames: number;
   mediaPlan: MediaPlan;
+  /** Optional choreography config for kinetic text and stagger tuning. */
+  choreographyConfig?: {
+    staggerDelay?: number;
+    [key: string]: unknown;
+  };
+  /** Auto-fix history — codes that were automatically remediated. */
+  fixHistory?: string[];
 }
 
 /** DSGS Spec 3-4 */
@@ -1045,7 +1052,7 @@ export type DiagramLayoutHint =
   | "freeform";
 
 export type DiagramRevealMode = "trace" | "construct" | "cascade";
-export type DiagramCompletionBehavior = "hold" | "zoom-node";
+export type DiagramCompletionBehavior = "hold" | "zoom-node" | "fade-summary";
 
 export interface DiagramSpec {
   diagramType: DiagramType;

@@ -12,7 +12,7 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate } from "remotion";
 import { applyPreset } from "@/design/tokens/motion";
-import type { FormatKey, Theme } from "@/types";
+import type { FormatKey, Theme, DiagramCompletionBehavior } from "@/types";
 
 /** 노드 활성화 효과 플래그 */
 export interface ActivationEffects {
@@ -53,6 +53,10 @@ export interface NodeActivationProps {
   width?: number;
   /** SVG 캔버스 높이 */
   height?: number;
+  /** 완성 후 행동 (기본: "hold") */
+  completionBehavior?: DiagramCompletionBehavior;
+  /** fade-summary용: summary 요소를 렌더하는 children */
+  summaryElement?: React.ReactNode;
 }
 
 /** scale pulse 최대값 (CLAUDE.md: maxScaleEmphasis 1.06 내) */
@@ -179,6 +183,12 @@ const ActivationNode: React.FC<{
   );
 };
 
+/** fade-summary 전환 duration (프레임) */
+const FADE_SUMMARY_DURATION = 18;
+
+/** fade-summary 시 다이어그램 최소 opacity */
+const FADE_SUMMARY_DIAGRAM_OPACITY = 0.4;
+
 export const NodeActivation: React.FC<NodeActivationProps> = ({
   nodes,
   activationOrder,
@@ -192,36 +202,96 @@ export const NodeActivation: React.FC<NodeActivationProps> = ({
   nodeSize = 48,
   width,
   height,
+  completionBehavior = "hold",
+  summaryElement,
 }) => {
+  const frame = useCurrentFrame();
+
   // 각 노드의 활성화 프레임 계산
   const activationFrames = new Map<number, number>();
   activationOrder.forEach((nodeIdx, orderIdx) => {
     activationFrames.set(nodeIdx, startFrame + orderIdx * staggerDelay);
   });
 
+  // 마지막 노드 활성화 완료 프레임 (fill transition 포함)
+  const lastActivationStart =
+    startFrame + (activationOrder.length - 1) * staggerDelay;
+  const completionFrame = lastActivationStart + FILL_TRANSITION_DURATION;
+
+  // fade-summary: summary 요소가 없으면 hold로 fallback
+  const effectiveBehavior =
+    completionBehavior === "fade-summary" && !summaryElement
+      ? "hold"
+      : completionBehavior;
+
+  const allNodesActive = frame >= completionFrame;
+
+  // fade-summary opacity 계산
+  let diagramOpacity = 1;
+  let summaryOpacity = 0;
+
+  if (effectiveBehavior === "fade-summary" && allNodesActive) {
+    const fadeElapsed = frame - completionFrame;
+    const fadeProgress = interpolate(
+      fadeElapsed,
+      [0, FADE_SUMMARY_DURATION],
+      [0, 1],
+      { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+    );
+    diagramOpacity = interpolate(
+      fadeProgress,
+      [0, 1],
+      [1, FADE_SUMMARY_DIAGRAM_OPACITY],
+    );
+    summaryOpacity = interpolate(fadeProgress, [0, 1], [0, 1]);
+  }
+
   return (
-    <svg
-      width={width ?? "100%"}
-      height={height ?? "100%"}
-      style={{ overflow: "visible", position: "absolute", top: 0, left: 0 }}
-      viewBox={width && height ? `0 0 ${width} ${height}` : undefined}
-    >
-      {nodes.map((node, i) => (
-        <ActivationNode
-          key={i}
-          node={node}
-          activationFrame={
-            activationFrames.get(i) ?? startFrame + i * staggerDelay
-          }
-          mutedColor={mutedColor}
-          activeColor={activeColor}
-          effects={activationEffects}
-          nodeSize={nodeSize}
-          format={format}
-          theme={theme}
-        />
-      ))}
-    </svg>
+    <>
+      <svg
+        width={width ?? "100%"}
+        height={height ?? "100%"}
+        style={{
+          overflow: "visible",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          opacity: diagramOpacity,
+        }}
+        viewBox={width && height ? `0 0 ${width} ${height}` : undefined}
+      >
+        {nodes.map((node, i) => (
+          <ActivationNode
+            key={i}
+            node={node}
+            activationFrame={
+              activationFrames.get(i) ?? startFrame + i * staggerDelay
+            }
+            mutedColor={mutedColor}
+            activeColor={activeColor}
+            effects={activationEffects}
+            nodeSize={nodeSize}
+            format={format}
+            theme={theme}
+          />
+        ))}
+      </svg>
+      {effectiveBehavior === "fade-summary" && summaryElement && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            opacity: summaryOpacity,
+            pointerEvents: summaryOpacity > 0 ? "auto" : "none",
+          }}
+        >
+          {summaryElement}
+        </div>
+      )}
+    </>
   );
 };
 
