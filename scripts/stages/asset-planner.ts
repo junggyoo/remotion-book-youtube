@@ -4,7 +4,7 @@
  */
 
 import "tsconfig-paths/register";
-import { existsSync, readFileSync, readdirSync } from "fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
 import type {
   DsgsStage,
@@ -16,6 +16,8 @@ import type { BookArtDirection } from "../../src/planning/types";
 import type { DiagramSpec } from "../../src/types";
 import { savePlanArtifact } from "../../src/planning/loaders/save-book-plan";
 import { extractDiagramSpecs } from "../../src/planning/diagramSpec";
+import { fetchBookCover } from "../utils/fetch-cover";
+import type { BookContent } from "../../src/types";
 
 interface AssetRequirement {
   assetId: string;
@@ -190,6 +192,44 @@ export const planAssets: DsgsStage = {
     const blueprints = loadBlueprints(ctx.planDir);
     const extracted = extractFromBlueprints(blueprints);
     const merged = mergeWithInventory(extracted, inventory);
+
+    // Auto-fetch cover image if missing or placeholder
+    let coverFetchMsg = "";
+    try {
+      const bookContent = JSON.parse(
+        readFileSync(ctx.bookPath, "utf-8"),
+      ) as BookContent;
+      const { title, author } = bookContent.metadata;
+      const coverBasePath = path.resolve(
+        "assets",
+        `covers/${ctx.bookId}-cover.png`,
+      );
+
+      // Check if a real cover already exists (any extension)
+      const exts = [".png", ".jpg", ".jpeg", ".webp"];
+      const basePath = coverBasePath.replace(/\.\w+$/, "");
+      const existingCover = exts
+        .map((ext) => basePath + ext)
+        .find((p) => existsSync(p) && statSync(p).size > 5000);
+
+      if (!existingCover) {
+        const result = await fetchBookCover(title, author, coverBasePath);
+        if (result.success && result.filePath) {
+          coverFetchMsg = ` | Cover: fetched → ${path.basename(result.filePath)}`;
+          const coverReq = merged.find(
+            (r) => r.type === "cover" || r.assetId.includes("cover"),
+          );
+          if (coverReq) coverReq.status = "ready";
+        } else if (result.error) {
+          coverFetchMsg = ` | Cover: fetch failed (${result.error})`;
+        }
+      } else {
+        coverFetchMsg = ` | Cover: exists (${path.basename(existingCover)})`;
+      }
+    } catch {
+      coverFetchMsg = ` | Cover: error reading book content`;
+    }
+
     const { requirements, diagramMatched } = enrichWithDiagramSpecs(
       merged,
       artDirection,
@@ -220,7 +260,7 @@ export const planAssets: DsgsStage = {
       durationMs: Date.now() - start,
       message: `Assets: ${requirements.length} total (${Object.entries(byStatus)
         .map(([k, v]) => `${k}:${v}`)
-        .join(", ")})${diagramMsg}`,
+        .join(", ")})${diagramMsg}${coverFetchMsg}`,
     };
   },
 };

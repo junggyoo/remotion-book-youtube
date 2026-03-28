@@ -6,7 +6,7 @@
     "author": "도널드 밀러",
     "originalTitle": "Building a StoryBrand",
     "genre": "business",
-    "coverImageUrl": "covers/story-brand-cover.png",
+    "coverImageUrl": "covers/story-brand-cover.jpg",
     "publishYear": 2017,
     "tags": ["마케팅", "브랜딩", "스토리텔링", "SB7", "고객중심"]
   },
@@ -35,7 +35,7 @@
         "title": "스토리 설계자",
         "subtitle": "고객을 영웅으로 만드는 7단계 브랜드 전략",
         "author": "도널드 밀러",
-        "coverImageUrl": "covers/story-brand-cover.png",
+        "coverImageUrl": "covers/story-brand-cover.jpg",
         "brandLabel": "Editorial Signal",
         "backgroundVariant": "dark"
       },
