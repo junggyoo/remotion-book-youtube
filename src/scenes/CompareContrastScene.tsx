@@ -3,6 +3,7 @@ import {
   AbsoluteFill,
   useCurrentFrame,
   useVideoConfig,
+  spring,
   interpolate,
 } from "remotion";
 import type {
@@ -14,6 +15,7 @@ import { sp } from "@/design/tokens/spacing";
 import { typography } from "@/design/tokens/typography";
 import { shadow, sceneInteriorTokens } from "@/design/tokens/shadow";
 import { applyPreset } from "@/design/tokens/motion";
+import motionPresetsData from "@/design/tokens/motion-presets.json";
 import { useFormat } from "@/design/themes/useFormat";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
@@ -22,9 +24,10 @@ import { LabelChip } from "@/components/primitives/LabelChip";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
-// zIndex layers from scene-catalog.json → compareContrast
+// zIndex layers
 const LAYERS = {
   background: 0,
+  bgGlow: 2,
   texture: 5,
   leftPanel: 20,
   rightPanel: 20,
@@ -42,16 +45,15 @@ interface CompareContrastSceneProps extends BaseSceneProps {
 }
 
 /**
- * Wildcard stagger — sequential reveal even without explicit beats.
- * Left first → connector → right (always left-first for wildcard).
+ * Wildcard stagger — left-first → connector → right with enhanced timing.
  */
 function buildWildcardStagger(
   revealOrder: "simultaneous" | "left-first" | "right-first",
 ): Record<string, ElementBeatState> {
-  const leftDelay = revealOrder === "right-first" ? 18 : 0;
+  const leftDelay = revealOrder === "right-first" ? 20 : 0;
   const rightDelay =
-    revealOrder === "left-first" ? 18 : revealOrder === "simultaneous" ? 18 : 0;
-  const connectorDelay = Math.max(leftDelay, rightDelay) + 15;
+    revealOrder === "left-first" ? 20 : revealOrder === "simultaneous" ? 20 : 0;
+  const connectorDelay = Math.max(leftDelay, rightDelay) + 12;
 
   return {
     leftPanel: {
@@ -88,15 +90,21 @@ function isActivated(state: ElementBeatState | undefined): boolean {
 }
 
 /**
- * SVG Divider with draw-on animation (top→bottom for vertical, left→right for horizontal).
+ * SVG Divider with draw-on animation + accent glow.
  */
 const DrawOnDivider: React.FC<{
   orientation: "vertical" | "horizontal";
   color: string;
+  glowColor: string;
   progress: number;
-}> = ({ orientation, color, progress }) => {
+}> = ({ orientation, color, glowColor, progress }) => {
   const length = DIVIDER_LENGTH;
   const dashOffset = interpolate(progress, [0, 1], [length, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const glowOpacity = interpolate(progress, [0.3, 0.7, 1], [0, 0.4, 0.15], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -104,11 +112,25 @@ const DrawOnDivider: React.FC<{
   if (orientation === "vertical") {
     return (
       <svg
-        width={DIVIDER_STROKE_WIDTH}
+        width={DIVIDER_STROKE_WIDTH + 8}
         height={length}
-        viewBox={`0 0 ${DIVIDER_STROKE_WIDTH} ${length}`}
+        viewBox={`-4 0 ${DIVIDER_STROKE_WIDTH + 8} ${length}`}
         style={{ overflow: "visible" }}
       >
+        {/* Glow line */}
+        <line
+          x1={DIVIDER_STROKE_WIDTH / 2}
+          y1={0}
+          x2={DIVIDER_STROKE_WIDTH / 2}
+          y2={length}
+          stroke={glowColor}
+          strokeWidth={6}
+          strokeDasharray={length}
+          strokeDashoffset={dashOffset}
+          strokeLinecap="round"
+          opacity={glowOpacity}
+        />
+        {/* Main line */}
         <line
           x1={DIVIDER_STROKE_WIDTH / 2}
           y1={0}
@@ -127,10 +149,24 @@ const DrawOnDivider: React.FC<{
   return (
     <svg
       width={length}
-      height={DIVIDER_STROKE_WIDTH}
-      viewBox={`0 0 ${length} ${DIVIDER_STROKE_WIDTH}`}
+      height={DIVIDER_STROKE_WIDTH + 8}
+      viewBox={`0 -4 ${length} ${DIVIDER_STROKE_WIDTH + 8}`}
       style={{ overflow: "visible" }}
     >
+      {/* Glow line */}
+      <line
+        x1={0}
+        y1={DIVIDER_STROKE_WIDTH / 2}
+        x2={length}
+        y2={DIVIDER_STROKE_WIDTH / 2}
+        stroke={glowColor}
+        strokeWidth={6}
+        strokeDasharray={length}
+        strokeDashoffset={dashOffset}
+        strokeLinecap="round"
+        opacity={glowOpacity}
+      />
+      {/* Main line */}
       <line
         x1={0}
         y1={DIVIDER_STROKE_WIDTH / 2}
@@ -184,20 +220,22 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     return elementStates.get(key);
   };
 
-  // --- Dim / emphasis logic (frame-interpolated, no CSS transitions) ---
+  // --- Dim / emphasis logic ---
+  const leftState = getBeatState("leftPanel");
   const rightState = getBeatState("rightPanel");
   const connectorState = getBeatState("connector");
   const rightIsActive = isActivated(rightState);
+  const leftIsActive = isActivated(leftState);
 
-  // Determine target opacity for left panel based on beat phase
+  // Determine target opacity for left panel
   const isRecapBeat = activeBeat?.transition === "emphasis";
   const leftTargetOpacity = rightIsActive
     ? isRecapBeat
-      ? 0.7 // beat 4: both visible, right emphasized
-      : sceneInteriorTokens.dimOpacity // beat 3: left dimmed
-    : 1; // beat 1-2: full opacity (or hidden via BeatElement)
+      ? 0.7
+      : sceneInteriorTokens.dimOpacity
+    : 1;
 
-  // Smooth frame-interpolated dim (no CSS transition — Remotion renders static frames)
+  // Smooth dim with blur for left panel
   const rightEntry = rightState?.entryFrame ?? 0;
   const dimProgress = rightIsActive
     ? applyPreset(
@@ -211,11 +249,26 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     dimProgress,
     [0, 1],
     [1, leftTargetOpacity],
-    {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    },
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
+  const leftDimBlur = interpolate(dimProgress, [0, 1], [0, 2]);
+
+  // --- Left panel entrance blur ---
+  const leftEntry = leftState?.entryFrame ?? 0;
+  const leftEntranceProgress = spring({
+    frame: Math.max(0, frame - leftEntry),
+    fps,
+    config: motionPresetsData.presets.smooth.config,
+  });
+  const leftEntranceBlur = interpolate(leftEntranceProgress, [0, 1], [6, 0]);
+
+  // --- Right panel entrance blur ---
+  const rightEntranceProgress = spring({
+    frame: Math.max(0, frame - rightEntry),
+    fps,
+    config: motionPresetsData.presets.smooth.config,
+  });
+  const rightEntranceBlur = interpolate(rightEntranceProgress, [0, 1], [6, 0]);
 
   // --- Divider draw-on progress ---
   const connectorEntry = connectorState?.entryFrame ?? 0;
@@ -227,6 +280,34 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         durationFrames,
       )
     : 0;
+
+  // --- VS badge: punchy scale + glow ---
+  const vsBadgeProgress = spring({
+    frame: Math.max(0, frame - connectorEntry - 6),
+    fps,
+    config: motionPresetsData.presets.punchy.config,
+  });
+
+  // --- Slow-zoom: 1.0→1.02 cinematic ---
+  const slowZoom = interpolate(frame, [0, durationFrames], [1.0, 1.02], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // --- Right panel accent glow on entrance ---
+  const rightGlowProgress = rightIsActive
+    ? interpolate(
+        frame,
+        [rightEntry, rightEntry + 12, rightEntry + 40],
+        [0, 0.12, 0],
+        { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+      )
+    : 0;
+
+  // hex → rgb for glow
+  const ar = parseInt(theme.accent.slice(1, 3), 16);
+  const ag = parseInt(theme.accent.slice(3, 5), 16);
+  const ab = parseInt(theme.accent.slice(5, 7), 16);
 
   // Tag label variant mapping
   const leftTagVariant = ((): "default" | "accent" | "signal" => {
@@ -337,9 +418,19 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
       {/* Background layer */}
       <AbsoluteFill
+        style={{ zIndex: LAYERS.background, backgroundColor: theme.bg }}
+      />
+
+      {/* Right panel accent glow */}
+      <div
         style={{
-          zIndex: LAYERS.background,
-          backgroundColor: theme.bg,
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.bgGlow,
+          background: isShorts
+            ? `radial-gradient(ellipse 80% 40% at 50% 70%, rgba(${ar},${ag},${ab},${rightGlowProgress}) 0%, transparent 70%)`
+            : `radial-gradient(ellipse 40% 60% at 75% 50%, rgba(${ar},${ag},${ab},${rightGlowProgress}) 0%, transparent 70%)`,
+          pointerEvents: "none",
         }}
       />
 
@@ -352,8 +443,17 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
         }}
       />
 
-      {/* Main content */}
-      <div style={{ position: "absolute", inset: 0, zIndex: LAYERS.leftPanel }}>
+      {/* Main content — wrapped in slow-zoom */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: LAYERS.leftPanel,
+          transform: `scale(${slowZoom})`,
+          transformOrigin: "50% 50%",
+          willChange: "transform",
+        }}
+      >
         <SafeArea format={format} theme={theme}>
           <div
             style={{
@@ -365,13 +465,20 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
               position: "relative",
             }}
           >
-            {/* Left panel — dims when right panel enters */}
+            {/* Left panel — dims + blurs when right panel enters */}
             <div
               style={{
                 flex: 1,
                 display: "flex",
                 alignItems: "center",
-                opacity: leftFinalOpacity,
+                opacity: leftIsActive ? leftFinalOpacity : 0,
+                filter:
+                  leftDimBlur > 0
+                    ? `blur(${leftDimBlur}px)`
+                    : leftEntranceBlur > 0
+                      ? `blur(${leftEntranceBlur}px)`
+                      : undefined,
+                willChange: "opacity, filter",
               }}
             >
               <BeatElement
@@ -386,7 +493,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
               </BeatElement>
             </div>
 
-            {/* Center SVG divider with draw-on */}
+            {/* Center SVG divider with draw-on + glow */}
             <div
               style={{
                 zIndex: LAYERS.divider,
@@ -403,6 +510,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
                 <DrawOnDivider
                   orientation={isShorts ? "horizontal" : "vertical"}
                   color={theme.lineSubtle}
+                  glowColor={`rgba(${ar},${ag},${ab},1)`}
                   progress={dividerProgress}
                 />
               )}
@@ -419,7 +527,10 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
                       letterSpacing: typography.tracking.wide,
                       backgroundColor: theme.bg,
                       padding: `${sp(2)}px ${sp(3)}px`,
-                      opacity: dividerProgress,
+                      transform: `scale(${vsBadgeProgress})`,
+                      opacity: interpolate(vsBadgeProgress, [0, 1], [0, 1]),
+                      boxShadow: `0 0 ${sp(2)}px rgba(${ar},${ag},${ab},${interpolate(vsBadgeProgress, [0.5, 1], [0.3, 0.08], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })})`,
+                      borderRadius: sp(1),
                     }}
                   >
                     VS
@@ -427,8 +538,19 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
                 )}
             </div>
 
-            {/* Right panel */}
-            <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+            {/* Right panel — entrance blur */}
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                filter:
+                  rightEntranceBlur > 0.1
+                    ? `blur(${rightEntranceBlur}px)`
+                    : undefined,
+                willChange: "filter",
+              }}
+            >
               <BeatElement
                 elementKey="rightPanel"
                 beatState={getBeatState("rightPanel")}
