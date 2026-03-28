@@ -12,6 +12,7 @@ import { sceneInteriorTokens } from "@/design/tokens/shadow";
 import { typography } from "@/design/tokens/typography";
 import { motionPresets } from "@/design/tokens";
 import { resolvePreset } from "@/design/tokens/motion";
+import motionPresetsData from "@/design/tokens/motion-presets.json";
 import { useFormat } from "@/design/themes/useFormat";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
@@ -22,18 +23,21 @@ const LAYERS = {
   background: 0,
   texture: 5,
   darkOverlay: 8,
+  accentLine: 15,
   quoteMark: 20,
   quoteText: 30,
   attribution: 35,
 } as const;
 
-/** Line stagger interval: 15 frames = 0.5s at 30fps */
-const LINE_STAGGER_FRAMES = 15;
+/** Line stagger: 18 frames ≈ 0.6s at 30fps — deliberate, contemplative tempo */
+const LINE_STAGGER_FRAMES = 18;
 /** Quote text starts after marks have scaled in */
-const QUOTE_TEXT_DELAY = 12;
+const QUOTE_TEXT_DELAY = 14;
+/** Accent vertical line starts with quote marks */
+const ACCENT_LINE_DELAY = 4;
 
 /**
- * Wildcard stagger — uses "quoteText" as single key (matches content JSON beats).
+ * Wildcard stagger — deliberate, contemplative pacing for quote scenes.
  */
 function buildWildcardStagger(): Record<string, ElementBeatState> {
   return {
@@ -51,7 +55,7 @@ function buildWildcardStagger(): Record<string, ElementBeatState> {
     },
     attribution: {
       visibility: "entering",
-      entryFrame: QUOTE_TEXT_DELAY + 24,
+      entryFrame: QUOTE_TEXT_DELAY + 30,
       emphasis: false,
       motionPreset: "heavy",
     },
@@ -107,18 +111,21 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
     return elementStates.get(key);
   };
 
-  // Large quotation mark scale animation (scale 0→1 spring)
+  // --- Quotation mark animation: scale + subtle rotation + glow ---
   const quoteMarkState = getBeatState("quoteMarks");
   const quoteMarkEntry = quoteMarkState?.entryFrame ?? 0;
   const dramaticConfig = resolvePreset("dramatic");
-  const quoteMarkScale = spring({
+  const quoteMarkProgress = spring({
     frame: Math.max(0, frame - quoteMarkEntry),
     fps,
     config: dramaticConfig.springConfig!,
-    durationInFrames: 36,
+    durationInFrames: 40,
   });
+  const quoteMarkScale = interpolate(quoteMarkProgress, [0, 1], [0.6, 1]);
+  const quoteMarkRotation = interpolate(quoteMarkProgress, [0, 1], [-8, 0]);
+  const quoteMarkOpacity = interpolate(quoteMarkProgress, [0, 1], [0, 0.3]);
 
-  // Per-line stagger: manual spring animation inside the quoteText BeatElement
+  // Per-line stagger
   const quoteTextState = getBeatState("quoteText");
   const quoteTextEntry = quoteTextState?.entryFrame ?? QUOTE_TEXT_DELAY;
 
@@ -128,6 +135,49 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
 
   // Dark overlay via theme-relative approach
   const darkOverlayOpacity = theme.mode === "dark" ? 0.1 : 0.05;
+
+  // --- Slow-zoom: very gentle 1.0→1.015 for contemplative feel ---
+  const slowZoom = interpolate(frame, [0, durationFrames], [1.0, 1.015], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  // --- Accent vertical line: draw-on from top (left side quote bar) ---
+  const accentLineProgress = spring({
+    frame: Math.max(0, frame - ACCENT_LINE_DELAY),
+    fps,
+    config: motionPresetsData.presets.heavy.config,
+  });
+
+  // --- Attribution entrance: blur-in + underline wipe ---
+  const attrState = getBeatState("attribution");
+  const attrEntry = attrState?.entryFrame ?? QUOTE_TEXT_DELAY + 30;
+  const attrSpring = spring({
+    frame: Math.max(0, frame - attrEntry),
+    fps,
+    config: motionPresetsData.presets.heavy.config,
+  });
+  const attrBlur = interpolate(attrSpring, [0, 1], [6, 0]);
+  const attrTranslateY = interpolate(attrSpring, [0, 1], [12, 0]);
+  // Underline wipe starts after text appears
+  const attrUnderlineProgress = spring({
+    frame: Math.max(0, frame - attrEntry - 10),
+    fps,
+    config: motionPresetsData.presets.snappy.config,
+  });
+
+  // hex → rgb for accent glow
+  const ar = parseInt(theme.accent.slice(1, 3), 16);
+  const ag = parseInt(theme.accent.slice(3, 5), 16);
+  const ab = parseInt(theme.accent.slice(5, 7), 16);
+
+  // --- Darken pulse when quote lines appear ---
+  const darkenPulse = interpolate(
+    frame,
+    [quoteTextEntry, quoteTextEntry + 10, quoteTextEntry + 40],
+    [0, 0.04, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
@@ -145,21 +195,24 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
         }}
       />
 
-      {/* Dark overlay — quote scenes are slightly darker */}
+      {/* Dark overlay — quote scenes are slightly darker + darken pulse */}
       <AbsoluteFill
         style={{
           zIndex: LAYERS.darkOverlay,
           backgroundColor: theme.surfaceMuted,
-          opacity: darkOverlayOpacity,
+          opacity: darkOverlayOpacity + darkenPulse,
         }}
       />
 
-      {/* Main content */}
+      {/* Main content — wrapped in slow-zoom */}
       <div
         style={{
           position: "absolute",
           inset: 0,
           zIndex: LAYERS.quoteText,
+          transform: `scale(${slowZoom})`,
+          transformOrigin: "50% 50%",
+          willChange: "transform",
         }}
       >
         <SafeArea format={format} theme={theme}>
@@ -177,25 +230,48 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               position: "relative",
             }}
           >
-            {/* Large opening quotation mark ❝ */}
+            {/* Accent vertical line — left side quote bar */}
+            {!isShorts && (
+              <div
+                style={{
+                  position: "absolute",
+                  left: -sp(2),
+                  top: "20%",
+                  width: 3,
+                  height: "60%",
+                  zIndex: LAYERS.accentLine,
+                  backgroundColor: theme.accent,
+                  borderRadius: 2,
+                  transform: `scaleY(${accentLineProgress})`,
+                  transformOrigin: "center top",
+                  opacity: interpolate(accentLineProgress, [0, 0.3], [0, 0.5], {
+                    extrapolateRight: "clamp",
+                  }),
+                  boxShadow: `0 0 ${sp(2)}px rgba(${ar},${ag},${ab},${interpolate(accentLineProgress, [0, 1], [0, 0.2])})`,
+                }}
+              />
+            )}
+
+            {/* Large opening quotation mark ❝ — scale + rotation + glow */}
             <span
               style={{
                 fontFamily: typography.fontFamily.serif,
                 fontSize: typeScale.headlineL * 3,
                 lineHeight: 0.7,
                 color: theme.accent,
-                opacity: 0.3 * quoteMarkScale,
-                transform: `scale(${quoteMarkScale})`,
+                opacity: quoteMarkOpacity,
+                transform: `scale(${quoteMarkScale}) rotate(${quoteMarkRotation}deg)`,
                 transformOrigin: "left top",
                 userSelect: "none",
                 zIndex: LAYERS.quoteMark,
+                filter: `drop-shadow(0 0 ${sp(2)}px rgba(${ar},${ag},${ab},${interpolate(quoteMarkProgress, [0, 1], [0, 0.15])}))`,
               }}
               aria-hidden="true"
             >
               {"\u275D"}
             </span>
 
-            {/* Quote text — single BeatElement with per-line stagger inside */}
+            {/* Quote text — per-line stagger with blur-in */}
             <BeatElement
               elementKey="quoteText"
               beatState={getBeatState("quoteText")}
@@ -220,14 +296,15 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                     frame: lineLocalFrame,
                     fps,
                     config: motionPresets.presets.heavy.config,
-                    durationInFrames: 30,
+                    durationInFrames: 36,
                   });
                   const lineOpacity = interpolate(lineProgress, [0, 1], [0, 1]);
                   const lineTranslateY = interpolate(
                     lineProgress,
                     [0, 1],
-                    [22, 0],
+                    [28, 0],
                   );
+                  const lineBlur = interpolate(lineProgress, [0, 1], [6, 0]);
 
                   return (
                     <p
@@ -242,7 +319,8 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                         margin: 0,
                         opacity: lineOpacity,
                         transform: `translateY(${lineTranslateY}px)`,
-                        willChange: "opacity, transform",
+                        filter: `blur(${lineBlur}px)`,
+                        willChange: "opacity, transform, filter",
                       }}
                     >
                       {line}
@@ -252,46 +330,69 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
               </div>
             </BeatElement>
 
-            {/* Large closing quotation mark ❞ */}
+            {/* Large closing quotation mark ❞ — mirrors opening */}
             <span
               style={{
                 fontFamily: typography.fontFamily.serif,
                 fontSize: typeScale.headlineL * 3,
                 lineHeight: 0.7,
                 color: theme.accent,
-                opacity: 0.3 * quoteMarkScale,
-                transform: `scale(${quoteMarkScale})`,
+                opacity: quoteMarkOpacity,
+                transform: `scale(${quoteMarkScale}) rotate(${-quoteMarkRotation}deg)`,
                 transformOrigin: "right bottom",
                 alignSelf: "flex-end",
                 userSelect: "none",
                 zIndex: LAYERS.quoteMark,
+                filter: `drop-shadow(0 0 ${sp(2)}px rgba(${ar},${ag},${ab},${interpolate(quoteMarkProgress, [0, 1], [0, 0.15])}))`,
               }}
               aria-hidden="true"
             >
               {"\u275E"}
             </span>
 
-            {/* Attribution — fades in last */}
+            {/* Attribution — blur-in + underline wipe */}
             <BeatElement
               elementKey="attribution"
               beatState={getBeatState("attribution")}
               format={format}
               theme={theme}
+              motionType="none"
             >
-              <span
+              <div
                 style={{
-                  fontFamily: typography.fontFamily.sans,
-                  fontSize: typeScale.bodyM,
-                  fontWeight: typography.fontWeight.medium,
-                  letterSpacing: typography.tracking.wide,
-                  color: theme.textMuted,
                   alignSelf: isShorts ? "center" : "flex-end",
                   paddingRight: sp(4),
+                  opacity: interpolate(attrSpring, [0, 1], [0, 1]),
+                  transform: `translateY(${attrTranslateY}px)`,
+                  filter: `blur(${attrBlur}px)`,
+                  willChange: "opacity, transform, filter",
                 }}
               >
-                {"\u2014 "}
-                {content.attribution}
-              </span>
+                <span
+                  style={{
+                    fontFamily: typography.fontFamily.sans,
+                    fontSize: typeScale.bodyM,
+                    fontWeight: typography.fontWeight.medium,
+                    letterSpacing: typography.tracking.wide,
+                    color: theme.textMuted,
+                  }}
+                >
+                  {"\u2014 "}
+                  {content.attribution}
+                </span>
+                {/* Underline wipe */}
+                <div
+                  style={{
+                    height: 1.5,
+                    marginTop: sp(1),
+                    backgroundColor: theme.accent,
+                    opacity: 0.4,
+                    borderRadius: 1,
+                    transform: `scaleX(${attrUnderlineProgress})`,
+                    transformOrigin: "left center",
+                  }}
+                />
+              </div>
             </BeatElement>
           </div>
         </SafeArea>
