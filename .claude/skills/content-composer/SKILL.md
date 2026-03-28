@@ -75,6 +75,39 @@ BookFingerprint를 기반으로 씬 구성을 결정한다:
 **기계적 복사 금지**: 모든 책에 같은 구성을 넣지 않는다.
 책 내용에 맞는 씬만 포함한다.
 
+### 2-2a. SceneFamily 기반 씬 구성 (Phase 0+)
+
+BookFingerprint를 기반으로 SceneFamily와 Direction을 결정한다.
+`src/direction/interpretationBootstrap.ts`의 매핑을 참조.
+
+| BookFingerprint.genre | 기본 Direction | SceneFamily 가중치                           |
+| --------------------- | -------------- | -------------------------------------------- |
+| psychology            | analytical     | mechanism-explanation↑, tension-comparison↑  |
+| selfHelp              | persuasive     | progression-journey↑, evidence-stack↑        |
+| business              | systematic     | tension-comparison↑, system-model↑           |
+| philosophy            | contemplative  | reflective-anchor↑, concept-introduction↑    |
+| science               | investigative  | mechanism-explanation↑, progression-journey↑ |
+
+**emotionalTone override:**
+
+- urgent / intense → urgent direction
+- hopeful → inspirational direction
+- reflective / calm → contemplative direction
+
+**SceneFamily 11종:**
+opening-hook, concept-introduction, mechanism-explanation, system-model,
+tension-comparison, progression-journey, transformation-shift, evidence-stack,
+reflective-anchor, structural-bridge, closing-synthesis
+
+기존 씬 타입은 SceneFamily로 자동 매핑된다:
+
+- keyInsight → concept-introduction
+- framework (structure=framework) → system-model
+- framework (structure=narrative) → mechanism-explanation
+- compareContrast → tension-comparison
+- application → progression-journey
+- quote → reflective-anchor
+
 ### 2-3. Duration 계산 — 2-pass 워크플로우 (필수)
 
 나레이션 글자수 부족으로 QA-13A가 반복 실패하는 것을 방지하기 위해
