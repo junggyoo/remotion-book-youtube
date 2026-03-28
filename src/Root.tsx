@@ -6,6 +6,7 @@ import type { SynthesizedPreviewProps } from "@/compositions/SynthesizedPreview"
 import { buildCompositionProps } from "@/pipeline/buildProps";
 import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
+// --- AUTO-GENERATED IMPORTS START ---
 import miracleMorningBook from "../content/books/miracle-morning.json";
 import atomicHabitsBook from "../content/books/atomic-habits.json";
 import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
@@ -13,6 +14,7 @@ import crazyOneYearBook from "../content/books/crazy-one-year.json";
 import storyBrandBook from "../content/books/story-brand-2025.json";
 import richDadBook from "../content/books/rich-dad-poor-dad.json";
 import startupDesignerBook from "../content/books/startup-designer.json";
+// --- AUTO-GENERATED IMPORTS END ---
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
 import { useTheme } from "@/design/themes/useTheme";
@@ -129,59 +131,42 @@ async function calculateMetadataFromManifest({
 }
 
 const book = testBook as unknown as BookContent;
-const mmBook = miracleMorningBook as unknown as BookContent;
 
 // Build default props for preview (no TTS in preview mode)
 const longformProps: CompositionProps = buildCompositionProps(book, "longform");
 const shortsProps: CompositionProps = buildCompositionProps(book, "shorts");
 
-// Miracle Morning — TTS audio + captions loaded at render time via manifest
-const mmLongformProps: CompositionProps = buildCompositionProps(
-  mmBook,
+// --- AUTO-GENERATED BOOKS START ---
+const atomicHabitsProps: CompositionProps = buildCompositionProps(
+  atomicHabitsBook as unknown as BookContent,
+  "longform",
+);
+const crazyOneYearProps: CompositionProps = buildCompositionProps(
+  crazyOneYearBook as unknown as BookContent,
+  "longform",
+);
+const millionaireFastlaneProps: CompositionProps = buildCompositionProps(
+  millionaireFastlaneBook as unknown as BookContent,
+  "longform",
+);
+const miracleMorningProps: CompositionProps = buildCompositionProps(
+  miracleMorningBook as unknown as BookContent,
+  "longform",
+);
+const richDadPoorDadProps: CompositionProps = buildCompositionProps(
+  richDadBook as unknown as BookContent,
+  "longform",
+);
+const startupDesignerProps: CompositionProps = buildCompositionProps(
+  startupDesignerBook as unknown as BookContent,
+  "longform",
+);
+const storyBrand2025Props: CompositionProps = buildCompositionProps(
+  storyBrandBook as unknown as BookContent,
   "longform",
 );
 
-// Atomic Habits — 5min longform
-const ahBook = atomicHabitsBook as unknown as BookContent;
-const ahLongformProps: CompositionProps = buildCompositionProps(
-  ahBook,
-  "longform",
-);
-
-// Millionaire Fastlane — 5min longform
-const mfBook = millionaireFastlaneBook as unknown as BookContent;
-const mfLongformProps: CompositionProps = buildCompositionProps(
-  mfBook,
-  "longform",
-);
-
-// Crazy One Year — 7min longform
-const coyBook = crazyOneYearBook as unknown as BookContent;
-const coyLongformProps: CompositionProps = buildCompositionProps(
-  coyBook,
-  "longform",
-);
-
-// Story Brand — 6.5min longform
-const sbBook = storyBrandBook as unknown as BookContent;
-const sbLongformProps: CompositionProps = buildCompositionProps(
-  sbBook,
-  "longform",
-);
-
-// Rich Dad Poor Dad — 6min longform
-const rdBook = richDadBook as unknown as BookContent;
-const rdLongformProps: CompositionProps = buildCompositionProps(
-  rdBook,
-  "longform",
-);
-
-// Startup Designer — 6min longform
-const sdBook = startupDesignerBook as unknown as BookContent;
-const sdLongformProps: CompositionProps = buildCompositionProps(
-  sdBook,
-  "longform",
-);
+// --- AUTO-GENERATED BOOKS END ---
 
 // Build synthesized scene preview props
 const synthTheme = useTheme("dark", "selfHelp");
@@ -249,81 +234,78 @@ export const RemotionRoot: React.FC = () => {
         height={shortsProps.height}
         defaultProps={shortsProps as any}
       />
-      <Composition
-        id="MiracleMorning"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        component={LongformComposition as any}
-        durationInFrames={mmLongformProps.totalDurationFrames}
-        fps={mmLongformProps.fps}
-        width={mmLongformProps.width}
-        height={mmLongformProps.height}
-        defaultProps={mmLongformProps as any}
-        calculateMetadata={calculateMetadataFromManifest as any}
-      />
+      {/* --- AUTO-GENERATED COMPOSITIONS START --- */}
       <Composition
         id="AtomicHabits"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         component={LongformComposition as any}
-        durationInFrames={ahLongformProps.totalDurationFrames}
-        fps={ahLongformProps.fps}
-        width={ahLongformProps.width}
-        height={ahLongformProps.height}
-        defaultProps={ahLongformProps as any}
-        calculateMetadata={calculateMetadataFromManifest as any}
-      />
-      <Composition
-        id="MillionaireFastlane"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        component={LongformComposition as any}
-        durationInFrames={mfLongformProps.totalDurationFrames}
-        fps={mfLongformProps.fps}
-        width={mfLongformProps.width}
-        height={mfLongformProps.height}
-        defaultProps={mfLongformProps as any}
+        durationInFrames={atomicHabitsProps.totalDurationFrames}
+        fps={atomicHabitsProps.fps}
+        width={atomicHabitsProps.width}
+        height={atomicHabitsProps.height}
+        defaultProps={atomicHabitsProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="CrazyOneYear"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         component={LongformComposition as any}
-        durationInFrames={coyLongformProps.totalDurationFrames}
-        fps={coyLongformProps.fps}
-        width={coyLongformProps.width}
-        height={coyLongformProps.height}
-        defaultProps={coyLongformProps as any}
+        durationInFrames={crazyOneYearProps.totalDurationFrames}
+        fps={crazyOneYearProps.fps}
+        width={crazyOneYearProps.width}
+        height={crazyOneYearProps.height}
+        defaultProps={crazyOneYearProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
-        id="StoryBrand"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        id="MillionaireFastlane"
         component={LongformComposition as any}
-        durationInFrames={sbLongformProps.totalDurationFrames}
-        fps={sbLongformProps.fps}
-        width={sbLongformProps.width}
-        height={sbLongformProps.height}
-        defaultProps={sbLongformProps as any}
+        durationInFrames={millionaireFastlaneProps.totalDurationFrames}
+        fps={millionaireFastlaneProps.fps}
+        width={millionaireFastlaneProps.width}
+        height={millionaireFastlaneProps.height}
+        defaultProps={millionaireFastlaneProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="MiracleMorning"
+        component={LongformComposition as any}
+        durationInFrames={miracleMorningProps.totalDurationFrames}
+        fps={miracleMorningProps.fps}
+        width={miracleMorningProps.width}
+        height={miracleMorningProps.height}
+        defaultProps={miracleMorningProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="RichDadPoorDad"
         component={LongformComposition as any}
-        durationInFrames={rdLongformProps.totalDurationFrames}
-        fps={rdLongformProps.fps}
-        width={rdLongformProps.width}
-        height={rdLongformProps.height}
-        defaultProps={rdLongformProps as any}
+        durationInFrames={richDadPoorDadProps.totalDurationFrames}
+        fps={richDadPoorDadProps.fps}
+        width={richDadPoorDadProps.width}
+        height={richDadPoorDadProps.height}
+        defaultProps={richDadPoorDadProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition
         id="StartupDesigner"
         component={LongformComposition as any}
-        durationInFrames={sdLongformProps.totalDurationFrames}
-        fps={sdLongformProps.fps}
-        width={sdLongformProps.width}
-        height={sdLongformProps.height}
-        defaultProps={sdLongformProps as any}
+        durationInFrames={startupDesignerProps.totalDurationFrames}
+        fps={startupDesignerProps.fps}
+        width={startupDesignerProps.width}
+        height={startupDesignerProps.height}
+        defaultProps={startupDesignerProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
+      <Composition
+        id="StoryBrand2025"
+        component={LongformComposition as any}
+        durationInFrames={storyBrand2025Props.totalDurationFrames}
+        fps={storyBrand2025Props.fps}
+        width={storyBrand2025Props.width}
+        height={storyBrand2025Props.height}
+        defaultProps={storyBrand2025Props as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      {/* --- AUTO-GENERATED COMPOSITIONS END --- */}
       <Composition
         id="SynthesizedPreview"
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

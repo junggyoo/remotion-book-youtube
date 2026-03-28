@@ -18,7 +18,7 @@ const COMPOSITION_MAP: Record<string, string> = {
   "atomic-habits": "AtomicHabits",
   "millionaire-fastlane": "MillionaireFastlane",
   "crazy-one-year": "CrazyOneYear",
-  "story-brand-2025": "StoryBrand",
+  "story-brand-2025": "StoryBrand2025",
   "rich-dad-poor-dad": "RichDadPoorDad",
   "startup-designer": "StartupDesigner",
 };
