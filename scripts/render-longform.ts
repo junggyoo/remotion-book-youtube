@@ -19,6 +19,8 @@ const COMPOSITION_MAP: Record<string, string> = {
   "millionaire-fastlane": "MillionaireFastlane",
   "crazy-one-year": "CrazyOneYear",
   "story-brand-2025": "StoryBrand",
+  "rich-dad-poor-dad": "RichDadPoorDad",
+  "startup-designer": "StartupDesigner",
 };
 
 function main() {
