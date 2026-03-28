@@ -10,6 +10,14 @@
     "publishYear": 2017,
     "tags": ["마케팅", "브랜딩", "스토리텔링", "SB7", "고객중심"]
   },
+  "thumbnail": {
+    "hookText": "고객이 사는 진짜 이유",
+    "accentWord": "진짜 이유",
+    "expression": "의미심장한 미소, 눈빛에 확신",
+    "gesture": "턱에 손을 대고 생각하는 포즈",
+    "mood": "mysterious",
+    "backgroundStyle": "dark moody gradient with deep blue tones"
+  },
   "production": {
     "format": "longform",
     "targetDurationSeconds": 390,

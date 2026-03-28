@@ -10,6 +10,14 @@
     "publishYear": 2011,
     "tags": ["재테크", "사업", "부", "경제적자유", "기업가정신"]
   },
+  "thumbnail": {
+    "hookText": "부자들은 이 길로 간다",
+    "accentWord": "이 길",
+    "expression": "자신감 넘치는 표정, 한쪽 눈썹을 올림",
+    "gesture": "검지로 앞을 가리키는 제스처",
+    "mood": "urgent",
+    "backgroundStyle": "dark gradient with subtle gold tones"
+  },
   "production": {
     "format": "longform",
     "targetDurationSeconds": 300,

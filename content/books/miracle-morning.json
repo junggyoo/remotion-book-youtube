@@ -10,6 +10,14 @@
     "publishYear": 2012,
     "tags": ["자기계발", "습관", "아침루틴", "SAVERS"]
   },
+  "thumbnail": {
+    "hookText": "아침 5시가 인생을 바꾼다",
+    "accentWord": "아침 5시",
+    "expression": "밝고 에너지 넘치는 표정으로 정면 응시",
+    "gesture": "양손을 펼쳐 올리는 제스처",
+    "mood": "confident",
+    "backgroundStyle": "dark gradient with warm sunrise golden tones"
+  },
   "production": {
     "format": "longform",
     "targetDurationSeconds": 480,
