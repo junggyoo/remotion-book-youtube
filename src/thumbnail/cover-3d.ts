@@ -4,30 +4,28 @@ import fs from "fs";
 import path from "path";
 
 const COVER_3D_PROMPT = `
-Take this book cover image and render it as a realistic 3D book object
-with a transparent background (PNG with alpha channel).
+Take this book cover image and render it as a realistic 3D book object.
 The book should be:
 - Slightly angled/tilted to show depth and perspective (about 15 degrees)
 - With visible spine thickness
 - Dramatic lighting from the upper right
 - Subtle shadow underneath the book
-- The background MUST be completely transparent, not white, not black, not any color
+- The background MUST be solid bright green (chroma key green, like a green screen)
 - High quality, photorealistic rendering
 - Do not add any text or change the cover content
 - Do not add extra objects around the book
 - The book should fill most of the frame
-- Output as PNG with transparent background
+- Fill the entire background with uniform bright green color for easy removal
 `.trim();
 
-// Remove light backgrounds by making near-white/near-black pixels transparent
-async function removeBackground(imageBuffer: Buffer): Promise<Buffer> {
+// Remove chroma key green background by making green-dominant pixels transparent
+async function removeGreenScreen(imageBuffer: Buffer): Promise<Buffer> {
   const { data, info } = await sharp(imageBuffer)
     .ensureAlpha()
     .raw()
     .toBuffer({ resolveWithObject: true });
 
   const { width, height, channels } = info;
-  const threshold = 240; // pixels with R,G,B all > 240 → transparent
 
   for (let i = 0; i < width * height; i++) {
     const offset = i * channels;
@@ -35,9 +33,13 @@ async function removeBackground(imageBuffer: Buffer): Promise<Buffer> {
     const g = data[offset + 1];
     const b = data[offset + 2];
 
-    // Remove near-white backgrounds
-    if (r > threshold && g > threshold && b > threshold) {
-      data[offset + 3] = 0; // set alpha to 0
+    // Green-dominant: G is significantly higher than R and B
+    const isGreen = g > 100 && g > r * 1.4 && g > b * 1.4;
+
+    if (isGreen) {
+      // Soft edge: partial transparency for near-green pixels
+      const greenness = Math.min(1, (g - Math.max(r, b)) / 100);
+      data[offset + 3] = Math.round(255 * (1 - greenness));
     }
   }
 
@@ -92,7 +94,7 @@ export async function generate3dCover(
     for (const part of parts) {
       if (part.inlineData?.data) {
         const rawBuffer = Buffer.from(part.inlineData.data, "base64");
-        return removeBackground(rawBuffer);
+        return removeGreenScreen(rawBuffer);
       }
     }
 
