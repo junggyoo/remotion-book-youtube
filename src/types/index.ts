@@ -1124,3 +1124,19 @@ export interface BlueprintMeta {
   _blueprint?: SceneBlueprint;
   _storyboard?: StoryboardScene;
 }
+
+// ─── Direction Layer (Phase 0) ──────────────────────────────
+export type {
+  SceneFamily,
+  DirectionProfileName,
+  DirectionParams,
+  DirectionProfile,
+  CompositionPath,
+  ElementSpec as DirectionElementSpec,
+  TransitionSpec,
+  BeatProfile,
+  BeatSegment,
+  GapCandidate,
+  SceneSpec,
+} from "@/direction/types";
+export type { BeatRole as DirectionBeatRole } from "@/direction/types";
