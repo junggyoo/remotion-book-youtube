@@ -111,12 +111,91 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
   // 5. Post-layout edge resolution: compute center/radius from node positions
   const radialCenter = computeRadialCenter(nodePositions);
 
-  // 6. Beat timeline for CameraLayer guided mode (P2-2)
-  const { activeBeat } = useBeatTimeline(
+  // 6. Beat timeline for element visibility + CameraLayer guided mode (P2-2)
+  const { activeBeat, elementStates } = useBeatTimeline(
     beats ?? [],
     blueprint.durationFrames,
     blueprint.motionPreset,
+    sceneType ? { sceneType, format: blueprint.format } : undefined,
   );
+
+  // 6b. Build beat-driven timing overrides: map beat.activates keys → element IDs
+  const beatTimingOverrides = useMemo(() => {
+    const overrides = new Map<
+      string,
+      { delayFrames: number; durationFrames: number }
+    >();
+    if (!beats || beats.length === 0) return overrides;
+
+    // Collect all activate keys → beat start/end mapping
+    const activateKeyToBeat = new Map<
+      string,
+      { startRatio: number; endRatio: number }
+    >();
+    for (const beat of beats) {
+      for (const key of beat.activates) {
+        if (key === "*") continue;
+        if (!activateKeyToBeat.has(key)) {
+          activateKeyToBeat.set(key, {
+            startRatio: beat.startRatio,
+            endRatio: beat.endRatio,
+          });
+        }
+      }
+    }
+
+    // Match element IDs to beat activate keys
+    for (const el of blueprint.elements) {
+      // Direct ID match
+      if (activateKeyToBeat.has(el.id)) {
+        const b = activateKeyToBeat.get(el.id)!;
+        overrides.set(el.id, {
+          delayFrames: Math.round(blueprint.durationFrames * b.startRatio),
+          durationFrames: Math.round(
+            blueprint.durationFrames * (b.endRatio - b.startRatio),
+          ),
+        });
+        continue;
+      }
+      // Match by props.role (e.g. "headline" matches beat key "headline")
+      const role = el.props.role as string | undefined;
+      if (role && activateKeyToBeat.has(role)) {
+        const b = activateKeyToBeat.get(role)!;
+        overrides.set(el.id, {
+          delayFrames: Math.round(blueprint.durationFrames * b.startRatio),
+          durationFrames: Math.round(
+            blueprint.durationFrames * (b.endRatio - b.startRatio),
+          ),
+        });
+        continue;
+      }
+      // Match by index pattern: "item-0" → element with props.index === 0
+      const elIndex = el.props.index as number | undefined;
+      if (elIndex != null) {
+        const indexKey = `item-${elIndex}`;
+        const stepKey = `step-${elIndex}`;
+        if (activateKeyToBeat.has(indexKey)) {
+          const b = activateKeyToBeat.get(indexKey)!;
+          overrides.set(el.id, {
+            delayFrames: Math.round(blueprint.durationFrames * b.startRatio),
+            durationFrames: Math.round(
+              blueprint.durationFrames * (b.endRatio - b.startRatio),
+            ),
+          });
+        } else if (activateKeyToBeat.has(stepKey)) {
+          const b = activateKeyToBeat.get(stepKey)!;
+          overrides.set(el.id, {
+            delayFrames: Math.round(blueprint.durationFrames * b.startRatio),
+            durationFrames: Math.round(
+              blueprint.durationFrames * (b.endRatio - b.startRatio),
+            ),
+          });
+        }
+      }
+    }
+
+    return overrides;
+  }, [beats, blueprint.elements, blueprint.durationFrames]);
 
   // 7. Compute layout meta for CameraLayer guided mode (P2-2)
   const layoutMeta: SceneElementLayoutMeta[] = useMemo(() => {
@@ -161,8 +240,13 @@ export const BlueprintRenderer: React.FC<BlueprintRendererProps> = ({
             return null;
           }
 
-          const timing = allTimings[originalIndex];
-          if (!timing) return null;
+          const choreographyTiming = allTimings[originalIndex];
+          if (!choreographyTiming) return null;
+
+          // Beat-driven timing override: if beats mapped this element, use beat timing
+          const timing = beatTimingOverrides.has(el.id)
+            ? beatTimingOverrides.get(el.id)!
+            : choreographyTiming;
 
           if (isEdgeElement(el)) {
             // Edge element: resolve fromPos/toPos from positioned nodes

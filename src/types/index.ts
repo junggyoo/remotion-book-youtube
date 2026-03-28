@@ -52,7 +52,8 @@ export type MotionPresetKey =
   | "snappy"
   | "heavy"
   | "dramatic"
-  | "wordReveal";
+  | "wordReveal"
+  | "punchy";
 
 // --- Theme ---
 

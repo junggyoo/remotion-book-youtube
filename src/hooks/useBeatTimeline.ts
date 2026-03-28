@@ -21,9 +21,10 @@ const ENTERING_DURATION: Record<MotionPresetKey, number> = {
   gentle: 45,
   smooth: 30,
   snappy: 18,
-  heavy: 36,
-  dramatic: 54,
+  heavy: 24,
+  dramatic: 36,
   wordReveal: 30,
+  punchy: 15,
 };
 
 /**

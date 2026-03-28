@@ -70,7 +70,13 @@ const SceneRenderer: React.FC<{
   // Blueprint guard: plan-bridge attached _blueprint → use BlueprintRenderer
   if ("_blueprint" in scene && (scene as any)._blueprint) {
     console.log(`[render] ${scene.id} → BlueprintRenderer`);
-    return <BlueprintRenderer blueprint={(scene as any)._blueprint} />;
+    return (
+      <BlueprintRenderer
+        blueprint={(scene as any)._blueprint}
+        beats={scene.beats}
+        sceneType={scene.type}
+      />
+    );
   }
 
   const baseProps = {

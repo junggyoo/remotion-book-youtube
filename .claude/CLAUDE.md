@@ -251,8 +251,10 @@ export default KeyInsightScene
 1. 모든 모션은 motion-presets.json의 preset에서 참조
 2. 전환은 새 슬라이드 등장이 아니라 캔버스 위 시선 이동
 3. 모든 enter 애니메이션은 from 기준 상대 프레임으로 계산
-4. scale emphasis 최대 1.06 이하
-5. Y 오프셋 최대 24px 이하
+4. scale emphasis 최대 1.15 이하
+5. Y 오프셋 최대 48px 이하
+6. blur 허용: 0~12px (entering 시 blur→sharp 트랜지션)
+7. glow/shadow 허용: box-shadow spread 최대 20px, opacity 0.15
 
 ### 표준 enter 패턴
 
@@ -546,7 +548,7 @@ content JSON에는 감정 태그를 넣지 않는다 (generate-captions.ts에서
 - 색상 hex 하드코딩
 - px 수치 하드코딩 (spacing, fontSize)
 - `spring()` config 임의 작성 (preset 필수)
-- scale 1.06 초과 emphasis
+- scale 1.15 초과 emphasis
 - 씬당 accent 2개 초과
 - 세리프 폰트를 body/headline에 사용 (quote/chapter accent 전용)
 

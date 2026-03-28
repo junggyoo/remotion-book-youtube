@@ -65,6 +65,17 @@
       "overshootClamping": false,
       "revealY": 30,
       "description": "per-word text entrance, playful bounce for staggered word reveal"
+    },
+    "punchy": {
+      "type": "spring",
+      "config": {
+        "stiffness": 250,
+        "damping": 18,
+        "mass": 0.8
+      },
+      "durationRange": [10, 20],
+      "overshootClamping": true,
+      "description": "fast impact with slight bounce, hook headlines and emphasis moments"
     }
   },
   "motionRoles": {
@@ -108,8 +119,9 @@
   "defaults": {
     "staggerFrames": 3,
     "subtitleLeadFrames": 3,
-    "maxRevealYOffset": 24,
-    "maxScaleEmphasis": 1.06,
+    "maxRevealYOffset": 48,
+    "maxScaleEmphasis": 1.15,
+    "maxBlurPx": 12,
     "constraints": {
       "avoidExcessiveBounce": true,
       "maxSimultaneousElements": 4,

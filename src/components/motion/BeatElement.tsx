@@ -26,16 +26,20 @@ const EXITING_DURATION: Record<MotionPresetKey, number> = {
   gentle: 30,
   smooth: 20,
   snappy: 12,
-  heavy: 24,
-  dramatic: 36,
+  heavy: 18,
+  dramatic: 30,
   wordReveal: 24,
+  punchy: 10,
 };
 
-/** 프리셋별 emphasis scale 최대값 (1.06 이하 제약) */
-const EMPHASIS_SCALE = 1.05;
+/** emphasis scale — 프로 모션그래픽 수준 (1.15 이하 제약) */
+const EMPHASIS_SCALE = 1.1;
 
-/** emphasis pulse duration (프레임). 20f ≈ 0.67초 — 인지 가능한 최소 임계 이상 */
-const EMPHASIS_DURATION = 20;
+/** emphasis glow shadow spread (px) */
+const EMPHASIS_GLOW_SPREAD = 12;
+
+/** emphasis pulse duration (프레임). 24f ≈ 0.8초 */
+const EMPHASIS_DURATION = 24;
 
 /** BeatElement가 entering 상태에서 사용할 모션 프리미티브 */
 type BeatMotionType = "architectural" | "scale" | "slide" | "none";
@@ -136,7 +140,7 @@ export const BeatElement: React.FC<BeatElementProps> = ({
     }
   }
 
-  // exiting: interpolate 기반 opacity fade out
+  // exiting: opacity fade + translateY up + blur
   if (beatState.visibility === "exiting") {
     const exitDur = EXITING_DURATION[beatState.motionPreset];
     const exitFrame = beatState.exitFrame ?? frame;
@@ -145,11 +149,30 @@ export const BeatElement: React.FC<BeatElementProps> = ({
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     });
+    const exitTranslateY = interpolate(exitProgress, [0, 1], [0, -16], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    });
+    const exitBlur = interpolate(exitProgress, [0, 1], [0, 4], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    });
 
-    return <div style={{ opacity }}>{children}</div>;
+    return (
+      <div
+        style={{
+          opacity,
+          transform: `translateY(${exitTranslateY}px)`,
+          filter: `blur(${exitBlur}px)`,
+          willChange: "opacity, transform, filter",
+        }}
+      >
+        {children}
+      </div>
+    );
   }
 
-  // emphasized: interpolate 기반 scale pulse + accent tint
+  // emphasized: scale pulse + accent glow + tint
   // P2-4: when emphasis gate is inactive, render as plain visible (no scale pulse)
   if (beatState.visibility === "emphasized" && !emphasisGateActive) {
     return <>{children}</>;
@@ -161,8 +184,8 @@ export const BeatElement: React.FC<BeatElementProps> = ({
     );
     const scale = interpolate(
       emphasisProgress,
-      [0, 0.5, 1],
-      [1, EMPHASIS_SCALE, 1],
+      [0, 0.4, 1],
+      [1, EMPHASIS_SCALE, 1.02],
       {
         extrapolateLeft: "clamp",
         extrapolateRight: "clamp",
@@ -170,8 +193,17 @@ export const BeatElement: React.FC<BeatElementProps> = ({
     );
     const tintOpacity = interpolate(
       emphasisProgress,
-      [0, 0.5, 1],
-      [0, 0.04, 0],
+      [0, 0.4, 1],
+      [0, 0.08, 0.02],
+      {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      },
+    );
+    const glowOpacity = interpolate(
+      emphasisProgress,
+      [0, 0.4, 1],
+      [0, 0.15, 0],
       {
         extrapolateLeft: "clamp",
         extrapolateRight: "clamp",
@@ -188,7 +220,8 @@ export const BeatElement: React.FC<BeatElementProps> = ({
         style={{
           transform: `scale(${scale})`,
           backgroundColor: `rgba(${r},${g},${b},${tintOpacity})`,
-          willChange: "transform",
+          boxShadow: `0 0 ${EMPHASIS_GLOW_SPREAD}px rgba(${r},${g},${b},${glowOpacity})`,
+          willChange: "transform, box-shadow",
         }}
       >
         {children}
