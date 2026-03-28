@@ -2,9 +2,16 @@ import { useCurrentFrame } from "remotion";
 import type {
   Beat,
   BeatTimelineState,
+  ChannelKey,
   ElementBeatState,
   MotionPresetKey,
 } from "@/types";
+import {
+  BASE_POLICY,
+  CHANNEL_PRIORITY,
+  RECOVERY_WINDOW_FRAMES,
+  getActiveChannelCap,
+} from "@/design/tokens/emphasisPolicy";
 
 /**
  * 모션 프리셋별 entering 애니메이션 duration (프레임).
@@ -26,14 +33,23 @@ const ENTERING_DURATION: Record<MotionPresetKey, number> = {
  * - hidden → entering → visible → exiting/emphasized
  * - gap 구간에서는 마지막 beat의 상태를 hold
  *
+ * P2-4: activeChannels + isInRecoveryWindow 추가.
+ * sceneType/format/simultaneousMotionCap은 선택적 — 미제공 시 채널 추적 비활성.
+ *
  * @param beats - resolveBeats()가 반환한 beat 배열
  * @param durationFrames - 씬 전체 duration (프레임)
  * @param defaultMotionPreset - beat에 motionPreset이 없을 때 사용할 기본값
+ * @param options - P2-4 emphasis channel options (optional)
  */
 export function useBeatTimeline(
   beats: Beat[],
   durationFrames: number,
   defaultMotionPreset: MotionPresetKey = "heavy",
+  options?: {
+    sceneType?: string;
+    format?: "longform" | "shorts" | "both";
+    simultaneousMotionCap?: number;
+  },
 ): BeatTimelineState {
   const frame = useCurrentFrame();
 
@@ -125,5 +141,56 @@ export function useBeatTimeline(
     if (lastCompleted) beatProgress = 1;
   }
 
-  return { activeBeat, elementStates, beatProgress, currentEmphasis };
+  // 5. P2-4: emphasis channel tracking + recovery window
+  const activeChannels = new Set<ChannelKey>();
+  let isInRecoveryWindow = false;
+
+  if (options?.sceneType) {
+    const sceneType = options.sceneType as import("@/types").SceneType;
+    const format = options.format ?? "longform";
+    const cap = getActiveChannelCap(options.simultaneousMotionCap, format);
+    const policy = BASE_POLICY[sceneType] ?? BASE_POLICY.closing;
+
+    // Determine if currently in an emphasis beat
+    const isEmphasisActive = activeBeat?.transition === "emphasis";
+
+    if (isEmphasisActive) {
+      // Populate activeChannels up to cap, in priority order
+      for (const ch of CHANNEL_PRIORITY) {
+        if (policy[ch] && activeChannels.size < cap) {
+          activeChannels.add(ch);
+        }
+      }
+    }
+
+    // Recovery window: 12f after the most recent emphasis beat ended
+    if (!isEmphasisActive) {
+      const lastEmphasisBeat = [...beats]
+        .reverse()
+        .find(
+          (b) =>
+            b.transition === "emphasis" &&
+            frame >= Math.round(durationFrames * b.endRatio),
+        );
+
+      if (lastEmphasisBeat) {
+        const emphasisEnd = Math.round(
+          durationFrames * lastEmphasisBeat.endRatio,
+        );
+        const framesSinceEnd = frame - emphasisEnd;
+        if (framesSinceEnd >= 0 && framesSinceEnd < RECOVERY_WINDOW_FRAMES) {
+          isInRecoveryWindow = true;
+        }
+      }
+    }
+  }
+
+  return {
+    activeBeat,
+    elementStates,
+    beatProgress,
+    currentEmphasis,
+    activeChannels,
+    isInRecoveryWindow,
+  };
 }

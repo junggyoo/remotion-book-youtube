@@ -53,6 +53,8 @@ interface BeatElementProps {
   scaleFrom?: number;
   /** SlideReveal X 이동 거리 (motionType="slide"일 때) */
   translateX?: number;
+  /** P2-4: emphasis gate — when false, "emphasized" renders as plain "visible" */
+  emphasisGateActive?: boolean;
   children: React.ReactNode;
 }
 
@@ -73,6 +75,7 @@ export const BeatElement: React.FC<BeatElementProps> = ({
   slideDirection,
   scaleFrom,
   translateX,
+  emphasisGateActive = true,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -147,6 +150,10 @@ export const BeatElement: React.FC<BeatElementProps> = ({
   }
 
   // emphasized: interpolate 기반 scale pulse + accent tint
+  // P2-4: when emphasis gate is inactive, render as plain visible (no scale pulse)
+  if (beatState.visibility === "emphasized" && !emphasisGateActive) {
+    return <>{children}</>;
+  }
   if (beatState.visibility === "emphasized") {
     const emphasisProgress = Math.min(
       1,

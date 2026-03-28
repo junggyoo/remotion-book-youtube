@@ -878,6 +878,10 @@ export interface BeatTimelineState {
   beatProgress: number;
   /** 현재 beat의 emphasisTargets */
   currentEmphasis: string[];
+  /** P2-4: 현재 활성 emphasis 채널 (emphasis beat 기간 중 policy에 따라 결정) */
+  activeChannels: Set<ChannelKey>;
+  /** P2-4: emphasis 직후 recovery window (12f) 내인지 여부 */
+  isInRecoveryWindow: boolean;
 }
 
 /** Phase B: TTS-resolved beat timing. Maps ratio-based beats to actual audio frames. */
@@ -920,6 +924,19 @@ export interface NarrationSyncState {
   /** The matched emphasis target string (null if no match) */
   matchedTarget: string | null;
 }
+
+// ---------------------------------------------------------------------------
+// P2-4: Emphasis Channel Policy types
+// ---------------------------------------------------------------------------
+
+/** Emphasis response channel identifier */
+export type ChannelKey = "sceneText" | "subtitle" | "background" | "camera";
+
+/** Per-channel on/off policy for emphasis response */
+export type ChannelPolicy = Record<ChannelKey, boolean>;
+
+/** Emphasis style from BookArtDirection (P2-0) */
+export type EmphasisStyle = "text-first" | "diagram-first" | "balanced";
 
 // ---------------------------------------------------------------------------
 // DSGS Stage 6.3: BeatComposer types

@@ -80,6 +80,10 @@ interface CameraLayerProps {
   activeBeat?: Beat | null;
   /** Scene duration in frames */
   durationFrames?: number;
+  /** P2-4: emphasis gate — when false, guided mode holds position (no new targeting) */
+  emphasisGateActive?: boolean;
+  /** P2-4: recovery window active — camera freezes at current position */
+  isRecovering?: boolean;
   children: React.ReactNode;
 }
 
@@ -104,6 +108,8 @@ export const CameraLayer: React.FC<CameraLayerProps> = ({
   sceneType,
   activeBeat,
   durationFrames = 300,
+  emphasisGateActive = true,
+  isRecovering = false,
   children,
 }) => {
   const frame = useCurrentFrame();
@@ -141,6 +147,8 @@ export const CameraLayer: React.FC<CameraLayerProps> = ({
       sceneType={sceneType}
       activeBeat={activeBeat}
       durationFrames={durationFrames}
+      emphasisGateActive={emphasisGateActive}
+      isRecovering={isRecovering}
     >
       {children}
     </GuidedWrapper>
@@ -203,6 +211,10 @@ interface GuidedWrapperProps {
   sceneType?: SceneType;
   activeBeat?: Beat | null;
   durationFrames: number;
+  /** P2-4: emphasis gate — when false, do not respond to new emphasis beats */
+  emphasisGateActive?: boolean;
+  /** P2-4: recovery window — freeze camera at current position */
+  isRecovering?: boolean;
   children: React.ReactNode;
 }
 
@@ -215,6 +227,8 @@ const GuidedWrapper: React.FC<GuidedWrapperProps> = ({
   sceneType,
   activeBeat,
   durationFrames,
+  emphasisGateActive = true,
+  isRecovering = false,
   children,
 }) => {
   // Determine travel limits based on text density
@@ -226,11 +240,17 @@ const GuidedWrapper: React.FC<GuidedWrapperProps> = ({
   }, [sceneType]);
 
   // Determine if current beat should trigger camera movement
+  // P2-4: gate suppresses emphasis-driven movement; recovery freezes position
   const shouldRespondToBeat = useMemo((): boolean => {
     if (!activeBeat) return false;
 
-    // Respond to emphasis beats
-    if (activeBeat.transition === "emphasis") return true;
+    // P2-4: recovery window → camera holds current position
+    if (isRecovering) return false;
+
+    // Respond to emphasis beats (only if channel gate allows)
+    if (activeBeat.transition === "emphasis") {
+      return emphasisGateActive;
+    }
 
     // Respond if beat activates the primaryFocus element
     if (primaryFocusId && activeBeat.activates.includes(primaryFocusId)) {
@@ -239,7 +259,7 @@ const GuidedWrapper: React.FC<GuidedWrapperProps> = ({
 
     // Normal reveal beats → camera stays still
     return false;
-  }, [activeBeat, primaryFocusId]);
+  }, [activeBeat, primaryFocusId, emphasisGateActive, isRecovering]);
 
   // Compute camera target from layoutMeta
   const target = useMemo((): { x: number; y: number } => {
