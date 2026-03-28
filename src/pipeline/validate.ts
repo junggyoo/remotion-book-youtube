@@ -691,6 +691,21 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
       );
     }
 
+    // Pre-TTS duration estimation warning (QA-13B predictor)
+    if (actualChars > 0) {
+      const estimatedSec = actualChars / budget.koreanCPS;
+      const durationDeviation =
+        Math.abs(estimatedSec - budgetTargetDuration) / budgetTargetDuration;
+      if (durationDeviation > 0.15) {
+        const neededChars = Math.round(budgetTargetDuration * budget.koreanCPS);
+        const charDiff = neededChars - actualChars;
+        const direction = charDiff > 0 ? "추가" : "삭제";
+        warnings.push(
+          `Budget 시간: 예상 ${estimatedSec.toFixed(1)}s vs 목표 ${budgetTargetDuration}s (편차 ${(durationDeviation * 100).toFixed(1)}%, 허용 ±15%). ${Math.abs(charDiff)}자 ${direction} 필요`,
+        );
+      }
+    }
+
     // 씬별 minChars 미달 경고
     for (const sb of budget.scenes) {
       const scene = parsed.scenes.find((s: any) => s.id === sb.sceneId);

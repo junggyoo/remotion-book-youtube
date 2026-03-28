@@ -59,7 +59,7 @@ console.log(
 );
 
 // Table header
-const COL = { id: 25, type: 16, num: 6, status: 10 };
+const COL = { id: 25, type: 16, num: 6, sec: 8, status: 10 };
 
 const header = [
   "씬 ID".padEnd(COL.id),
@@ -68,6 +68,8 @@ const header = [
   "권장".padStart(COL.num),
   "최대".padStart(COL.num),
   "실제".padStart(COL.num),
+  "예상초".padStart(COL.sec),
+  "목표초".padStart(COL.sec),
   "상태".padStart(COL.status),
 ].join(" | ");
 
@@ -77,11 +79,19 @@ console.log(header);
 console.log(sep);
 
 let totalActual = 0;
+let totalEstimatedSec = 0;
+let totalTargetSec = 0;
 const shortfalls: { id: string; gap: number }[] = [];
 
 for (const sb of plan.scenes) {
   const actual = actuals.get(sb.sceneId) ?? 0;
   totalActual += actual;
+
+  // Pre-TTS duration estimation
+  const estimatedSec =
+    actual > 0 ? Math.round((actual / plan.koreanCPS) * 10) / 10 : 0;
+  totalEstimatedSec += estimatedSec;
+  totalTargetSec += sb.targetSeconds;
 
   let status: string;
   if (actual === 0) {
@@ -103,6 +113,8 @@ for (const sb of plan.scenes) {
     String(sb.recommendedChars).padStart(COL.num),
     String(sb.maxChars).padStart(COL.num),
     String(actual).padStart(COL.num),
+    (actual > 0 ? `${estimatedSec}s` : "-").padStart(COL.sec),
+    `${sb.targetSeconds}s`.padStart(COL.sec),
     status.padStart(COL.status),
   ].join(" | ");
   console.log(row);
@@ -110,7 +122,7 @@ for (const sb of plan.scenes) {
 
 console.log(sep);
 
-// Summary
+// Summary — chars
 const totalStatus =
   totalActual === 0
     ? "나레이션 미작성 -- 위 '권장' 컬럼을 목표로 작성하세요"
@@ -121,6 +133,26 @@ const totalStatus =
 console.log(
   `합계: 실제 ${totalActual}자 / 목표 ${plan.estimatedNarrationChars}자 (최소 ${totalMin}자) -> ${totalStatus}`,
 );
+
+// Summary — duration estimation (pre-TTS QA-13B predictor)
+if (totalActual > 0) {
+  const durationDeviation =
+    Math.abs(totalEstimatedSec - targetDuration) / targetDuration;
+  const deviationPct = (durationDeviation * 100).toFixed(1);
+  const durationStatus = durationDeviation <= 0.15 ? "PASS" : "FAIL";
+  const icon = durationStatus === "PASS" ? "✅" : "❌";
+  console.log(
+    `시간: 예상 ${totalEstimatedSec.toFixed(1)}s / 목표 ${targetDuration}s — 편차 ${deviationPct}% (허용 ±15%) ${icon} ${durationStatus}`,
+  );
+  if (durationStatus === "FAIL") {
+    const neededChars = Math.round(targetDuration * plan.koreanCPS);
+    const charDiff = neededChars - totalActual;
+    const direction = charDiff > 0 ? "추가" : "삭제";
+    console.log(
+      `   → ${Math.abs(charDiff)}자 ${direction} 필요 (약 ${Math.ceil(Math.abs(charDiff) / 25)}문장)`,
+    );
+  }
+}
 
 // 액셔너블 수정 지시
 if (shortfalls.length > 0) {
