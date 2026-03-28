@@ -148,6 +148,95 @@ export async function generateFishAudio(
   return getAudioDurationMs(outputPath);
 }
 
+// --- STT (Speech-to-Text) for accurate caption timestamps ---
+
+/**
+ * Transcribe audio via Fish Audio STT API (Beta).
+ * Returns segment-level timestamps for caption generation.
+ * language="ko" hint + ignore_timestamps=false for maximum accuracy.
+ */
+export async function transcribeWithFishSTT(
+  audioPath: string,
+  apiKey: string,
+): Promise<
+  | {
+      text: string;
+      duration: number;
+      segments: Array<{ text: string; start: number; end: number }>;
+    }
+  | undefined
+> {
+  const audioBuffer = fs.readFileSync(audioPath);
+  const formData = new FormData();
+  formData.append("audio", new Blob([audioBuffer]), path.basename(audioPath));
+  formData.append("language", "ko");
+  formData.append("ignore_timestamps", "false");
+
+  const resp = await fetch(`${FISH_API_BASE}/v1/asr`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: formData,
+  });
+
+  if (!resp.ok) {
+    console.warn(`[STT] Fish Audio ASR failed: ${resp.status}`);
+    return undefined;
+  }
+
+  return (await resp.json()) as {
+    text: string;
+    duration: number;
+    segments: Array<{ text: string; start: number; end: number }>;
+  };
+}
+
+/**
+ * Convert Fish Audio STT segments to @remotion/captions Caption[].
+ * Each segment's text is split into words, and time is distributed
+ * proportionally by character count within the segment boundaries.
+ */
+export function sttSegmentsToCaptions(
+  segments: Array<{ text: string; start: number; end: number }>,
+): Caption[] {
+  const captions: Caption[] = [];
+
+  for (const seg of segments) {
+    const words = seg.text.split(/\s+/).filter(Boolean);
+    if (words.length === 0) continue;
+
+    const segStartMs = seg.start * 1000;
+    const segDuration = (seg.end - seg.start) * 1000;
+    const totalChars = words.reduce((s, w) => s + w.length, 0);
+    let wordMs = segStartMs;
+
+    for (const word of words) {
+      const wordDuration =
+        totalChars > 0
+          ? (word.length / totalChars) * segDuration
+          : segDuration / words.length;
+      const prefix = captions.length > 0 ? " " : "";
+      captions.push({
+        text: prefix + word,
+        startMs: Math.round(wordMs),
+        endMs: Math.round(wordMs + wordDuration),
+        timestampMs: Math.round(wordMs),
+        confidence: 1.0,
+      });
+      wordMs += wordDuration;
+    }
+  }
+
+  // Align last caption to final segment end
+  if (captions.length > 0 && segments.length > 0) {
+    const lastSegEnd = segments[segments.length - 1].end * 1000;
+    captions[captions.length - 1].endMs = Math.round(lastSegEnd);
+  }
+
+  return captions;
+}
+
 // --- Caption generation (proportional character-based) ---
 
 /**

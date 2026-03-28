@@ -374,7 +374,24 @@ async function main() {
     let captions: Caption[] = [];
     if (usedFishAudio) {
       const fe = await loadFishEngine();
-      captions = fe ? fe.generateCaptionsFromText(text, durationMs) : [];
+      if (fe && fishConfig) {
+        // STT for accurate timestamps, proportional fallback on failure
+        const sttResult = await fe.transcribeWithFishSTT(
+          audioPath,
+          fishConfig.apiKey,
+        );
+        if (sttResult?.segments?.length) {
+          captions = fe.sttSegmentsToCaptions(sttResult.segments);
+          console.log(
+            `  📝 STT captions: ${captions.length} words from ${sttResult.segments.length} segments`,
+          );
+        } else {
+          console.log(`  📝 STT unavailable, using proportional fallback`);
+          captions = fe.generateCaptionsFromText(text, durationMs);
+        }
+      } else {
+        captions = [];
+      }
     } else if (fs.existsSync(vttPath)) {
       const vttContent = fs.readFileSync(vttPath, "utf-8");
       captions = vttToCaptions(vttContent);

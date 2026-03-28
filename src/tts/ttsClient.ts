@@ -12,6 +12,8 @@ import {
   generateCaptionsFromText,
   addEmotionTag,
   getFishAudioConfig,
+  transcribeWithFishSTT,
+  sttSegmentsToCaptions,
 } from "./fish-audio-engine";
 
 const DEFAULT_FPS = 30;
@@ -452,7 +454,18 @@ async function generateTTSWithCaptionsViaFishAudio(
     }
 
     const durationFrames = Math.ceil((durationMs / 1000) * DEFAULT_FPS);
-    const captions = generateCaptionsFromText(text, durationMs);
+
+    // STT for accurate captions, proportional fallback on failure
+    let captions: import("@remotion/captions").Caption[];
+    const sttResult = await transcribeWithFishSTT(
+      outputPath,
+      fishConfig.apiKey,
+    );
+    if (sttResult?.segments?.length) {
+      captions = sttSegmentsToCaptions(sttResult.segments);
+    } else {
+      captions = generateCaptionsFromText(text, durationMs);
+    }
 
     return {
       sceneId,

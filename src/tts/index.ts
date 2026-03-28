@@ -21,5 +21,7 @@ export {
   addEmotionTag,
   isFishAudioAvailable,
   getFishAudioConfig,
+  transcribeWithFishSTT,
+  sttSegmentsToCaptions,
 } from "./fish-audio-engine";
 export type { FishAudioConfig } from "./fish-audio-engine";
