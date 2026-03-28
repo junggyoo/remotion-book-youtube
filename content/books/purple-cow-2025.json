@@ -1,0 +1,547 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "purple-cow-2025",
+    "title": "보랏빛 소가 온다",
+    "author": "세스 고딘",
+    "originalTitle": "Purple Cow",
+    "genre": "business",
+    "coverImageUrl": "covers/purple-cow-cover.jpg",
+    "publishYear": 2003,
+    "tags": ["마케팅", "혁신", "차별화", "주목경제", "브랜드"]
+  },
+  "production": {
+    "format": "longform",
+    "targetDurationSeconds": 600,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "fish-audio",
+    "speed": 1,
+    "pitch": "+0Hz"
+  },
+  "audio": {
+    "bgmTrack": "sounds/calm-ambient-loop.mp3",
+    "bgmVolume": 0.12
+  },
+  "thumbnail": {
+    "hookText": "열심히 만든 제품, 왜 아무도 안 살까?",
+    "accentWord": "평범함",
+    "expression": "자신감 넘치는 표정",
+    "gesture": "X자 제스처",
+    "mood": "urgent",
+    "backgroundStyle": "dark gradient with purple accents"
+  },
+  "scenes": [
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "narrationText": "좋은 제품을 만들면 당연히 팔릴 거라고 생각하시죠? 그런데... 현실은 정반대입니다. 지금 이 순간에도 수천 개의 훌륭한 제품이 아무도 모르는 채로 조용히 사라지고 있습니다. 여러분 주변을 한번 둘러보세요. 맛있는 빵집, 괜찮은 앱, 쓸만한 서비스... 분명히 좋은데 왜 아무도 모를까요? 이건 품질의 문제가 아닙니다. 광고비의 문제도 아닙니다. 마케팅 전략의 문제도 아니에요. 세스 고딘은 이 현상을 단 한마디로 정리합니다. 뭐라고 했을까요? 당신의 제품이 평범하기 때문이라고요. 충격적이죠? 평범한 건 눈에 보이지 않습니다. 눈에 보이지 않으면, 존재하지 않는 겁니다. 오늘은 이 강력한 통찰을 제대로 파헤쳐 보겠습니다.",
+      "content": {
+        "mainText": "당신의 제품이 평범하기 때문입니다",
+        "subText": "눈에 보이지 않으면, 존재하지 않는 것",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "좋은 제품을 만들면 당연히 팔릴 거라고 생각하시죠? 그런데... 현실은 정반대입니다. 지금 이 순간에도 수천 개의 훌륭한 제품이 아무도 모르는 채로 조용히 사라지고 있습니다. 여러분 주변을 한번 둘러보세요. 맛있는 빵집, 괜찮은 앱, 쓸만한 서비스... 분명히 좋은데 왜 아무도 모를까요?",
+          "activates": ["mainText"],
+          "emphasisTargets": ["정반대"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.3,
+          "endRatio": 0.55,
+          "narrationText": "이건 품질의 문제가 아닙니다. 광고비의 문제도 아닙니다. 마케팅 전략의 문제도 아니에요. 세스 고딘은 이 현상을 단 한마디로 정리합니다. 뭐라고 했을까요?",
+          "activates": ["subText"],
+          "emphasisTargets": ["품질", "광고비"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "당신의 제품이 평범하기 때문이라고요. 충격적이죠? 평범한 건 눈에 보이지 않습니다. 눈에 보이지 않으면, 존재하지 않는 겁니다. 오늘은 이 강력한 통찰을 제대로 파헤쳐 보겠습니다.",
+          "activates": [],
+          "emphasisTargets": ["평범", "존재하지 않는"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "세스 고딘의 보랏빛 소가 온다. 2003년 출간 이후 전 세계 마케터들의 필독서로 자리 잡은 이 책입니다. 마케팅을 이야기할 때 절대 빠지지 않는 바이블이죠. 그런데 놀라운 건요, 20년이 넘게 지난 지금도 그 메시지는 오히려 더욱 강력해지고 있어요. 왜냐하면 SNS 시대, 정보 과잉의 시대, 주목 경제의 시대를 이 책이 정확히 예언한 것과 다름없으니까요. 핵심을 지금부터 함께 파헤쳐 보겠습니다.",
+      "content": {
+        "title": "보랏빛 소가 온다",
+        "subtitle": "주목할 만한 것만이 살아남는다",
+        "author": "세스 고딘",
+        "coverImageUrl": "covers/purple-cow-cover.jpg",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "세스 고딘의 보랏빛 소가 온다. 2003년 출간 이후 전 세계 마케터들의 필독서로 자리 잡은 이 책입니다.",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["보랏빛 소"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "마케팅을 이야기할 때 절대 빠지지 않는 바이블이죠. 그런데 놀라운 건요, 20년이 넘게 지난 지금도 그 메시지는 오히려 더욱 강력해지고 있어요. 왜냐하면 SNS 시대, 정보 과잉의 시대, 주목 경제의 시대를 이 책이 정확히 예언한 것과 다름없으니까요. 핵심을 지금부터 함께 파헤쳐 보겠습니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["바이블"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "먼저 이 책의 출발점부터 함께 살펴봅시다. 왜 마케팅의 규칙이 완전히, 그리고 근본적으로 바뀌었는지 아시나요? 예전에 통하던 방법이 왜 더 이상 작동하지 않는지. 그 배경을 제대로 이해해야 보랏빛 소가 왜 필요한지 비로소 보입니다.",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "대중 마케팅의 종말"
+      },
+      "beats": [
+        {
+          "id": "ch01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "먼저 이 책의 출발점부터 함께 살펴봅시다. 왜 마케팅의 규칙이 완전히, 그리고 근본적으로 바뀌었는지 아시나요? 예전에 통하던 방법이 왜 더 이상 작동하지 않는지. 그 배경을 제대로 이해해야 보랏빛 소가 왜 필요한지 비로소 보입니다.",
+          "activates": ["chapterTitle"],
+          "emphasisTargets": ["규칙"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "insight-01",
+      "type": "keyInsight",
+      "narrationText": "세스 고딘은 이렇게 선언합니다. TV-산업 복합체가 무너졌다고요. 예전에는 간단했습니다. 좋은 제품을 만들고, TV 광고를 태우면 매출이 올랐죠. 광고로 번 돈으로 더 많은 광고를 사고, 이 순환 고리가 수십 년간 완벽하게 작동했습니다. P&G, 코카콜라, GM... 20세기 거대 기업들은 전부 이 공식으로 성장했어요. 그런데 지금은 어떤가요? 소비자는 하루에 3천 개 이상의 광고 메시지에 노출됩니다. 무려 3천 개입니다! 그래서 어떻게 됐을까요? 사람들은 광고를 무시하는 전문가가 됐습니다. 스킵 버튼을 누르고, 광고 차단기를 설치하고, 아예 관심을 꺼버립니다. 광고를 무시하는 게 일상이 된 거죠. 리모컨으로 채널을 돌리고, 유튜브 프리미엄을 결제하는 건 기본입니다. TV 광고에 수십억을 쏟아도 더 이상 예전 같은 효과가 나오지 않는 이유가 바로 여기에 있습니다. 결론은 하나예요. 광고가 아니라 제품 자체가 달라져야 합니다.",
+      "content": {
+        "headline": "TV-산업 복합체의 붕괴",
+        "supportText": "광고 → 매출 → 더 많은 광고의 순환 고리가 끊어졌다",
+        "evidenceCard": {
+          "type": "statistic",
+          "value": "하루 3,000+",
+          "caption": "소비자 1인당 일일 광고 노출 수"
+        }
+      },
+      "beats": [
+        {
+          "id": "ins01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.15,
+          "narrationText": "세스 고딘은 이렇게 선언합니다. TV-산업 복합체가 무너졌다고요.",
+          "activates": ["headline"],
+          "emphasisTargets": ["TV-산업 복합체"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b2",
+          "role": "support",
+          "startRatio": 0.15,
+          "endRatio": 0.4,
+          "narrationText": "예전에는 간단했습니다. 좋은 제품을 만들고, TV 광고를 태우면 매출이 올랐죠. 광고로 번 돈으로 더 많은 광고를 사고, 이 순환 고리가 수십 년간 완벽하게 작동했습니다. P&G, 코카콜라, GM... 20세기 거대 기업들은 전부 이 공식으로 성장했어요.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["순환 고리"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b3",
+          "role": "evidence",
+          "startRatio": 0.4,
+          "endRatio": 0.65,
+          "narrationText": "그런데 지금은 어떤가요? 소비자는 하루에 3천 개 이상의 광고 메시지에 노출됩니다. 무려 3천 개입니다! 그래서 어떻게 됐을까요? 사람들은 광고를 무시하는 전문가가 됐습니다.",
+          "activates": ["evidenceCard"],
+          "emphasisTargets": ["3천 개"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b4",
+          "role": "recap",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "스킵 버튼을 누르고, 광고 차단기를 설치하고, 아예 관심을 꺼버립니다. 광고를 무시하는 게 일상이 된 거죠. 리모컨으로 채널을 돌리고, 유튜브 프리미엄을 결제하는 건 기본입니다. TV 광고에 수십억을 쏟아도 더 이상 예전 같은 효과가 나오지 않는 이유가 바로 여기에 있습니다. 결론은 하나예요. 광고가 아니라 제품 자체가 달라져야 합니다.",
+          "activates": [],
+          "emphasisTargets": ["무시", "제품 자체"],
+          "transition": "emphasis"
+        }
+      ]
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "narrationText": "자, 그렇다면 어떻게 해야 할까요? 세스 고딘은 아주 강력한 비유를 꺼냅니다. 프랑스 시골을 드라이브한다고 상상해보세요. 차 창밖으로 끝없는 초원이 펼쳐지고, 소들이 풀을 뜯고 있습니다. 처음에는 신기하죠. 와, 소다! 하지만 10분만 지나면요? 소는 그냥 배경이 됩니다. 갈색 소, 흰 소, 검은 소... 전부 똑같아 보여요. 관심이 완전히 사라지죠. 여러분의 제품도 마찬가지입니다. 하지만! 만약 그 소떼 한가운데에 선명한 보라색 소가 한 마리 서 있다면요? 당장 차를 세울 겁니다. 사진을 찍겠죠. 인스타그램에 올리고, 친구한테 카톡으로 보내고, 저녁 식사 때 이야기할 겁니다. 이게 바로 보랏빛 소의 본질입니다. 평범한 제품은 갈색 소와 같습니다. 아무리 품질이 좋아도, 아무리 가격이 합리적이어도, 눈에 들어오지 않아요. 반면 보랏빛 소 같은 제품은 보는 순간 누군가에게 이야기하고 싶어집니다. Remarkable. 말 그대로 이야기할 가치가 있다는 뜻이죠.",
+      "content": {
+        "leftLabel": "갈색 소",
+        "leftContent": "좋은 품질, 합리적 가격, 충분한 광고. 하지만 눈에 들어오지 않는 평범함. 소비자의 시야에서 사라지는 배경.",
+        "rightLabel": "보랏빛 소",
+        "rightContent": "보는 순간 차를 세우고 사진 찍고 공유한다. Remarkable — 소비자가 스스로 퍼뜨리는 주목할 만한 제품.",
+        "leftTag": "common",
+        "rightTag": "author",
+        "revealOrder": "left-first"
+      },
+      "beats": [
+        {
+          "id": "cmp-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "자, 그렇다면 어떻게 해야 할까요? 세스 고딘은 아주 강력한 비유를 꺼냅니다.",
+          "activates": ["leftPanel"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "cmp-b2",
+          "role": "compare",
+          "startRatio": 0.12,
+          "endRatio": 0.4,
+          "narrationText": "프랑스 시골을 드라이브한다고 상상해보세요. 차 창밖으로 끝없는 초원이 펼쳐지고, 소들이 풀을 뜯고 있습니다. 처음에는 신기하죠. 와, 소다! 하지만 10분만 지나면요? 소는 그냥 배경이 됩니다. 갈색 소, 흰 소, 검은 소... 전부 똑같아 보여요. 관심이 완전히 사라지죠. 여러분의 제품도 마찬가지입니다.",
+          "activates": [],
+          "emphasisTargets": ["배경", "똑같아"],
+          "transition": "emphasis"
+        },
+        {
+          "id": "cmp-b3",
+          "role": "compare",
+          "startRatio": 0.4,
+          "endRatio": 0.65,
+          "narrationText": "하지만! 만약 그 소떼 한가운데에 선명한 보라색 소가 한 마리 서 있다면요? 당장 차를 세울 겁니다. 사진을 찍겠죠. 인스타그램에 올리고, 친구한테 카톡으로 보내고, 저녁 식사 때 이야기할 겁니다. 이게 바로 보랏빛 소의 본질입니다.",
+          "activates": ["rightPanel"],
+          "emphasisTargets": ["보라색 소", "보랏빛 소"],
+          "transition": "enter"
+        },
+        {
+          "id": "cmp-b4",
+          "role": "recap",
+          "startRatio": 0.65,
+          "endRatio": 1,
+          "narrationText": "평범한 제품은 갈색 소와 같습니다. 아무리 품질이 좋아도, 아무리 가격이 합리적이어도, 눈에 들어오지 않아요. 반면 보랏빛 소 같은 제품은 보는 순간 누군가에게 이야기하고 싶어집니다. Remarkable. 말 그대로 이야기할 가치가 있다는 뜻이죠.",
+          "activates": ["connector"],
+          "emphasisTargets": ["평범", "Remarkable"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "narrationText": "자, 이제 보랏빛 소를 만드는 핵심 원칙 다섯 가지를 하나씩 정리해 드리겠습니다. 첫째, Remarkable. 주목할 만한 것을 만들어라. 본 사람이 누군가에게 말하지 않고는 못 배기는 것, 바로 그런 제품을 만들어야 합니다. 입소문은 억지로 만드는 게 아니라 저절로 터지는 겁니다. 둘째, 오타쿠를 노려라. 특정 분야에 미친 사람들, 그 덕후들이 먼저 시도하고 열정적으로 퍼뜨립니다. 대중이 아니라 이 소수를 먼저 감동시키세요. 셋째, 스니저를 찾아라. 재채기하듯 아이디어를 퍼뜨리는 확산자, 이들이 바로 입소문의 핵심 엔진입니다. 넷째, 에지크래프트. 극단을 향해 과감히 밀어붙이세요. 중간 지대는 무시당합니다. 끝까지 가야 비로소 눈에 띕니다. 다섯째, 안전한 것이 가장 위험합니다. 실패가 두려워서 평범함을 선택하는 그 순간, 그게 바로 진짜 실패입니다.",
+      "content": {
+        "frameworkLabel": "Purple Cow 5원칙",
+        "items": [
+          {
+            "number": 1,
+            "title": "Remarkable",
+            "description": "본 사람이 말하지 않고는 못 배기는 제품"
+          },
+          {
+            "number": 2,
+            "title": "Otaku",
+            "description": "덕후가 먼저 시도하고 열정적으로 퍼뜨린다"
+          },
+          {
+            "number": 3,
+            "title": "Sneezer",
+            "description": "아이디어를 재채기처럼 퍼뜨리는 확산자"
+          },
+          {
+            "number": 4,
+            "title": "Edgecraft",
+            "description": "더 싸게, 더 빠르게, 더 극단적으로"
+          },
+          {
+            "number": 5,
+            "title": "Safe is Risky",
+            "description": "평범함이야말로 진짜 실패"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "beats": [
+        {
+          "id": "fw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "자, 이제 보랏빛 소를 만드는 핵심 원칙 다섯 가지를 하나씩 정리해 드리겠습니다.",
+          "activates": ["frameworkLabel"],
+          "emphasisTargets": ["다섯 가지"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.3,
+          "narrationText": "첫째, Remarkable. 주목할 만한 것을 만들어라. 본 사람이 누군가에게 말하지 않고는 못 배기는 것, 바로 그런 제품을 만들어야 합니다. 입소문은 억지로 만드는 게 아니라 저절로 터지는 겁니다.",
+          "activates": ["item-0"],
+          "emphasisTargets": ["Remarkable"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b3",
+          "role": "reveal",
+          "startRatio": 0.3,
+          "endRatio": 0.48,
+          "narrationText": "둘째, 오타쿠를 노려라. 특정 분야에 미친 사람들, 그 덕후들이 먼저 시도하고 열정적으로 퍼뜨립니다. 대중이 아니라 이 소수를 먼저 감동시키세요.",
+          "activates": ["item-1"],
+          "emphasisTargets": ["오타쿠"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b4",
+          "role": "reveal",
+          "startRatio": 0.48,
+          "endRatio": 0.63,
+          "narrationText": "셋째, 스니저를 찾아라. 재채기하듯 아이디어를 퍼뜨리는 확산자, 이들이 바로 입소문의 핵심 엔진입니다.",
+          "activates": ["item-2"],
+          "emphasisTargets": ["스니저"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b5",
+          "role": "reveal",
+          "startRatio": 0.63,
+          "endRatio": 0.8,
+          "narrationText": "넷째, 에지크래프트. 극단을 향해 과감히 밀어붙이세요. 중간 지대는 무시당합니다. 끝까지 가야 비로소 눈에 띕니다.",
+          "activates": ["item-3"],
+          "emphasisTargets": ["에지크래프트"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b6",
+          "role": "reveal",
+          "startRatio": 0.8,
+          "endRatio": 1,
+          "narrationText": "다섯째, 안전한 것이 가장 위험합니다. 실패가 두려워서 평범함을 선택하는 그 순간, 그게 바로 진짜 실패입니다.",
+          "activates": ["item-4"],
+          "emphasisTargets": ["안전한 것", "위험"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "chapter-02",
+      "type": "chapterDivider",
+      "narrationText": "이제 실전으로 넘어가 볼까요? 이론은 충분히 살펴봤으니까요. 그러면 이 다섯 원칙을 내 사업, 내 프로젝트에 실제로 어떻게 적용할 수 있는지 지금 바로 구체적인 방법을 살펴보겠습니다.",
+      "content": {
+        "chapterNumber": 2,
+        "chapterTitle": "보랏빛 소를 만드는 법"
+      },
+      "beats": [
+        {
+          "id": "ch02-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "이제 실전으로 넘어가 볼까요? 이론은 충분히 살펴봤으니까요. 그러면 이 다섯 원칙을 내 사업, 내 프로젝트에 실제로 어떻게 적용할 수 있는지 지금 바로 구체적인 방법을 살펴보겠습니다.",
+          "activates": ["chapterTitle"],
+          "emphasisTargets": ["실전"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "insight-02",
+      "type": "keyInsight",
+      "narrationText": "세스 고딘이 말하는 가장 강력한 한 줄이 있습니다. 안전하게 플레이하는 것이야말로 가장 위험하다. 한번 생각해보세요. 대부분의 기업이 어떤 결정을 내릴까요? 가능하면 리스크를 줄이려고 합니다. 시장 조사하고, 포커스 그룹 테스트하고, 경쟁사가 이미 성공한 것과 비슷하게 만들죠. 안전해 보이잖아요? 그런데 그 결과가 뭘까요? 시장에 아무도 관심 갖지 않는 그저 그런 제품이 하나 더 추가되는 겁니다. 눈에 보이지도 않는 갈색 소 한 마리가 더 풀을 뜯게 되는 거죠. 결국 안전한 선택이 가장 위험한 선택이 되어버린 겁니다. 반대로 애플을 보세요. 1998년에 아이맥을 반투명 사탕 색깔로 만들었을 때, 업계 전체가 미쳤다고 했습니다. PC는 원래 회색 상자여야 한다고요. 하지만 결과는요? 그게 바로 보랏빛 소였죠. 누구도 무시할 수 없는 존재감이었습니다. 그리고 그 대담한 디자인이 결국 애플의 극적인 부활을 이끌었습니다.",
+      "content": {
+        "headline": "안전하게 플레이하는 것이 가장 위험하다",
+        "supportText": "리스크를 줄이려는 노력이 오히려 시장에서 무시당하는 결과를 만든다",
+        "evidenceCard": {
+          "type": "case",
+          "value": "iMac G3 (1998)",
+          "caption": "반투명 디자인으로 PC 시장을 뒤흔든 보랏빛 소"
+        }
+      },
+      "beats": [
+        {
+          "id": "ins02-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.15,
+          "narrationText": "세스 고딘이 말하는 가장 강력한 한 줄이 있습니다. 안전하게 플레이하는 것이야말로 가장 위험하다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["안전하게", "위험하다"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins02-b2",
+          "role": "support",
+          "startRatio": 0.15,
+          "endRatio": 0.48,
+          "narrationText": "한번 생각해보세요. 대부분의 기업이 어떤 결정을 내릴까요? 가능하면 리스크를 줄이려고 합니다. 시장 조사하고, 포커스 그룹 테스트하고, 경쟁사가 이미 성공한 것과 비슷하게 만들죠. 안전해 보이잖아요? 그런데 그 결과가 뭘까요? 시장에 아무도 관심 갖지 않는 그저 그런 제품이 하나 더 추가되는 겁니다. 눈에 보이지도 않는 갈색 소 한 마리가 더 풀을 뜯게 되는 거죠. 결국 안전한 선택이 가장 위험한 선택이 되어버린 겁니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["리스크", "그저 그런"],
+          "transition": "enter"
+        },
+        {
+          "id": "ins02-b3",
+          "role": "evidence",
+          "startRatio": 0.48,
+          "endRatio": 1,
+          "narrationText": "반대로 애플을 보세요. 1998년에 아이맥을 반투명 사탕 색깔로 만들었을 때, 업계 전체가 미쳤다고 했습니다. PC는 원래 회색 상자여야 한다고요. 하지만 결과는요? 그게 바로 보랏빛 소였죠. 누구도 무시할 수 없는 존재감이었습니다. 그리고 그 대담한 디자인이 결국 애플의 극적인 부활을 이끌었습니다.",
+          "activates": ["evidenceCard"],
+          "emphasisTargets": ["아이맥", "보랏빛 소"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "세스 고딘은 이런 명언을 남겼습니다. 오늘날의 마케팅에서 가장 위험한 것은 위험하지 않은 것이다... 한번 천천히 곱씹어 보세요. 가장 위험한 것이... 위험하지 않은 것이라니요. 우리는 본능적으로 위험을 피하려고 합니다. 실패가 두렵고, 비웃음이 무섭고, 투자를 날리고 싶지 않죠. 그래서 검증된 것, 안전한 것만 고릅니다. 하지만 그 본능을 따르는 순간, 우리는 시장에서 투명인간이 됩니다. 아무도 알아보지 못하는 존재가 되는 거예요. 그것이야말로 현대 시장에서 가장 확실한 실패의 길이라는 겁니다. 왜냐하면 안전한 제품은 눈에 보이지 않고, 눈에 보이지 않으면 절대 선택받을 수 없으니까요.",
+      "content": {
+        "quoteText": "오늘날의 마케팅에서\n가장 위험한 것은\n위험하지 않은 것이다",
+        "attribution": "세스 고딘",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "qt-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "세스 고딘은 이런 명언을 남겼습니다. 오늘날의 마케팅에서 가장 위험한 것은 위험하지 않은 것이다... 한번 천천히 곱씹어 보세요. 가장 위험한 것이... 위험하지 않은 것이라니요.",
+          "activates": ["quoteText", "quoteMarks"],
+          "emphasisTargets": ["위험한 것", "위험하지 않은"],
+          "transition": "enter"
+        },
+        {
+          "id": "qt-b2",
+          "role": "support",
+          "startRatio": 0.35,
+          "endRatio": 1,
+          "narrationText": "우리는 본능적으로 위험을 피하려고 합니다. 실패가 두렵고, 비웃음이 무섭고, 투자를 날리고 싶지 않죠. 그래서 검증된 것, 안전한 것만 고릅니다. 하지만 그 본능을 따르는 순간, 우리는 시장에서 투명인간이 됩니다. 아무도 알아보지 못하는 존재가 되는 거예요. 그것이야말로 현대 시장에서 가장 확실한 실패의 길이라는 겁니다. 왜냐하면 안전한 제품은 눈에 보이지 않고, 눈에 보이지 않으면 절대 선택받을 수 없으니까요.",
+          "activates": ["attribution"],
+          "emphasisTargets": ["본능", "실패의 길"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "자, 그럼 지금 당장 어떻게 시작하면 될까요? 에지크래프트 3단계를 알려드립니다. 첫 번째, 극단을 찾아라. 여러분의 업계에서 아무도 안 하는 것이 뭔지 찾으세요. 모두가 같은 방향을 보고 있다면, 반대 방향에 기회가 있습니다. 카페라면 좌석을 아예 없앨 수도 있고, 메뉴를 딱 하나만 둘 수도 있죠. 핵심은 중간이 아니라 끝으로 가는 겁니다. 두 번째, 오타쿠와 대화하라. 여러분 제품의 가장 열성적인 팬 10명을 찾으세요. 그들이 뭘 원하는지, 뭘 불편해하는지 직접 물어보세요. 대중 설문이 아닙니다. 한 사람 한 사람과의 깊은 대화입니다. 그들의 말에서 보랏빛 소가 될 힌트가 반드시 나옵니다. 세 번째, 비웃음을 테스트하라. 새 아이디어를 동료에게 말해보세요. 반응이 그냥 괜찮다 정도면? 아직 충분히 극단적이지 않은 겁니다. 누군가가 웃거나 미쳤다고 하면? 축하합니다. 그때 시작할 가치가 있는 겁니다. 세스 고딘이 말했듯, 비웃음은 보랏빛 소의 첫 번째 신호입니다.",
+      "content": {
+        "anchorStatement": "에지크래프트 실천 3단계",
+        "steps": [
+          {
+            "title": "극단을 찾아라",
+            "detail": "업계에서 아무도 안 하는 것을 찾고, 반대 방향으로 달려가세요."
+          },
+          {
+            "title": "오타쿠와 대화하라",
+            "detail": "열성 팬 10명과 깊은 대화를 나누세요. 보랏빛 소의 힌트가 거기 있습니다."
+          },
+          {
+            "title": "비웃음을 테스트하라",
+            "detail": "미쳤다는 반응이 나와야 시작할 가치가 있습니다."
+          }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "자, 그럼 지금 당장 어떻게 시작하면 될까요? 에지크래프트 3단계를 알려드립니다.",
+          "activates": ["anchorStatement"],
+          "emphasisTargets": ["에지크래프트"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.38,
+          "narrationText": "첫 번째, 극단을 찾아라. 여러분의 업계에서 아무도 안 하는 것이 뭔지 찾으세요. 모두가 같은 방향을 보고 있다면, 반대 방향에 기회가 있습니다. 카페라면 좌석을 아예 없앨 수도 있고, 메뉴를 딱 하나만 둘 수도 있죠. 핵심은 중간이 아니라 끝으로 가는 겁니다.",
+          "activates": ["step-0"],
+          "emphasisTargets": ["극단", "반대 방향"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.38,
+          "endRatio": 0.68,
+          "narrationText": "두 번째, 오타쿠와 대화하라. 여러분 제품의 가장 열성적인 팬 10명을 찾으세요. 그들이 뭘 원하는지, 뭘 불편해하는지 직접 물어보세요. 대중 설문이 아닙니다. 한 사람 한 사람과의 깊은 대화입니다. 그들의 말에서 보랏빛 소가 될 힌트가 반드시 나옵니다.",
+          "activates": ["step-1"],
+          "emphasisTargets": ["오타쿠", "팬 10명"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.68,
+          "endRatio": 1,
+          "narrationText": "세 번째, 비웃음을 테스트하라. 새 아이디어를 동료에게 말해보세요. 반응이 그냥 괜찮다 정도면? 아직 충분히 극단적이지 않은 겁니다. 누군가가 웃거나 미쳤다고 하면? 축하합니다. 그때 시작할 가치가 있는 겁니다. 세스 고딘이 말했듯, 비웃음은 보랏빛 소의 첫 번째 신호입니다.",
+          "activates": ["step-2"],
+          "emphasisTargets": ["비웃음", "미쳤다"],
+          "transition": "enter"
+        }
+      ]
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "보랏빛 소가 온다. 이 책의 메시지는 결국 단순합니다. 평범한 것은 보이지 않고, 보이지 않으면 존재하지 않습니다. 여러분이 지금 만들고 있는 것을 한번 진지하게 돌아보세요. 충분히 주목할 만한가요? 누군가가 보고 나서 친구에게 꼭 말하고 싶어질 만큼 특별한가요? 만약 그렇지 않다면, 오늘 딱 하나만 바꿔보세요. 더 극단적으로, 더 대담하게, 더 당당하게. 비웃음이 두려워도 괜찮습니다. 그 비웃음이야말로 보랏빛 소의 첫 번째 신호니까요. 세스 고딘은 말합니다. 평범한 소는 아무도 기억하지 못한다고요. 여러분만의 보랏빛 소를 꼭 만들어 보시길 바랍니다. 이 영상이 도움이 되셨다면, 구독과 좋아요 꼭 부탁드리고요. 다음 영상에서 또 만나겠습니다.",
+      "content": {
+        "recapStatement": "평범한 것은 보이지 않는다.\n보이지 않으면, 존재하지 않는다.",
+        "ctaText": "오늘, 당신의 보랏빛 소를 만드세요",
+        "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "cls-b1",
+          "role": "recap",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "보랏빛 소가 온다. 이 책의 메시지는 결국 단순합니다. 평범한 것은 보이지 않고, 보이지 않으면 존재하지 않습니다. 여러분이 지금 만들고 있는 것을 한번 진지하게 돌아보세요. 충분히 주목할 만한가요? 누군가가 보고 나서 친구에게 꼭 말하고 싶어질 만큼 특별한가요?",
+          "activates": ["recapStatement"],
+          "emphasisTargets": ["평범", "존재하지 않습니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "cls-b2",
+          "role": "headline",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "만약 그렇지 않다면, 오늘 딱 하나만 바꿔보세요. 더 극단적으로, 더 대담하게, 더 당당하게. 비웃음이 두려워도 괜찮습니다. 그 비웃음이야말로 보랏빛 소의 첫 번째 신호니까요. 세스 고딘은 말합니다. 평범한 소는 아무도 기억하지 못한다고요. 여러분만의 보랏빛 소를 꼭 만들어 보시길 바랍니다. 이 영상이 도움이 되셨다면, 구독과 좋아요 꼭 부탁드리고요. 다음 영상에서 또 만나겠습니다.",
+          "activates": ["ctaText"],
+          "emphasisTargets": ["보랏빛 소"],
+          "transition": "enter"
+        }
+      ]
+    }
+  ]
+}
