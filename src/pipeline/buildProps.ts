@@ -26,6 +26,8 @@ import type {
   SceneSpec,
   ResolvedMotionParams,
 } from "@/direction";
+import { tryComposeScene } from "@/composition/compositionPathRouter";
+import type { CompositionContext } from "@/composition/types";
 
 export type PlannedScene = TypedScene & {
   from: number;
@@ -126,7 +128,33 @@ export function buildCompositionProps(
       bookDirection.base,
       scene.resolvedDuration ?? 150,
     );
-    return { ...scene, sceneSpec: spec, resolvedMotion };
+    let enriched: typeof scene & {
+      sceneSpec: SceneSpec;
+      resolvedMotion: ResolvedMotionParams;
+    } = {
+      ...scene,
+      sceneSpec: spec,
+      resolvedMotion,
+    };
+
+    if (spec.source === "composed") {
+      const compositionCtx: CompositionContext = {
+        format,
+        theme,
+        from: scene.from,
+        durationFrames: scene.resolvedDuration,
+        motionPreset: resolvedMotion?.preset ?? "heavy",
+      };
+      const composedBlueprint = tryComposeScene(spec, compositionCtx);
+      if (composedBlueprint) {
+        // Phase 2A: _blueprint injection is a temporary bridge.
+        // Uses SceneRenderer's existing blueprint guard (LongformComposition.tsx:75).
+        // TODO(Phase 2B): Promote to typed PlannedScene.composedBlueprint field.
+        (enriched as any)._blueprint = composedBlueprint;
+      }
+    }
+
+    return enriched;
   });
 
   // Calculate totalDurationFrames, subtracting transition overlaps when storyboard exists
