@@ -345,6 +345,7 @@ export interface BookContent {
   narration: NarrationConfig;
   scenes: TypedScene[];
   audio?: AudioConfig;
+  thumbnail?: import("@/thumbnail/types").ThumbnailConfig;
 }
 
 // --- TTS / Subtitle ---

@@ -2,6 +2,7 @@ import { z } from "zod";
 import path from "path";
 import fs from "fs";
 import type { BookContent, ValidationResult, SceneType } from "@/types";
+import { ThumbnailConfigSchema } from "@/thumbnail/types";
 
 // --- Zod Schemas for all 9 content types ---
 
@@ -342,6 +343,7 @@ const BookContentSchema = z.object({
   narration: NarrationConfigSchema,
   scenes: z.array(TypedSceneSchema).min(1),
   audio: AudioConfigSchema.optional(),
+  thumbnail: ThumbnailConfigSchema.optional(),
 });
 
 // --- Constants ---
