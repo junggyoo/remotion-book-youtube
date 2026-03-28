@@ -1,14 +1,32 @@
-# Phase 2A: Core Composition Engine — Implementation Plan
+# Phase 2A: Core Composition Engine — Implementation Plan v1.1
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** SceneSpec에서 SceneBlueprint로의 "composed path"를 열어, 기존 layout/choreography/primitive registry를 실제로 사용하는 동적 조합 엔진을 구축한다.
 
-**Architecture:** CompositionFactory가 SceneSpec의 family + content + direction을 읽어 VCLElement[]를 생성하고, layout/choreography를 선택하여 SceneBlueprint를 만든다. 이 blueprint는 기존 BlueprintRenderer가 그대로 렌더한다. 통합은 buildProps.ts에서 `_blueprint` 필드를 주입하는 방식으로, SceneRenderer의 기존 blueprint guard를 활용한다.
+**Architecture:** CompositionFactory가 SceneSpec의 family + content + direction을 읽어 VCLElement[]를 생성하고, layout/choreography를 선택하여 SceneBlueprint를 만든다. 이 blueprint는 기존 BlueprintRenderer가 그대로 렌더한다. 통합은 buildProps.ts에서 `composedBlueprint` 필드를 주입하는 방식으로, SceneRenderer의 기존 blueprint guard를 활용한다.
 
 **Tech Stack:** TypeScript, Remotion, Vitest, 기존 VCL registry (layouts, choreography, primitiveRegistry)
 
 **핵심 인사이트:** BlueprintRenderer가 이미 composition engine이다. 부재한 것은 SceneSpec → SceneBlueprint 브릿지뿐.
+
+---
+
+## Registry Reality Check (v1.1 선행 검증 완료)
+
+구현 전에 실제 코드의 registry key를 확인했다. 계획의 모든 이름은 아래와 일치한다.
+
+**Layout registry keys** (`src/renderer/layouts/index.ts`):
+`center-focus`, `split-two`, `split-compare`, `radial`, `timeline-h`, `grid-n`, `grid-expand`
+
+**Choreography registry keys** (`src/renderer/choreography/index.ts`):
+`reveal-sequence`, `stagger-clockwise`, `path-trace`
+
+**Primitive registry keys** (`src/renderer/primitiveRegistry.ts`):
+`headline`, `body-text`, `label`, `caption`, `number-display`, `quote-text`, `icon`, `divider`, `texture-overlay`, `color-block`, `shape`, `image`, `text`, `timeline-node`, `cycle-connector`, `flow-step`, `card-stack`, `layer-stack`, `kinetic-text`, `word-highlight`, `animated-path`, `node-activation`
+
+**SceneBlueprint required fields** (`src/types/index.ts:685`):
+`id`, `intent`, `origin`, `layout`, `elements`, `choreography`, `motionPreset`, `format`, `theme`, `from`, `durationFrames`, `mediaPlan`
 
 ---
 
@@ -30,12 +48,24 @@ src/composition/                          (NEW directory)
     ├── elementResolver.test.ts
     ├── CompositionFactory.test.ts
     ├── compositionPathRouter.test.ts
-    └── familyRecipes.test.ts
+    ├── familyRecipes.test.ts
+    └── integration.test.ts
 
 src/direction/presetAdapter.ts            (MODIFY — add composed source support)
 src/pipeline/buildProps.ts                (MODIFY — composed path integration)
-src/types/index.ts                        (MODIFY — SceneBlueprint origin type extension)
+src/types/index.ts                        (MODIFY — SceneBlueprint origin + PlannedScene type)
 ```
+
+---
+
+## 설계 원칙 (v1.1 추가)
+
+1. **Layout/Choreography 우선순위:** spec explicit > recipe default > family fallback
+2. **Recipe는 direction-aware:** resolve(content, hints?) 시그니처로 direction 확장 가능
+3. **타입 안전:** FamilyRecipe의 defaultLayout/defaultChoreography는 실제 타입 (LayoutType, ChoreographyType)
+4. **\_blueprint는 임시 브리지:** Phase 2B에서 PlannedScene 정식 필드로 승격 대상
+5. **CompositionFactory는 composition만:** TTS 설정 등은 상위 pipeline 책임
+6. **Composed 실패 시 추적 가능:** shouldCompose/tryComposeScene에 실패 사유 로깅
 
 ---
 
@@ -107,8 +137,19 @@ describe("resolveElements", () => {
   it("returns empty array for unknown family (fallback)", () => {
     const spec = makeSceneSpec("opening-hook" as any, { headline: "test" });
     const elements = resolveElements(spec);
-    // opening-hook has no recipe yet — returns fallback elements
     expect(Array.isArray(elements)).toBe(true);
+  });
+
+  it("passes direction hints to recipe", () => {
+    const spec = makeSceneSpec("concept-introduction", {
+      headline: "핵심 인사이트",
+      supportText: "설명",
+      evidence: "근거",
+    });
+    // analytical direction has low emphasisDensity (0.4)
+    const elements = resolveElements(spec);
+    // Should include all elements regardless (density filtering is future)
+    expect(elements.length).toBeGreaterThanOrEqual(2);
   });
 });
 ```
@@ -122,8 +163,29 @@ Expected: FAIL — module not found
 
 ```typescript
 // src/composition/types.ts
-import type { VCLElement, Theme, MotionPresetKey } from "@/types";
-import type { SceneSpec, SceneFamily } from "@/direction/types";
+import type {
+  VCLElement,
+  Theme,
+  MotionPresetKey,
+  LayoutType,
+  ChoreographyType,
+} from "@/types";
+import type {
+  SceneSpec,
+  SceneFamily,
+  DirectionProfileName,
+} from "@/direction/types";
+
+/**
+ * Optional hints passed to FamilyRecipe.resolve() for direction-aware element generation.
+ * Phase 2A: minimally used. Phase 2B+: direction influences element density/selection.
+ */
+export interface RecipeHints {
+  sceneId: string;
+  directionName?: DirectionProfileName;
+  emphasisDensity?: number;
+  energy?: number;
+}
 
 /**
  * A FamilyRecipe converts SceneSpec.content into VCLElement[].
@@ -131,17 +193,18 @@ import type { SceneSpec, SceneFamily } from "@/direction/types";
  */
 export interface FamilyRecipe {
   family: SceneFamily;
-  /** Convert content fields to VCL elements */
-  resolve(content: Record<string, unknown>): VCLElement[];
-  /** Preferred layout for this family (can be overridden by direction) */
-  defaultLayout: string;
-  /** Preferred choreography for this family */
-  defaultChoreography: string;
+  /** Convert content fields to VCL elements. hints is optional for direction awareness. */
+  resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[];
+  /** Preferred layout for this family — used as fallback when spec.layout is not explicit */
+  defaultLayout: LayoutType;
+  /** Preferred choreography — used as fallback when spec.choreography is not explicit */
+  defaultChoreography: ChoreographyType;
 }
 
 /**
  * Context needed by CompositionFactory beyond SceneSpec itself.
  * These values come from the pipeline (PlannedScene / buildProps).
+ * CompositionFactory는 composition만 담당 — TTS/audio 설정은 여기 포함하지 않는다.
  */
 export interface CompositionContext {
   format: "longform" | "shorts";
@@ -158,6 +221,7 @@ export interface CompositionContext {
 // src/composition/elementResolver.ts
 import type { VCLElement } from "@/types";
 import type { SceneSpec } from "@/direction/types";
+import type { RecipeHints } from "./types";
 import { recipeRegistry } from "./familyRecipes";
 
 /**
@@ -167,6 +231,14 @@ import { recipeRegistry } from "./familyRecipes";
 export function resolveElements(spec: SceneSpec): VCLElement[] {
   const recipe = recipeRegistry[spec.family];
 
+  // Build direction hints from spec
+  const hints: RecipeHints = {
+    sceneId: spec.id,
+    directionName: spec.direction?.name,
+    emphasisDensity: spec.direction?.base?.emphasisDensity,
+    energy: spec.direction?.base?.energy,
+  };
+
   if (!recipe) {
     // Fallback: extract headline if present
     const headline = spec.content.headline as string | undefined;
@@ -175,14 +247,14 @@ export function resolveElements(spec: SceneSpec): VCLElement[] {
         {
           id: `${spec.id}-headline`,
           type: "headline",
-          props: { text: headline },
+          props: { text: headline, role: "headline" },
         },
       ];
     }
     return [];
   }
 
-  return recipe.resolve(spec.content);
+  return recipe.resolve(spec.content, hints);
 }
 ```
 
@@ -200,16 +272,16 @@ export function registerRecipe(recipe: FamilyRecipe): void {
 }
 ```
 
-- [ ] **Step 6: Run test to verify it passes**
+- [ ] **Step 6: Run test to verify partial pass**
 
 Run: `npx vitest run src/composition/__tests__/elementResolver.test.ts`
-Expected: First test fails (no recipe registered yet), second test passes. This is correct — recipes come in Task 2.
+Expected: First test fails (no recipe yet), second + third pass. Correct — recipes come in Task 2.
 
 - [ ] **Step 7: Commit**
 
 ```bash
 git add src/composition/types.ts src/composition/elementResolver.ts src/composition/familyRecipes/index.ts src/composition/__tests__/elementResolver.test.ts
-git commit -m "feat(composition): types + elementResolver foundation with recipe dispatch"
+git commit -m "feat(composition): types + elementResolver foundation with direction-aware recipe dispatch"
 ```
 
 ---
@@ -232,19 +304,25 @@ import { describe, it, expect } from "vitest";
 import { conceptIntroductionRecipe } from "../familyRecipes/conceptIntroduction";
 import { systemModelRecipe } from "../familyRecipes/systemModel";
 import { progressionJourneyRecipe } from "../familyRecipes/progressionJourney";
+import type { RecipeHints } from "../types";
+
+const defaultHints: RecipeHints = { sceneId: "test-01" };
 
 describe("conceptIntroductionRecipe", () => {
   it("creates headline + supportText + evidence elements", () => {
-    const elements = conceptIntroductionRecipe.resolve({
-      headline: "습관의 복리 효과",
-      supportText: "매일 1%씩 나아지면 1년 후 37배가 됩니다.",
-      evidence: "영국 자전거 팀 사례",
-    });
+    const elements = conceptIntroductionRecipe.resolve(
+      {
+        headline: "습관의 복리 효과",
+        supportText: "매일 1%씩 나아지면 1년 후 37배가 됩니다.",
+        evidence: "영국 자전거 팀 사례",
+      },
+      defaultHints,
+    );
 
     expect(elements).toHaveLength(3);
     expect(elements[0]).toMatchObject({
       type: "headline",
-      props: { text: "습관의 복리 효과" },
+      props: { text: "습관의 복리 효과", role: "headline" },
     });
     expect(elements[1]).toMatchObject({
       type: "body-text",
@@ -257,14 +335,19 @@ describe("conceptIntroductionRecipe", () => {
   });
 
   it("creates headline + supportText when no evidence", () => {
-    const elements = conceptIntroductionRecipe.resolve({
-      headline: "핵심 인사이트",
-      supportText: "설명 텍스트",
-    });
+    const elements = conceptIntroductionRecipe.resolve(
+      { headline: "핵심 인사이트", supportText: "설명 텍스트" },
+      defaultHints,
+    );
     expect(elements).toHaveLength(2);
   });
 
-  it("has correct defaults", () => {
+  it("returns empty when no headline", () => {
+    const elements = conceptIntroductionRecipe.resolve({}, defaultHints);
+    expect(elements).toHaveLength(0);
+  });
+
+  it("has correct defaults (LayoutType, ChoreographyType)", () => {
     expect(conceptIntroductionRecipe.family).toBe("concept-introduction");
     expect(conceptIntroductionRecipe.defaultLayout).toBe("center-focus");
     expect(conceptIntroductionRecipe.defaultChoreography).toBe(
@@ -275,14 +358,17 @@ describe("conceptIntroductionRecipe", () => {
 
 describe("systemModelRecipe", () => {
   it("creates headline + item elements from items array", () => {
-    const elements = systemModelRecipe.resolve({
-      headline: "4가지 법칙",
-      items: [
-        { title: "분명하게", description: "환경을 설계하라" },
-        { title: "매력적으로", description: "유혹 묶음을 만들어라" },
-        { title: "쉽게", description: "마찰을 줄여라" },
-      ],
-    });
+    const elements = systemModelRecipe.resolve(
+      {
+        headline: "4가지 법칙",
+        items: [
+          { title: "분명하게", description: "환경을 설계하라" },
+          { title: "매력적으로", description: "유혹 묶음을 만들어라" },
+          { title: "쉽게", description: "마찰을 줄여라" },
+        ],
+      },
+      defaultHints,
+    );
 
     expect(elements).toHaveLength(4); // headline + 3 items
     expect(elements[0].type).toBe("headline");
@@ -297,11 +383,16 @@ describe("systemModelRecipe", () => {
   });
 
   it("handles items with title only (no description)", () => {
-    const elements = systemModelRecipe.resolve({
-      headline: "3단계",
-      items: [{ title: "첫째" }, { title: "둘째" }],
-    });
+    const elements = systemModelRecipe.resolve(
+      { headline: "3단계", items: [{ title: "첫째" }, { title: "둘째" }] },
+      defaultHints,
+    );
     expect(elements).toHaveLength(3);
+  });
+
+  it("returns empty when no headline and no items", () => {
+    const elements = systemModelRecipe.resolve({}, defaultHints);
+    expect(elements).toHaveLength(0);
   });
 
   it("has correct defaults", () => {
@@ -313,23 +404,28 @@ describe("systemModelRecipe", () => {
 
 describe("progressionJourneyRecipe", () => {
   it("creates headline + step elements from steps array", () => {
-    const elements = progressionJourneyRecipe.resolve({
-      headline: "실천 단계",
-      steps: [
-        { title: "습관 쌓기", detail: "기존 습관에 연결" },
-        { title: "환경 설계", detail: "트리거를 눈에 띄게" },
-      ],
-    });
+    const elements = progressionJourneyRecipe.resolve(
+      {
+        headline: "실천 단계",
+        steps: [
+          { title: "습관 쌓기", detail: "기존 습관에 연결" },
+          { title: "환경 설계", detail: "트리거를 눈에 띄게" },
+        ],
+      },
+      defaultHints,
+    );
 
     expect(elements).toHaveLength(3); // headline + 2 steps
     expect(elements[0].type).toBe("headline");
     expect(elements[1]).toMatchObject({
       type: "flow-step",
-      props: expect.objectContaining({
-        stepNumber: 1,
-        title: "습관 쌓기",
-      }),
+      props: expect.objectContaining({ stepNumber: 1, title: "습관 쌓기" }),
     });
+  });
+
+  it("returns empty when no headline and no steps", () => {
+    const elements = progressionJourneyRecipe.resolve({}, defaultHints);
+    expect(elements).toHaveLength(0);
   });
 
   it("has correct defaults", () => {
@@ -349,33 +445,33 @@ Expected: FAIL — modules not found
 
 ```typescript
 // src/composition/familyRecipes/conceptIntroduction.ts
-import type { VCLElement } from "@/types";
-import type { FamilyRecipe } from "../types";
+import type { VCLElement, LayoutType, ChoreographyType } from "@/types";
+import type { FamilyRecipe, RecipeHints } from "../types";
 
 export const conceptIntroductionRecipe: FamilyRecipe = {
   family: "concept-introduction",
-  defaultLayout: "center-focus",
-  defaultChoreography: "reveal-sequence",
+  defaultLayout: "center-focus" as LayoutType,
+  defaultChoreography: "reveal-sequence" as ChoreographyType,
 
-  resolve(content: Record<string, unknown>): VCLElement[] {
+  resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const headline = content.headline as string | undefined;
     const supportText = content.supportText as string | undefined;
     const evidence = content.evidence as string | undefined;
-    const sceneId = (content._sceneId as string) ?? "ci";
+    const sid = hints?.sceneId ?? "ci";
 
-    const elements: VCLElement[] = [];
+    if (!headline) return [];
 
-    if (headline) {
-      elements.push({
-        id: `${sceneId}-headline`,
+    const elements: VCLElement[] = [
+      {
+        id: `${sid}-headline`,
         type: "headline",
         props: { text: headline, role: "headline" },
-      });
-    }
+      },
+    ];
 
     if (supportText) {
       elements.push({
-        id: `${sceneId}-support`,
+        id: `${sid}-support`,
         type: "body-text",
         props: { text: supportText, tokenRef: "bodyL" },
       });
@@ -383,7 +479,7 @@ export const conceptIntroductionRecipe: FamilyRecipe = {
 
     if (evidence) {
       elements.push({
-        id: `${sceneId}-evidence`,
+        id: `${sid}-evidence`,
         type: "label",
         props: { text: evidence, variant: "signal" },
       });
@@ -398,8 +494,8 @@ export const conceptIntroductionRecipe: FamilyRecipe = {
 
 ```typescript
 // src/composition/familyRecipes/systemModel.ts
-import type { VCLElement } from "@/types";
-import type { FamilyRecipe } from "../types";
+import type { VCLElement, LayoutType, ChoreographyType } from "@/types";
+import type { FamilyRecipe, RecipeHints } from "../types";
 
 interface FrameworkItem {
   title: string;
@@ -408,19 +504,21 @@ interface FrameworkItem {
 
 export const systemModelRecipe: FamilyRecipe = {
   family: "system-model",
-  defaultLayout: "grid-expand",
-  defaultChoreography: "stagger-clockwise",
+  defaultLayout: "grid-expand" as LayoutType,
+  defaultChoreography: "stagger-clockwise" as ChoreographyType,
 
-  resolve(content: Record<string, unknown>): VCLElement[] {
+  resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const headline = content.headline as string | undefined;
     const items = (content.items as FrameworkItem[]) ?? [];
-    const sceneId = (content._sceneId as string) ?? "sm";
+    const sid = hints?.sceneId ?? "sm";
+
+    if (!headline && items.length === 0) return [];
 
     const elements: VCLElement[] = [];
 
     if (headline) {
       elements.push({
-        id: `${sceneId}-headline`,
+        id: `${sid}-headline`,
         type: "headline",
         props: { text: headline, role: "headline" },
       });
@@ -431,7 +529,7 @@ export const systemModelRecipe: FamilyRecipe = {
         ? `${item.title}: ${item.description}`
         : item.title;
       elements.push({
-        id: `${sceneId}-item-${i}`,
+        id: `${sid}-item-${i}`,
         type: "body-text",
         props: { text, index: i, role: "item" },
       });
@@ -446,8 +544,8 @@ export const systemModelRecipe: FamilyRecipe = {
 
 ```typescript
 // src/composition/familyRecipes/progressionJourney.ts
-import type { VCLElement } from "@/types";
-import type { FamilyRecipe } from "../types";
+import type { VCLElement, LayoutType, ChoreographyType } from "@/types";
+import type { FamilyRecipe, RecipeHints } from "../types";
 
 interface JourneyStep {
   title: string;
@@ -456,19 +554,21 @@ interface JourneyStep {
 
 export const progressionJourneyRecipe: FamilyRecipe = {
   family: "progression-journey",
-  defaultLayout: "timeline-h",
-  defaultChoreography: "path-trace",
+  defaultLayout: "timeline-h" as LayoutType,
+  defaultChoreography: "path-trace" as ChoreographyType,
 
-  resolve(content: Record<string, unknown>): VCLElement[] {
+  resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const headline = content.headline as string | undefined;
     const steps = (content.steps as JourneyStep[]) ?? [];
-    const sceneId = (content._sceneId as string) ?? "pj";
+    const sid = hints?.sceneId ?? "pj";
+
+    if (!headline && steps.length === 0) return [];
 
     const elements: VCLElement[] = [];
 
     if (headline) {
       elements.push({
-        id: `${sceneId}-headline`,
+        id: `${sid}-headline`,
         type: "headline",
         props: { text: headline, role: "headline" },
       });
@@ -476,7 +576,7 @@ export const progressionJourneyRecipe: FamilyRecipe = {
 
     steps.forEach((step, i) => {
       elements.push({
-        id: `${sceneId}-step-${i}`,
+        id: `${sid}-step-${i}`,
         type: "flow-step",
         props: {
           stepNumber: i + 1,
@@ -520,15 +620,15 @@ export {
 };
 ```
 
-- [ ] **Step 7: Run tests**
+- [ ] **Step 7: Run recipe tests**
 
 Run: `npx vitest run src/composition/__tests__/familyRecipes.test.ts`
 Expected: ALL PASS
 
-- [ ] **Step 8: Run elementResolver tests (should now pass with recipes registered)**
+- [ ] **Step 8: Run elementResolver tests (should now pass)**
 
 Run: `npx vitest run src/composition/__tests__/elementResolver.test.ts`
-Expected: ALL PASS (concept-introduction recipe is registered → first test passes)
+Expected: ALL PASS
 
 - [ ] **Step 9: Commit**
 
@@ -544,6 +644,7 @@ git commit -m "feat(composition): 3 family recipes — concept-introduction, sys
 **Files:**
 
 - Create: `src/composition/CompositionFactory.ts`
+- Modify: `src/types/index.ts` (SceneBlueprint.origin type extension)
 - Test: `src/composition/__tests__/CompositionFactory.test.ts`
 
 - [ ] **Step 1: Write failing test**
@@ -593,6 +694,7 @@ const mockContext: CompositionContext = {
 function makeSpec(
   family: SceneSpec["family"],
   content: Record<string, unknown>,
+  overrides?: Partial<SceneSpec>,
 ): SceneSpec {
   return {
     id: "test-01",
@@ -606,6 +708,7 @@ function makeSpec(
     confidence: 0.8,
     narrationText: "테스트 나레이션입니다.",
     content,
+    ...overrides,
   };
 }
 
@@ -618,28 +721,37 @@ describe("composeBlueprint", () => {
 
     const blueprint = composeBlueprint(spec, mockContext);
 
-    expect(blueprint).toBeDefined();
-    expect(blueprint.id).toBe("test-01");
-    expect(blueprint.origin).toBe("composed");
-    expect(blueprint.elements.length).toBeGreaterThanOrEqual(2);
-    expect(blueprint.layout).toBe("center-focus");
-    expect(blueprint.choreography).toBe("reveal-sequence");
-    expect(blueprint.format).toBe("longform");
-    expect(blueprint.theme).toBe(mockTheme);
-    expect(blueprint.durationFrames).toBe(750);
-    expect(blueprint.motionPreset).toBe("heavy");
+    expect(blueprint).not.toBeNull();
+    expect(blueprint!.id).toBe("test-01");
+    expect(blueprint!.origin).toBe("composed");
+    expect(blueprint!.elements.length).toBeGreaterThanOrEqual(2);
+    expect(blueprint!.format).toBe("longform");
+    expect(blueprint!.theme).toBe(mockTheme);
+    expect(blueprint!.durationFrames).toBe(750);
+    expect(blueprint!.motionPreset).toBe("heavy");
   });
 
-  it("uses recipe default layout when SceneSpec layout matches preset fallback", () => {
+  it("spec.layout overrides recipe default when explicitly set", () => {
+    // spec explicitly sets split-two, recipe default is center-focus
+    const spec = makeSpec(
+      "concept-introduction",
+      { headline: "테스트", supportText: "설명" },
+      { layout: "split-two" },
+    );
+    const blueprint = composeBlueprint(spec, mockContext);
+    expect(blueprint!.layout).toBe("split-two");
+  });
+
+  it("falls back to recipe default layout when spec matches preset mapping", () => {
+    // For system-model, preset mapping gives grid-expand, recipe also gives grid-expand
     const spec = makeSpec("system-model", {
       headline: "4가지 법칙",
       items: [{ title: "분명하게" }, { title: "매력적으로" }],
     });
-    // systemModel recipe defaultLayout = "grid-expand"
     const blueprint = composeBlueprint(spec, mockContext);
-    expect(blueprint.layout).toBe("grid-expand");
-    expect(blueprint.choreography).toBe("stagger-clockwise");
-    expect(blueprint.elements.length).toBe(3); // headline + 2 items
+    expect(blueprint!.layout).toBe("grid-expand");
+    expect(blueprint!.choreography).toBe("stagger-clockwise");
+    expect(blueprint!.elements.length).toBe(3);
   });
 
   it("returns null for families without recipes", () => {
@@ -648,13 +760,27 @@ describe("composeBlueprint", () => {
     expect(blueprint).toBeNull();
   });
 
-  it("injects _sceneId into content for element ID namespacing", () => {
+  it("returns null when recipe produces no elements (content insufficient)", () => {
+    // concept-introduction requires headline
+    const spec = makeSpec("concept-introduction", {});
+    const blueprint = composeBlueprint(spec, mockContext);
+    expect(blueprint).toBeNull();
+  });
+
+  it("injects sceneId into elements for ID namespacing", () => {
+    const spec = makeSpec("concept-introduction", { headline: "테스트" });
+    const blueprint = composeBlueprint(spec, mockContext);
+    expect(blueprint!.elements[0].id).toContain("test-01");
+  });
+
+  it("does not hardcode TTS engine in mediaPlan", () => {
     const spec = makeSpec("concept-introduction", {
       headline: "테스트",
+      supportText: "설명",
     });
     const blueprint = composeBlueprint(spec, mockContext);
-    expect(blueprint).not.toBeNull();
-    expect(blueprint!.elements[0].id).toContain("test-01");
+    // mediaPlan should contain narration text but not hardcode TTS vendor
+    expect(blueprint!.mediaPlan.narration.text).toBe("테스트 나레이션입니다.");
   });
 });
 ```
@@ -664,47 +790,103 @@ describe("composeBlueprint", () => {
 Run: `npx vitest run src/composition/__tests__/CompositionFactory.test.ts`
 Expected: FAIL — module not found
 
-- [ ] **Step 3: Implement CompositionFactory**
+- [ ] **Step 3: Extend SceneBlueprint origin type**
+
+In `src/types/index.ts`, find the `SceneBlueprint` interface and change:
+
+```
+OLD:  origin: "preset" | "synthesized";
+NEW:  origin: "preset" | "synthesized" | "composed";
+```
+
+- [ ] **Step 4: Implement CompositionFactory**
 
 ```typescript
 // src/composition/CompositionFactory.ts
-import type { SceneBlueprint, LayoutType, ChoreographyType } from "@/types";
+import type {
+  SceneBlueprint,
+  LayoutType,
+  ChoreographyType,
+  MediaPlan,
+} from "@/types";
 import type { SceneSpec } from "@/direction/types";
 import type { CompositionContext } from "./types";
 import { recipeRegistry } from "./familyRecipes";
 import { resolveElements } from "./elementResolver";
 
+// Layout/choreography values inherited from presetAdapter default mapping.
+// When spec carries these defaults, we prefer recipe's family-optimal defaults instead.
+const PRESET_INHERITED_LAYOUTS = new Set([
+  "center-focus",
+  "left-anchor",
+  "split-compare",
+  "grid-expand",
+  "quote-hold",
+  "map-flow",
+  "timeline-h",
+]);
+
 /**
  * Compose a SceneBlueprint from a SceneSpec + pipeline context.
- * Returns null if no recipe is registered for the spec's family.
+ * Returns null if no recipe is registered or elements are empty.
+ *
+ * Layout/choreography priority:
+ *   1. spec explicit value (if it differs from preset-inherited default)
+ *   2. recipe default (family-optimal)
+ *   3. spec value as final fallback
  */
 export function composeBlueprint(
   spec: SceneSpec,
   ctx: CompositionContext,
 ): SceneBlueprint | null {
   const recipe = recipeRegistry[spec.family];
-  if (!recipe) return null;
-
-  // Inject _sceneId into content for element ID namespacing
-  const contentWithId = { ...spec.content, _sceneId: spec.id };
-  const specWithId = { ...spec, content: contentWithId };
+  if (!recipe) {
+    console.warn(
+      `[CompositionFactory] No recipe for family "${spec.family}". Returning null.`,
+    );
+    return null;
+  }
 
   // 1. Resolve elements from content via family recipe
-  const elements = resolveElements(specWithId);
-  if (elements.length === 0) return null;
+  const elements = resolveElements(spec);
+  if (elements.length === 0) {
+    console.warn(
+      `[CompositionFactory] Recipe "${spec.family}" produced 0 elements for scene "${spec.id}". Content may be insufficient.`,
+    );
+    return null;
+  }
 
-  // 2. Select layout: use recipe default (family-optimal), unless spec overrides
-  const layout = (recipe.defaultLayout as LayoutType) ?? spec.layout;
+  // 2. Select layout: spec explicit > recipe default
+  // If spec.layout was inherited from presetAdapter (not explicitly chosen by interpretation),
+  // prefer recipe's family-optimal default.
+  const specLayoutIsExplicit =
+    spec.interpretationMeta?.derivedFrom?.some((d) =>
+      d.startsWith("layout:"),
+    ) ?? false;
+  const layout: LayoutType = specLayoutIsExplicit
+    ? spec.layout
+    : recipe.defaultLayout;
 
-  // 3. Select choreography: use recipe default, unless spec overrides
-  const choreography =
-    (recipe.defaultChoreography as ChoreographyType) ?? spec.choreography;
+  // 3. Select choreography: same priority logic
+  const specChoreographyIsExplicit =
+    spec.interpretationMeta?.derivedFrom?.some((d) =>
+      d.startsWith("choreography:"),
+    ) ?? false;
+  const choreography: ChoreographyType = specChoreographyIsExplicit
+    ? spec.choreography
+    : recipe.defaultChoreography;
 
-  // 4. Build SceneBlueprint
-  const blueprint: SceneBlueprint = {
+  // 4. Build mediaPlan — narration text only, no TTS vendor hardcoding
+  // TTS engine selection is pipeline responsibility (ttsClient.ts)
+  const mediaPlan: MediaPlan = {
+    narration: { text: spec.narrationText },
+  } as MediaPlan;
+
+  // 5. Build SceneBlueprint
+  return {
     id: spec.id,
     intent: spec.intent,
-    origin: "composed" as SceneBlueprint["origin"],
+    origin: "composed",
     layout,
     elements,
     choreography,
@@ -713,30 +895,9 @@ export function composeBlueprint(
     theme: ctx.theme,
     from: ctx.from,
     durationFrames: ctx.durationFrames,
-    mediaPlan: {
-      narration: { text: spec.narrationText, ttsEngine: "fish-audio" },
-    } as SceneBlueprint["mediaPlan"],
+    mediaPlan,
   };
-
-  return blueprint;
 }
-```
-
-- [ ] **Step 4: Extend SceneBlueprint origin type**
-
-In `src/types/index.ts`, change the `origin` field to include "composed":
-
-```typescript
-// Find and replace in src/types/index.ts
-// OLD:   origin: "preset" | "synthesized";
-// NEW:   origin: "preset" | "synthesized" | "composed";
-```
-
-Also in `SynthesizedBlueprint`:
-
-```typescript
-// OLD:   origin: "synthesized";
-// This stays as is — SynthesizedBlueprint is a specific subtype
 ```
 
 - [ ] **Step 5: Run tests**
@@ -748,7 +909,7 @@ Expected: ALL PASS
 
 ```bash
 git add src/composition/CompositionFactory.ts src/composition/__tests__/CompositionFactory.test.ts src/types/index.ts
-git commit -m "feat(composition): CompositionFactory — SceneSpec to SceneBlueprint bridge"
+git commit -m "feat(composition): CompositionFactory — SceneSpec to SceneBlueprint with spec>recipe priority"
 ```
 
 ---
@@ -759,6 +920,7 @@ git commit -m "feat(composition): CompositionFactory — SceneSpec to SceneBluep
 
 - Create: `src/composition/compositionPathRouter.ts`
 - Modify: `src/pipeline/buildProps.ts`
+- Modify: `src/types/index.ts` (PlannedScene type — optional composedBlueprint field)
 - Test: `src/composition/__tests__/compositionPathRouter.test.ts`
 
 - [ ] **Step 1: Write failing test for router**
@@ -796,12 +958,21 @@ const mockTheme = {
   lineStrong: "#3A3A3A",
 };
 
+const ctx: CompositionContext = {
+  format: "longform",
+  theme: mockTheme as any,
+  from: 0,
+  durationFrames: 750,
+  motionPreset: "heavy",
+};
+
 describe("shouldCompose", () => {
   it("returns true for source:composed with registered recipe", () => {
     expect(
       shouldCompose({
         source: "composed",
         family: "concept-introduction",
+        confidence: 0.8,
       } as SceneSpec),
     ).toBe(true);
   });
@@ -811,6 +982,7 @@ describe("shouldCompose", () => {
       shouldCompose({
         source: "preset",
         family: "concept-introduction",
+        confidence: 0.8,
       } as SceneSpec),
     ).toBe(false);
   });
@@ -820,20 +992,23 @@ describe("shouldCompose", () => {
       shouldCompose({
         source: "composed",
         family: "opening-hook",
+        confidence: 0.8,
+      } as SceneSpec),
+    ).toBe(false);
+  });
+
+  it("returns false when confidence is below threshold", () => {
+    expect(
+      shouldCompose({
+        source: "composed",
+        family: "concept-introduction",
+        confidence: 0.4,
       } as SceneSpec),
     ).toBe(false);
   });
 });
 
 describe("tryComposeScene", () => {
-  const ctx: CompositionContext = {
-    format: "longform",
-    theme: mockTheme as any,
-    from: 0,
-    durationFrames: 750,
-    motionPreset: "heavy",
-  };
-
   it("returns SceneBlueprint for composable scene", () => {
     const spec: SceneSpec = {
       id: "ki-01",
@@ -872,6 +1047,25 @@ describe("tryComposeScene", () => {
     const result = tryComposeScene(spec, ctx);
     expect(result).toBeNull();
   });
+
+  it("returns null when content is insufficient for recipe", () => {
+    const spec: SceneSpec = {
+      id: "ki-02",
+      family: "concept-introduction",
+      intent: "test",
+      layout: "center-focus",
+      elements: [],
+      choreography: "reveal-sequence",
+      direction: mockDirection,
+      source: "composed",
+      confidence: 0.8,
+      narrationText: "테스트",
+      content: {}, // no headline → recipe returns []
+    };
+
+    const result = tryComposeScene(spec, ctx);
+    expect(result).toBeNull();
+  });
 });
 ```
 
@@ -890,25 +1084,57 @@ import type { CompositionContext } from "./types";
 import { recipeRegistry } from "./familyRecipes";
 import { composeBlueprint } from "./CompositionFactory";
 
+/** Minimum confidence for composed path activation */
+const COMPOSE_CONFIDENCE_THRESHOLD = 0.6;
+
 /**
  * Determine if a SceneSpec should use the composed rendering path.
- * Conditions: source is "composed" AND a recipe exists for the family.
+ * Conditions:
+ *   1. source is "composed"
+ *   2. a recipe exists for the family
+ *   3. confidence >= threshold
  */
 export function shouldCompose(spec: SceneSpec): boolean {
   if (spec.source !== "composed") return false;
-  return spec.family in recipeRegistry;
+
+  if (!(spec.family in recipeRegistry)) {
+    console.debug(
+      `[CompositionPathRouter] Family "${spec.family}" has no recipe. Falling back to preset.`,
+    );
+    return false;
+  }
+
+  if ((spec.confidence ?? 1.0) < COMPOSE_CONFIDENCE_THRESHOLD) {
+    console.debug(
+      `[CompositionPathRouter] Scene "${spec.id}" confidence ${spec.confidence} < ${COMPOSE_CONFIDENCE_THRESHOLD}. Falling back to preset.`,
+    );
+    return false;
+  }
+
+  return true;
 }
 
 /**
  * Try to compose a SceneBlueprint from a SceneSpec.
  * Returns null if the scene should use the preset path instead.
+ * Logs failure reason for debugging.
  */
 export function tryComposeScene(
   spec: SceneSpec,
   ctx: CompositionContext,
 ): SceneBlueprint | null {
   if (!shouldCompose(spec)) return null;
-  return composeBlueprint(spec, ctx);
+
+  const blueprint = composeBlueprint(spec, ctx);
+
+  if (!blueprint) {
+    console.warn(
+      `[CompositionPathRouter] composeBlueprint returned null for scene "${spec.id}" (family: ${spec.family}). ` +
+        `Content may be insufficient. Falling back to preset.`,
+    );
+  }
+
+  return blueprint;
 }
 ```
 
@@ -917,18 +1143,29 @@ export function tryComposeScene(
 Run: `npx vitest run src/composition/__tests__/compositionPathRouter.test.ts`
 Expected: ALL PASS
 
-- [ ] **Step 5: Integrate into buildProps.ts**
+- [ ] **Step 5: Add composedBlueprint field to PlannedScene type**
+
+In `src/pipeline/buildProps.ts` (or `src/types/index.ts` if PlannedScene is defined there), find the PlannedScene interface and add:
+
+```typescript
+// Add to PlannedScene interface:
+/** Phase 2A: Composed path blueprint. 임시 브리지 — Phase 2B에서 정식 필드로 승격 대상. */
+composedBlueprint?: import("@/types").SceneBlueprint;
+```
+
+Note: If PlannedScene is defined in `buildProps.ts`, modify there. If in `types/index.ts`, modify there. The key is making `_blueprint` attachment type-safe instead of `as any`.
+
+- [ ] **Step 6: Integrate into buildProps.ts**
 
 Read current `src/pipeline/buildProps.ts` to find the exact integration point where `sceneSpec` is attached to `PlannedScene`. After `sceneSpec` is created and `resolvedMotion` is computed, add:
 
 ```typescript
-// In buildProps.ts — after sceneSpec and resolvedMotion are set on each scene
-// Import at top:
+// Import at top of buildProps.ts:
 import { tryComposeScene } from "@/composition/compositionPathRouter";
 import type { CompositionContext } from "@/composition/types";
 
-// After the line that sets scene.sceneSpec:
-if (scene.sceneSpec) {
+// After the line that sets scene.sceneSpec and scene.resolvedMotion:
+if (scene.sceneSpec && scene.sceneSpec.source === "composed") {
   const compositionCtx: CompositionContext = {
     format,
     theme,
@@ -938,23 +1175,24 @@ if (scene.sceneSpec) {
   };
   const composedBlueprint = tryComposeScene(scene.sceneSpec, compositionCtx);
   if (composedBlueprint) {
+    // Phase 2A: _blueprint 주입은 임시 통합 전략.
+    // SceneRenderer의 기존 blueprint guard (LongformComposition.tsx:75) 활용.
+    // TODO(Phase 2B): PlannedScene.composedBlueprint로 정식 승격.
     (scene as any)._blueprint = composedBlueprint;
   }
 }
 ```
 
-This is the minimal integration — it hooks into the existing `_blueprint` guard in SceneRenderer (LongformComposition.tsx:75-84). No changes needed to the renderer.
-
-- [ ] **Step 6: Run full test suite to verify no regression**
+- [ ] **Step 7: Run full test suite to verify no regression**
 
 Run: `npx vitest run`
 Expected: ALL existing tests still pass
 
-- [ ] **Step 7: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
 git add src/composition/compositionPathRouter.ts src/composition/__tests__/compositionPathRouter.test.ts src/pipeline/buildProps.ts
-git commit -m "feat(composition): CompositionPathRouter + buildProps integration — composed path live"
+git commit -m "feat(composition): CompositionPathRouter + buildProps integration with confidence gate"
 ```
 
 ---
@@ -964,7 +1202,7 @@ git commit -m "feat(composition): CompositionPathRouter + buildProps integration
 **Files:**
 
 - Modify: `src/direction/presetAdapter.ts`
-- Test: `src/direction/__tests__/presetAdapter.test.ts` (existing or new)
+- Test: `src/direction/__tests__/presetAdapter-composed.test.ts`
 
 - [ ] **Step 1: Write failing test for composed source**
 
@@ -972,7 +1210,7 @@ git commit -m "feat(composition): CompositionPathRouter + buildProps integration
 // src/direction/__tests__/presetAdapter-composed.test.ts
 import { describe, it, expect } from "vitest";
 import { adaptPresetToSceneSpec } from "../presetAdapter";
-import type { DirectionProfile } from "../types";
+import type { DirectionProfile, SceneFamily } from "../types";
 
 const analyticalDir: DirectionProfile = {
   name: "analytical",
@@ -989,6 +1227,7 @@ const analyticalDir: DirectionProfile = {
 
 describe("adaptPresetToSceneSpec — composed source", () => {
   it("marks concept-introduction family as composed when composedFamilies includes it", () => {
+    const composedFamilies: SceneFamily[] = ["concept-introduction"];
     const spec = adaptPresetToSceneSpec(
       {
         id: "ki-01",
@@ -999,14 +1238,14 @@ describe("adaptPresetToSceneSpec — composed source", () => {
       },
       analyticalDir,
       undefined,
-      { composedFamilies: ["concept-introduction"] },
+      { composedFamilies },
     );
 
     expect(spec.source).toBe("composed");
     expect(spec.family).toBe("concept-introduction");
   });
 
-  it("keeps preset source when composedFamilies is empty", () => {
+  it("keeps preset source when composedFamilies is empty/undefined", () => {
     const spec = adaptPresetToSceneSpec(
       {
         id: "ki-01",
@@ -1021,6 +1260,7 @@ describe("adaptPresetToSceneSpec — composed source", () => {
   });
 
   it("keeps preset source for families not in composedFamilies", () => {
+    const composedFamilies: SceneFamily[] = ["concept-introduction"];
     const spec = adaptPresetToSceneSpec(
       {
         id: "cover-01",
@@ -1030,10 +1270,33 @@ describe("adaptPresetToSceneSpec — composed source", () => {
       },
       analyticalDir,
       undefined,
-      { composedFamilies: ["concept-introduction"] },
+      { composedFamilies },
     );
 
     expect(spec.source).toBe("preset");
+  });
+
+  it("composedFamilies uses SceneFamily type (type-safe)", () => {
+    // This is a compile-time check — SceneFamily[] prevents typos
+    const composedFamilies: SceneFamily[] = [
+      "concept-introduction",
+      "system-model",
+      "progression-journey",
+    ];
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "fw-01",
+        type: "framework",
+        narrationText: "테스트",
+        content: { headline: "프레임워크" },
+      },
+      analyticalDir,
+      undefined,
+      { composedFamilies },
+    );
+
+    expect(spec.source).toBe("composed");
+    expect(spec.family).toBe("system-model");
   });
 });
 ```
@@ -1048,13 +1311,16 @@ Expected: FAIL — extra argument not accepted
 Modify `src/direction/presetAdapter.ts`:
 
 ```typescript
-// Add options interface
+// Add import at top
+import type { SceneFamily } from "./types";
+
+// Add options interface after MinimalScene
 interface AdaptOptions {
-  /** Families that should use composed path instead of preset */
-  composedFamilies?: string[];
+  /** Families that should use composed path instead of preset. Type-safe SceneFamily[]. */
+  composedFamilies?: SceneFamily[];
 }
 
-// Update function signature (add 4th parameter)
+// Update function signature — add 4th parameter
 export function adaptPresetToSceneSpec(
   scene: MinimalScene,
   direction: DirectionProfile,
@@ -1062,16 +1328,17 @@ export function adaptPresetToSceneSpec(
   options?: AdaptOptions,
 ): SceneSpec {
   const family = resolveSceneFamily(scene.type, bookStructure);
-
-  // ... (existing layout/choreography resolution) ...
+  // ... (existing layout/choreography/beat resolution unchanged) ...
 
   // Determine source: composed if family is in composedFamilies list
-  const source = options?.composedFamilies?.includes(family)
+  const source: SceneSpec["source"] = options?.composedFamilies?.includes(
+    family,
+  )
     ? "composed"
     : "preset";
 
   return {
-    // ... (all existing fields) ...
+    // ... all existing fields ...
     source, // was hardcoded "preset"
     // ...
   };
@@ -1086,13 +1353,13 @@ Expected: ALL PASS
 - [ ] **Step 5: Run all direction tests to verify no regression**
 
 Run: `npx vitest run src/direction/`
-Expected: ALL PASS (existing tests pass because they don't provide options, so source defaults to "preset")
+Expected: ALL PASS
 
 - [ ] **Step 6: Commit**
 
 ```bash
 git add src/direction/presetAdapter.ts src/direction/__tests__/presetAdapter-composed.test.ts
-git commit -m "feat(direction): presetAdapter composedFamilies option — selective composed path activation"
+git commit -m "feat(direction): presetAdapter composedFamilies option with SceneFamily type safety"
 ```
 
 ---
@@ -1112,7 +1379,7 @@ export { resolveElements } from "./elementResolver";
 export { composeBlueprint } from "./CompositionFactory";
 export { shouldCompose, tryComposeScene } from "./compositionPathRouter";
 export { recipeRegistry, registerRecipe } from "./familyRecipes";
-export type { FamilyRecipe, CompositionContext } from "./types";
+export type { FamilyRecipe, CompositionContext, RecipeHints } from "./types";
 ```
 
 - [ ] **Step 2: Add COMPOSED_FAMILIES config to buildProps.ts**
@@ -1120,8 +1387,11 @@ export type { FamilyRecipe, CompositionContext } from "./types";
 In the section of `buildProps.ts` where `adaptPresetToSceneSpec` is called, pass the composedFamilies option:
 
 ```typescript
-// Near the top of buildProps.ts, add config constant
-const COMPOSED_FAMILIES = [
+import type { SceneFamily } from "@/direction/types";
+
+// Near the top of buildProps.ts — composed path activation config.
+// TODO(Phase 2B): Move to experiment config / feature flag when more families are added.
+const COMPOSED_FAMILIES: SceneFamily[] = [
   "concept-introduction",
   "system-model",
   "progression-journey",
@@ -1152,7 +1422,7 @@ git commit -m "feat(composition): barrel exports + COMPOSED_FAMILIES activation 
 
 ---
 
-### Task 7: Integration Test — Composed Path Renders
+### Task 7: Integration Test — Composed Path End-to-End
 
 **Files:**
 
@@ -1166,7 +1436,7 @@ import { describe, it, expect } from "vitest";
 import { adaptPresetToSceneSpec } from "@/direction/presetAdapter";
 import { tryComposeScene } from "../compositionPathRouter";
 import type { CompositionContext } from "../types";
-import type { DirectionProfile } from "@/direction/types";
+import type { DirectionProfile, SceneFamily } from "@/direction/types";
 
 const analyticalDir: DirectionProfile = {
   name: "analytical",
@@ -1207,7 +1477,7 @@ const mockTheme = {
   lineStrong: "#3A3A3A",
 };
 
-const composedFamilies = [
+const composedFamilies: SceneFamily[] = [
   "concept-introduction",
   "system-model",
   "progression-journey",
@@ -1322,9 +1592,66 @@ describe("end-to-end: presetAdapter → composed path → SceneBlueprint", () =>
     );
 
     expect(spec.source).toBe("preset");
-
     const blueprint = tryComposeScene(spec, ctx);
     expect(blueprint).toBeNull();
+  });
+
+  // v1.1: content 부족 → compose 실패 → preset fallback 케이스
+  it("system-model with empty items falls back (recipe returns empty)", () => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "fw-empty",
+        type: "framework",
+        narrationText: "테스트",
+        content: { headline: "" }, // empty headline, no items
+      },
+      analyticalDir,
+      undefined,
+      { composedFamilies },
+    );
+
+    expect(spec.source).toBe("composed");
+    const blueprint = tryComposeScene(spec, ctx);
+    // Recipe should return [] for insufficient content → null blueprint
+    expect(blueprint).toBeNull();
+  });
+
+  it("progression-journey with no steps falls back", () => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "app-empty",
+        type: "application",
+        narrationText: "테스트",
+        content: {}, // no headline, no steps
+      },
+      analyticalDir,
+      undefined,
+      { composedFamilies },
+    );
+
+    expect(spec.source).toBe("composed");
+    const blueprint = tryComposeScene(spec, ctx);
+    expect(blueprint).toBeNull();
+  });
+
+  it("low confidence scene falls back to preset despite being in composedFamilies", () => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "ki-low",
+        type: "keyInsight",
+        narrationText: "테스트",
+        content: { headline: "테스트" },
+      },
+      analyticalDir,
+      undefined,
+      { composedFamilies },
+    );
+
+    // Manually lower confidence (simulating uncertain interpretation)
+    spec.confidence = 0.3;
+
+    const blueprint = tryComposeScene(spec, ctx);
+    expect(blueprint).toBeNull(); // confidence gate blocks
   });
 });
 ```
@@ -1348,7 +1675,7 @@ Expected: No errors
 
 ```bash
 git add src/composition/__tests__/integration.test.ts
-git commit -m "test(composition): end-to-end integration — 3 families through composed path"
+git commit -m "test(composition): end-to-end integration with fallback + confidence gate cases"
 ```
 
 ---
@@ -1360,16 +1687,14 @@ git commit -m "test(composition): end-to-end integration — 3 families through 
 Run: `npx vitest run`
 Expected: ALL PASS
 
-- [ ] **Step 2: Verify with real content JSON (dry run)**
+- [ ] **Step 2: TypeScript build verification**
 
-Run: `npx tsc --noEmit && npx vitest run`
-
-Check that `atomic-habits` content would flow through composed path by verifying that keyInsight, framework, application scene types map to the 3 composed families.
+Run: `npx tsc --noEmit`
+Expected: No errors
 
 - [ ] **Step 3: Final commit + push**
 
 ```bash
-git add -A
 git push origin main
 ```
 
@@ -1377,28 +1702,40 @@ git push origin main
 
 ## Summary
 
-| Task | What                    | Files                | Tests       |
-| ---- | ----------------------- | -------------------- | ----------- |
-| 1    | Types + ElementResolver | 3 new                | 2 tests     |
-| 2    | 3 Family Recipes        | 4 new, 1 modify      | 6+ tests    |
-| 3    | CompositionFactory      | 1 new, 1 modify      | 4 tests     |
-| 4    | PathRouter + buildProps | 2 new, 1 modify      | 4 tests     |
-| 5    | presetAdapter composed  | 1 modify, 1 new test | 3 tests     |
-| 6    | Barrel + wiring         | 2 new/modify         | build check |
-| 7    | Integration test        | 1 new                | 4 tests     |
-| 8    | Final validation        | —                    | full suite  |
+| Task | What                    | Key Change                                                     |
+| ---- | ----------------------- | -------------------------------------------------------------- |
+| 1    | Types + ElementResolver | direction-aware RecipeHints, LayoutType/ChoreographyType typed |
+| 2    | 3 Family Recipes        | concept-introduction, system-model, progression-journey        |
+| 3    | CompositionFactory      | spec > recipe priority, no TTS hardcoding                      |
+| 4    | PathRouter + buildProps | confidence gate (≥0.6), failure logging                        |
+| 5    | presetAdapter composed  | SceneFamily[] typed composedFamilies                           |
+| 6    | Barrel + wiring         | COMPOSED_FAMILIES config with TODO for feature flag            |
+| 7    | Integration test        | 7 cases including content-insufficient + confidence fallback   |
+| 8    | Final validation        | full suite + tsc + push                                        |
 
-**Total: ~12 new files, ~2 modified files, ~23+ tests**
+**v1.1 반영 사항:**
 
-**Composed path data flow after completion:**
+1. `defaultLayout: LayoutType`, `defaultChoreography: ChoreographyType` (string → 실제 타입)
+2. spec explicit > recipe default > family fallback (우선순위 명확화)
+3. `RecipeHints` 시그니처로 direction 확장 가능
+4. `_blueprint` as any는 TODO 명시 (Phase 2B 정식 승격 대상)
+5. Registry reality check 선행 완료 (모든 key 일치 확인)
+6. mediaPlan에서 ttsEngine 하드코딩 제거
+7. confidence gate (≥0.6) + 실패 사유 로깅
+8. `composedFamilies: SceneFamily[]` (string → 타입 안전)
+9. content 부족 fallback + low confidence fallback 테스트 추가
+
+**Composed path data flow:**
 
 ```
-content JSON → buildProps → adaptPresetToSceneSpec(composedFamilies)
+content JSON → buildProps → adaptPresetToSceneSpec(composedFamilies: SceneFamily[])
                               → source: "composed" (for 3 families)
                               → tryComposeScene(sceneSpec, ctx)
-                              → composeBlueprint → familyRecipe.resolve()
-                              → SceneBlueprint
-                              → _blueprint attached to PlannedScene
+                                → shouldCompose(): source + recipe + confidence gate
+                                → composeBlueprint(): recipe.resolve(content, hints)
+                                → layout priority: spec explicit > recipe default
+                              → SceneBlueprint | null
+                              → _blueprint attached to PlannedScene (Phase 2A 임시 브리지)
                               → SceneRenderer blueprint guard → BlueprintRenderer
                               → useLayoutEngine + useChoreography + primitiveRegistry
                               → Rendered React tree
