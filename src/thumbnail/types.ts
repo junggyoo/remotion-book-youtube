@@ -6,6 +6,7 @@ export const ThumbnailConfigSchema = z.object({
   gesture: z.string().min(1),
   mood: z.enum(["dramatic", "mysterious", "confident", "urgent"]).optional(),
   backgroundStyle: z.string().optional(),
+  accentWord: z.string().optional(),
 });
 
 export type ThumbnailConfig = z.infer<typeof ThumbnailConfigSchema>;

@@ -10,14 +10,14 @@ const STROKE_COLOR = designTokens.colors.brand.deepNavy; // dark outline
 const TEXT_CONFIG = {
   fontFamily: "Pretendard, Arial, sans-serif",
   fontWeight: "bold",
-  fontSize: 72,
+  fontSize: 96,
   fillColor: FILL_COLOR,
   strokeColor: STROKE_COLOR,
-  strokeWidth: 3,
+  strokeWidth: 5,
   x: 60,
-  y: 100,
-  lineHeight: 90,
-  maxCharsPerLine: 15,
+  y: 120,
+  lineHeight: 115,
+  maxCharsPerLine: 12,
 } as const;
 
 // --- Text wrapping ---
@@ -60,11 +60,12 @@ export function wrapText(text: string, maxChars: number): string[] {
 
 // --- SVG text generation ---
 
-function createTextSvg(
-  hookText: string,
-  width: number,
-  height: number,
-): Buffer {
+function renderLine(
+  line: string,
+  ty: number,
+  accentWord?: string,
+  accentColor?: string,
+): string {
   const {
     fontFamily,
     fontWeight,
@@ -73,21 +74,35 @@ function createTextSvg(
     strokeColor,
     strokeWidth,
     x,
-    y,
-    lineHeight,
   } = TEXT_CONFIG;
+  const baseAttrs = `font-family="${fontFamily}" font-weight="${fontWeight}" font-size="${fontSize}" stroke="${strokeColor}" stroke-width="${strokeWidth}" paint-order="stroke fill"`;
+
+  if (!accentWord || !accentColor || !line.includes(accentWord)) {
+    return `<text x="${x}" y="${ty}" ${baseAttrs} fill="${fillColor}">${escapeXml(line)}</text>`;
+  }
+
+  // Split line around accent word and use tspan for coloring
+  const idx = line.indexOf(accentWord);
+  const before = line.slice(0, idx);
+  const after = line.slice(idx + accentWord.length);
+
+  return `<text x="${x}" y="${ty}" ${baseAttrs} fill="${fillColor}">${escapeXml(before)}<tspan fill="${accentColor}">${escapeXml(accentWord)}</tspan>${escapeXml(after)}</text>`;
+}
+
+function createTextSvg(
+  hookText: string,
+  width: number,
+  height: number,
+  accentWord?: string,
+  accentColor?: string,
+): Buffer {
+  const { y, lineHeight } = TEXT_CONFIG;
   const lines = wrapText(hookText, TEXT_CONFIG.maxCharsPerLine);
 
   const textElements = lines
-    .map((line, i) => {
-      const ty = y + i * lineHeight;
-      return `
-        <text x="${x}" y="${ty}"
-          font-family="${fontFamily}" font-weight="${fontWeight}" font-size="${fontSize}"
-          fill="${fillColor}" stroke="${strokeColor}" stroke-width="${strokeWidth}"
-          paint-order="stroke fill">${escapeXml(line)}</text>
-      `;
-    })
+    .map((line, i) =>
+      renderLine(line, y + i * lineHeight, accentWord, accentColor),
+    )
     .join("\n");
 
   const svg = `
@@ -113,13 +128,21 @@ function escapeXml(str: string): string {
 export async function compositeText(
   imageBuffer: Buffer,
   hookText: string,
+  accentWord?: string,
+  accentColor?: string,
 ): Promise<Buffer> {
   const image = sharp(imageBuffer);
   const metadata = await image.metadata();
   const width = metadata.width ?? 1280;
   const height = metadata.height ?? 720;
 
-  const textSvg = createTextSvg(hookText, width, height);
+  const textSvg = createTextSvg(
+    hookText,
+    width,
+    height,
+    accentWord,
+    accentColor,
+  );
 
   return sharp(imageBuffer)
     .composite([

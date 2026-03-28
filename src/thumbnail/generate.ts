@@ -2,9 +2,25 @@ import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
 import path from "path";
 import type { ThumbnailConfig } from "./types";
-import type { BookMetadata } from "@/types";
+import type { BookMetadata, GenreKey } from "@/types";
 import { buildPrompt } from "./prompt-builder";
 import { compositeText } from "./composite";
+import designTokens from "../design/tokens/design-tokens-draft.json";
+
+// --- Genre accent color resolution ---
+
+const genreAccentMap: Record<string, string> = Object.fromEntries(
+  Object.entries(designTokens.colors.genreVariants).map(([key, val]) => [
+    key,
+    val.accent,
+  ]),
+);
+
+function resolveAccentColor(genre: GenreKey): string {
+  return (
+    genreAccentMap[genre] ?? designTokens.colors.genreVariants.selfHelp.accent
+  );
+}
 
 // --- Face image loading ---
 
@@ -125,7 +141,13 @@ export async function generateThumbnail(
       for (const part of parts) {
         if (part.inlineData?.data) {
           const rawImage = Buffer.from(part.inlineData.data, "base64");
-          const composited = await compositeText(rawImage, thumbnail.hookText);
+          const accentColor = resolveAccentColor(metadata.genre);
+          const composited = await compositeText(
+            rawImage,
+            thumbnail.hookText,
+            thumbnail.accentWord,
+            accentColor,
+          );
           return saveThumbnail(outputBase, metadata.id, composited, prompt);
         }
       }
