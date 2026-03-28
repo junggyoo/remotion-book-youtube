@@ -4,11 +4,14 @@ Claude Code가 영상 콘텐츠 JSON을 생성할 때 반드시 따르는 절차
 
 ## 영상 콘텐츠 생성 절차
 
-### Step 1: Budget 계산
+### Step 1: Budget 계산 (2-pass 필수)
 
-- `production.targetDurationSeconds` 확인
-- `calculateBudget(targetDurationSeconds, sceneComposition)` 호출
-- SceneBudgetPlan 출력 (씬별 minChars, recommendedChars, maxChars)
+1. `production.targetDurationSeconds` 확인
+2. 씬 구성을 먼저 확정하고 JSON 저장 (narrationText는 비워둠)
+3. `npm run budget content/books/{book-id}.json` 실행
+4. 출력된 씬별 "권장" 글자수를 나레이션 목표로 사용
+5. 나레이션 작성 완료 후 `npm run validate`로 budget 경고 확인
+6. Budget CLI 실행 불가 시에만 content-composer 스킬의 수동 계산 테이블 참조
 
 ### Step 2: 씬 구성 결정
 

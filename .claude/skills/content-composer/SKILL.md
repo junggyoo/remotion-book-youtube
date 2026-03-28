@@ -75,16 +75,54 @@ BookFingerprint를 기반으로 씬 구성을 결정한다:
 **기계적 복사 금지**: 모든 책에 같은 구성을 넣지 않는다.
 책 내용에 맞는 씬만 포함한다.
 
-### 2-3. Duration 계산
+### 2-3. Duration 계산 — 2-pass 워크플로우 (필수)
 
-content-generation-contract.md의 절차를 따른다:
+나레이션 글자수 부족으로 QA-13A가 반복 실패하는 것을 방지하기 위해
+**반드시 2-pass로 작성한다.**
+
+#### Pass 1: 씬 구성 확정 (narrationText 비움)
 
 1. `production.targetDurationSeconds` 설정 (보통 300~480초)
-2. 총 나레이션 글자수 = targetDurationSeconds × CPS
-   - Fish Audio S2-Pro 기준: CPS ≈ 7.5 (실측 7.49)
-   - edge-tts fallback 기준: CPS ≈ 5.7
-3. 각 씬의 글자수 = 씬 duration 비율에 비례하여 배분
-4. 씬별 minChars 이상 필수, maxChars 초과 금지
+2. 씬 구성을 결정하고, 각 씬의 `content` 필드만 채운다
+3. `narrationText`는 빈 문자열 `""` 또는 생략한다
+4. JSON 저장 후 **budget CLI 실행:**
+
+```bash
+npm run budget content/books/{book-id}.json
+```
+
+5. 출력 테이블의 **"권장" 컬럼**을 씬별 나레이션 목표 글자수로 기록한다
+
+#### Pass 2: 나레이션 작성 (budget 테이블 참조)
+
+1. budget 테이블의 씬별 "권장" 글자수를 목표로 narrationText를 작성한다
+2. "최소" 미달은 QA-13A 실패를 유발하므로 반드시 초과해야 한다
+3. 작성 완료 후 `npm run validate`로 budget 경고가 없는지 확인한다
+4. 경고가 있으면 해당 씬의 나레이션을 보강한다
+
+#### Budget CLI 실행 불가 시 수동 계산 (fallback)
+
+| 씬 타입         | 항목 수 | 공식 (minChars) | 예시            |
+| --------------- | ------- | --------------- | --------------- |
+| framework       | N개     | 40 + N × 45     | 4항목 → 220자   |
+| application     | N개     | 50 + N × 55     | 3항목 → 215자   |
+| keyInsight      | —       | 80              | 80자            |
+| compareContrast | —       | 120             | 120자           |
+| quote           | —       | 60              | 60자            |
+| highlight       | —       | 60              | 60자            |
+| cover           | —       | 40              | 40자            |
+| closing         | —       | 40              | 40자            |
+| chapterDivider  | —       | 20              | 20자            |
+| data            | —       | 80              | 80자            |
+| timeline        | N개     | 40 + N × 35     | 3이벤트 → 145자 |
+| listReveal      | N개     | 40 + N × 30     | 4항목 → 160자   |
+
+**recommendedChars = minChars × 1.3**, **maxChars = minChars × 2.0**
+
+CPS: Fish Audio S2-Pro 기준 7.5자/초 (speed=1.0 기준)
+총 목표 글자수 = targetDurationSeconds × CPS × speed
+
+**QA-13A 통과 기준:** 총 나레이션 글자수가 목표의 ±25% 이내
 
 ### 2-4. 나레이션 대본 작성
 
