@@ -20,6 +20,7 @@ import { ThumbnailConfigSchema } from "../src/thumbnail/types";
 import { generateThumbnail } from "../src/thumbnail/generate";
 
 const FACE_DIR = path.join(__dirname, "../assets/face");
+const COVER_DIR = path.join(__dirname, "../assets/covers");
 const OUTPUT_BASE = path.join(__dirname, "../output/thumbnails");
 
 async function main() {
@@ -94,6 +95,7 @@ async function main() {
     book.metadata,
     FACE_DIR,
     OUTPUT_BASE,
+    COVER_DIR,
   );
 
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);

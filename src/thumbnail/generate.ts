@@ -88,6 +88,7 @@ export async function generateThumbnail(
   metadata: BookMetadata,
   faceDir: string,
   outputBase: string,
+  coverDir?: string,
 ): Promise<SaveResult> {
   const apiKey = process.env.GOOGLE_AI_API_KEY;
   if (!apiKey) {
@@ -142,11 +143,28 @@ export async function generateThumbnail(
         if (part.inlineData?.data) {
           const rawImage = Buffer.from(part.inlineData.data, "base64");
           const accentColor = resolveAccentColor(metadata.genre);
+          // Resolve book cover path from coverDir
+          let coverPath: string | undefined;
+          if (coverDir) {
+            const coverFiles = fs
+              .readdirSync(coverDir)
+              .filter(
+                (f) =>
+                  f
+                    .toLowerCase()
+                    .includes(metadata.id.replace(/-\d{4}$/, "")) &&
+                  /\.(jpg|jpeg|png)$/i.test(f),
+              );
+            if (coverFiles.length > 0) {
+              coverPath = path.join(coverDir, coverFiles[0]);
+            }
+          }
           const composited = await compositeText(
             rawImage,
             thumbnail.hookText,
             thumbnail.accentWord,
             accentColor,
+            coverPath,
           );
           return saveThumbnail(outputBase, metadata.id, composited, prompt);
         }

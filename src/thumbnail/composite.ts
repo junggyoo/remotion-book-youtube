@@ -1,4 +1,6 @@
 import sharp from "sharp";
+import fs from "fs";
+import path from "path";
 import designTokens from "../design/tokens/design-tokens-draft.json";
 
 // --- Text layout constants ---
@@ -123,13 +125,36 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
+// --- Book cover constants ---
+
+const COVER_CONFIG = {
+  height: 200,
+  bottomMargin: 40,
+  leftMargin: 60,
+  borderRadius: 6,
+  shadowOffset: 4,
+} as const;
+
 // --- Main composite function ---
+
+async function prepareBookCover(coverPath: string): Promise<Buffer | null> {
+  if (!fs.existsSync(coverPath)) {
+    console.warn(`Book cover not found: ${coverPath} — skipping cover overlay`);
+    return null;
+  }
+
+  return sharp(coverPath)
+    .resize({ height: COVER_CONFIG.height })
+    .png()
+    .toBuffer();
+}
 
 export async function compositeText(
   imageBuffer: Buffer,
   hookText: string,
   accentWord?: string,
   accentColor?: string,
+  coverImagePath?: string,
 ): Promise<Buffer> {
   const image = sharp(imageBuffer);
   const metadata = await image.metadata();
@@ -144,14 +169,27 @@ export async function compositeText(
     accentColor,
   );
 
-  return sharp(imageBuffer)
-    .composite([
-      {
-        input: textSvg,
-        top: 0,
-        left: 0,
-      },
-    ])
-    .png()
-    .toBuffer();
+  const layers: sharp.OverlayOptions[] = [
+    {
+      input: textSvg,
+      top: 0,
+      left: 0,
+    },
+  ];
+
+  // Add book cover if available
+  if (coverImagePath) {
+    const coverBuffer = await prepareBookCover(coverImagePath);
+    if (coverBuffer) {
+      const coverMeta = await sharp(coverBuffer).metadata();
+      const coverWidth = coverMeta.width ?? 130;
+      layers.push({
+        input: coverBuffer,
+        top: height - COVER_CONFIG.height - COVER_CONFIG.bottomMargin,
+        left: COVER_CONFIG.leftMargin,
+      });
+    }
+  }
+
+  return sharp(imageBuffer).composite(layers).png().toBuffer();
 }
