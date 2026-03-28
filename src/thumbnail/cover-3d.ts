@@ -1,20 +1,48 @@
 import { GoogleGenAI } from "@google/genai";
+import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 
 const COVER_3D_PROMPT = `
-Take this book cover image and render it as a realistic 3D book object.
+Take this book cover image and render it as a realistic 3D book object
+with a transparent background (PNG with alpha channel).
 The book should be:
 - Slightly angled/tilted to show depth and perspective (about 15 degrees)
 - With visible spine thickness
 - Dramatic lighting from the upper right
-- Subtle shadow underneath
-- On a completely transparent/clean background (no other objects)
+- Subtle shadow underneath the book
+- The background MUST be completely transparent, not white, not black, not any color
 - High quality, photorealistic rendering
 - Do not add any text or change the cover content
 - Do not add extra objects around the book
 - The book should fill most of the frame
+- Output as PNG with transparent background
 `.trim();
+
+// Remove light backgrounds by making near-white/near-black pixels transparent
+async function removeBackground(imageBuffer: Buffer): Promise<Buffer> {
+  const { data, info } = await sharp(imageBuffer)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const { width, height, channels } = info;
+  const threshold = 240; // pixels with R,G,B all > 240 → transparent
+
+  for (let i = 0; i < width * height; i++) {
+    const offset = i * channels;
+    const r = data[offset];
+    const g = data[offset + 1];
+    const b = data[offset + 2];
+
+    // Remove near-white backgrounds
+    if (r > threshold && g > threshold && b > threshold) {
+      data[offset + 3] = 0; // set alpha to 0
+    }
+  }
+
+  return sharp(data, { raw: { width, height, channels } }).png().toBuffer();
+}
 
 export async function generate3dCover(
   coverPath: string,
@@ -63,7 +91,8 @@ export async function generate3dCover(
 
     for (const part of parts) {
       if (part.inlineData?.data) {
-        return Buffer.from(part.inlineData.data, "base64");
+        const rawBuffer = Buffer.from(part.inlineData.data, "base64");
+        return removeBackground(rawBuffer);
       }
     }
 
