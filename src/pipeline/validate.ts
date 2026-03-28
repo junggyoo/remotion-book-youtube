@@ -668,6 +668,41 @@ export async function validateBook(book: unknown): Promise<ValidationResult> {
     }
   }
 
+  // Step 3.5: Budget warning — narration char count vs target
+  const budgetTargetDuration = parsed.production?.targetDurationSeconds;
+  if (budgetTargetDuration && parsed.scenes.length > 0) {
+    const { calculateBudget, extractSceneComposition } =
+      await import("./durationBudget");
+    const ttsSpeed = (parsed as any).narration?.speed ?? 1;
+    const composition = extractSceneComposition(parsed.scenes);
+    const budget = calculateBudget(budgetTargetDuration, composition, {
+      ttsSpeed,
+    });
+    const actualChars = parsed.scenes.reduce(
+      (sum: number, s: any) => sum + (s.narrationText?.length ?? 0),
+      0,
+    );
+    const totalMin = Math.round(budget.estimatedNarrationChars * 0.75);
+
+    if (actualChars > 0 && actualChars < totalMin) {
+      const gap = totalMin - actualChars;
+      warnings.push(
+        `Budget: 총 나레이션 ${actualChars}자 < 최소 ${totalMin}자 (${gap}자 부족). 'npm run budget <book.json>'으로 씬별 상세 확인`,
+      );
+    }
+
+    // 씬별 minChars 미달 경고
+    for (const sb of budget.scenes) {
+      const scene = parsed.scenes.find((s: any) => s.id === sb.sceneId);
+      const actual = scene?.narrationText?.length ?? 0;
+      if (actual > 0 && actual < sb.minChars) {
+        warnings.push(
+          `Budget: ${sb.sceneId} (${sb.type}): ${actual}자 < 최소 ${sb.minChars}자 (${sb.minChars - actual}자 부족, 약 ${Math.ceil((sb.minChars - actual) / 25)}문장 추가)`,
+        );
+      }
+    }
+  }
+
   // Step 4: Beat validation (BEAT_SYSTEM_DESIGN_SPEC §10)
   for (const scene of parsed.scenes) {
     // B1: 8초+ 씬에 beats 없음 경고
