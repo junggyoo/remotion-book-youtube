@@ -1,4 +1,6 @@
 import type { Beat, FormatKey, SceneBase } from "@/types";
+import type { BeatSegment, SceneSpec } from "@/direction/types";
+import { toLegacyRole } from "@/direction/beat/beatRoleMapping";
 
 /**
  * 씬의 beat 배열을 해석한다. 하위 호환 보장.
@@ -8,7 +10,11 @@ import type { Beat, FormatKey, SceneBase } from "@/types";
  * 2. longform beats가 있으면 → shorts일 경우 자동 압축, 아니면 그대로
  * 3. beats가 없으면 → 암묵적 단일 beat (기존 동작 유지)
  */
-export function resolveBeats(scene: SceneBase, format: FormatKey): Beat[] {
+export function resolveBeats(
+  scene: SceneBase,
+  format: FormatKey,
+  sceneSpec?: SceneSpec,
+): Beat[] {
   // shorts인 경우 shorts.beats 우선
   if (
     format === "shorts" &&
@@ -25,6 +31,20 @@ export function resolveBeats(scene: SceneBase, format: FormatKey): Beat[] {
       return compressBeatsForShorts(scene.beats);
     }
     return scene.beats;
+  }
+
+  // Phase 1: semantic beats from direction system
+  if (
+    sceneSpec?.beatProfile?.segments &&
+    sceneSpec.beatProfile.segments.length > 0
+  ) {
+    const semanticBeats = sceneSpec.beatProfile.segments.map((seg) =>
+      convertSegmentToBeat(seg, scene.id),
+    );
+    if (format === "shorts") {
+      return compressBeatsForShorts(semanticBeats);
+    }
+    return semanticBeats;
   }
 
   // 암묵적 단일 beat: 씬 전체가 하나의 beat
@@ -126,4 +146,21 @@ export function compressBeatsForShorts(longformBeats: Beat[]): Beat[] {
   });
 
   return result;
+}
+
+/** Convert a direction BeatSegment to a legacy Beat */
+function convertSegmentToBeat(segment: BeatSegment, sceneId: string): Beat {
+  return {
+    id: `${sceneId}-${segment.id}`,
+    role: toLegacyRole(segment.role),
+    startRatio: segment.startRatio,
+    endRatio: segment.endRatio,
+    narrationText: segment.narrationText,
+    activates: segment.activates,
+    emphasisTargets: segment.emphasisTargets,
+    transition:
+      segment.transition === "hold" || segment.transition === "exit"
+        ? "enter" // legacy Beat only supports enter/replace/emphasis
+        : segment.transition,
+  };
 }

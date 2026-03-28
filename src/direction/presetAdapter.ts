@@ -1,6 +1,9 @@
 import type { SceneType } from "@/types";
 import type { SceneSpec, DirectionProfile } from "./types";
 import { resolveSceneFamily } from "./interpretationBootstrap";
+import { analyzeNarrationSemantics } from "./beat/BeatSemanticAnalyzer";
+import { resolveBeatProfile } from "./beat/BeatProfileResolver";
+import { compileBeatTimeline } from "./beat/BeatTimelineCompiler";
 
 const PRESET_LAYOUT_MAP: Record<string, string> = {
   cover: "center-focus",
@@ -53,6 +56,14 @@ export function adaptPresetToSceneSpec(
   const choreography = (PRESET_CHOREOGRAPHY_MAP[scene.type] ??
     "reveal-sequence") as any;
 
+  // Phase 1: Semantic beat profile
+  let beatProfile;
+  if (scene.narrationText && scene.narrationText.length >= 10) {
+    const semanticPlan = analyzeNarrationSemantics(scene.narrationText);
+    const resolved = resolveBeatProfile(semanticPlan, direction);
+    beatProfile = compileBeatTimeline(semanticPlan, resolved, direction);
+  }
+
   return {
     id: scene.id,
     family,
@@ -61,6 +72,7 @@ export function adaptPresetToSceneSpec(
     elements: [],
     choreography,
     direction,
+    beatProfile,
     durationStrategy: { mode: scene.narrationText ? "tts-driven" : "fixed" },
     source: "preset",
     confidence: 1.0,
