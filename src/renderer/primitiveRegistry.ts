@@ -271,7 +271,10 @@ export function getPrimitive(type: string): PrimitiveAdapter | undefined {
 }
 
 /** Element types that manage their own enter animation (MotionWrapper bypass). */
-export const SELF_ANIMATED_TYPES = new Set<string>(["kinetic-text"]);
+export const SELF_ANIMATED_TYPES = new Set<string>([
+  "kinetic-text",
+  "animated-path",
+]);
 
 /** The full primitive registry (read-only access). */
 export const primitiveRegistry = registry;
@@ -427,6 +430,28 @@ registerPrimitive("word-highlight", ({ style, format, theme, ...props }) =>
       highlightColor: props.highlightColor as string | undefined,
       delay: props.delay as number | undefined,
       align: (props.align as "left" | "center" | "right") ?? "center",
+    }),
+  ),
+);
+
+// --- Animated path primitive registration (P2-1b) ---
+import { AnimatedPath } from "@/components/primitives/structure/AnimatedPath";
+
+registerPrimitive("animated-path", ({ style, format, theme, ...props }) =>
+  React.createElement(
+    "div",
+    { style: { position: "absolute" as const, ...style } },
+    React.createElement(AnimatedPath, {
+      pathData: (props.pathData as string) ?? "",
+      startFrame: (props.startFrame as number) ?? 0,
+      drawDuration: (props.drawDuration as number) ?? 30,
+      strokeColor: (props.strokeColor as string) ?? theme.signal,
+      strokeWidth: (props.strokeWidth as number) ?? 2,
+      arrowHead: (props.arrowHead as boolean) ?? false,
+      arrowColor: props.arrowColor as string | undefined,
+      easing: (props.easing as "linear" | "easeOut" | "easeInOut") ?? "easeOut",
+      width: props.width as number | undefined,
+      height: props.height as number | undefined,
     }),
   ),
 );
