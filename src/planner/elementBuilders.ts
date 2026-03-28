@@ -3,7 +3,8 @@
 // Factory functions that assemble VCLElement[] for synthesized scenes.
 // ============================================================
 
-import type { VCLElement } from "@/types";
+import type { VCLElement, DiagramSpec } from "@/types";
+import type { DiagramGeometry, DiagramNode } from "@/planning/diagramGeometry";
 
 // ---------------------------------------------------------------------------
 // Radial Elements (SAVERS wheel, cyclic-flow, motif-wheel)
@@ -348,4 +349,186 @@ export function buildGridElements(
   });
 
   return elements;
+}
+
+// ---------------------------------------------------------------------------
+// Diagram Elements (P2-1d: DiagramSpec + DiagramGeometry → VCLElement[])
+// ---------------------------------------------------------------------------
+
+/** Default frames between consecutive animated-path draws */
+const PATH_STAGGER_FRAMES = 6;
+/** Default frames for each path draw animation */
+const PATH_DRAW_DURATION = 30;
+/** Default frames between node activations */
+const NODE_STAGGER_FRAMES = 6;
+/** Delay before paths start in construct mode (nodes appear first) */
+const CONSTRUCT_PATH_DELAY = 24;
+
+/**
+ * Converts a DiagramSpec + DiagramGeometry into VCLElement[].
+ *
+ * revealMode mapping:
+ * - trace: animated-path connections drawn sequentially, then nodes stagger-activate
+ * - construct: nodes activate first (startFrame=0), paths draw after delay
+ * - cascade: nodes activate top-to-bottom only, no paths
+ *
+ * completionBehavior:
+ * - hold: elements remain as-is after animation completes
+ * - zoom-node: appends a zoom-focus hint targeting the last activated node
+ */
+export function buildDiagramElements(
+  spec: DiagramSpec,
+  geometry: DiagramGeometry,
+): VCLElement[] {
+  const revealMode = spec.revealMode ?? "trace";
+  const completionBehavior = spec.completionBehavior ?? "hold";
+  const elements: VCLElement[] = [];
+
+  switch (revealMode) {
+    case "trace":
+      elements.push(...buildTraceElements(geometry));
+      break;
+    case "construct":
+      elements.push(...buildConstructElements(geometry));
+      break;
+    case "cascade":
+      elements.push(...buildCascadeElements(geometry));
+      break;
+  }
+
+  if (completionBehavior === "zoom-node" && geometry.nodes.length > 0) {
+    const lastNode = getLastActivatedNode(geometry, revealMode);
+    elements.push({
+      id: "synth-diagram-zoom-focus",
+      type: "zoom-focus",
+      props: {
+        targetNodeId: lastNode.id,
+        cx: lastNode.cx,
+        cy: lastNode.cy,
+        layer: 50,
+      },
+    });
+  }
+
+  return elements;
+}
+
+/** trace: paths first (sequential draw), then all nodes stagger-activate */
+function buildTraceElements(geometry: DiagramGeometry): VCLElement[] {
+  const elements: VCLElement[] = [];
+
+  // Animated paths — sequential draw with stagger
+  geometry.connections.forEach((conn, i) => {
+    elements.push({
+      id: `synth-diagram-path-${i}`,
+      type: "animated-path",
+      props: {
+        pathData: conn.pathData,
+        startFrame: i * PATH_STAGGER_FRAMES,
+        drawDuration: PATH_DRAW_DURATION,
+        arrowHead: true,
+        layer: 25,
+      },
+    });
+  });
+
+  // Node activation — starts after all paths begin, stagger activation
+  const nodeStartFrame =
+    geometry.connections.length > 0
+      ? (geometry.connections.length - 1) * PATH_STAGGER_FRAMES +
+        Math.floor(PATH_DRAW_DURATION * 0.5)
+      : 0;
+
+  elements.push(buildNodeActivationElement(geometry.nodes, nodeStartFrame));
+
+  return elements;
+}
+
+/** construct: nodes first (startFrame=0), then paths after delay */
+function buildConstructElements(geometry: DiagramGeometry): VCLElement[] {
+  const elements: VCLElement[] = [];
+
+  // Nodes activate first
+  elements.push(buildNodeActivationElement(geometry.nodes, 0));
+
+  // Paths draw after nodes have appeared
+  geometry.connections.forEach((conn, i) => {
+    elements.push({
+      id: `synth-diagram-path-${i}`,
+      type: "animated-path",
+      props: {
+        pathData: conn.pathData,
+        startFrame: CONSTRUCT_PATH_DELAY + i * PATH_STAGGER_FRAMES,
+        drawDuration: PATH_DRAW_DURATION,
+        arrowHead: true,
+        layer: 25,
+      },
+    });
+  });
+
+  return elements;
+}
+
+/** cascade: nodes only, top-to-bottom activation order, no paths */
+function buildCascadeElements(geometry: DiagramGeometry): VCLElement[] {
+  // Sort nodes by cy (top-to-bottom)
+  const sortedIndices = geometry.nodes
+    .map((n, i) => ({ cy: n.cy, index: i }))
+    .sort((a, b) => a.cy - b.cy)
+    .map((item) => item.index);
+
+  return [
+    {
+      id: "synth-diagram-nodes",
+      type: "node-activation",
+      props: {
+        nodes: geometry.nodes.map((n) => ({
+          id: n.id,
+          cx: n.cx,
+          cy: n.cy,
+          label: n.label,
+        })),
+        activationOrder: sortedIndices,
+        staggerDelay: NODE_STAGGER_FRAMES,
+        startFrame: 0,
+        layer: 30,
+      },
+    },
+  ];
+}
+
+/** Builds a node-activation VCLElement from geometry nodes */
+function buildNodeActivationElement(
+  nodes: DiagramNode[],
+  startFrame: number,
+): VCLElement {
+  return {
+    id: "synth-diagram-nodes",
+    type: "node-activation",
+    props: {
+      nodes: nodes.map((n) => ({
+        id: n.id,
+        cx: n.cx,
+        cy: n.cy,
+        label: n.label,
+      })),
+      activationOrder: nodes.map((_, i) => i),
+      staggerDelay: NODE_STAGGER_FRAMES,
+      startFrame,
+      layer: 30,
+    },
+  };
+}
+
+/** Returns the last node to be activated based on revealMode */
+function getLastActivatedNode(
+  geometry: DiagramGeometry,
+  revealMode: string,
+): DiagramNode {
+  if (revealMode === "cascade") {
+    // cascade: last by cy (bottom-most)
+    return [...geometry.nodes].sort((a, b) => b.cy - a.cy)[0];
+  }
+  // trace/construct: last in array order
+  return geometry.nodes[geometry.nodes.length - 1];
 }
