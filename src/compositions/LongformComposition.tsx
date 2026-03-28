@@ -82,6 +82,61 @@ const HIGHLIGHT_LAYOUT_META: SceneElementLayoutMeta[] = layersToLayoutMeta(
 );
 
 // ---------------------------------------------------------------------------
+// KeyInsight scene approximate element positions (px, longform 1920x1080)
+// Derived from KeyInsightScene.tsx: center-focus layout with SafeArea,
+// 80% width container, paddingTop ~40px. AccentBar at top-left anchor,
+// headline below, supportText below headline, evidenceBar at bottom full-width.
+// ---------------------------------------------------------------------------
+const KEYINSIGHT_ELEMENT_POSITIONS: Record<
+  string,
+  { top: number; left: number; width: number; height: number }
+> = {
+  accentBar: { top: 120, left: 154, width: 4, height: 64 },
+  headline: { top: 210, left: 154, width: 1230, height: 180 },
+  supportText: { top: 430, left: 154, width: 1100, height: 100 },
+  evidenceCard: { top: 960, left: 0, width: 1920, height: 120 },
+};
+
+const KEYINSIGHT_LAYOUT_META: SceneElementLayoutMeta[] = layersToLayoutMeta(
+  KEYINSIGHT_ELEMENT_POSITIONS,
+  1920,
+  1080,
+);
+
+// ---------------------------------------------------------------------------
+// KeyInsightCameraWrapper — beat-driven CameraLayer for KeyInsightScene
+// ---------------------------------------------------------------------------
+const KeyInsightCameraWrapper: React.FC<{
+  beats?: Beat[];
+  durationFrames: number;
+  format: CompositionProps["format"];
+  children: React.ReactNode;
+}> = ({ beats, durationFrames, format, children }) => {
+  const { activeBeat, activeChannels, isInRecoveryWindow } = useBeatTimeline(
+    beats ?? [],
+    durationFrames,
+    "heavy",
+    { sceneType: "keyInsight", format },
+  );
+
+  return (
+    <CameraLayer
+      mode={format === "shorts" ? "static" : "guided"}
+      format={format}
+      sceneType="keyInsight"
+      durationFrames={durationFrames}
+      layoutMeta={KEYINSIGHT_LAYOUT_META}
+      activeBeat={activeBeat}
+      primaryFocusId="headline"
+      emphasisGateActive={activeChannels?.has?.("sceneText") ?? true}
+      isRecovering={isInRecoveryWindow}
+    >
+      {children}
+    </CameraLayer>
+  );
+};
+
+// ---------------------------------------------------------------------------
 // HighlightCameraWrapper — beat-driven CameraLayer for HighlightScene
 // ---------------------------------------------------------------------------
 const HighlightCameraWrapper: React.FC<{
@@ -289,6 +344,19 @@ const SceneRenderer: React.FC<{
       >
         <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
       </HighlightCameraWrapper>
+    );
+  }
+
+  // P2-7B: KeyInsight scenes use KeyInsightCameraWrapper with beat-driven guided camera
+  if (scene.type === "keyInsight") {
+    return (
+      <KeyInsightCameraWrapper
+        beats={scene.beats}
+        durationFrames={scene.resolvedDuration}
+        format={format}
+      >
+        <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
+      </KeyInsightCameraWrapper>
     );
   }
 
