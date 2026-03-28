@@ -466,22 +466,38 @@ Content JSON (content-composer가 오디오북 화법 + emotionTag로 작성)
 
 ## 7. 변경 파일 목록
 
-| 파일                                       | 변경 내용                                 | 유형   |
-| ------------------------------------------ | ----------------------------------------- | ------ |
-| `.claude/rules/content-authoring-rules.md` | 오디오북 화법 규칙 + emotionTag 규칙 추가 | 규칙   |
-| `src/types/index.ts`                       | Beat에 `emotionTag?: string` 추가         | 타입   |
-| `src/schema/content-schema.json`           | beat에 emotionTag 필드 허용               | 스키마 |
-| `src/tts/beatNarrationResolver.ts`         | `resolveBeatNarrationWithEmotions()` 추가 | 로직   |
-| `src/tts/fish-audio-engine.ts`             | `addEmotionTag()` 시그니처 변경           | 로직   |
-| `scripts/generate-captions.ts`             | TTS용/Caption용 텍스트 분리               | 로직   |
-| `src/tts/mediaPlanExecutor.ts`             | sceneType 전달 버그 수정                  | 버그   |
-| `src/tts/ttsClient.ts`                     | `addEmotionTag()` 호출부 options 전달     | 로직   |
+### 두 TTS 파이프라인 경로
+
+이 프로젝트에는 독립적인 두 TTS 경로가 있다. 둘 다 변경 대상이다.
+
+| 경로       | 진입점                         | TTS 호출 방식                                                      | 용도                      |
+| ---------- | ------------------------------ | ------------------------------------------------------------------ | ------------------------- |
+| **레거시** | `scripts/generate-captions.ts` | 자체 함수 직접 호출 (`generateViaFishAudio`, `generateViaEdgeTTS`) | CLI 일괄 생성             |
+| **DSGS**   | `src/tts/mediaPlanExecutor.ts` | `ttsClient.ts` 경유 (`generateTTSWithCaptions`)                    | 오케스트레이터 파이프라인 |
+
+두 경로 모두에서 엔진별 텍스트 분기(Fish Audio → 태그 포함, 나머지 → 태그 미포함)가 적용되어야 한다.
+
+### 변경 파일 목록
+
+| 파일                                                     | 변경 내용                                               | 유형   |
+| -------------------------------------------------------- | ------------------------------------------------------- | ------ |
+| `.claude/skills/subtitle-audio/tts-engine-comparison.md` | Fish Audio S2-Pro 현행화 (선행 작업)                    | 문서   |
+| `.claude/rules/content-authoring-rules.md`               | 오디오북 화법 규칙 + emotionTag 규칙 추가               | 규칙   |
+| `src/types/index.ts`                                     | Beat에 `emotionTag?: string` 추가                       | 타입   |
+| `src/schema/content-schema.json`                         | beat에 emotionTag 필드 허용                             | 스키마 |
+| `src/tts/beatNarrationResolver.ts`                       | `resolveBeatNarrationWithEmotions()` 추가               | 로직   |
+| `src/tts/fish-audio-engine.ts`                           | `addEmotionTag()` 시그니처에 options 추가               | 로직   |
+| `scripts/generate-captions.ts`                           | TTS용/Caption용 텍스트 분리 + 엔진별 분기               | 로직   |
+| `src/tts/mediaPlanExecutor.ts`                           | sceneType 전달 버그 수정 (5번째 인자 추가)              | 버그   |
+| `src/tts/ttsClient.ts`                                   | Fish Audio 경로에서 `hasBeatsWithEmotions` options 전달 | 로직   |
 
 ---
 
-## 8. 관련 문서 업데이트
+## 8. 선행 작업: tts-engine-comparison.md 현행화
 
-### tts-engine-comparison.md 업데이트 필요
+> **이 작업은 레이어 2 구현보다 먼저 완료해야 한다.**
+> subtitle-audio 스킬이 이 문서를 참조하므로, 오래된 정보가 남아있으면
+> Claude Code가 Fish Audio 경로를 선택하지 않을 수 있다.
 
 `.claude/skills/subtitle-audio/tts-engine-comparison.md`에서 Fish Audio 항목이 오래됨:
 
@@ -490,11 +506,12 @@ Content JSON (content-composer가 오디오북 화법 + emotionTag로 작성)
 실제: Fish Audio S2-Pro (cloud API) + voice cloning + STT, CLAUDE.md에서 기본 엔진으로 선언
 ```
 
-이 설계와 함께 해당 문서도 현행화한다:
+현행화 내용:
 
 - self-host vs cloud API(S2-Pro) 구분
 - 한국어 지원 상태를 실측 기반으로 업데이트
-- 감정 태그 지원 여부 컬럼 추가
+- 감정 태그([bracket] 문법) 지원 여부 컬럼 추가
+- Recommended Selection을 CLAUDE.md와 일치시킴 (Fish Audio S2-Pro가 기본)
 
 ---
 
