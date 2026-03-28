@@ -43,6 +43,22 @@ describe("compositeText", () => {
     expect(metadata.height).toBe(720);
   });
 
+  it("produces a larger file than input (text layers added)", async () => {
+    const testImage = await sharp({
+      create: {
+        width: 1280,
+        height: 720,
+        channels: 4,
+        background: { r: 30, g: 30, b: 50, alpha: 1 },
+      },
+    })
+      .png()
+      .toBuffer();
+
+    const result = await compositeText(testImage, "테스트 텍스트");
+    expect(result.length).toBeGreaterThan(testImage.length);
+  });
+
   it("handles two-line text", async () => {
     const testImage = await sharp({
       create: {
