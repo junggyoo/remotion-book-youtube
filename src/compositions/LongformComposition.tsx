@@ -12,6 +12,7 @@ import {
   mapTransitionIntent,
   type TransitionIntent,
 } from "@/transitions/mapTransitionIntent";
+import { resolveTransitionSfx, SFX_VOLUME } from "@/transitions/transitionSfx";
 import type { StoryboardScene } from "@/planning/types";
 import type { PlannedScene, CompositionProps } from "@/pipeline/buildProps";
 import type {
@@ -382,56 +383,79 @@ export const LongformComposition: React.FC<CompositionProps> = ({
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.bg }}>
-      {hasStoryboard ? (
-        // ── TransitionSeries path (storyboard-driven with transitions) ──
-        // TODO(P1-1-sunset): Remove Sequence fallback once all books use storyboard.
-        // Trigger: after 2-3 books are validated through TransitionSeries path.
-        <TransitionSeries>
-          {scenes.map((scene, i) => {
-            const storyboard = (scene as any)._storyboard as
-              | StoryboardScene
-              | undefined;
-            // transitionIntent on scene[i] = transition FROM scene[i] TO scene[i+1]
-            const transitionMapping =
-              i < scenes.length - 1 && storyboard?.transitionIntent
-                ? mapTransitionIntent(
-                    storyboard.transitionIntent as TransitionIntent,
-                  )
-                : null;
+      {hasStoryboard
+        ? // ── TransitionSeries path (storyboard-driven with transitions) ──
+          // TODO(P1-1-sunset): Remove Sequence fallback once all books use storyboard.
+          // Trigger: after 2-3 books are validated through TransitionSeries path.
+          (() => {
+            // P2-6a: Resolve transition SFX with dedup
+            const transitionIntents = scenes.map((s) => {
+              const sb = (s as any)._storyboard as StoryboardScene | undefined;
+              return sb?.transitionIntent as TransitionIntent | undefined;
+            });
+            const resolvedSfx = resolveTransitionSfx(transitionIntents);
 
             return (
-              <React.Fragment key={scene.id}>
-                <TransitionSeries.Sequence
-                  durationInFrames={scene.resolvedDuration}
-                >
-                  {renderSceneContent(scene, 0)}
-                </TransitionSeries.Sequence>
+              <TransitionSeries>
+                {scenes.map((scene, i) => {
+                  const storyboard = (scene as any)._storyboard as
+                    | StoryboardScene
+                    | undefined;
+                  const transitionMapping =
+                    i < scenes.length - 1 && storyboard?.transitionIntent
+                      ? mapTransitionIntent(
+                          storyboard.transitionIntent as TransitionIntent,
+                        )
+                      : null;
+                  const sfxFile = resolvedSfx[i];
 
-                {/* Insert transition after this scene, before the next */}
-                {transitionMapping && (
-                  <TransitionSeries.Transition
-                    presentation={transitionMapping.presentation}
-                    timing={transitionMapping.timing}
-                  />
-                )}
-              </React.Fragment>
+                  return (
+                    <React.Fragment key={scene.id}>
+                      <TransitionSeries.Sequence
+                        durationInFrames={scene.resolvedDuration}
+                      >
+                        {renderSceneContent(scene, 0)}
+
+                        {/* P2-6a: Transition SFX at scene end */}
+                        {sfxFile && transitionMapping && (
+                          <Sequence
+                            from={
+                              scene.resolvedDuration -
+                              transitionMapping.durationInFrames
+                            }
+                          >
+                            <Audio
+                              src={staticFile(`sounds/${sfxFile}`)}
+                              volume={SFX_VOLUME}
+                            />
+                          </Sequence>
+                        )}
+                      </TransitionSeries.Sequence>
+
+                      {transitionMapping && (
+                        <TransitionSeries.Transition
+                          presentation={transitionMapping.presentation}
+                          timing={transitionMapping.timing}
+                        />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </TransitionSeries>
             );
-          })}
-        </TransitionSeries>
-      ) : (
-        // ── Sequence fallback (no storyboard / legacy path) ──
-        scenes.map((scene) => (
-          <Sequence
-            key={scene.id}
-            from={scene.from}
-            durationInFrames={scene.resolvedDuration}
-            name={`${scene.type}-${scene.id}`}
-            premountFor={PREMOUNT_FRAMES}
-          >
-            {renderSceneContent(scene, scene.from)}
-          </Sequence>
-        ))
-      )}
+          })()
+        : // ── Sequence fallback (no storyboard / legacy path) ──
+          scenes.map((scene) => (
+            <Sequence
+              key={scene.id}
+              from={scene.from}
+              durationInFrames={scene.resolvedDuration}
+              name={`${scene.type}-${scene.id}`}
+              premountFor={PREMOUNT_FRAMES}
+            >
+              {renderSceneContent(scene, scene.from)}
+            </Sequence>
+          ))}
     </AbsoluteFill>
   );
 };
