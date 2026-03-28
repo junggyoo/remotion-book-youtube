@@ -87,6 +87,7 @@ export function useEmphasisGate({
     beatTimeline.activeChannels,
     cap,
     beatTimeline.isInRecoveryWindow,
+    sceneType,
   );
 
   return {
