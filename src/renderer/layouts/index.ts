@@ -9,6 +9,9 @@ import { splitTwo } from "./splitTwo";
 import { radial } from "./radial";
 import { timelineH } from "./timelineH";
 import { gridN } from "./gridN";
+import { timelineV } from "./timelineV";
+import { quoteHold } from "./quoteHold";
+import { bandDivider } from "./bandDivider";
 
 export type {
   LayoutPosition,
@@ -20,6 +23,9 @@ export { splitTwo } from "./splitTwo";
 export { radial } from "./radial";
 export { timelineH } from "./timelineH";
 export { gridN } from "./gridN";
+export { timelineV } from "./timelineV";
+export { quoteHold } from "./quoteHold";
+export { bandDivider } from "./bandDivider";
 
 // ---------------------------------------------------------------------------
 // Layout Registry
@@ -53,6 +59,18 @@ export const layoutRegistry: Record<string, LayoutRegistration> = {
   "grid-expand": {
     fn: gridN,
     compatibleChoreographies: ["reveal-sequence", "stagger-clockwise"],
+  },
+  "timeline-v": {
+    fn: timelineV,
+    compatibleChoreographies: ["reveal-sequence", "path-trace"],
+  },
+  "quote-hold": {
+    fn: quoteHold,
+    compatibleChoreographies: ["reveal-sequence"],
+  },
+  "band-divider": {
+    fn: bandDivider,
+    compatibleChoreographies: ["reveal-sequence"],
   },
 };
 
