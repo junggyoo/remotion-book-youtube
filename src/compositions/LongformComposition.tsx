@@ -55,6 +55,7 @@ import {
   SCENE_CAMERA_DEFAULTS,
 } from "@/components/layout/CameraLayer";
 import { SceneWrapper } from "@/components/layout/SceneWrapper";
+import { BackgroundMotion } from "@/components/layout/BackgroundMotion";
 import type { CustomScene } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
 import { useBeatTimeline } from "../hooks/useBeatTimeline";
@@ -231,7 +232,7 @@ const SceneRenderer: React.FC<{
       sceneType={scene.type}
       durationFrames={scene.resolvedDuration}
     >
-      {sceneContent}
+      <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
     </CameraLayer>
   );
 };
