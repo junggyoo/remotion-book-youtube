@@ -401,6 +401,7 @@ async function generateTTSViaFishAudio(
   outputDir: string,
   sceneType?: string,
   narrationSpeed?: number,
+  options?: { hasBeatsWithEmotions?: boolean },
 ): Promise<TTSResult | undefined> {
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
@@ -411,7 +412,7 @@ async function generateTTSViaFishAudio(
     speed: narrationSpeed ?? 1.0,
   };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
-  const textWithEmotion = addEmotionTag(text, sceneType || "");
+  const textWithEmotion = addEmotionTag(text, sceneType || "", options);
 
   try {
     const durationMs = await generateFishAudio(
@@ -443,6 +444,7 @@ async function generateTTSWithCaptionsViaFishAudio(
   outputDir: string,
   sceneType?: string,
   narrationSpeed?: number,
+  options?: { hasBeatsWithEmotions?: boolean },
 ): Promise<TTSResultWithCaptions | undefined> {
   const fishConfig = getFishAudioConfig();
   if (!fishConfig) return undefined;
@@ -453,7 +455,7 @@ async function generateTTSWithCaptionsViaFishAudio(
     speed: narrationSpeed ?? 1.0,
   };
   const outputPath = path.join(outputDir, `${sceneId}.mp3`);
-  const textWithEmotion = addEmotionTag(text, sceneType || "");
+  const textWithEmotion = addEmotionTag(text, sceneType || "", options);
 
   try {
     const durationMs = await generateFishAudio(
@@ -527,6 +529,7 @@ export async function generateTTS(
   config: NarrationConfig,
   outputDir: string,
   sceneType?: string,
+  options?: { hasBeatsWithEmotions?: boolean },
 ): Promise<TTSResult | undefined> {
   if (!text || text.trim().length === 0) {
     return undefined;
@@ -545,6 +548,7 @@ export async function generateTTS(
       outputDir,
       sceneType,
       config.speed,
+      options,
     );
     if (result) return result;
     console.warn(
@@ -575,6 +579,7 @@ export async function generateTTSWithCaptions(
   config: NarrationConfig,
   outputDir: string,
   sceneType?: string,
+  options?: { hasBeatsWithEmotions?: boolean },
 ): Promise<TTSResultWithCaptions | undefined> {
   if (!text || text.trim().length === 0) {
     return undefined;
@@ -593,6 +598,7 @@ export async function generateTTSWithCaptions(
       outputDir,
       sceneType,
       config.speed,
+      options,
     );
     if (result) return result;
     console.warn(
