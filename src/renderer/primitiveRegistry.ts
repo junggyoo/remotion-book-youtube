@@ -274,6 +274,7 @@ export function getPrimitive(type: string): PrimitiveAdapter | undefined {
 export const SELF_ANIMATED_TYPES = new Set<string>([
   "kinetic-text",
   "animated-path",
+  "node-activation",
 ]);
 
 /** The full primitive registry (read-only access). */
@@ -450,6 +451,38 @@ registerPrimitive("animated-path", ({ style, format, theme, ...props }) =>
       arrowHead: (props.arrowHead as boolean) ?? false,
       arrowColor: props.arrowColor as string | undefined,
       easing: (props.easing as "linear" | "easeOut" | "easeInOut") ?? "easeOut",
+      width: props.width as number | undefined,
+      height: props.height as number | undefined,
+    }),
+  ),
+);
+
+// --- Node activation primitive registration (P2-1c) ---
+import { NodeActivation } from "@/components/primitives/structure/NodeActivation";
+import type {
+  NodeActivationNode,
+  ActivationEffects,
+} from "@/components/primitives/structure/NodeActivation";
+
+registerPrimitive("node-activation", ({ style, format, theme, ...props }) =>
+  React.createElement(
+    "div",
+    { style: { position: "absolute" as const, ...style } },
+    React.createElement(NodeActivation, {
+      format,
+      theme,
+      nodes: (props.nodes as NodeActivationNode[]) ?? [],
+      activationOrder: (props.activationOrder as number[]) ?? [],
+      staggerDelay: (props.staggerDelay as number) ?? 6,
+      startFrame: (props.startFrame as number) ?? 0,
+      mutedColor: (props.mutedColor as string) ?? theme.surfaceMuted,
+      activeColor: (props.activeColor as string) ?? theme.accent,
+      activationEffects: (props.activationEffects as ActivationEffects) ?? {
+        fillTransition: true,
+        scalePulse: true,
+        glowRing: false,
+      },
+      nodeSize: props.nodeSize as number | undefined,
       width: props.width as number | undefined,
       height: props.height as number | undefined,
     }),
