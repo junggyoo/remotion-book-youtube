@@ -487,7 +487,7 @@ async function generateTTSWithCaptionsViaFishAudio(
       durationFrames,
       durationMs,
       captions,
-      vttPath: undefined as any,
+      vttPath: undefined,
     };
   } catch (err) {
     console.error(`[TTS] Fish Audio failed for scene ${sceneId}:`, err);

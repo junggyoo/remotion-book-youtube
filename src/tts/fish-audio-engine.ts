@@ -39,7 +39,7 @@ const SCENE_EMOTION_MAP: Record<string, string> = {
  * Temperature by scene type.
  * Higher for emotional scenes (more expressive), lower for explanatory (more stable).
  */
-const SCENE_TEMPERATURE_MAP: Record<string, number> = {
+export const SCENE_TEMPERATURE_MAP: Record<string, number> = {
   highlight: 0.85,
   cover: 0.6,
   keyInsight: 0.8,

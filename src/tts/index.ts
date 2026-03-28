@@ -21,6 +21,7 @@ export {
   addEmotionTag,
   isFishAudioAvailable,
   getFishAudioConfig,
+  SCENE_TEMPERATURE_MAP,
   getTemperatureForScene,
   transcribeWithFishSTT,
   sttSegmentsToCaptions,

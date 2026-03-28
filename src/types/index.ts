@@ -364,7 +364,7 @@ export interface TTSResult {
  */
 export interface TTSResultWithCaptions extends TTSResult {
   captions: import("@remotion/captions").Caption[];
-  vttPath: string;
+  vttPath?: string;
 }
 
 export interface SubtitleEntry {
