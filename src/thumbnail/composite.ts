@@ -151,7 +151,7 @@ function escapeXml(str: string): string {
 // --- Book cover constants ---
 
 const COVER_RATIOS = {
-  heightRatio: 0.42,
+  heightRatio: 0.6,
   bottomMarginRatio: 0.055,
   leftMarginRatio: 0.047,
 } as const;
