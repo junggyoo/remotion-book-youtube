@@ -21,6 +21,8 @@ import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 import { metaphorToDiagramSpec } from "@/planning/diagramSpec";
 import { buildDiagramGeometry } from "@/planning/diagramGeometry";
@@ -143,12 +145,16 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showDescriptions = !isShorts && content.showDescriptions !== false;
   const { typeScale } = useFormat(format);
+
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -160,7 +166,18 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
     },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat } = useBeatTimeline(
+    resolvedBeats,
+    durationFrames,
+  );
+
+  // P2-3: Narration sync — emphasis words glow in scene text
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "framework",
+    format,
+  });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -501,6 +518,8 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                             text={item.title}
                             variant="headlineM"
                             weight="bold"
+                            emphasisWords={narrationSync.activeEmphasisTargets}
+                            emphasisProgress={narrationSync.emphasisProgress}
                           />
 
                           {showDescriptions && item.description && (
@@ -511,6 +530,10 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                               variant="bodyM"
                               color={theme.textMuted}
                               maxLines={3}
+                              emphasisWords={
+                                narrationSync.activeEmphasisTargets
+                              }
+                              emphasisProgress={narrationSync.emphasisProgress}
                             />
                           )}
                         </div>

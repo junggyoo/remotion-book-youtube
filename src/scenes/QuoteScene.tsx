@@ -5,6 +5,7 @@ import {
   useVideoConfig,
   spring,
   interpolate,
+  interpolateColors,
 } from "remotion";
 import type { BaseSceneProps, QuoteContent, ElementBeatState } from "@/types";
 import { sp } from "@/design/tokens/spacing";
@@ -17,7 +18,10 @@ import { useFormat } from "@/design/themes/useFormat";
 import { SafeArea } from "@/components/layout/SafeArea";
 import { BeatElement } from "@/components/motion/BeatElement";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
 import { resolveBeats } from "@/pipeline/resolveBeats";
+import { matchEmphasisTarget } from "@/utils/matchEmphasisTarget";
 
 const LAYERS = {
   background: 0,
@@ -83,11 +87,15 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const { typeScale } = useFormat(format);
   const isShorts = format === "shorts";
+
+  // P2-3: Load captions for narration sync
+  const captions = useCaptions(captionsFile);
 
   const textureOpacity = content.showTexture
     ? sceneInteriorTokens.textureOpacity * 2
@@ -100,7 +108,18 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
     { id: `quote-${from}`, type: "quote", beats, narrationText: "" },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat } = useBeatTimeline(
+    resolvedBeats,
+    durationFrames,
+  );
+
+  // P2-3: Narration sync — emphasis words glow in quote text
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "quote",
+    format,
+  });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
 
@@ -299,6 +318,26 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                   );
                   const lineBlur = interpolate(lineProgress, [0, 1], [6, 0]);
 
+                  // P2-3: Split line into word segments for emphasis
+                  const hasEmphasis =
+                    narrationSync.activeEmphasisTargets.length > 0 &&
+                    narrationSync.emphasisProgress > 0;
+                  const segments = line.split(/(\s+)/).map((seg, j) => {
+                    if (/^\s+$/.test(seg))
+                      return { text: seg, isEmphasis: false, key: j };
+                    const matched = hasEmphasis
+                      ? matchEmphasisTarget(
+                          seg,
+                          narrationSync.activeEmphasisTargets,
+                        )
+                      : null;
+                    return { text: seg, isEmphasis: matched !== null, key: j };
+                  });
+
+                  const emphasisGlowOpacity =
+                    narrationSync.emphasisProgress * 0.5;
+                  const emphasisGlow = `0 0 ${8 * narrationSync.emphasisProgress}px rgba(${ar},${ag},${ab},${emphasisGlowOpacity})`;
+
                   return (
                     <p
                       key={i}
@@ -316,7 +355,28 @@ export const QuoteScene: React.FC<QuoteSceneProps> = ({
                         willChange: "opacity, transform, filter",
                       }}
                     >
-                      {line}
+                      {hasEmphasis
+                        ? segments.map((seg) =>
+                            seg.isEmphasis ? (
+                              <span
+                                key={seg.key}
+                                style={{
+                                  color: interpolateColors(
+                                    narrationSync.emphasisProgress,
+                                    [0, 1],
+                                    [theme.textStrong, theme.accent],
+                                  ),
+                                  textShadow: emphasisGlow,
+                                  transition: "color 0.05s, text-shadow 0.05s",
+                                }}
+                              >
+                                {seg.text}
+                              </span>
+                            ) : (
+                              <span key={seg.key}>{seg.text}</span>
+                            ),
+                          )
+                        : line}
                     </p>
                   );
                 })}
