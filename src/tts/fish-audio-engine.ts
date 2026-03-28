@@ -57,14 +57,23 @@ export function getTemperatureForScene(sceneType: string): number {
 }
 
 /**
- * Prepend an emotion tag based on scene type for Fish Audio S2 models.
+ * 감정 태그를 narration 텍스트에 적용한다.
+ *
+ * beat별 emotionTag가 이미 포함된 텍스트(resolveBeatNarrationWithEmotions 결과)는
+ * 그대로 반환한다 (이미 태그가 삽입되어 있으므로).
+ *
+ * beat가 없는 씬의 경우, scene-type 기반 태그를 텍스트 맨 앞에 1개만 붙인다.
  */
 export function addEmotionTag(
   narrationText: string,
   sceneType: string,
-  emotionOverride?: string,
+  options?: { hasBeatsWithEmotions?: boolean; emotionOverride?: string },
 ): string {
-  const tag = emotionOverride || SCENE_EMOTION_MAP[sceneType] || "";
+  if (options?.hasBeatsWithEmotions) {
+    return narrationText;
+  }
+
+  const tag = options?.emotionOverride || SCENE_EMOTION_MAP[sceneType] || "";
   return tag ? `${tag} ${narrationText}` : narrationText;
 }
 
