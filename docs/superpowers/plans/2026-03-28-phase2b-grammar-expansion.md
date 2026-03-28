@@ -16,17 +16,21 @@
 **사용 가능한 choreography:** reveal-sequence, stagger-clockwise, path-trace (+ split-reveal: Task 1에서 추가)
 **사용 가능한 primitive:** headline, body-text, label, caption, number-display, quote-text, icon, divider, flow-step, timeline-node, cycle-connector, card-stack, layer-stack, kinetic-text, word-highlight, animated-path, node-activation, image, shape, color-block, texture-overlay
 
-## Family → Recipe 매핑 계획
+## Family → Recipe Bootstrap Mapping
 
-| Family                | Content Type                    | Layout        | Choreography      | Key Primitives                             | Task |
-| --------------------- | ------------------------------- | ------------- | ----------------- | ------------------------------------------ | ---- |
-| closing-synthesis     | ClosingContent                  | center-focus  | reveal-sequence   | headline, body-text, label                 | 2    |
-| structural-bridge     | ChapterDividerContent           | center-focus  | reveal-sequence   | headline, body-text, divider               | 2    |
-| opening-hook          | CoverContent, HighlightContent  | center-focus  | reveal-sequence   | headline, body-text, image, label          | 3    |
-| reflective-anchor     | QuoteContent, SplitQuoteContent | center-focus  | reveal-sequence   | quote-text, caption, divider               | 3    |
-| mechanism-explanation | FrameworkContent                | radial        | stagger-clockwise | headline, body-text, cycle-connector       | 4    |
-| tension-comparison    | CompareContrastContent          | split-compare | split-reveal      | headline, body-text, label, divider        | 5    |
-| evidence-stack        | DataContent, ListRevealContent  | grid-expand   | stagger-clockwise | headline, body-text, label, number-display | 5    |
+> **주의:** 아래 매핑은 Phase 2B-1에서 지원하는 **bootstrap mapping**이며, family와 content type의 장기적 관계를 고정하는 canonical mapping이 아니다. 향후 Interpretation Engine(Phase 3)이 family → layout/choreography를 동적으로 선택할 수 있어야 한다.
+
+| Family                | Content Type                    | Layout        | Choreography      | Key Primitives                               | Sub-modes          | Task |
+| --------------------- | ------------------------------- | ------------- | ----------------- | -------------------------------------------- | ------------------ | ---- |
+| closing-synthesis     | ClosingContent                  | center-focus  | reveal-sequence   | headline, label                              | —                  | 2    |
+| structural-bridge     | ChapterDividerContent           | center-focus  | reveal-sequence   | headline, body-text, divider, number-display | —                  | 2    |
+| opening-hook          | CoverContent, HighlightContent  | center-focus  | reveal-sequence   | headline, caption, image, body-text          | cover \| highlight | 3    |
+| reflective-anchor     | QuoteContent, SplitQuoteContent | center-focus  | reveal-sequence   | quote-text, caption, divider                 | single \| split    | 3    |
+| mechanism-explanation | FrameworkContent                | radial\*      | stagger-clockwise | headline, body-text                          | —                  | 4    |
+| tension-comparison    | CompareContrastContent          | split-compare | split-reveal      | label, body-text                             | —                  | 5    |
+| evidence-stack        | DataContent, ListRevealContent  | grid-expand   | stagger-clockwise | headline, body-text                          | data \| list       | 5    |
+
+\* mechanism-explanation의 radial + stagger-clockwise는 초기 bootstrap grammar이며, family의 장기적 표현 범위를 제한하지 않는다. 향후 flow, timeline, causal-chain 등 다양한 grammar로 확장 가능.
 
 ## File Structure
 
@@ -1392,6 +1396,53 @@ describe("Phase 2B: all 10 families through composed path", () => {
   it("total composed families count = 10", () => {
     expect(families.length).toBe(10);
   });
+
+  // Compose failure/fallback cases (content insufficient)
+  it("quote with no quoteText falls back", () => {
+    const spec = adaptPresetToSceneSpec(
+      { id: "qt-fail", type: "quote", narrationText: "인용", content: {} },
+      dir,
+      undefined,
+      { composedFamilies: families },
+    );
+    expect(spec.source).toBe("composed");
+    const bp = tryComposeScene(spec, ctx);
+    expect(bp).toBeNull();
+  });
+
+  it("compareContrast with no left/right falls back", () => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "cc-fail",
+        type: "compareContrast",
+        narrationText: "비교",
+        content: {},
+      },
+      dir,
+      undefined,
+      { composedFamilies: families },
+    );
+    expect(spec.source).toBe("composed");
+    const bp = tryComposeScene(spec, ctx);
+    expect(bp).toBeNull();
+  });
+
+  it("data with dataLabel but empty data array falls back", () => {
+    const spec = adaptPresetToSceneSpec(
+      {
+        id: "dt-fail",
+        type: "data",
+        narrationText: "데이터",
+        content: { dataLabel: "라벨", data: [] },
+      },
+      dir,
+      undefined,
+      { composedFamilies: families },
+    );
+    expect(spec.source).toBe("composed");
+    const bp = tryComposeScene(spec, ctx);
+    expect(bp).toBeNull();
+  });
 });
 ```
 
@@ -1429,9 +1480,9 @@ git push origin main
 | 3    | opening-hook + reflective-anchor          | 2         | 8     |
 | 4    | mechanism-explanation                     | 1         | 5     |
 | 5    | tension-comparison + evidence-stack       | 2         | 8     |
-| 6    | COMPOSED_FAMILIES expansion + integration | 0         | 8     |
+| 6    | COMPOSED_FAMILIES expansion + integration | 0         | 11    |
 
-**Total: 8 new files, 3 modified files, ~40 tests**
+**Total: 8 new files, 3 modified files, ~43 tests**
 
 **Result: 10 out of 11 families composed.** Only `transformation-shift` has no content type mapping (no recipe needed until content type exists).
 
@@ -1439,3 +1490,5 @@ git push origin main
 Before Phase 2B:  3/11 families composed (27%)
 After Phase 2B:  10/11 families composed (91%)
 ```
+
+> **Scope clarification:** This sprint increases composed-path **coverage**, not final scene sophistication. Visual refinement, family-specific direction tuning, and expanded layout/choreography vocabulary remain follow-up work (Phase 2B-2, Phase 3).
