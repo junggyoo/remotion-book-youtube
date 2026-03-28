@@ -13,6 +13,7 @@ import { writeFile } from "fs/promises";
 import fs from "fs";
 import path from "path";
 import { execFileSync } from "child_process";
+import { encode } from "@msgpack/msgpack";
 import type { Caption } from "@remotion/captions";
 import { splitKoreanSentences } from "./subtitleGen";
 
@@ -110,21 +111,23 @@ export async function generateFishAudio(
   const model = config.model || "s2-pro";
   const format = config.format || "mp3";
 
+  const body = encode({
+    text,
+    reference_id: config.voiceModelId,
+    format,
+    chunk_length: 200,
+    normalize: true,
+    latency: "normal",
+  });
+
   const resp = await fetch(`${FISH_API_BASE}/v1/tts`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${config.apiKey}`,
-      "Content-Type": "application/json",
+      "Content-Type": "application/msgpack",
       model,
     },
-    body: JSON.stringify({
-      text,
-      reference_id: config.voiceModelId,
-      format,
-      chunk_length: 200,
-      normalize: true,
-      latency: "normal",
-    }),
+    body,
   });
 
   if (!resp.ok) {
