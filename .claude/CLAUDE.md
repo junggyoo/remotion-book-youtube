@@ -57,6 +57,32 @@ C: Final QA 승인 (8단계 후)
 
 ---
 
+## 새 책 영상 생성 워크플로우 (절대 규칙)
+
+> 이 워크플로우는 위 파이프라인의 **Stage 0 (content JSON 생성)** 절차를 정의한다.
+> 파이프라인 Stage 1~8은 오케스트레이터가 자동 처리한다.
+
+사용자가 책 이름을 언급하며 영상 생성을 요청하면:
+
+### 반드시 이 순서를 따른다:
+
+1. `.claude/skills/content-composer/SKILL.md`를 읽고 그 절차를 따른다
+2. book-analyst 에이전트로 BookFingerprint + NarrativePlan을 먼저 생성한다
+3. 그 결과를 기반으로 content JSON을 생성한다 (스키마 검증 필수)
+4. 오케스트레이터를 실행한다:
+   `npx ts-node scripts/dsgs-orchestrate.ts content/books/{id}.json --mode auto --format longform`
+5. Root.tsx를 수동으로 수정하지 않는다 (`scripts/sync-root.ts`가 자동 처리)
+
+### 절대 금지:
+
+- book-analyst를 건너뛰고 바로 content JSON을 작성하는 것
+- 기존 책의 JSON을 복사해서 텍스트만 바꾸는 것
+- generated/ 산출물을 수동으로 작성하는 것
+- 오케스트레이터를 우회하는 것
+- Root.tsx에 수동으로 import/Composition을 추가하는 것
+
+---
+
 ## Beat 시스템 규칙
 
 - 8초+ 씬에는 beats 배열 필수
