@@ -94,7 +94,7 @@ TTS 엔진이 감정을 실을 수 있는 문체적 장치를 활용한다.
 - 논문체/보고서체 평서문 나열 ("~이다", "~것이다" 연속)
 - 모든 문장을 같은 어미로 끝내기 ("~합니다" 5회 연속)
 - 감정 없는 사실 나열 ("A는 B이고, C는 D이며, E는 F입니다")
-- 한 beat에 4문장 이상 (TTS가 감정을 유지하기 어려움)
+- 한 beat에 4문장 이상 비권장 (soft limit — beat 분절 구조에 따라 초과 허용)
 
 ### 씬 타입별 문체 톤
 
@@ -296,7 +296,14 @@ export function resolveBeatNarrationWithEmotions(
 }
 ```
 
-기존 `resolveBeatNarration()`은 그대로 유지한다 (caption 생성 등 태그 없는 원본 텍스트가 필요한 곳에서 사용).
+기존 `resolveBeatNarration()`은 그대로 유지한다 (caption 생성, QA-13A 글자수 budget 검증,
+edge-tts/qwen3 경로 등 태그 없는 원본 텍스트가 필요한 곳에서 사용).
+
+**중요: 엔진별 사용 분기**
+
+- `resolveBeatNarrationWithEmotions()` → Fish Audio 경로에서만 사용
+- `resolveBeatNarration()` → edge-tts, qwen3-tts, caption 생성, QA 글자수 검증에서 사용
+- 이 분기는 `generate-captions.ts`와 `ttsClient.ts`의 엔진 선택 로직에서 적용
 
 ### 4-4. fish-audio-engine.ts 변경
 
@@ -353,25 +360,36 @@ const textForCaptions = scene.beats?.length
   : scene.narrationText;
 ```
 
-Fish Audio 호출 시:
+엔진별 텍스트 선택:
 
 ```typescript
-// 기존: generateViaFishAudio(text, ...) 내부에서 addEmotionTag()
-// 변경: beat emotionTag가 있으면 이미 포함된 텍스트 전달
 const hasBeatsWithEmotions = scene.beats?.some((b) => b.emotionTag) ?? false;
 
-const fishResult = await generateViaFishAudio(
-  textForTTS, // emotionTag 포함된 텍스트
-  audioPath,
-  fishConfig,
-  scene.type,
-  book.narration.speed,
-  { hasBeatsWithEmotions },
-);
+// Fish Audio: emotionTag 포함 텍스트 사용
+if (engine === "fish-audio" && fishConfig) {
+  const fishResult = await generateViaFishAudio(
+    textForTTS,       // emotionTag 포함된 텍스트
+    audioPath,
+    fishConfig,
+    scene.type,
+    book.narration.speed,
+    { hasBeatsWithEmotions },
+  );
+}
+
+// edge-tts / qwen3-tts: 태그 없는 원본 텍스트 사용
+// → [bracket] 태그가 음성으로 읽히는 것을 방지
+if (engine === "edge-tts" || engine === "qwen3-tts") {
+  // textForCaptions 사용 (태그 미포함)
+  await generateViaEdgeTTS(textForCaptions, ...);
+}
 ```
 
-caption 생성 시에는 `textForCaptions` (태그 없는 원본)을 사용하여
-자막에 `[호기심 어린 톤으로]` 같은 태그가 표시되지 않도록 한다.
+**핵심 방어 규칙:** `resolveBeatNarrationWithEmotions()`의 결과(태그 포함 텍스트)는
+Fish Audio 경로에서만 사용한다. edge-tts/qwen3에 태그 포함 텍스트가 전달되면
+`[호기심 어린 톤으로]`가 그대로 음성으로 읽힌다.
+
+caption/자막 생성, QA-13A 글자수 budget 검증에도 항상 `textForCaptions`(태그 미포함)을 사용한다.
 
 ### 4-6. mediaPlanExecutor.ts 버그 수정
 
@@ -461,9 +479,30 @@ Content JSON (content-composer가 오디오북 화법 + emotionTag로 작성)
 
 ---
 
-## 8. 테스트 계획
+## 8. 관련 문서 업데이트
+
+### tts-engine-comparison.md 업데이트 필요
+
+`.claude/skills/subtitle-audio/tts-engine-comparison.md`에서 Fish Audio 항목이 오래됨:
+
+```
+현재: fish-audio-s2 | Free (self-host) | ⚠️ (limited) | Korean support experimental
+실제: Fish Audio S2-Pro (cloud API) + voice cloning + STT, CLAUDE.md에서 기본 엔진으로 선언
+```
+
+이 설계와 함께 해당 문서도 현행화한다:
+
+- self-host vs cloud API(S2-Pro) 구분
+- 한국어 지원 상태를 실측 기반으로 업데이트
+- 감정 태그 지원 여부 컬럼 추가
+
+---
+
+## 9. 테스트 계획
 
 1. **하위 호환 테스트**: emotionTag 없는 기존 content JSON으로 `generate-captions.ts` 실행 — 기존과 동일한 결과 확인
-2. **emotionTag 적용 테스트**: emotionTag가 포함된 테스트 content JSON으로 TTS 생성 — 태그가 오디오에 포함되고, 자막에는 미포함 확인
-3. **mediaPlanExecutor 버그 수정 테스트**: DSGS 파이프라인으로 TTS 생성 시 감정 태그 적용 확인
-4. **A/B 청취 비교**: 동일 narration을 (a) 현재 방식 vs (b) 오디오북 화법 + beat별 태그로 생성하여 품질 비교
+2. **emotionTag 적용 테스트**: emotionTag가 포함된 테스트 content JSON으로 Fish Audio TTS 생성 — 태그가 오디오에 포함되고, 자막에는 미포함 확인
+3. **edge-tts 방어 테스트**: emotionTag가 포함된 content JSON을 `TTS_ENGINE=edge-tts`로 실행 — 태그가 음성으로 읽히지 않는지 확인 (태그 미포함 텍스트가 전달되는지)
+4. **QA-13A budget 검증 테스트**: emotionTag 포함 content JSON의 글자수 검증이 태그 미포함 텍스트 기준으로 동작하는지 확인
+5. **mediaPlanExecutor 버그 수정 테스트**: DSGS 파이프라인으로 TTS 생성 시 감정 태그 적용 확인
+6. **A/B 청취 비교**: 동일 narration을 (a) 현재 방식 vs (b) 오디오북 화법 + beat별 태그로 생성하여 품질 비교
