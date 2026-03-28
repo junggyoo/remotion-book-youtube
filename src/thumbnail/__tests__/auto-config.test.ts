@@ -94,3 +94,56 @@ describe("generateThumbnailConfig", () => {
     expect(result.accentWord).toBe("1% 법칙");
   });
 });
+
+describe("generateThumbnailConfig - real book scenarios", () => {
+  it("generates reasonable config for a business book", () => {
+    const businessFp: BookFingerprint = {
+      genre: "business",
+      structure: "framework",
+      coreFramework: "현금흐름 사분면",
+      keyConceptCount: 4,
+      emotionalTone: ["provocative", "determined"],
+      narrativeArcType: "revelation",
+      urgencyLevel: "high",
+      visualMotifs: ["money", "flow"],
+      spatialMetaphors: ["quadrant"],
+      hookStrategy: "contrarian",
+      entryAngle: "월급쟁이는 절대 부자가 못 된다",
+      uniqueElements: ["부자 아빠 vs 가난한 아빠"],
+      contentMode: "actionable",
+    };
+
+    const result = generateThumbnailConfig(businessFp);
+
+    expect(result.hookText).toBe("월급쟁이는 절대 부자가 못 된다");
+    expect(result.accentWord).toBe("현금흐름 사분면");
+    expect(result.mood).toBe("urgent");
+    expect(result.backgroundStyle).toContain("gold");
+    expect(result.gesture).toContain("X");
+  });
+
+  it("generates reasonable config for a psychology book", () => {
+    const psychFp: BookFingerprint = {
+      genre: "psychology",
+      structure: "narrative",
+      keyConceptCount: 3,
+      emotionalTone: ["curious", "insightful"],
+      narrativeArcType: "exploration",
+      urgencyLevel: "low",
+      visualMotifs: ["mirror", "depth"],
+      spatialMetaphors: ["layers"],
+      hookStrategy: "question",
+      entryAngle: "왜 우리는 스스로를 속이는가",
+      uniqueElements: ["인지 편향"],
+      contentMode: "conceptual",
+    };
+
+    const result = generateThumbnailConfig(psychFp);
+
+    expect(result.hookText).toBe("왜 우리는 스스로를 속이는가");
+    expect(result.accentWord).toBe("인지 편향");
+    expect(result.mood).toBe("confident");
+    expect(result.backgroundStyle).toContain("purple");
+    expect(result.gesture).toContain("턱");
+  });
+});
