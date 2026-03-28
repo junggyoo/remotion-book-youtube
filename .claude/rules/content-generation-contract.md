@@ -45,6 +45,18 @@ Claude Code가 영상 콘텐츠 JSON을 생성할 때 반드시 따르는 절차
 - framework/application: 항목 수 vs beat 수 대응 확인
 - 미달 시 Step 3으로 돌아가 보강
 
+### Step 5.5: Thumbnail 설정
+
+BookFingerprint에서 thumbnail 필드를 자동 생성한다.
+
+- hookText: entryAngle에서 추출 (30자 이내)
+- accentWord: coreFramework 또는 uniqueElements[0]에서 추출
+- expression/gesture: hookStrategy에서 매핑
+- mood: urgencyLevel에서 매핑
+- backgroundStyle: genre에서 기본값 선택
+
+thumbnail 필드가 이미 존재하면 이 단계를 건너뛴다.
+
 ### Step 6: JSON 생성
 
 - 위 결과를 content/books/{book-id}.json으로 출력
@@ -58,6 +70,7 @@ Claude Code가 영상 콘텐츠 JSON을 생성할 때 반드시 따르는 절차
 - 씬별 최소 분량(minChars) 미달 상태로 JSON 완성 금지
 - narration 있는 씬에 durationFrames 직접 명시 금지
 - framework/application에서 항목 수와 beat narration 불일치 금지
+- thumbnail 필드를 수동으로 작성하되 hookText가 entryAngle과 무관한 내용이면 금지
 
 ## CPS 참조
 
