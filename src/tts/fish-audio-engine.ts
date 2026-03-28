@@ -9,13 +9,15 @@
  *   FISH_VOICE_MODEL_ID   — Cloned voice model ID
  */
 
-import { FishAudioClient } from "fish-audio";
 import { writeFile } from "fs/promises";
 import fs from "fs";
 import path from "path";
 import { execFileSync } from "child_process";
 import type { Caption } from "@remotion/captions";
 import { splitKoreanSentences } from "./subtitleGen";
+
+// Fish Audio REST API base URL
+const FISH_API_BASE = "https://api.fish.audio";
 
 // --- Emotion tag mapping ---
 
@@ -105,37 +107,33 @@ export async function generateFishAudio(
   outputPath: string,
   config: FishAudioConfig,
 ): Promise<number> {
-  const client = new FishAudioClient({
-    apiKey: config.apiKey,
-  });
+  const backend = config.backend || "speech-1.6";
+  const format = config.format || "mp3";
 
-  const audio = await client.textToSpeech.convert(
-    {
+  const resp = await fetch(`${FISH_API_BASE}/v1/tts`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${config.apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       text,
       reference_id: config.voiceModelId,
-      format: config.format || "mp3",
+      format,
       chunk_length: 200,
       normalize: true,
       latency: "balanced",
-    },
-    (config.backend || "speech-1.6") as any,
-  );
+      backend,
+    }),
+  });
 
-  // Collect the ReadableStream into a Buffer
-  const reader = audio.getReader();
-  const chunks: Uint8Array[] = [];
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    if (value) chunks.push(value);
+  if (!resp.ok) {
+    const errBody = await resp.text();
+    throw new Error(`Fish Audio API ${resp.status}: ${errBody}`);
   }
-  const totalLength = chunks.reduce((acc, c) => acc + c.length, 0);
-  const buffer = Buffer.alloc(totalLength);
-  let offset = 0;
-  for (const chunk of chunks) {
-    buffer.set(chunk, offset);
-    offset += chunk.length;
-  }
+
+  const arrayBuf = await resp.arrayBuffer();
+  const buffer = Buffer.from(arrayBuf);
 
   const dir = path.dirname(outputPath);
   if (!fs.existsSync(dir)) {

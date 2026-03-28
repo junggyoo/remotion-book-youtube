@@ -9,6 +9,7 @@
  *   assets/tts/manifest.json       — all scene TTS results
  */
 
+import "dotenv/config";
 import { execFileSync } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -17,13 +18,20 @@ import { vttToCaptions } from "../src/tts/vttParser";
 import type { Beat, BeatTimingResolution } from "../src/types";
 import { resolveBeatNarration } from "../src/tts/beatNarrationResolver";
 import { resolveBeatTimings } from "../src/tts/beatTimingResolver";
-import {
-  generateFishAudio,
-  generateCaptionsFromText,
-  addEmotionTag,
-  getFishAudioConfig,
-  type FishAudioConfig,
-} from "../src/tts/fish-audio-engine";
+// Lazy-loaded to avoid ESM crash when fish-audio module isn't compatible
+type FishAudioEngine = typeof import("../src/tts/fish-audio-engine");
+let _fishEngine: FishAudioEngine | null = null;
+async function loadFishEngine(): Promise<FishAudioEngine | null> {
+  if (_fishEngine) return _fishEngine;
+  try {
+    _fishEngine = await import("../src/tts/fish-audio-engine");
+    return _fishEngine;
+  } catch {
+    console.warn("[WARN] fish-audio engine unavailable (ESM compat issue)");
+    return null;
+  }
+}
+type FishAudioConfig = { apiKey: string; voiceModelId: string };
 
 interface BookContent {
   scenes: Array<{
@@ -190,8 +198,10 @@ async function generateViaFishAudio(
   sceneType: string,
 ): Promise<{ success: boolean; durationMs: number }> {
   try {
-    const textWithEmotion = addEmotionTag(text, sceneType);
-    const durationMs = await generateFishAudio(
+    const engine = await loadFishEngine();
+    if (!engine) return { success: false, durationMs: 0 };
+    const textWithEmotion = engine.addEmotionTag(text, sceneType);
+    const durationMs = await engine.generateFishAudio(
       textWithEmotion,
       audioPath,
       config,
@@ -233,8 +243,9 @@ function resolveEngine(
   }
   if (bookEngine === "fish-audio") return "fish-audio";
   if (bookEngine === "qwen3-tts") return "qwen3-tts";
-  // Auto-detect: prefer fish-audio if configured
-  if (getFishAudioConfig()) return "fish-audio";
+  // Auto-detect: prefer fish-audio if API key is configured (env-only check, no SDK)
+  if (process.env.FISH_API_KEY && process.env.FISH_VOICE_MODEL_ID)
+    return "fish-audio";
   return "edge-tts";
 }
 
@@ -256,7 +267,8 @@ async function main() {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
   const engine = resolveEngine(book.narration.ttsEngine);
-  const fishConfig = engine === "fish-audio" ? getFishAudioConfig() : undefined;
+  const fishEngine = engine === "fish-audio" ? await loadFishEngine() : null;
+  const fishConfig = fishEngine ? fishEngine.getFishAudioConfig() : undefined;
 
   if (engine === "fish-audio" && fishConfig) {
     console.log("[INFO] Using fish-audio engine");
@@ -361,7 +373,8 @@ async function main() {
     // - Qwen3/edge-tts: parse VTT file
     let captions: Caption[] = [];
     if (usedFishAudio) {
-      captions = generateCaptionsFromText(text, durationMs);
+      const fe = await loadFishEngine();
+      captions = fe ? fe.generateCaptionsFromText(text, durationMs) : [];
     } else if (fs.existsSync(vttPath)) {
       const vttContent = fs.readFileSync(vttPath, "utf-8");
       captions = vttToCaptions(vttContent);
