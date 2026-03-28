@@ -73,6 +73,12 @@ const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
 
 interface KeyInsightSceneProps extends BaseSceneProps {
   content: KeyInsightContent;
+  resolvedMotion?: {
+    enterPreset: string;
+    emphasisPreset: string;
+    holdFrames: number;
+    staggerDelay: number;
+  };
 }
 
 /**
@@ -208,11 +214,25 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
   content,
   beats,
   captionsFile,
+  resolvedMotion,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showSupportText = !isShorts && !!content.supportText;
+
+  // Direction-aware motion preset selection (falls back to hardcoded defaults)
+  const enterPresetKey = resolvedMotion?.enterPreset ?? "heavy";
+  const emphasisPresetKey = resolvedMotion?.emphasisPreset ?? "punchy";
+  const staggerDelay =
+    resolvedMotion?.staggerDelay ?? motionPresetsData.defaults.staggerFrames;
+  const presetsMap = motionPresetsData.presets as unknown as Record<
+    string,
+    { config?: object }
+  >;
+  const enterConfig =
+    presetsMap[enterPresetKey]?.config ??
+    motionPresetsData.presets.heavy.config;
 
   // P2-3: Load captions for narration sync
   const captions = useCaptions(captionsFile);
@@ -301,7 +321,7 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
     ? spring({
         frame: Math.max(0, frame - supportTextEntry),
         fps,
-        config: motionPresetsData.presets.smooth.config,
+        config: enterConfig,
       })
     : 1;
   const supportTextBlur = interpolate(supportTextSpring, [0, 1], [6, 0]);
@@ -393,8 +413,8 @@ export const KeyInsightScene: React.FC<KeyInsightSceneProps> = ({
                   variant="headlineXL"
                   weight="bold"
                   align="left"
-                  motionPreset="punchy"
-                  staggerDelay={HEADLINE_STAGGER}
+                  motionPreset={emphasisPresetKey as any}
+                  staggerDelay={staggerDelay}
                   delay={getBeatState("headline")?.entryFrame ?? 6}
                   emphasisWord={content.underlineKeyword}
                 />

@@ -122,6 +122,7 @@ const SceneRenderer: React.FC<{
         <KeyInsightScene
           {...baseProps}
           content={scene.content as KeyInsightContent}
+          resolvedMotion={scene.resolvedMotion}
         />
       );
       break;
