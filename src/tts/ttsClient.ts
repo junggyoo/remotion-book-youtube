@@ -554,7 +554,12 @@ export async function generateTTS(
     console.warn(
       `[TTS] Fish Audio failed for scene ${sceneId}, falling back to edge-tts`,
     );
-    return generateTTSViaEdgeTTS(sceneId, text, config, outputDir);
+    return generateTTSViaEdgeTTS(
+      sceneId,
+      text.replace(/\[[^\]]+\]\s*/g, ""),
+      config,
+      outputDir,
+    );
   }
 
   if (engine === "qwen3-tts") {
@@ -563,10 +568,20 @@ export async function generateTTS(
     console.warn(
       `[TTS] Qwen3 failed for scene ${sceneId}, falling back to edge-tts`,
     );
-    return generateTTSViaEdgeTTS(sceneId, text, config, outputDir);
+    return generateTTSViaEdgeTTS(
+      sceneId,
+      text.replace(/\[[^\]]+\]\s*/g, ""),
+      config,
+      outputDir,
+    );
   }
 
-  return generateTTSViaEdgeTTS(sceneId, text, config, outputDir);
+  return generateTTSViaEdgeTTS(
+    sceneId,
+    text.replace(/\[[^\]]+\]\s*/g, ""),
+    config,
+    outputDir,
+  );
 }
 
 /**
@@ -604,7 +619,12 @@ export async function generateTTSWithCaptions(
     console.warn(
       `[TTS] Fish Audio failed for scene ${sceneId}, falling back to edge-tts`,
     );
-    return generateTTSWithCaptionsViaEdgeTTS(sceneId, text, config, outputDir);
+    return generateTTSWithCaptionsViaEdgeTTS(
+      sceneId,
+      text.replace(/\[[^\]]+\]\s*/g, ""),
+      config,
+      outputDir,
+    );
   }
 
   if (engine === "qwen3-tts") {
@@ -617,8 +637,18 @@ export async function generateTTSWithCaptions(
     console.warn(
       `[TTS] Qwen3 failed for scene ${sceneId}, falling back to edge-tts`,
     );
-    return generateTTSWithCaptionsViaEdgeTTS(sceneId, text, config, outputDir);
+    return generateTTSWithCaptionsViaEdgeTTS(
+      sceneId,
+      text.replace(/\[[^\]]+\]\s*/g, ""),
+      config,
+      outputDir,
+    );
   }
 
-  return generateTTSWithCaptionsViaEdgeTTS(sceneId, text, config, outputDir);
+  return generateTTSWithCaptionsViaEdgeTTS(
+    sceneId,
+    text.replace(/\[[^\]]+\]\s*/g, ""),
+    config,
+    outputDir,
+  );
 }

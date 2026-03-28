@@ -31,10 +31,13 @@ export async function executeMediaPlan(
   blueprint: SceneBlueprint,
   outputDir: string,
   fps: number = DEFAULT_FPS,
-  sceneType?: string,
 ): Promise<MediaPlanResult> {
   const { mediaPlan } = blueprint;
   const { narrationText, audioPlan } = mediaPlan;
+
+  // Derive sceneType from blueprint for emotion tags
+  const sceneType =
+    (blueprint as any).fallbackPreset || (blueprint as any).sceneType || "";
 
   // Build NarrationConfig from audioPlan
   const config: NarrationConfig = {
