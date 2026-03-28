@@ -4,6 +4,7 @@ import path from "path";
 import type { ThumbnailConfig } from "./types";
 import type { BookMetadata } from "@/types";
 import { buildPrompt } from "./prompt-builder";
+import { compositeText } from "./composite";
 
 // --- Face image loading ---
 
@@ -123,8 +124,9 @@ export async function generateThumbnail(
 
       for (const part of parts) {
         if (part.inlineData?.data) {
-          const imageBuffer = Buffer.from(part.inlineData.data, "base64");
-          return saveThumbnail(outputBase, metadata.id, imageBuffer, prompt);
+          const rawImage = Buffer.from(part.inlineData.data, "base64");
+          const composited = await compositeText(rawImage, thumbnail.hookText);
+          return saveThumbnail(outputBase, metadata.id, composited, prompt);
         }
       }
 
