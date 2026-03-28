@@ -184,8 +184,10 @@ export function generateCaptionsFromText(
 
     for (const word of words) {
       const wordDuration = (word.length / wordChars) * sentenceDuration;
+      // Add space prefix to match VTT caption format (except for very first word)
+      const prefix = captions.length > 0 ? " " : "";
       captions.push({
-        text: word,
+        text: prefix + word,
         startMs: Math.round(wordMs),
         endMs: Math.round(wordMs + wordDuration),
         timestampMs: Math.round(wordMs),
