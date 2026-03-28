@@ -685,7 +685,7 @@ export interface VideoNarrativePlan {
 export interface SceneBlueprint {
   id: string;
   intent: string;
-  origin: "preset" | "synthesized";
+  origin: "preset" | "synthesized" | "composed";
   layout: LayoutType;
   layoutConfig?: Record<string, unknown>;
   elements: VCLElement[];
