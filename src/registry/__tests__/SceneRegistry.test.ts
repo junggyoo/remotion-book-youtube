@@ -248,3 +248,130 @@ describe("SceneRegistry", () => {
     expect(promoted).toHaveLength(1);
   });
 });
+
+// ---------------------------------------------------------------------------
+// InventionPromptContract Tests
+// ---------------------------------------------------------------------------
+
+import {
+  buildInventionPrompt,
+  extractInventionRecord,
+} from "../InventionPromptContract";
+import type { SceneGap } from "@/types";
+import type { BlueprintSnapshot } from "../types";
+
+describe("InventionPromptContract", () => {
+  const sampleGap: SceneGap = {
+    segment: "core",
+    slotIndex: 3,
+    bestPresetMatch: {
+      segment: "core",
+      slotIndex: 3,
+      sceneType: "framework",
+      content: {
+        frameworkLabel: "습관 루프",
+        items: [
+          { label: "신호", description: "행동을 촉발하는 자극" },
+          { label: "열망", description: "변화를 향한 동기" },
+          { label: "반응", description: "실제 습관 행동" },
+          { label: "보상", description: "행동 강화 요소" },
+        ],
+      },
+      confidence: 0.4,
+      scoreBreakdown: {
+        delivery: 0.5,
+        structure: 0.3,
+        contentFit: 0.4,
+        layout: 0.3,
+        explanation: "cyclic-flow not supported by framework preset",
+      },
+    },
+    gapReason: "requiredCapabilities not met: cyclic-flow",
+    requiredCapabilities: ["cyclic-flow"],
+    priority: "must",
+    intent: "습관 루프 시각화",
+  };
+
+  it("produces a structured prompt with gap context", () => {
+    const prompt = buildInventionPrompt(sampleGap, "atomic-habits-2024");
+
+    // Basic identity
+    expect(prompt.gapId).toContain("core-3");
+    expect(prompt.bookId).toBe("atomic-habits-2024");
+
+    // Constraints include brand rules
+    expect(prompt.constraints).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining("60"), // MAX_HEADLINE_CHARS
+        expect.stringContaining("2"), // MAX_ACCENT_COLORS
+      ]),
+    );
+
+    // Required fields for blueprint generation
+    expect(prompt.requiredFields).toEqual(
+      expect.arrayContaining([
+        "layout",
+        "elements",
+        "choreography",
+        "fallbackPreset",
+      ]),
+    );
+
+    // Family inferred from capabilities
+    expect(prompt.family).toBe("mechanism-explanation");
+
+    // Intent carried from gap
+    expect(prompt.intent).toBe("습관 루프 시각화");
+
+    // Unmet capabilities forwarded
+    expect(prompt.unmetCapabilities).toEqual(["cyclic-flow"]);
+
+    // Fallback preset from bestPresetMatch
+    expect(prompt.fallbackPreset).toBe("framework");
+  });
+
+  it("extracts invention record with derivedFrom traceability", () => {
+    const snapshot: BlueprintSnapshot = {
+      layout: "grid-expand",
+      choreography: "stagger-clockwise",
+      elementCount: 5,
+      motionPreset: "heavy",
+    };
+
+    const record = extractInventionRecord(
+      sampleGap,
+      "atomic-habits-2024",
+      snapshot,
+    );
+
+    // Identity
+    expect(record.gapId).toContain("core-3");
+    expect(record.bookId).toBe("atomic-habits-2024");
+    expect(record.id).toMatch(/^inv-core-3-\d+$/);
+
+    // Family inferred
+    expect(record.family).toBe("mechanism-explanation");
+
+    // Status
+    expect(record.status).toBe("invented");
+
+    // Expiry is ~30 days from now
+    const now = new Date();
+    const expires = new Date(record.expiresAt);
+    const diffDays =
+      (expires.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+    expect(diffDays).toBeGreaterThan(29);
+    expect(diffDays).toBeLessThan(31);
+
+    // Blueprint snapshot
+    expect(record.blueprintSnapshot).toEqual(snapshot);
+
+    // derivedFrom traceability (D8)
+    expect(record.derivedFrom).toBeDefined();
+    expect(record.derivedFrom!.gapCapabilities).toEqual(["cyclic-flow"]);
+    expect(record.derivedFrom!.fallbackPreset).toBe("framework");
+
+    // Validation not yet run
+    expect(record.validationResult).toBeNull();
+  });
+});
