@@ -14,7 +14,7 @@ const TEXT_RATIOS = {
   fontSize: 0.075, // 96/1280
   fillColor: FILL_COLOR,
   strokeColor: STROKE_COLOR,
-  strokeWidth: 0.008, // 10.2/1280 — bolder outline
+  strokeWidth: 0.0025, // ~3px at 1280 — thin clean outline
   x: 0.047, // 60/1280
   yStart: 0.167, // 120/720 (relative to height)
   lineHeight: 0.16, // 115/720 (relative to height)
@@ -65,7 +65,6 @@ function renderLine(
   line: string,
   ty: number,
   width: number,
-  xOffset: number,
   accentWord?: string,
   accentColor?: string,
 ): string {
@@ -73,19 +72,12 @@ function renderLine(
   const fontSize = Math.round(width * TEXT_RATIOS.fontSize);
   const strokeW = Math.round(width * TEXT_RATIOS.strokeWidth);
   const x = Math.round(width * TEXT_RATIOS.x);
-
-  if (xOffset > 0) {
-    const shadowAttrs = `font-family="${fontFamily}" font-weight="${fontWeight}" font-size="${fontSize}" fill="${strokeColor}" stroke="${strokeColor}" stroke-width="${strokeW + 2}" paint-order="stroke fill" opacity="0.5"`;
-    return `<text x="${x}" y="${ty}" ${shadowAttrs}>${escapeXml(line)}</text>`;
-  }
-
-  const baseAttrs = `font-family="${fontFamily}" font-weight="${fontWeight}" font-size="${fontSize}" stroke="${strokeColor}" stroke-width="${strokeW}" paint-order="stroke fill"`;
+  const baseAttrs = `font-family="${fontFamily}" font-weight="${fontWeight}" font-size="${fontSize}" stroke="${strokeColor}" stroke-width="${strokeW}" paint-order="stroke fill" filter="url(#textShadow)"`;
 
   if (!accentWord || !accentColor || !line.includes(accentWord)) {
     return `<text x="${x}" y="${ty}" ${baseAttrs} fill="${fillColor}">${escapeXml(line)}</text>`;
   }
 
-  // Split line around accent word and use tspan for coloring
   const idx = line.indexOf(accentWord);
   const before = line.slice(0, idx);
   const after = line.slice(idx + accentWord.length);
@@ -103,36 +95,22 @@ function createTextSvg(
   const yStart = Math.round(height * TEXT_RATIOS.yStart);
   const lineHeight = Math.round(height * TEXT_RATIOS.lineHeight);
   const lines = wrapText(hookText, TEXT_RATIOS.maxCharsPerLine);
-  const shadowOffset = Math.round(width * 0.003);
+  const shadowBlur = Math.round(width * 0.004);
 
-  const shadowElements = lines
+  const textElements = lines
     .map((line, i) =>
-      renderLine(
-        line,
-        yStart + i * lineHeight + shadowOffset,
-        width,
-        shadowOffset,
-      ),
-    )
-    .join("\n");
-
-  const mainElements = lines
-    .map((line, i) =>
-      renderLine(
-        line,
-        yStart + i * lineHeight,
-        width,
-        0,
-        accentWord,
-        accentColor,
-      ),
+      renderLine(line, yStart + i * lineHeight, width, accentWord, accentColor),
     )
     .join("\n");
 
   const svg = `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-      ${shadowElements}
-      ${mainElements}
+      <defs>
+        <filter id="textShadow" x="-5%" y="-5%" width="110%" height="120%">
+          <feDropShadow dx="3" dy="3" stdDeviation="${shadowBlur}" flood-color="${TEXT_RATIOS.strokeColor}" flood-opacity="0.7"/>
+        </filter>
+      </defs>
+      ${textElements}
     </svg>
   `;
 
