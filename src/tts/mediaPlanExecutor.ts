@@ -31,6 +31,7 @@ export async function executeMediaPlan(
   blueprint: SceneBlueprint,
   outputDir: string,
   fps: number = DEFAULT_FPS,
+  sceneType?: string,
 ): Promise<MediaPlanResult> {
   const { mediaPlan } = blueprint;
   const { narrationText, audioPlan } = mediaPlan;
@@ -49,6 +50,7 @@ export async function executeMediaPlan(
     narrationText,
     config,
     outputDir,
+    sceneType,
   );
 
   if (ttsResult) {
