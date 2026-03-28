@@ -67,6 +67,9 @@ export const BookArtDirectionSchema = z.object({
   layoutBias: z.enum(["centered", "asymmetric", "grid-heavy", "flow"]),
   motionCharacter: z.enum(["precise", "fluid", "weighted", "snappy"]),
   typographyMood: z.enum(["editorial", "technical", "warm", "bold"]),
+  revealDensity: z.enum(["sparse", "moderate", "dense"]).optional(),
+  simultaneousMotionCap: z.number().int().min(1).max(5).optional(),
+  emphasisStyle: z.enum(["text-first", "diagram-first", "balanced"]).optional(),
 });
 
 // 03. Storyboard
@@ -96,6 +99,9 @@ export const StoryboardSceneSchema = z.object({
   renderMode: z.enum(["preset", "blueprint"]),
   presetSceneType: z.string().optional(),
   blueprintId: z.string().optional(),
+  primaryFocus: z
+    .enum(["headline", "image", "diagram", "quote", "data", "list", "steps"])
+    .optional(),
 });
 
 export const StoryboardPlanSchema = z.object({

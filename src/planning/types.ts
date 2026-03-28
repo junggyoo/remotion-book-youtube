@@ -52,6 +52,12 @@ export interface BookArtDirection {
   layoutBias: "centered" | "asymmetric" | "grid-heavy" | "flow";
   motionCharacter: "precise" | "fluid" | "weighted" | "snappy";
   typographyMood: "editorial" | "technical" | "warm" | "bold";
+  /** P2-0: 요소 등장 밀도 — stagger delay, 동시 반응 수 제어 */
+  revealDensity?: "sparse" | "moderate" | "dense";
+  /** P2-0: 동시 움직임 상한. 기본 2 */
+  simultaneousMotionCap?: number;
+  /** P2-0: emphasis 시 우선 반응 채널 */
+  emphasisStyle?: "text-first" | "diagram-first" | "balanced";
 }
 
 // ============================================================
@@ -79,6 +85,15 @@ export interface StoryboardScene {
   renderMode: "preset" | "blueprint";
   presetSceneType?: SceneType;
   blueprintId?: string;
+  /** P2-0: 이 씬에서 시선이 가장 먼저 향하는 요소 */
+  primaryFocus?:
+    | "headline"
+    | "image"
+    | "diagram"
+    | "quote"
+    | "data"
+    | "list"
+    | "steps";
 }
 
 export type VisualFunction =

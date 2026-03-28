@@ -192,7 +192,50 @@ const GENRE_TYPOGRAPHY: Record<GenreKey, BookArtDirection["typographyMood"]> = {
 };
 
 // ============================================================
-// 5. VisualMotifs + SpatialMetaphors → VisualMetaphors
+// 5. Genre → Motion Direction (P2-0)
+// ============================================================
+
+interface MotionDirectionSpec {
+  revealDensity: "sparse" | "moderate" | "dense";
+  simultaneousMotionCap: number;
+  emphasisStyle: "text-first" | "diagram-first" | "balanced";
+}
+
+const GENRE_MOTION_DIRECTION: Record<GenreKey, MotionDirectionSpec> = {
+  selfHelp: {
+    revealDensity: "sparse",
+    simultaneousMotionCap: 2,
+    emphasisStyle: "text-first",
+  },
+  psychology: {
+    revealDensity: "sparse",
+    simultaneousMotionCap: 2,
+    emphasisStyle: "text-first",
+  },
+  business: {
+    revealDensity: "moderate",
+    simultaneousMotionCap: 2,
+    emphasisStyle: "balanced",
+  },
+  philosophy: {
+    revealDensity: "sparse",
+    simultaneousMotionCap: 1,
+    emphasisStyle: "text-first",
+  },
+  science: {
+    revealDensity: "moderate",
+    simultaneousMotionCap: 3,
+    emphasisStyle: "diagram-first",
+  },
+  ai: {
+    revealDensity: "moderate",
+    simultaneousMotionCap: 2,
+    emphasisStyle: "balanced",
+  },
+};
+
+// ============================================================
+// 6. VisualMotifs + SpatialMetaphors → VisualMetaphors
 // ============================================================
 
 interface VisualMetaphorEntry {
@@ -286,6 +329,7 @@ function composeArtDirection(
     layoutBias: STRUCTURE_LAYOUT[fingerprint.structure],
     motionCharacter: resolveMotionCharacter(tones),
     typographyMood: GENRE_TYPOGRAPHY[fingerprint.genre],
+    ...GENRE_MOTION_DIRECTION[fingerprint.genre],
   };
 }
 
