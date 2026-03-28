@@ -848,6 +848,14 @@ export interface Beat {
    * "emphasis"는 이미 visible인 요소에 강조 효과만 추가.
    */
   transition?: "enter" | "replace" | "emphasis";
+
+  /**
+   * Fish Audio S2 감정 태그. [bracket] 문법.
+   * 예: "[호기심 어린 톤으로]", "[pause]", "[emphasis]"
+   * Fish Audio 경로에서만 TTS 텍스트에 삽입된다.
+   * edge-tts/qwen3에서는 무시된다.
+   */
+  emotionTag?: string;
 }
 
 /**

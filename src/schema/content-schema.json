@@ -470,6 +470,10 @@
           "type": "string",
           "enum": ["enter", "replace", "emphasis"],
           "default": "enter"
+        },
+        "emotionTag": {
+          "type": "string",
+          "description": "Fish Audio S2 [bracket] 감정 태그. 예: '[호기심 어린 톤으로]', '[pause]'. Fish Audio 경로에서만 사용."
         }
       }
     },
