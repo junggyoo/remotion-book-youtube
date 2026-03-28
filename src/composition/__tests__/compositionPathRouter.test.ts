@@ -55,7 +55,7 @@ describe("shouldCompose", () => {
     expect(shouldCompose(spec)).toBe(false);
   });
 
-  it("returns false for source:composed without registered recipe (opening-hook)", () => {
+  it("returns true for source:composed with registered recipe (opening-hook)", () => {
     const spec = makeSpec({
       id: "oh-01",
       family: "opening-hook",
@@ -63,7 +63,7 @@ describe("shouldCompose", () => {
       confidence: 1.0,
       content: { headline: "훅" },
     });
-    expect(shouldCompose(spec)).toBe(false);
+    expect(shouldCompose(spec)).toBe(true);
   });
 
   it("returns false when confidence < 0.6", () => {
