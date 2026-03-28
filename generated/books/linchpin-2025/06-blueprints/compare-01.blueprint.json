@@ -1,0 +1,148 @@
+{
+  "id": "compare-01",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "left"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "right"
+      }
+    },
+    {
+      "id": "compareContrast-divider",
+      "type": "divider",
+      "props": {
+        "layer": 30,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "compareContrast-labels-left",
+      "type": "label",
+      "props": {
+        "text": "공장형 인재",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
+      }
+    },
+    {
+      "id": "compareContrast-labels-right",
+      "type": "label",
+      "props": {
+        "text": "린치핀",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "지시 대기 → 매뉴얼 실행 → 실수 회피 → 누구든 대체 가능",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "문제 발견 → 창의적 판단 → 실패 감수 → 대체 불가능한 가치",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "before",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "after",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
+      }
+    }
+  ],
+  "choreography": "split-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1338,
+  "mediaPlan": {
+    "narrationText": "여기서 핵심적인 차이를 짚어봅시다. 공장형 인재는 지시를 기다립니다. 위에서 시키면 그대로 실행하고, 매뉴얼을 따르며, 실수를 피하는 데 집중합니다. 안전하고 예측 가능하지만, 그래서 누구든 대신할 수 있습니다. 더 싼 인건비, 더 젊은 신입, 심지어 자동화 프로그램까지. 반면 린치핀은 완전히 다릅니다. 스스로 문제를 발견하고, 매뉴얼이 없는 상황에서 자기만의 판단을 내립니다. 실패를 감수하면서도 새로운 가치를 만들어냅니다. 이런 사람은 이력서로 설명할 수 없고, 알고리즘으로 대체할 수 없습니다. 바로 그래서 대체 불가능한 겁니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

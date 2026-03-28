@@ -1,0 +1,82 @@
+{
+  "id": "insight-01",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "빠지면 무너지는 핵심, 린치핀",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "린치핀"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "수레바퀴의 작은 핀처럼, 조직의 핵심 연결점이 되는 사람. 직급이 아니라 대체 불가능한 가치를 만드는 사람입니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1338,
+  "mediaPlan": {
+    "narrationText": "린치핀이 뭘까요? 수레바퀴를 떠올려보세요. 커다란 나무 바퀴 한가운데 아주 작은 핀 하나가 박혀 있습니다. 눈에 잘 띄지도 않는 이 핀이 빠지면 바퀴 전체가 분해됩니다. 수레는 멈추고, 짐은 쏟아지죠. 린치핀은 바로 그 핀입니다. 조직에서 이 사람이 빠지면 프로젝트가 흔들리고, 팀의 방향성이 무너지는 사람. 직급이 높아서가 아닙니다. 그 사람만이 만들어내는 연결과 판단과 가치가 대체 불가능하기 때문입니다. 세스 고딘은 확신합니다. 모든 조직에는 린치핀이 반드시 필요하고, 중요한 건 누구든 린치핀이 될 수 있다는 사실입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 시키는 일만 하면 안전할까?",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "시키는 일만 하면 안전할까?",
+        "role": "headline"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1728,
+  "mediaPlan": {
+    "narrationText": "회사에서 시키는 일만 열심히 하면 안전할까요? 많은 사람들이 그렇게 믿습니다. 열심히 하면 인정받고, 꾸준히 하면 승진하고, 충실하면 해고되지 않는다고요. 하지만 세스 고딘은 정반대로 말합니다. 시키는 일만 하는 사람이야말로 가장 먼저 대체됩니다. 매뉴얼대로 움직이는 사람은 더 싼 비용의 누군가로 언제든 교체할 수 있으니까요. 그렇다면 절대 대체되지 않는 사람은 도대체 무엇이 다른 걸까요?",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

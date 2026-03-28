@@ -1,0 +1,81 @@
+{
+  "id": "closing-01",
+  "intent": "Closing recap with brand label and optional CTA",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "closing-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "closing-recapStatement",
+      "type": "headline",
+      "props": {
+        "text": "내일, 시키지 않은 일 하나를 스스로 하세요",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM"
+      }
+    },
+    {
+      "id": "closing-brandLabel",
+      "type": "label",
+      "props": {
+        "text": "Editorial Signal",
+        "layer": 40,
+        "tokenRef": "typeScale.label"
+      }
+    },
+    {
+      "id": "closing-cta",
+      "type": "body-text",
+      "props": {
+        "text": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "layer": 35,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1008,
+  "mediaPlan": {
+    "narrationText": "내일 출근하면 딱 한 가지만 해보세요. 시키지 않은 일 하나를 스스로 찾아서 해보는 겁니다. 그 작은 시도 하나가 당신을 대체 불가능한 린치핀으로 만드는 첫 걸음이 됩니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 더 많은 책의 핵심 인사이트로 다음 영상에서 찾아뵙겠습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "bookId": "linchpin-2025",
+  "totalScenes": 11,
+  "estimatedDurationSeconds": 480.2000000000001,
+  "scenes": [
+    {
+      "sceneId": "hook-01",
+      "order": 0,
+      "purpose": "시선을 사로잡는 후크: 시키는 일만 하면 안전할까?",
+      "narrativeGoal": "회사에서 시키는 일만 열심히 하면 안전할까요",
+      "visualFunction": "hook",
+      "visualIntent": "강렬한 텍스트 등장, 키워드 강조",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "시키는 일만 하면 안전할까?",
+        "가장 먼저 대체되는 사람의 조건"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "blueprint",
+      "blueprintId": "hook-01"
+    },
+    {
+      "sceneId": "cover-01",
+      "order": 1,
+      "purpose": "책 표지와 브랜드 소개",
+      "narrativeGoal": "세스 고딘의 린치핀",
+      "visualFunction": "transition",
+      "visualIntent": "표지 이미지 중심 레이아웃, 브랜드 라벨 배치",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "린치핀",
+        "세스 고딘"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "cover"
+    },
+    {
+      "sceneId": "insight-01",
+      "order": 2,
+      "purpose": "핵심 인사이트 전달: 빠지면 무너지는 핵심, 린치핀",
+      "narrativeGoal": "린치핀이 뭘까요",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "빠지면 무너지는 핵심, 린치핀"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "chapter-01",
+      "order": 3,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "그렇다면 린치핀은 어떻게 만들어지는 걸까요",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 19.2,
+      "onScreenText": [
+        "린치핀의 3요소"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "framework-01",
+      "order": 4,
+      "purpose": "핵심 프레임워크 순차 공개: 린치핀의 3요소",
+      "narrativeGoal": "린치핀의 첫 번째 요소는 예술입니다",
+      "visualFunction": "framework",
+      "visualIntent": "항목 stagger reveal, 번호 배지 + 제목 + 설명",
+      "layoutMode": "grid-expand",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "린치핀의 3요소",
+        "예술 (Art)",
+        "선물 (Gift)",
+        "감정노동 (Emotional Labor)"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "framework"
+    },
+    {
+      "sceneId": "compare-01",
+      "order": 5,
+      "purpose": "대비를 통한 이해 강화",
+      "narrativeGoal": "여기서 핵심적인 차이를 짚어봅시다",
+      "visualFunction": "compare",
+      "visualIntent": "좌우 분할 패널, 순차 공개",
+      "layoutMode": "split-compare",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "공장형 인재",
+        "린치핀",
+        "지시 대기 → 매뉴얼 실행 → 실수 회피 → 누구든 대체 가능",
+        "문제 발견 → 창의적 판단 → 실패 감수 → 대체 불가능한 가치"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
+    },
+    {
+      "sceneId": "insight-02",
+      "order": 6,
+      "purpose": "핵심 인사이트 전달: 도마뱀 뇌가 당신을 멈추게 한다",
+      "narrativeGoal": "그런데 왜 대부분의 사람은 린치핀이 되지 못할까요",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "도마뱀 뇌가 당신을 멈추게 한다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "quote-01",
+      "order": 7,
+      "purpose": "핵심 명언으로 감정적 임팩트: 평범함의 반대는 우수함이 아니다. 독특함이다.",
+      "narrativeGoal": "세스 고딘은 이 책에서 잊을 수 없는 한마디를 남깁니다",
+      "visualFunction": "quote",
+      "visualIntent": "serif 서체 인용문 중앙 배치, texture 배경",
+      "layoutMode": "quote-hold",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "평범함의 반대는 우수함이 아니다. 독특함이다."
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "quote"
+    },
+    {
+      "sceneId": "application-01",
+      "order": 8,
+      "purpose": "실천 방법 제시",
+      "narrativeGoal": "그렇다면 오늘부터 어떻게 린치핀이 될 수 있을까요",
+      "visualFunction": "process",
+      "visualIntent": "anchor statement 후 step 순차 공개",
+      "layoutMode": "left-anchor",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "오늘부터 린치핀이 되는 3가지 실천법",
+        "매뉴얼 밖으로 나가기",
+        "먼저 주기",
+        "도마뱀 뇌 무시하기"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "application"
+    },
+    {
+      "sceneId": "insight-recap",
+      "order": 9,
+      "purpose": "핵심 인사이트 전달: 부품이 아니라 핀이 되세요",
+      "narrativeGoal": "정리하겠습니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 44.6,
+      "onScreenText": [
+        "부품이 아니라 핀이 되세요"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "closing-01",
+      "order": 10,
+      "purpose": "행동 촉구 + CTA",
+      "narrativeGoal": "내일 출근하면 딱 한 가지만 해보세요",
+      "visualFunction": "compress-recap",
+      "visualIntent": "recap statement 중앙 + CTA 텍스트 하단",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 33.6,
+      "onScreenText": [
+        "내일, 시키지 않은 일 하나를 스스로 하세요",
+        "구독과 좋아요로 더 많은 인사이트를 받아보세요"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "closing"
+    }
+  ]
+}

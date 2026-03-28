@@ -1,0 +1,559 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "linchpin-2025",
+    "title": "린치핀",
+    "author": "세스 고딘",
+    "originalTitle": "Linchpin",
+    "genre": "selfHelp",
+    "coverImageUrl": "covers/linchpin-cover.png",
+    "publishYear": 2010,
+    "tags": ["자기계발", "커리어", "대체불가", "예술", "선물경제", "감정노동"]
+  },
+  "production": {
+    "format": "longform",
+    "targetDurationSeconds": 480,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "edge-tts",
+    "speed": 1,
+    "pitch": "+0Hz"
+  },
+  "audio": {
+    "bgmTrack": "sounds/calm-ambient-loop.mp3",
+    "bgmVolume": 0.12
+  },
+  "scenes": [
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "narrationText": "회사에서 시키는 일만 열심히 하면 안전할까요? 많은 사람들이 그렇게 믿습니다. 열심히 하면 인정받고, 꾸준히 하면 승진하고, 충실하면 해고되지 않는다고요. 하지만 세스 고딘은 정반대로 말합니다. 시키는 일만 하는 사람이야말로 가장 먼저 대체됩니다. 매뉴얼대로 움직이는 사람은 더 싼 비용의 누군가로 언제든 교체할 수 있으니까요. 그렇다면 절대 대체되지 않는 사람은 도대체 무엇이 다른 걸까요?",
+      "content": {
+        "mainText": "시키는 일만 하면 안전할까?",
+        "subText": "가장 먼저 대체되는 사람의 조건",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "회사에서 시키는 일만 열심히 하면 안전할까요? 많은 사람들이 그렇게 믿습니다. 열심히 하면 인정받고, 꾸준히 하면 승진하고, 충실하면 해고되지 않는다고요.",
+          "activates": ["mainText"],
+          "emphasisTargets": ["시키는 일", "안전"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "evidence",
+          "startRatio": 0.35,
+          "endRatio": 0.7,
+          "narrationText": "하지만 세스 고딘은 정반대로 말합니다. 시키는 일만 하는 사람이야말로 가장 먼저 대체됩니다. 매뉴얼대로 움직이는 사람은 더 싼 비용의 누군가로 언제든 교체할 수 있으니까요.",
+          "activates": ["subText"],
+          "emphasisTargets": ["대체됩니다", "교체"],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "그렇다면 절대 대체되지 않는 사람은 도대체 무엇이 다른 걸까요?",
+          "activates": ["mainText"],
+          "emphasisTargets": ["대체되지 않는"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "contrarian hook 3단계: 통념 나열 → 반박 근거 → 호기심 전환",
+        "evidenceDecision": "매뉴얼/교체 논리는 직관적 — beat 내 소화",
+        "densityDecision": "3-beat — 약 30초, highlight 씬 표준",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "세스 고딘의 린치핀. 전 세계 마케팅의 대가가 직장인에게 던지는 도발적인 질문입니다. 당신은 대체 가능한 부품입니까, 아니면 없어서는 안 될 존재입니까. 이 책의 핵심을 지금부터 알아봅니다.",
+      "content": {
+        "title": "린치핀",
+        "subtitle": "대체 불가능한 존재가 되는 법",
+        "author": "세스 고딘",
+        "coverImageUrl": "covers/linchpin-cover.png",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "세스 고딘의 린치핀. 전 세계 마케팅의 대가가 직장인에게 던지는 도발적인 질문입니다.",
+          "activates": ["title", "subtitle", "author"],
+          "emphasisTargets": ["린치핀"],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "당신은 대체 가능한 부품입니까, 아니면 없어서는 안 될 존재입니까. 이 책의 핵심을 지금부터 알아봅니다.",
+          "activates": ["brandLabel"],
+          "emphasisTargets": ["대체 가능", "없어서는 안 될"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "저자 소개와 핵심 질문 분리",
+        "evidenceDecision": "해당 없음 — cover 씬",
+        "densityDecision": "2-beat — 약 15초, cover 표준",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-01",
+      "type": "keyInsight",
+      "narrationText": "린치핀이 뭘까요? 수레바퀴를 떠올려보세요. 커다란 나무 바퀴 한가운데 아주 작은 핀 하나가 박혀 있습니다. 눈에 잘 띄지도 않는 이 핀이 빠지면 바퀴 전체가 분해됩니다. 수레는 멈추고, 짐은 쏟아지죠. 린치핀은 바로 그 핀입니다. 조직에서 이 사람이 빠지면 프로젝트가 흔들리고, 팀의 방향성이 무너지는 사람. 직급이 높아서가 아닙니다. 그 사람만이 만들어내는 연결과 판단과 가치가 대체 불가능하기 때문입니다. 세스 고딘은 확신합니다. 모든 조직에는 린치핀이 반드시 필요하고, 중요한 건 누구든 린치핀이 될 수 있다는 사실입니다.",
+      "content": {
+        "headline": "빠지면 무너지는 핵심, 린치핀",
+        "supportText": "수레바퀴의 작은 핀처럼, 조직의 핵심 연결점이 되는 사람. 직급이 아니라 대체 불가능한 가치를 만드는 사람입니다.",
+        "underlineKeyword": "린치핀",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "insight1-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "린치핀이 뭘까요? 수레바퀴를 떠올려보세요. 커다란 나무 바퀴 한가운데 아주 작은 핀 하나가 박혀 있습니다. 눈에 잘 띄지도 않는 이 핀이 빠지면 바퀴 전체가 분해됩니다. 수레는 멈추고, 짐은 쏟아지죠. 린치핀은 바로 그 핀입니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["핀", "분해됩니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight1-b2",
+          "role": "support",
+          "startRatio": 0.35,
+          "endRatio": 0.7,
+          "narrationText": "조직에서 이 사람이 빠지면 프로젝트가 흔들리고, 팀의 방향성이 무너지는 사람. 직급이 높아서가 아닙니다. 그 사람만이 만들어내는 연결과 판단과 가치가 대체 불가능하기 때문입니다.",
+          "activates": ["supportText"],
+          "emphasisTargets": ["연결", "판단", "대체 불가능"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight1-b3",
+          "role": "recap",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "세스 고딘은 확신합니다. 모든 조직에는 린치핀이 반드시 필요하고, 중요한 건 누구든 린치핀이 될 수 있다는 사실입니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["누구든"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "메타포 설명 → 의미 해석 → 핵심 메시지 3단계",
+        "evidenceDecision": "수레바퀴 메타포는 비유적 — evidenceCard 불필요",
+        "densityDecision": "3-beat — 약 40초, 핵심 개념 도입에 충분",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "그렇다면 린치핀은 어떻게 만들어지는 걸까요? 타고나는 게 아닙니다. 세스 고딘이 제시하는 세 가지 핵심 요소를 하나씩 살펴보겠습니다.",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "린치핀의 3요소",
+        "chapterSubtitle": "예술, 선물, 감정노동"
+      },
+      "beats": [
+        {
+          "id": "chapter-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 1,
+          "narrationText": "그렇다면 린치핀은 어떻게 만들어지는 걸까요? 타고나는 게 아닙니다. 세스 고딘이 제시하는 세 가지 핵심 요소를 하나씩 살펴보겠습니다.",
+          "activates": ["chapterNumber", "chapterTitle", "chapterSubtitle"],
+          "emphasisTargets": ["세 가지"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "짧은 전환 씬 — 1-beat 적합",
+        "evidenceDecision": "해당 없음 — divider 씬",
+        "densityDecision": "1-beat — 약 10초",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "narrationText": "린치핀의 첫 번째 요소는 예술입니다. 여기서 예술은 그림이나 음악이 아닙니다. 매뉴얼에 없는 창의적 판단을 내리는 것을 말합니다. 정해진 답이 없는 상황에서 스스로 해법을 찾아내는 능력이죠. 프로그래머가 코드만 짜는 게 아니라 사용자 경험까지 고민하는 것, 영업사원이 매출만 쫓는 게 아니라 고객의 진짜 문제를 해결해주는 것이 예술입니다. 두 번째 요소는 선물입니다. 린치핀은 보상을 먼저 계산하지 않습니다. 자신의 시간과 지식을 대가 없이 먼저 건넵니다. 이것이 선물 경제의 핵심입니다. 줄 것을 계산하면 거래가 됩니다. 하지만 진심으로 먼저 주는 사람에게 신뢰가 쌓이고, 결국 가장 큰 영향력을 갖게 됩니다. 세 번째 요소는 감정노동입니다. 두려워도 하는 겁니다. 불확실해도 결정하고, 거절당할 수 있어도 제안합니다. 비판이 두려워도 자기 생각을 말합니다. 이 감정적 에너지를 기꺼이 투자하는 것이 린치핀의 결정적 차이입니다.",
+      "content": {
+        "frameworkLabel": "린치핀의 3요소",
+        "items": [
+          {
+            "number": 1,
+            "title": "예술 (Art)",
+            "description": "매뉴얼에 없는 창의적 판단을 내리는 능력"
+          },
+          {
+            "number": 2,
+            "title": "선물 (Gift)",
+            "description": "대가를 계산하지 않고 먼저 가치를 건네는 태도"
+          },
+          {
+            "number": 3,
+            "title": "감정노동 (Emotional Labor)",
+            "description": "두려움에도 불구하고 행동하는 감정적 투자"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "beats": [
+        {
+          "id": "fw-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "린치핀의 첫 번째 요소는 예술입니다.",
+          "activates": ["frameworkLabel"],
+          "emphasisTargets": ["예술"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.4,
+          "narrationText": "여기서 예술은 그림이나 음악이 아닙니다. 매뉴얼에 없는 창의적 판단을 내리는 것을 말합니다. 정해진 답이 없는 상황에서 스스로 해법을 찾아내는 능력이죠. 프로그래머가 코드만 짜는 게 아니라 사용자 경험까지 고민하는 것, 영업사원이 매출만 쫓는 게 아니라 고객의 진짜 문제를 해결해주는 것이 예술입니다.",
+          "activates": ["item-0"],
+          "emphasisTargets": ["창의적 판단"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b3",
+          "role": "reveal",
+          "startRatio": 0.4,
+          "endRatio": 0.7,
+          "narrationText": "두 번째 요소는 선물입니다. 린치핀은 보상을 먼저 계산하지 않습니다. 자신의 시간과 지식을 대가 없이 먼저 건넵니다. 이것이 선물 경제의 핵심입니다. 줄 것을 계산하면 거래가 됩니다. 하지만 진심으로 먼저 주는 사람에게 신뢰가 쌓이고, 결국 가장 큰 영향력을 갖게 됩니다.",
+          "activates": ["item-1"],
+          "emphasisTargets": ["선물", "먼저 주는 사람"],
+          "transition": "enter"
+        },
+        {
+          "id": "fw-b4",
+          "role": "reveal",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "세 번째 요소는 감정노동입니다. 두려워도 하는 겁니다. 불확실해도 결정하고, 거절당할 수 있어도 제안합니다. 비판이 두려워도 자기 생각을 말합니다. 이 감정적 에너지를 기꺼이 투자하는 것이 린치핀의 결정적 차이입니다.",
+          "activates": ["item-2"],
+          "emphasisTargets": ["감정노동", "두려워도"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "3개 항목 순차 공개. frameworkLabel 도입 후 각 항목 별도 beat",
+        "evidenceDecision": "해당 없음 — 프레임워크 개요 씬",
+        "densityDecision": "4-beat — 약 70초, 항목당 약 18초로 구체적 예시 포함",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "narrationText": "여기서 핵심적인 차이를 짚어봅시다. 공장형 인재는 지시를 기다립니다. 위에서 시키면 그대로 실행하고, 매뉴얼을 따르며, 실수를 피하는 데 집중합니다. 안전하고 예측 가능하지만, 그래서 누구든 대신할 수 있습니다. 더 싼 인건비, 더 젊은 신입, 심지어 자동화 프로그램까지. 반면 린치핀은 완전히 다릅니다. 스스로 문제를 발견하고, 매뉴얼이 없는 상황에서 자기만의 판단을 내립니다. 실패를 감수하면서도 새로운 가치를 만들어냅니다. 이런 사람은 이력서로 설명할 수 없고, 알고리즘으로 대체할 수 없습니다. 바로 그래서 대체 불가능한 겁니다.",
+      "content": {
+        "leftLabel": "공장형 인재",
+        "leftContent": "지시 대기 → 매뉴얼 실행 → 실수 회피 → 누구든 대체 가능",
+        "rightLabel": "린치핀",
+        "rightContent": "문제 발견 → 창의적 판단 → 실패 감수 → 대체 불가능한 가치",
+        "leftTag": "before",
+        "rightTag": "after",
+        "showConnector": true,
+        "revealOrder": "left-first"
+      },
+      "beats": [
+        {
+          "id": "compare-b1",
+          "role": "compare",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "여기서 핵심적인 차이를 짚어봅시다. 공장형 인재는 지시를 기다립니다. 위에서 시키면 그대로 실행하고, 매뉴얼을 따르며, 실수를 피하는 데 집중합니다. 안전하고 예측 가능하지만, 그래서 누구든 대신할 수 있습니다. 더 싼 인건비, 더 젊은 신입, 심지어 자동화 프로그램까지.",
+          "activates": ["leftPanel"],
+          "emphasisTargets": ["공장형", "대신할 수 있습니다"],
+          "transition": "enter"
+        },
+        {
+          "id": "compare-b2",
+          "role": "compare",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "반면 린치핀은 완전히 다릅니다. 스스로 문제를 발견하고, 매뉴얼이 없는 상황에서 자기만의 판단을 내립니다. 실패를 감수하면서도 새로운 가치를 만들어냅니다. 이런 사람은 이력서로 설명할 수 없고, 알고리즘으로 대체할 수 없습니다. 바로 그래서 대체 불가능한 겁니다.",
+          "activates": ["rightPanel", "connector"],
+          "emphasisTargets": ["린치핀", "대체 불가능"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "좌우 패널 순차 reveal. '반면' 전환에서 분리",
+        "evidenceDecision": "해당 없음 — 비교 씬",
+        "densityDecision": "2-beat — 약 40초, left-first reveal에 자연스러운 2분할",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-02",
+      "type": "keyInsight",
+      "narrationText": "그런데 왜 대부분의 사람은 린치핀이 되지 못할까요? 능력이 없어서가 아닙니다. 세스 고딘은 그 원인을 도마뱀 뇌에서 찾습니다. 뇌의 가장 오래된 부분인 편도체, 이것이 바로 도마뱀 뇌입니다. 수만 년 전 맹수를 피하기 위해 발달한 공포 반응 회로죠. 문제는 이 회로가 현대에도 여전히 작동한다는 겁니다. 새로운 제안을 하려는 순간 속삭입니다. 눈에 띄지 마. 실패하면 어쩌려고. 가만히 있으면 안전해. 이 목소리가 우리의 창의성을 차단하고, 평범한 부품으로 머물게 만듭니다. 린치핀이 되려면 이 저항의 정체를 정확히 인식하고, 그럼에도 불구하고 한 발짝 앞으로 나아가야 합니다.",
+      "content": {
+        "headline": "도마뱀 뇌가 당신을 멈추게 한다",
+        "supportText": "편도체가 보내는 공포 신호가 창의성을 차단합니다. 새로운 시도를 하려는 순간 '눈에 띄지 마, 실패하면 어쩌려고'라는 내면의 저항이 작동합니다.",
+        "underlineKeyword": "도마뱀 뇌",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "research",
+          "value": "편도체 = Lizard Brain",
+          "caption": "뇌간의 공포 반응이 창의적 행동을 억제",
+          "source": "Linchpin, Chapter 6"
+        }
+      },
+      "beats": [
+        {
+          "id": "insight2-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.2,
+          "narrationText": "그런데 왜 대부분의 사람은 린치핀이 되지 못할까요? 능력이 없어서가 아닙니다. 세스 고딘은 그 원인을 도마뱀 뇌에서 찾습니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["도마뱀 뇌"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight2-b2",
+          "role": "evidence",
+          "startRatio": 0.2,
+          "endRatio": 0.6,
+          "narrationText": "뇌의 가장 오래된 부분인 편도체, 이것이 바로 도마뱀 뇌입니다. 수만 년 전 맹수를 피하기 위해 발달한 공포 반응 회로죠. 문제는 이 회로가 현대에도 여전히 작동한다는 겁니다. 새로운 제안을 하려는 순간 속삭입니다. 눈에 띄지 마. 실패하면 어쩌려고. 가만히 있으면 안전해. 이 목소리가 우리의 창의성을 차단하고, 평범한 부품으로 머물게 만듭니다.",
+          "activates": ["supportText", "evidenceCard"],
+          "emphasisTargets": ["편도체", "차단"],
+          "transition": "enter"
+        },
+        {
+          "id": "insight2-b3",
+          "role": "recap",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "린치핀이 되려면 이 저항의 정체를 정확히 인식하고, 그럼에도 불구하고 한 발짝 앞으로 나아가야 합니다.",
+          "activates": ["signalBar"],
+          "emphasisTargets": ["저항", "나아가야"],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "질문 → 과학적 근거 → 행동 촉구 3단계",
+        "evidenceDecision": "evidenceCard 사용 — B등급 (과학적 개념, 원전 명시)",
+        "densityDecision": "3-beat — 약 45초, 개념 설명에 충분",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "세스 고딘은 이 책에서 잊을 수 없는 한마디를 남깁니다. 평범함의 반대는 우수함이 아니다. 독특함이다. 남들보다 조금 더 잘하려고 경쟁하지 마세요. 그 경쟁에서는 항상 더 싼 대안이 나타납니다. 대신 나만의 방식으로, 나만이 만들 수 있는 가치를 만드세요. 그것이 린치핀의 본질이고, 아무도 대체할 수 없는 이유입니다.",
+      "content": {
+        "quoteText": "평범함의 반대는 우수함이 아니다. 독특함이다.",
+        "attribution": "세스 고딘",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "quote-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "세스 고딘은 이 책에서 잊을 수 없는 한마디를 남깁니다.",
+          "activates": ["attribution"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        },
+        {
+          "id": "quote-b2",
+          "role": "headline",
+          "startRatio": 0.3,
+          "endRatio": 1,
+          "narrationText": "평범함의 반대는 우수함이 아니다. 독특함이다. 남들보다 조금 더 잘하려고 경쟁하지 마세요. 그 경쟁에서는 항상 더 싼 대안이 나타납니다. 대신 나만의 방식으로, 나만이 만들 수 있는 가치를 만드세요. 그것이 린치핀의 본질이고, 아무도 대체할 수 없는 이유입니다.",
+          "activates": ["quoteText"],
+          "emphasisTargets": ["평범함", "독특함"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "인용 전 도입부와 인용 본문 + 해석 분리",
+        "evidenceDecision": "해당 없음 — quote 씬",
+        "densityDecision": "2-beat — 약 25초, 명언에 충분한 여운",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "그렇다면 오늘부터 어떻게 린치핀이 될 수 있을까요? 거창한 변화가 필요하지 않습니다. 세 가지 작은 실천부터 시작하세요. 첫째, 매뉴얼 밖으로 한 발짝 나가세요. 오늘 회의에서 지시받은 것 말고 한 가지를 스스로 제안해보세요. 아주 작은 것이라도 괜찮습니다. 회의 자료에 새로운 관점을 하나 추가하거나, 고객 불만에 매뉴얼에 없는 해결책을 제시하는 겁니다. 내 판단으로 가치를 만드는 연습입니다. 둘째, 먼저 주세요. 동료가 막혀 있는 문제를 도와주고, 알게 된 지식을 팀에 공유하세요. 대가를 기대하지 않고 먼저 건네는 것이 선물 경제의 시작입니다. 당장은 손해처럼 보여도, 신뢰와 영향력은 바로 여기서 만들어집니다. 셋째, 도마뱀 뇌를 알아차리고 무시하세요. 두려운 순간이 올 때, 그 두려움 자체가 성장의 신호입니다. 저항이 느껴질 때 멈추지 말고 그냥 하세요. 완벽하지 않아도 괜찮습니다. 그 반복이 당신을 린치핀으로 만듭니다.",
+      "content": {
+        "anchorStatement": "오늘부터 린치핀이 되는 3가지 실천법",
+        "steps": [
+          {
+            "title": "매뉴얼 밖으로 나가기",
+            "detail": "지시받은 것 외에 한 가지를 스스로 제안하세요"
+          },
+          {
+            "title": "먼저 주기",
+            "detail": "대가 없이 동료의 문제를 해결하고 지식을 공유하세요"
+          },
+          {
+            "title": "도마뱀 뇌 무시하기",
+            "detail": "두려운 순간이 성장의 신호입니다. 멈추지 말고 하세요"
+          }
+        ],
+        "showPaths": true,
+        "showCheckmarks": true
+      },
+      "beats": [
+        {
+          "id": "app-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "그렇다면 오늘부터 어떻게 린치핀이 될 수 있을까요? 거창한 변화가 필요하지 않습니다. 세 가지 작은 실천부터 시작하세요.",
+          "activates": ["anchorStatement"],
+          "emphasisTargets": ["세 가지"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.4,
+          "narrationText": "첫째, 매뉴얼 밖으로 한 발짝 나가세요. 오늘 회의에서 지시받은 것 말고 한 가지를 스스로 제안해보세요. 아주 작은 것이라도 괜찮습니다. 회의 자료에 새로운 관점을 하나 추가하거나, 고객 불만에 매뉴얼에 없는 해결책을 제시하는 겁니다. 내 판단으로 가치를 만드는 연습입니다.",
+          "activates": ["step-0"],
+          "emphasisTargets": ["매뉴얼 밖"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b3",
+          "role": "reveal",
+          "startRatio": 0.4,
+          "endRatio": 0.7,
+          "narrationText": "둘째, 먼저 주세요. 동료가 막혀 있는 문제를 도와주고, 알게 된 지식을 팀에 공유하세요. 대가를 기대하지 않고 먼저 건네는 것이 선물 경제의 시작입니다. 당장은 손해처럼 보여도, 신뢰와 영향력은 바로 여기서 만들어집니다.",
+          "activates": ["step-1"],
+          "emphasisTargets": ["먼저 주세요"],
+          "transition": "enter"
+        },
+        {
+          "id": "app-b4",
+          "role": "reveal",
+          "startRatio": 0.7,
+          "endRatio": 1,
+          "narrationText": "셋째, 도마뱀 뇌를 알아차리고 무시하세요. 두려운 순간이 올 때, 그 두려움 자체가 성장의 신호입니다. 저항이 느껴질 때 멈추지 말고 그냥 하세요. 완벽하지 않아도 괜찮습니다. 그 반복이 당신을 린치핀으로 만듭니다.",
+          "activates": ["step-2"],
+          "emphasisTargets": ["도마뱀 뇌"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "3단계 순차 공개. 각 실천법을 별도 beat로 분리",
+        "evidenceDecision": "해당 없음 — 실천 방법 씬",
+        "densityDecision": "4-beat — 약 60초, 실천법 소개+구체 예시 포함",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-recap",
+      "type": "keyInsight",
+      "narrationText": "정리하겠습니다. 린치핀은 단순한 자기계발서가 아닙니다. 일하는 방식 자체를 근본적으로 바꾸라는 선언입니다. 매뉴얼 밖에서 예술적 판단으로 가치를 만들고, 선물처럼 대가 없이 먼저 건네며, 도마뱀 뇌의 저항을 넘어서세요. 세상은 시키는 일만 하는 부품을 필요로 하지 않습니다. 빠지면 안 되는 핀, 당신이 바로 그 린치핀이 되어야 합니다.",
+      "content": {
+        "headline": "부품이 아니라 핀이 되세요",
+        "supportText": "예술적 판단, 선물의 태도, 감정노동의 용기. 이 세 가지가 대체 불가능한 사람을 만듭니다.",
+        "underlineKeyword": "핀",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.4,
+          "narrationText": "정리하겠습니다. 린치핀은 단순한 자기계발서가 아닙니다. 일하는 방식 자체를 근본적으로 바꾸라는 선언입니다.",
+          "activates": ["headline"],
+          "emphasisTargets": ["선언"],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "recap",
+          "startRatio": 0.4,
+          "endRatio": 1,
+          "narrationText": "매뉴얼 밖에서 예술적 판단으로 가치를 만들고, 선물처럼 대가 없이 먼저 건네며, 도마뱀 뇌의 저항을 넘어서세요. 세상은 시키는 일만 하는 부품을 필요로 하지 않습니다. 빠지면 안 되는 핀, 당신이 바로 그 린치핀이 되어야 합니다.",
+          "activates": ["supportText", "signalBar"],
+          "emphasisTargets": ["예술", "선물", "도마뱀 뇌", "린치핀"],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "요약 전반(책 정의)과 후반(핵심 메시지) 분리",
+        "evidenceDecision": "해당 없음 — 요약 씬",
+        "densityDecision": "2-beat — 약 25초, recap에 적절한 호흡",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "내일 출근하면 딱 한 가지만 해보세요. 시키지 않은 일 하나를 스스로 찾아서 해보는 겁니다. 그 작은 시도 하나가 당신을 대체 불가능한 린치핀으로 만드는 첫 걸음이 됩니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 더 많은 책의 핵심 인사이트로 다음 영상에서 찾아뵙겠습니다.",
+      "content": {
+        "recapStatement": "내일, 시키지 않은 일 하나를 스스로 하세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "closing-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "내일 출근하면 딱 한 가지만 해보세요. 시키지 않은 일 하나를 스스로 찾아서 해보는 겁니다. 그 작은 시도 하나가 당신을 대체 불가능한 린치핀으로 만드는 첫 걸음이 됩니다.",
+          "activates": ["recapStatement"],
+          "emphasisTargets": ["한 가지", "린치핀"],
+          "transition": "enter"
+        },
+        {
+          "id": "closing-b2",
+          "role": "transition",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다. 더 많은 책의 핵심 인사이트로 다음 영상에서 찾아뵙겠습니다.",
+          "activates": ["ctaText"],
+          "emphasisTargets": [],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "행동 촉구와 채널 CTA 분리",
+        "evidenceDecision": "해당 없음 — closing 씬",
+        "densityDecision": "2-beat — 약 18초, 마무리에 적절",
+        "riskFlags": []
+      }
+    }
+  ]
+}

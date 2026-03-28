@@ -14,6 +14,7 @@ import crazyOneYearBook from "../content/books/crazy-one-year.json";
 import storyBrandBook from "../content/books/story-brand-2025.json";
 import richDadBook from "../content/books/rich-dad-poor-dad.json";
 import startupDesignerBook from "../content/books/startup-designer.json";
+import linchpin2025Book from "../content/books/linchpin-2025.json";
 // --- AUTO-GENERATED IMPORTS END ---
 import type { BookContent } from "@/types";
 import { loadProjectFonts } from "@/design/fonts/loadFonts";
@@ -166,6 +167,10 @@ const storyBrand2025Props: CompositionProps = buildCompositionProps(
   "longform",
 );
 
+const linchpin2025Props: CompositionProps = buildCompositionProps(
+  linchpin2025Book as unknown as BookContent,
+  "longform",
+);
 // --- AUTO-GENERATED BOOKS END ---
 
 // Build synthesized scene preview props

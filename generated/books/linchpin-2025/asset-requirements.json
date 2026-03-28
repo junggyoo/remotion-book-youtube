@@ -1,0 +1,29 @@
+{
+  "bookId": "linchpin-2025",
+  "totalRequired": 2,
+  "byStatus": {
+    "needed": 2
+  },
+  "requirements": [
+    {
+      "assetId": "application-01-application-emphasis",
+      "type": "icon",
+      "description": "icon element in application-01",
+      "sourceScenes": [
+        "application-01"
+      ],
+      "status": "needed",
+      "fallbackStrategy": "shape-placeholder"
+    },
+    {
+      "assetId": "cover-01-cover-image",
+      "type": "image",
+      "description": "image element in cover-01",
+      "sourceScenes": [
+        "cover-01"
+      ],
+      "status": "needed",
+      "fallbackStrategy": "shape-placeholder"
+    }
+  ]
+}

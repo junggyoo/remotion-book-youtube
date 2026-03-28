@@ -1,0 +1,82 @@
+{
+  "id": "insight-02",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "도마뱀 뇌가 당신을 멈추게 한다",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "도마뱀 뇌"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "편도체가 보내는 공포 신호가 창의성을 차단합니다. 새로운 시도를 하려는 순간 '눈에 띄지 마, 실패하면 어쩌려고'라는 내면의 저항이 작동합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "selfHelp",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#10B981",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1338,
+  "mediaPlan": {
+    "narrationText": "그런데 왜 대부분의 사람은 린치핀이 되지 못할까요? 능력이 없어서가 아닙니다. 세스 고딘은 그 원인을 도마뱀 뇌에서 찾습니다. 뇌의 가장 오래된 부분인 편도체, 이것이 바로 도마뱀 뇌입니다. 수만 년 전 맹수를 피하기 위해 발달한 공포 반응 회로죠. 문제는 이 회로가 현대에도 여전히 작동한다는 겁니다. 새로운 제안을 하려는 순간 속삭입니다. 눈에 띄지 마. 실패하면 어쩌려고. 가만히 있으면 안전해. 이 목소리가 우리의 창의성을 차단하고, 평범한 부품으로 머물게 만듭니다. 린치핀이 되려면 이 저항의 정체를 정확히 인식하고, 그럼에도 불구하고 한 발짝 앞으로 나아가야 합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

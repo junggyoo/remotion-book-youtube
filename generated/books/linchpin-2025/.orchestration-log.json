@@ -1,0 +1,64 @@
+{
+  "bookId": "linchpin-2025",
+  "mode": "auto",
+  "startedAt": "2026-03-28T03:30:26.958Z",
+  "stageResults": [
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 29516,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 3618,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 3572,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 3580,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 3555,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 3608,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 13025,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 14645,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/linchpin-2025.json --format longform"
+    }
+  ],
+  "lastCompletedStage": "7-validate"
+}

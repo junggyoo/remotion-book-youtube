@@ -1,0 +1,33 @@
+# Editorial outline
+
+**bookId:** linchpin-2025
+
+**oneLiner:** 린치핀의 핵심 인사이트를 체계적으로 정리한다
+
+**targetAudience:** 자기계발과 습관 형성에 관심 있는 20-40대 한국어 유튜브 시청자
+
+**hookAngle:** 근본적 질문을 던지며 시키는 일만 하면 안전할까?
+
+## coreMessages
+
+- 시키는 일만 하면 안전할까?
+- 빠지면 무너지는 핵심, 린치핀
+- 도마뱀 뇌가 당신을 멈추게 한다
+- 부품이 아니라 핀이 되세요
+
+## excludedTopics
+
+
+**targetDurationSeconds:** 480
+
+## toneKeywords
+
+- 구어체
+- 정보 밀도
+- 동기 부여
+- 실용적
+
+**narrativeArc:** framework-driven
+
+---
+> Auto-generated from 01-editorial-outline.json. JSON is source of truth.
