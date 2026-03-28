@@ -55,12 +55,16 @@ const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
   },
 };
 
-function getWildcardStagger(key: string, index?: number): ElementBeatState {
+function getWildcardStagger(
+  key: string,
+  index?: number,
+  staggerDelay = 10,
+): ElementBeatState {
   if (WILDCARD_STAGGER_BASE[key]) return WILDCARD_STAGGER_BASE[key];
-  // Items start after label settles, staggered by 10f each
+  // Items start after label settles, staggered by staggerDelay each
   return {
     visibility: "entering",
-    entryFrame: 8 + (index ?? 0) * 10,
+    entryFrame: 8 + (index ?? 0) * staggerDelay,
     emphasis: false,
     motionPreset: "smooth",
   };
@@ -68,6 +72,12 @@ function getWildcardStagger(key: string, index?: number): ElementBeatState {
 
 interface FrameworkSceneProps extends BaseSceneProps {
   content: FrameworkContent;
+  resolvedMotion?: {
+    enterPreset: string;
+    emphasisPreset: string;
+    holdFrames: number;
+    staggerDelay: number;
+  };
 }
 
 /**
@@ -147,12 +157,22 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
   content,
   beats,
   captionsFile,
+  resolvedMotion,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
   const showDescriptions = !isShorts && content.showDescriptions !== false;
   const { typeScale } = useFormat(format);
+
+  // Direction-aware motion (falls back to hardcoded defaults)
+  const enterPresetKey = resolvedMotion?.enterPreset ?? "smooth";
+  const enterConfig =
+    (motionPresetsData.presets as Record<string, { config: object }>)[
+      enterPresetKey
+    ]?.config ?? motionPresetsData.presets.smooth.config;
+  const STAGGER =
+    resolvedMotion?.staggerDelay ?? motionPresetsData.defaults.staggerFrames;
 
   // P2-3: Load captions for narration sync
   const captions = useCaptions(captionsFile);
@@ -207,7 +227,7 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
     key: string,
     index?: number,
   ): ElementBeatState | undefined => {
-    if (isWildcard) return getWildcardStagger(key, index);
+    if (isWildcard) return getWildcardStagger(key, index, STAGGER);
     return elementStates.get(key);
   };
 
@@ -425,7 +445,7 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
                 const slideProgress = spring({
                   frame: Math.max(0, frame - entryFrame),
                   fps,
-                  config: motionPresetsData.presets.smooth.config,
+                  config: enterConfig,
                 });
                 const slideX = interpolate(slideProgress, [0, 1], [-30, 0]);
                 const slideOpacity = interpolate(slideProgress, [0, 1], [0, 1]);

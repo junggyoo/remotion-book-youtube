@@ -144,6 +144,7 @@ const SceneRenderer: React.FC<{
         <FrameworkScene
           {...baseProps}
           content={scene.content as FrameworkContent}
+          resolvedMotion={scene.resolvedMotion}
         />
       );
       break;
