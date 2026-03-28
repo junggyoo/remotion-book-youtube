@@ -22,15 +22,26 @@ import { BeatElement } from "@/components/motion/BeatElement";
 import { TextBlock } from "@/components/primitives/TextBlock";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
 import { resolveBeats } from "@/pipeline/resolveBeats";
+import { metaphorToDiagramSpec } from "@/planning/diagramSpec";
+import { buildDiagramGeometry } from "@/planning/diagramGeometry";
+import type { DiagramGeometry } from "@/planning/diagramGeometry";
+import { AnimatedPath } from "@/components/primitives/structure/AnimatedPath";
+import { NodeActivation } from "@/components/primitives/structure/NodeActivation";
 
 const LAYERS = {
   background: 0,
   bgPulse: 2,
   texture: 5,
+  diagramOverlay: 10,
   frameworkLabel: 20,
   accentIndicator: 25,
   items: 30,
 } as const;
+
+const DIAGRAM_OPACITY = 0.15;
+const DIAGRAM_PATH_DRAW_DURATION = 36;
+const DIAGRAM_PATH_STAGGER = 8;
+const DIAGRAM_NODE_STAGGER = 8;
 
 const WILDCARD_STAGGER_BASE: Record<string, ElementBeatState> = {
   frameworkLabel: {
@@ -207,6 +218,25 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
       )
     : 0;
 
+  // --- P2-1f: Diagram geometry (computed once, memoized) ---
+  const diagramGeometry = React.useMemo<DiagramGeometry | null>(() => {
+    if (!content.diagramHint) return null;
+    const baseSpec = metaphorToDiagramSpec(content.diagramHint);
+    if (!baseSpec) return null;
+    const spec = {
+      ...baseSpec,
+      nodeCount: content.items.length,
+      nodeLabels: content.items.map((item) => item.title),
+    };
+    const canvasW = isShorts ? 1080 : 1920;
+    const canvasH = isShorts ? 1920 : 1080;
+    try {
+      return buildDiagramGeometry(spec, canvasW, canvasH);
+    } catch {
+      return null;
+    }
+  }, [content.diagramHint, content.items, isShorts]);
+
   // hex → rgb for accent
   const ar = parseInt(theme.accent.slice(1, 3), 16);
   const ag = parseInt(theme.accent.slice(3, 5), 16);
@@ -241,6 +271,60 @@ export const FrameworkScene: React.FC<FrameworkSceneProps> = ({
           opacity: sceneInteriorTokens.textureOpacity,
         }}
       />
+
+      {/* P2-1f: Diagram background overlay */}
+      {diagramGeometry && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: LAYERS.diagramOverlay,
+            opacity: DIAGRAM_OPACITY,
+            pointerEvents: "none",
+          }}
+        >
+          {/* Animated paths (connections) */}
+          {diagramGeometry.connections.map((conn, i) => (
+            <AnimatedPath
+              key={`diagram-path-${i}`}
+              pathData={conn.pathData}
+              startFrame={i * DIAGRAM_PATH_STAGGER}
+              drawDuration={DIAGRAM_PATH_DRAW_DURATION}
+              strokeColor={theme.accent}
+              strokeWidth={2}
+              arrowHead
+              arrowColor={theme.accent}
+              easing="easeOut"
+              width={isShorts ? 1080 : 1920}
+              height={isShorts ? 1920 : 1080}
+            />
+          ))}
+
+          {/* Node activation */}
+          <NodeActivation
+            nodes={diagramGeometry.nodes.map((n) => ({
+              label: n.label,
+              x: n.cx,
+              y: n.cy,
+            }))}
+            activationOrder={diagramGeometry.nodes.map((_, i) => i)}
+            staggerDelay={DIAGRAM_NODE_STAGGER}
+            startFrame={0}
+            mutedColor={theme.lineSubtle}
+            activeColor={theme.accent}
+            activationEffects={{
+              fillTransition: true,
+              scalePulse: true,
+              glowRing: false,
+            }}
+            format={format}
+            theme={theme}
+            nodeSize={isShorts ? 32 : 40}
+            width={isShorts ? 1080 : 1920}
+            height={isShorts ? 1920 : 1080}
+          />
+        </div>
+      )}
 
       {/* Main content — wrapped in slow-zoom */}
       <div

@@ -48,7 +48,6 @@ import { SplitQuoteScene } from "@/scenes/SplitQuoteScene";
 import { CaptionLayer } from "@/components/hud/CaptionLayer";
 import { SubtitleLayer } from "@/components/hud/SubtitleLayer";
 import { BlueprintRenderer } from "@/renderer/BlueprintRenderer";
-import { createFrameworkBlueprint } from "@/renderer/presetBlueprints/core/framework";
 import { SceneWrapper } from "@/components/layout/SceneWrapper";
 import type { CustomScene } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
@@ -120,27 +119,13 @@ const SceneRenderer: React.FC<{
       return (
         <QuoteScene {...baseProps} content={scene.content as QuoteContent} />
       );
-    case "framework": {
-      const fwContent = scene.content as FrameworkContent;
-      // P2-1f: Route through BlueprintRenderer when diagramHint is set
-      if (fwContent.diagramHint) {
-        const blueprint = createFrameworkBlueprint(fwContent, {
-          format: format as "longform" | "shorts",
-          theme,
-          from: scene.from,
-          durationFrames: scene.resolvedDuration,
-          narrationText: scene.narrationText ?? "",
-        });
-        return (
-          <BlueprintRenderer
-            blueprint={blueprint}
-            beats={scene.beats}
-            sceneType="framework"
-          />
-        );
-      }
-      return <FrameworkScene {...baseProps} content={fwContent} />;
-    }
+    case "framework":
+      return (
+        <FrameworkScene
+          {...baseProps}
+          content={scene.content as FrameworkContent}
+        />
+      );
     case "application":
       return (
         <ApplicationScene
