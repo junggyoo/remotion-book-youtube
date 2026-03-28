@@ -16,7 +16,10 @@ import path from "path";
 import type { Caption } from "@remotion/captions";
 import { vttToCaptions } from "../src/tts/vttParser";
 import type { Beat, BeatTimingResolution } from "../src/types";
-import { resolveBeatNarration } from "../src/tts/beatNarrationResolver";
+import {
+  resolveBeatNarration,
+  resolveBeatNarrationWithEmotions,
+} from "../src/tts/beatNarrationResolver";
 import { resolveBeatTimings } from "../src/tts/beatTimingResolver";
 // Lazy-loaded to avoid ESM crash when fish-audio module isn't compatible
 type FishAudioEngine = typeof import("../src/tts/fish-audio-engine");
@@ -197,6 +200,7 @@ async function generateViaFishAudio(
   config: FishAudioConfig,
   sceneType: string,
   speed?: number,
+  options?: { hasBeatsWithEmotions?: boolean },
 ): Promise<{ success: boolean; durationMs: number }> {
   try {
     const engine = await loadFishEngine();
@@ -206,7 +210,7 @@ async function generateViaFishAudio(
       temperature: engine.getTemperatureForScene(sceneType),
       speed: speed ?? 1.0,
     };
-    const textWithEmotion = engine.addEmotionTag(text, sceneType);
+    const textWithEmotion = engine.addEmotionTag(text, sceneType, options);
     const durationMs = await engine.generateFishAudio(
       textWithEmotion,
       audioPath,
@@ -296,11 +300,18 @@ async function main() {
   const manifest: TTSManifestEntry[] = [];
 
   for (const scene of book.scenes) {
-    const text = scene.beats?.length
+    const textForCaptions = scene.beats?.length
       ? resolveBeatNarration(scene)
       : scene.narrationText;
 
-    if (!text || text.trim().length === 0) {
+    const hasBeatsWithEmotions =
+      engine === "fish-audio" &&
+      (scene.beats?.some((b) => b.emotionTag) ?? false);
+    const textForTTS = hasBeatsWithEmotions
+      ? resolveBeatNarrationWithEmotions(scene)
+      : textForCaptions;
+
+    if (!textForCaptions || textForCaptions.trim().length === 0) {
       console.log(`[SKIP] ${scene.id} — no narrationText`);
       continue;
     }
@@ -312,7 +323,7 @@ async function main() {
     const vttPath = path.join(OUTPUT_DIR, vttFile);
     const captionsPath = path.join(OUTPUT_DIR, captionsFile);
 
-    console.log(`[TTS] ${scene.id}: "${text.slice(0, 40)}..."`);
+    console.log(`[TTS] ${scene.id}: "${textForCaptions.slice(0, 40)}..."`);
 
     let success = false;
     let fishDurationMs = 0;
@@ -321,11 +332,12 @@ async function main() {
     // 1) Fish Audio (if selected)
     if (engine === "fish-audio" && fishConfig) {
       const fishResult = await generateViaFishAudio(
-        text,
+        textForTTS!,
         audioPath,
         fishConfig,
         scene.type,
         book.narration.speed,
+        { hasBeatsWithEmotions },
       );
       success = fishResult.success;
       fishDurationMs = fishResult.durationMs;
@@ -342,7 +354,7 @@ async function main() {
     ) {
       if (engine === "qwen3-tts") {
         success = await generateViaQwen3(
-          text,
+          textForCaptions,
           audioPath,
           vttPath,
           book.narration.speed ?? 1.0,
@@ -356,7 +368,7 @@ async function main() {
     // 3) edge-tts (final fallback)
     if (!success) {
       success = await generateViaEdgeTTS(
-        text,
+        textForCaptions,
         book.narration,
         audioPath,
         vttPath,
@@ -394,7 +406,7 @@ async function main() {
           );
         } else {
           console.log(`  📝 STT unavailable, using proportional fallback`);
-          captions = fe.generateCaptionsFromText(text, durationMs);
+          captions = fe.generateCaptionsFromText(textForCaptions, durationMs);
         }
       } else {
         captions = [];
