@@ -32,7 +32,10 @@ const EXITING_DURATION: Record<MotionPresetKey, number> = {
 };
 
 /** 프리셋별 emphasis scale 최대값 (1.06 이하 제약) */
-const EMPHASIS_SCALE = 1.02;
+const EMPHASIS_SCALE = 1.05;
+
+/** emphasis pulse duration (프레임). 20f ≈ 0.67초 — 인지 가능한 최소 임계 이상 */
+const EMPHASIS_DURATION = 20;
 
 /** BeatElement가 entering 상태에서 사용할 모션 프리미티브 */
 type BeatMotionType = "architectural" | "scale" | "slide" | "none";
@@ -143,11 +146,11 @@ export const BeatElement: React.FC<BeatElementProps> = ({
     return <div style={{ opacity }}>{children}</div>;
   }
 
-  // emphasized: interpolate 기반 scale pulse
+  // emphasized: interpolate 기반 scale pulse + accent tint
   if (beatState.visibility === "emphasized") {
     const emphasisProgress = Math.min(
       1,
-      Math.max(0, frame - beatState.entryFrame) / 12,
+      Math.max(0, frame - beatState.entryFrame) / EMPHASIS_DURATION,
     );
     const scale = interpolate(
       emphasisProgress,
@@ -158,9 +161,29 @@ export const BeatElement: React.FC<BeatElementProps> = ({
         extrapolateRight: "clamp",
       },
     );
+    const tintOpacity = interpolate(
+      emphasisProgress,
+      [0, 0.5, 1],
+      [0, 0.04, 0],
+      {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      },
+    );
+
+    // hex (#RRGGBB) → r,g,b for rgba()
+    const r = parseInt(theme.accent.slice(1, 3), 16);
+    const g = parseInt(theme.accent.slice(3, 5), 16);
+    const b = parseInt(theme.accent.slice(5, 7), 16);
 
     return (
-      <div style={{ transform: `scale(${scale})`, willChange: "transform" }}>
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          backgroundColor: `rgba(${r},${g},${b},${tintOpacity})`,
+          willChange: "transform",
+        }}
+      >
         {children}
       </div>
     );
