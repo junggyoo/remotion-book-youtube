@@ -33,18 +33,25 @@ const LAYERS = {
 
 /** Darker background overlay opacity for chapter divider */
 const DARKEN_OVERLAY_OPACITY = 0.08;
-const UNDERLINE_WIDTH = 120;
+/** Accent bar thickness at the top of the scene */
+const ACCENT_BAR_HEIGHT = 3;
 
 const WILDCARD_STAGGER: Record<string, ElementBeatState> = {
-  chapterTitle: {
+  chapterNumber: {
     visibility: "entering",
     entryFrame: 0,
+    emphasis: false,
+    motionPreset: "smooth",
+  },
+  chapterTitle: {
+    visibility: "entering",
+    entryFrame: 6,
     emphasis: false,
     motionPreset: "heavy",
   },
   underline: {
     visibility: "entering",
-    entryFrame: 12,
+    entryFrame: 18,
     emphasis: false,
     motionPreset: "snappy",
   },
@@ -64,7 +71,7 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const { typeScale } = useFormat(format);
+  const { typeScale, safeArea } = useFormat(format);
 
   // Beat resolution
   const resolvedBeats = resolveBeats(
@@ -132,6 +139,21 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
         }}
       />
 
+      {/* Top accent bar */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: Math.round(safeArea.contentColumnWidth * 0.3),
+          height: ACCENT_BAR_HEIGHT,
+          backgroundColor: theme.accent,
+          zIndex: LAYERS.baseContent,
+          opacity: titleOpacity,
+        }}
+      />
+
       {/* Centered content */}
       <div
         style={{
@@ -148,9 +170,30 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(5),
+              gap: sp(4),
             }}
           >
+            {/* Chapter number — "Chapter 01" format */}
+            <BeatElement
+              elementKey="chapterNumber"
+              beatState={getBeatState("chapterNumber")}
+              format={format}
+              theme={theme}
+            >
+              <span
+                style={{
+                  fontFamily: typography.fontFamily.sans,
+                  fontSize: typeScale.caption,
+                  fontWeight: typography.fontWeight.medium,
+                  color: theme.textMuted,
+                  letterSpacing: typography.tracking.wide,
+                  textTransform: "uppercase" as const,
+                }}
+              >
+                {`Chapter ${String(content.chapterNumber).padStart(2, "0")}`}
+              </span>
+            </BeatElement>
+
             {/* Chapter title — headlineXL, accent, scale 0.8→1 */}
             <div
               style={{
@@ -175,7 +218,7 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
               </span>
             </div>
 
-            {/* Accent underline below */}
+            {/* Accent underline below — responsive width */}
             <div style={{ zIndex: LAYERS.underline }}>
               <BeatElement
                 elementKey="underline"
@@ -185,10 +228,10 @@ export const ChapterDividerScene: React.FC<ChapterDividerSceneProps> = ({
                 motionType="none"
               >
                 <AccentUnderline
-                  width={UNDERLINE_WIDTH}
+                  width={Math.round(safeArea.contentColumnWidth * 0.2)}
                   color={theme.accent}
                   startFrame={underlineEntryFrame}
-                  strokeWidth={3}
+                  strokeWidth={ACCENT_BAR_HEIGHT}
                 />
               </BeatElement>
             </div>

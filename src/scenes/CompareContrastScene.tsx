@@ -39,8 +39,6 @@ const LAYERS = {
   emphasis: 40,
 } as const;
 
-/** SVG divider height (longform) / width (shorts) */
-const DIVIDER_LENGTH = 400;
 const DIVIDER_STROKE_WIDTH = 2;
 
 interface CompareContrastSceneProps extends BaseSceneProps {
@@ -100,8 +98,8 @@ const DrawOnDivider: React.FC<{
   color: string;
   glowColor: string;
   progress: number;
-}> = ({ orientation, color, glowColor, progress }) => {
-  const length = DIVIDER_LENGTH;
+  length: number;
+}> = ({ orientation, color, glowColor, progress, length }) => {
   const dashOffset = interpolate(progress, [0, 1], [length, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -197,8 +195,14 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const isShorts = format === "shorts";
-  const { typeScale } = useFormat(format);
+  const { typeScale, safeArea } = useFormat(format);
   const revealOrder = content.revealOrder ?? "simultaneous";
+
+  // Responsive divider length based on safe area
+  const dividerLength = Math.min(
+    400,
+    Math.round(safeArea.contentColumnWidth * 0.6),
+  );
 
   // P2-3: Load captions for narration sync
   const captions = useCaptions(captionsFile);
@@ -591,6 +595,7 @@ export const CompareContrastScene: React.FC<CompareContrastSceneProps> = ({
                   color={theme.lineSubtle}
                   glowColor={`rgba(${ar},${ag},${ab},${1 + dividerEmphasisGlow})`}
                   progress={dividerProgress}
+                  length={dividerLength}
                 />
               )}
               {content.showConnector &&
