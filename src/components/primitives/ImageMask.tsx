@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import { staticFile } from 'remotion'
-import type { FormatKey, Theme } from '@/types'
+import React, { useState } from "react";
+import { staticFile } from "remotion";
+import type { FormatKey, Theme } from "@/types";
 
 interface ImageMaskProps {
-  format: FormatKey
-  theme: Theme
-  src: string
-  alt?: string
-  width: number | string
-  height: number | string
-  borderRadius?: number
+  format: FormatKey;
+  theme: Theme;
+  src: string;
+  alt?: string;
+  width: number | string;
+  height: number | string;
+  borderRadius?: number;
 }
 
 export const ImageMask: React.FC<ImageMaskProps> = ({
   theme,
   src,
-  alt = '',
+  alt = "",
   width,
   height,
   borderRadius = 0,
 }) => {
-  const [hasError, setHasError] = useState(false)
+  const [hasError, setHasError] = useState(false);
 
   if (hasError) {
     return (
@@ -29,11 +29,11 @@ export const ImageMask: React.FC<ImageMaskProps> = ({
           width,
           height,
           borderRadius,
-          backgroundColor: theme.surfaceMuted,
+          background: `linear-gradient(135deg, ${theme.surfaceMuted}, ${theme.bg})`,
           flexShrink: 0,
         }}
       />
-    )
+    );
   }
 
   return (
@@ -45,12 +45,12 @@ export const ImageMask: React.FC<ImageMaskProps> = ({
         width,
         height,
         borderRadius,
-        objectFit: 'cover',
-        display: 'block',
+        objectFit: "cover",
+        display: "block",
         flexShrink: 0,
       }}
     />
-  )
-}
+  );
+};
 
-export default ImageMask
+export default ImageMask;

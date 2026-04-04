@@ -136,7 +136,7 @@ export const ClosingScene: React.FC<ClosingSceneProps> = ({
               alignItems: "center",
               justifyContent: "center",
               height: "100%",
-              gap: sp(7),
+              gap: sp(5),
             }}
           >
             {/* Recap statement — headlineXL, centered */}
