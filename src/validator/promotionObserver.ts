@@ -173,6 +173,7 @@ export function observeBlueprint(
   beats: Beat[],
   beatTimings: BeatTimingResolution[],
   artDirection?: BookArtDirection,
+  renderStable?: boolean,
 ): PromotionObservation | null {
   // Only observe synthesized blueprints
   if (blueprint.origin !== "synthesized") return null;
@@ -198,7 +199,7 @@ export function observeBlueprint(
     blueprintId: synth.id,
     sceneType,
     bookId,
-    renderStable: true, // placeholder — actual render stability from Stage 8
+    renderStable: renderStable ?? true,
     timingCoherence,
     focusClarity,
     motionEntropy,

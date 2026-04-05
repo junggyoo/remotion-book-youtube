@@ -188,6 +188,18 @@ describe("observeBlueprint", () => {
     expect(obs!.maxActivatesPerBeat).toBe(0);
     expect(obs!.timingCoherence).toBe(1.0);
   });
+
+  it("defaults renderStable to true when param is omitted", () => {
+    const bp = makeSynthBlueprint("test-01");
+    const obs = observeBlueprint(bp, "book-01", [], []);
+    expect(obs!.renderStable).toBe(true);
+  });
+
+  it("uses renderStable=false when explicitly passed", () => {
+    const bp = makeSynthBlueprint("test-01");
+    const obs = observeBlueprint(bp, "book-01", [], [], undefined, false);
+    expect(obs!.renderStable).toBe(false);
+  });
 });
 
 // ---------------------------------------------------------------------------

@@ -69,6 +69,7 @@ export interface DsgsContext {
   artifacts: Map<string, string>;
   planBridgeResult?: PlanBridgeResult;
   lastCompletedStage?: string;
+  renderResult?: { success: boolean };
 }
 
 export interface DsgsStageResult {
@@ -281,6 +282,7 @@ const renderStage: DsgsStage = {
         { stdio: "inherit", encoding: "utf-8" },
       );
 
+      ctx.renderResult = { success: true };
       return {
         stageId: "8-render",
         status: "success",
@@ -289,6 +291,7 @@ const renderStage: DsgsStage = {
       };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
+      ctx.renderResult = { success: false };
       return {
         stageId: "8-render",
         status: "halted",
@@ -382,6 +385,7 @@ const promoteStage: DsgsStage = {
           beats,
           beatTimings,
           artDirection,
+          ctx.renderResult?.success ?? true,
         );
         if (obs) observations.push(obs);
       } catch {
