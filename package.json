@@ -16,7 +16,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "thumbnail": "ts-node scripts/generate-thumbnail.ts",
-    "budget": "ts-node scripts/budget.ts"
+    "budget": "ts-node scripts/budget.ts",
+    "registry": "ts-node scripts/registry-cli.ts"
   },
   "keywords": [],
   "author": "",
