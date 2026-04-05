@@ -7,6 +7,9 @@ import { splitReveal } from "./splitReveal";
 import { countUp } from "./countUp";
 import { stackBuild } from "./stackBuild";
 import { zoomFocus } from "./zoomFocus";
+import { waveFill } from "./waveFill";
+import { morphTransition } from "./morphTransition";
+import { pulseEmphasis } from "./pulseEmphasis";
 
 export type { ChoreographyFunction, ChoreographyTiming };
 export {
@@ -17,6 +20,9 @@ export {
   countUp,
   stackBuild,
   zoomFocus,
+  waveFill,
+  morphTransition,
+  pulseEmphasis,
 };
 
 export const choreographyRegistry: Record<string, ChoreographyFunction> = {
@@ -27,6 +33,9 @@ export const choreographyRegistry: Record<string, ChoreographyFunction> = {
   "count-up": countUp,
   "stack-build": stackBuild,
   "zoom-focus": zoomFocus,
+  "wave-fill": waveFill,
+  "morph-transition": morphTransition,
+  "pulse-emphasis": pulseEmphasis,
 };
 
 export function useChoreography(
