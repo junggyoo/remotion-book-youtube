@@ -23,6 +23,7 @@ export function interpretScene(
     artDirection: context.artDirection,
     usedFamilies: context.usedFamilies,
     bookStructure: context.bookStructure,
+    content,
   });
 
   // 2. Fallback check

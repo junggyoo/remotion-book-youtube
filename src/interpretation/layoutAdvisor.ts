@@ -16,6 +16,7 @@ interface LayoutAdvice {
 
 // Family → dedicated layout affinity
 const FAMILY_LAYOUT_AFFINITY: Partial<Record<SceneFamily, LayoutType>> = {
+  "concept-introduction": "grid-n",
   "reflective-anchor": "quote-hold",
   "structural-bridge": "band-divider",
   "mechanism-explanation": "radial",
@@ -39,6 +40,8 @@ const BIAS_LAYOUT_MAP: Record<string, LayoutType> = {
 const FAMILY_CHOREOGRAPHY_AFFINITY: Partial<
   Record<SceneFamily, ChoreographyType>
 > = {
+  "concept-introduction": "stagger-clockwise",
+  "system-model": "stagger-clockwise",
   "tension-comparison": "split-reveal",
   "transformation-shift": "split-reveal",
   "mechanism-explanation": "stagger-clockwise",

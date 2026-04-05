@@ -20,7 +20,7 @@ describe("layoutAdvisor", () => {
 
   it("artDirection.layoutBias='grid-heavy' → grid-expand (when no family affinity)", () => {
     const result = adviseLayout({
-      family: "concept-introduction",
+      family: "closing-synthesis",
       artDirection: { layoutBias: "grid-heavy" },
     });
     expect(result.layoutHint).toBe("grid-expand");
@@ -29,7 +29,7 @@ describe("layoutAdvisor", () => {
 
   it("artDirection.layoutBias='asymmetric' → split-compare", () => {
     const result = adviseLayout({
-      family: "concept-introduction",
+      family: "closing-synthesis",
       artDirection: { layoutBias: "asymmetric" },
     });
     expect(result.layoutHint).toBe("split-compare");
@@ -60,8 +60,17 @@ describe("layoutAdvisor", () => {
     expect(result.sources.some((s) => s.includes("split-reveal"))).toBe(true);
   });
 
-  it("no artDirection, no affinity → undefined hints", () => {
+  it("concept-introduction → grid-n layout + stagger-clockwise choreography (family affinity)", () => {
     const result = adviseLayout({ family: "concept-introduction" });
+    expect(result.layoutHint).toBe("grid-n");
+    expect(result.choreographyHint).toBe("stagger-clockwise");
+    expect(result.sources.some((s) => s.includes("concept-introduction"))).toBe(
+      true,
+    );
+  });
+
+  it("no artDirection, no affinity → undefined hints", () => {
+    const result = adviseLayout({ family: "opening-hook" });
     expect(result.layoutHint).toBeUndefined();
     expect(result.choreographyHint).toBeUndefined();
     expect(result.sources).toHaveLength(0);
@@ -99,9 +108,22 @@ describe("layoutAdvisor", () => {
     expect(result.choreographyHint).toBe("split-reveal");
   });
 
-  it("concept-introduction (no affinity) + centered bias → center-focus", () => {
+  it("concept-introduction + centered bias → grid-n (family affinity overrides artDirection)", () => {
     const result = adviseLayout({
       family: "concept-introduction",
+      artDirection: { layoutBias: "centered" },
+    });
+    expect(result.layoutHint).toBe("grid-n");
+    // family affinity wins, centered source should NOT appear
+    expect(result.sources.some((s) => s.includes("concept-introduction"))).toBe(
+      true,
+    );
+    expect(result.sources.some((s) => s.includes("centered"))).toBe(false);
+  });
+
+  it("closing-synthesis (no affinity) + centered bias → center-focus", () => {
+    const result = adviseLayout({
+      family: "closing-synthesis",
       artDirection: { layoutBias: "centered" },
     });
     expect(result.layoutHint).toBe("center-focus");

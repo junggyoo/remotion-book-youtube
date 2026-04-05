@@ -84,6 +84,7 @@ export interface ScorerInput {
   artDirection?: InterpretationContext["artDirection"];
   usedFamilies: SceneFamily[];
   bookStructure?: string;
+  content?: Record<string, unknown>;
 }
 
 // ─── Dimension functions ────────────────────────────────────────────────────
@@ -92,8 +93,28 @@ function calcTypeMatch(
   sceneType: string,
   family: SceneFamily,
   bookStructure?: string,
+  content?: Record<string, unknown>,
 ): number {
   if (sceneType === "framework") {
+    // Content-aware: small item count (<=3) with cyclic/loop keywords → mechanism-explanation
+    const items = content?.items as unknown[] | undefined;
+    const itemCount = items?.length ?? 0;
+    const hasCyclicHint =
+      content?.frameworkLabel &&
+      /루프|사이클|순환|loop|cycle|flow|흐름/i.test(
+        String(content.frameworkLabel),
+      );
+
+    if (itemCount > 0 && itemCount <= 3 && hasCyclicHint) {
+      // Cyclic/loop content → mechanism-explanation preferred
+      return family === "mechanism-explanation"
+        ? 1.0
+        : family === "system-model"
+          ? 0.4
+          : 0.0;
+    }
+
+    // Default: bookStructure-based
     const expected =
       bookStructure === "framework" ? "system-model" : "mechanism-explanation";
     return family === expected ? 1.0 : 0.0;
@@ -186,6 +207,7 @@ export function scoreAllFamilies(input: ScorerInput): ScoredFamily[] {
       input.sceneType,
       family,
       input.bookStructure,
+      input.content,
     );
     const segmentFit = calcSegmentFit(input.segment, family);
     const artDirectionFit = calcArtDirectionFit(input.artDirection, family);
