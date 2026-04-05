@@ -309,4 +309,85 @@ describe("composeBlueprint with registry (D3: bridge/coexistence)", () => {
 
     expect(blueprint).toBeNull();
   });
+
+  it("promoted registry recipe overrides hardcoded recipe (auto-substitution)", () => {
+    const registry = SceneRegistry.create(registryFilePath);
+    // Register a promoted entry for concept-introduction (which has a hardcoded recipe)
+    registry.register({
+      id: "promoted-ci-001",
+      family: "concept-introduction",
+      lifecycleStatus: "promoted",
+      origin: "invention",
+      recipe: {
+        defaultLayout: "pyramid",
+        defaultChoreography: "stagger-clockwise",
+        elementTemplate: [
+          {
+            id: "promoted-headline",
+            type: "TextBlock",
+            props: { layer: 20 },
+            layer: 20,
+            beatActivationKey: "headline",
+          },
+        ],
+      },
+      observations: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    registry.save();
+
+    const spec = makeSpec({
+      id: "ci-promoted-01",
+      family: "concept-introduction",
+      content: { headline: "승격 레시피 테스트" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    // Should use promoted registry recipe's layout, not hardcoded center-focus
+    expect(blueprint!.layout).toBe("pyramid");
+    expect(blueprint!.choreography).toBe("stagger-clockwise");
+  });
+
+  it("non-promoted registry recipe does NOT override hardcoded recipe", () => {
+    const registry = SceneRegistry.create(registryFilePath);
+    // Register an active (non-promoted) entry for concept-introduction
+    registry.register({
+      id: "active-ci-001",
+      family: "concept-introduction",
+      lifecycleStatus: "active",
+      origin: "migration",
+      recipe: {
+        defaultLayout: "pyramid",
+        defaultChoreography: "stagger-clockwise",
+        elementTemplate: [
+          {
+            id: "active-headline",
+            type: "TextBlock",
+            props: { layer: 20 },
+            layer: 20,
+            beatActivationKey: "headline",
+          },
+        ],
+      },
+      observations: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    registry.save();
+
+    const spec = makeSpec({
+      id: "ci-active-01",
+      family: "concept-introduction",
+      content: { headline: "비승격은 무시" },
+    });
+
+    const blueprint = composeBlueprint(spec, testCtx, registry);
+
+    expect(blueprint).not.toBeNull();
+    // Hardcoded recipe's center-focus should be used, NOT registry's pyramid
+    expect(blueprint!.layout).toBe("center-focus");
+  });
 });

@@ -68,7 +68,7 @@ const CAPABILITY_FAMILY_MAP: Record<string, SceneFamily> = {
 };
 
 /** SceneType → family fallback when no capability matches */
-const PRESET_FAMILY_MAP: Record<string, SceneFamily> = {
+export const PRESET_FAMILY_MAP: Record<string, SceneFamily> = {
   cover: "opening-hook",
   hook: "opening-hook",
   intro: "opening-hook",

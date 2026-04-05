@@ -105,9 +105,10 @@ function selectLayoutFromAlternatives(
  * Compose a SceneBlueprint from a SceneSpec + pipeline context.
  * Returns null if no recipe is registered or elements are empty.
  *
- * Recipe lookup priority (D3: bridge/coexistence):
- *   1. Hardcoded recipeRegistry (family recipes)
- *   2. SceneRegistry fallback (if provided)
+ * Recipe lookup priority (D3: bridge/coexistence + auto-substitution):
+ *   1. SceneRegistry promoted recipe (auto-substitution — learned from 3+ books)
+ *   2. Hardcoded recipeRegistry (family recipes)
+ *   3. SceneRegistry non-promoted fallback (if no hardcoded recipe)
  *
  * Layout/choreography priority:
  *   1. spec explicit value (if interpretationMeta says it was explicitly chosen)
@@ -119,9 +120,18 @@ export function composeBlueprint(
   ctx: CompositionContext,
   registry?: SceneRegistry,
 ): SceneBlueprint | null {
+  // Phase 1: Check for promoted registry recipe (auto-substitution)
+  if (registry) {
+    const promotedEntry = registry.getBestRecipe(spec.family);
+    if (promotedEntry && promotedEntry.lifecycleStatus === "promoted") {
+      return composeBlueprintFromRegistry(promotedEntry, spec, ctx);
+    }
+  }
+
+  // Phase 2: Hardcoded recipe path
   const recipe = recipeRegistry[spec.family];
 
-  // D3 bridge: if no hardcoded recipe, try SceneRegistry fallback
+  // Phase 3: If no hardcoded recipe, try SceneRegistry fallback (non-promoted)
   if (!recipe) {
     if (registry) {
       const registryEntry = registry.getBestRecipe(spec.family);

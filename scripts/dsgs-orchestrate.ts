@@ -35,6 +35,9 @@ import {
   checkPromotionEligibility,
   type PromotionObservation,
 } from "../src/validator/promotionObserver";
+import { SceneRegistry } from "../src/registry/SceneRegistry";
+import { PromotionWorkflow } from "../src/registry/PromotionWorkflow";
+import { accumulateObservations } from "../src/registry/observationAccumulator";
 import type { PlanBridgeResult, BookArtDirection } from "../src/planning/types";
 import type { BeatPlanEntry } from "../src/types";
 import { analyzeBook } from "./stages/book-analyzer";
@@ -403,7 +406,7 @@ const promoteStage: DsgsStage = {
       };
     }
 
-    // 6. Log observations
+    // 6. Log observations to file (backward-compatible)
     const outPath = path.join(ctx.planDir, "promotion-observations.json");
     const summary = observations.map((obs) => ({
       ...obs,
@@ -413,12 +416,41 @@ const promoteStage: DsgsStage = {
 
     const eligible = summary.filter((s) => s.eligible).length;
 
+    // 7. Accumulate observations into SceneRegistry + evaluate promotions
+    const registryPath = path.resolve("generated/registry/scene-registry.json");
+    let accumulated = 0;
+    let promoted = 0;
+    let demoted = 0;
+    try {
+      const registry = SceneRegistry.loadOrCreate(registryPath);
+
+      // Accumulate observations (with dedup) into registry entries
+      accumulated = accumulateObservations(registry, observations);
+
+      // Evaluate promotions for validated entries
+      const workflow = new PromotionWorkflow(registry);
+      for (const entry of registry.getByStatus("validated")) {
+        const decision = workflow.evaluatePromotion(entry.id);
+        if (decision.action === "promoted") promoted++;
+      }
+
+      // Evaluate demotions for promoted entries
+      for (const entry of registry.getByStatus("promoted")) {
+        const decision = workflow.evaluateDemotion(entry.id);
+        if (decision.action === "demoted") demoted++;
+      }
+
+      registry.save();
+    } catch {
+      /* registry operations are best-effort — don't block pipeline */
+    }
+
     return {
       stageId: "9-promote",
       status: "success",
       artifacts: [outPath],
       durationMs: Date.now() - start,
-      message: `Observed ${observations.length} synthesized blueprints. ${eligible}/${observations.length} promotion-eligible.`,
+      message: `Observed ${observations.length} blueprints. ${eligible}/${observations.length} eligible. Registry: +${accumulated} obs, ${promoted} promoted, ${demoted} demoted.`,
     };
   },
 };

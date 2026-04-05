@@ -28,19 +28,23 @@ afterEach(() => {
 // ---------------------------------------------------------------------------
 
 describe("migrateBuiltinRecipes", () => {
-  it("migrates 3 existing family recipes to registry entries", () => {
+  it("migrates all 11 family recipes to registry entries", () => {
     const registry = SceneRegistry.create(TEST_REGISTRY_PATH);
     const count = migrateBuiltinRecipes(registry);
 
-    expect(count).toBe(3);
+    expect(count).toBe(11);
 
     const ci = registry.getByFamily("concept-introduction");
     const sm = registry.getByFamily("system-model");
     const pj = registry.getByFamily("progression-journey");
+    const oh = registry.getByFamily("opening-hook");
+    const cs = registry.getByFamily("closing-synthesis");
 
     expect(ci).toHaveLength(1);
     expect(sm).toHaveLength(1);
     expect(pj).toHaveLength(1);
+    expect(oh).toHaveLength(1);
+    expect(cs).toHaveLength(1);
   });
 
   it("all migrated entries have lifecycleStatus=active and origin=migration", () => {
@@ -48,7 +52,7 @@ describe("migrateBuiltinRecipes", () => {
     migrateBuiltinRecipes(registry);
 
     const activeEntries = registry.getByStatus("active");
-    expect(activeEntries).toHaveLength(3);
+    expect(activeEntries).toHaveLength(11);
 
     for (const entry of activeEntries) {
       expect(entry.lifecycleStatus).toBe("active");
@@ -59,14 +63,14 @@ describe("migrateBuiltinRecipes", () => {
   it("skips migration if entries already exist", () => {
     const registry = SceneRegistry.create(TEST_REGISTRY_PATH);
     const firstCount = migrateBuiltinRecipes(registry);
-    expect(firstCount).toBe(3);
+    expect(firstCount).toBe(11);
 
     const secondCount = migrateBuiltinRecipes(registry);
     expect(secondCount).toBe(0);
 
-    // Still only 3 entries total
+    // Still only 11 entries total
     const activeEntries = registry.getByStatus("active");
-    expect(activeEntries).toHaveLength(3);
+    expect(activeEntries).toHaveLength(11);
   });
 
   it("migrated entries have valid elementTemplate arrays", () => {

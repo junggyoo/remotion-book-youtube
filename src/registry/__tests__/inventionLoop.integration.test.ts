@@ -102,10 +102,12 @@ describe("Invention Loop E2E", () => {
     const registry = SceneRegistry.create(FIXTURE_PATH);
     const migratedCount = migrateBuiltinRecipes(registry);
 
-    expect(migratedCount).toBe(3);
+    expect(migratedCount).toBe(11);
     expect(registry.getByFamily("concept-introduction").length).toBe(1);
     expect(registry.getByFamily("system-model").length).toBe(1);
     expect(registry.getByFamily("progression-journey").length).toBe(1);
+    expect(registry.getByFamily("opening-hook").length).toBe(1);
+    expect(registry.getByFamily("closing-synthesis").length).toBe(1);
 
     // ─── Step 2: Build invention prompt from sample gap ─────────────
     const gap = makeSampleGap();
@@ -336,12 +338,12 @@ describe("Invention Loop E2E", () => {
     // ─── Step 10: Stats — familiesWithoutPromoted ────────────────────
     const stats = reloaded.getStats();
 
-    // 4 total entries: 3 migrated (active) + 1 invented (promoted)
-    expect(stats.total).toBe(4);
+    // 12 total entries: 11 migrated (active) + 1 invented (promoted)
+    expect(stats.total).toBe(12);
     expect(stats.inventions).toBe(1);
     expect(stats.promotions).toBe(1);
 
-    // mechanism-explanation has a promoted entry, so only the other 3 families lack promoted
+    // mechanism-explanation has a promoted entry, so the other 10 families lack promoted
     expect(stats.familiesWithoutPromoted).toContain("concept-introduction");
     expect(stats.familiesWithoutPromoted).toContain("system-model");
     expect(stats.familiesWithoutPromoted).toContain("progression-journey");

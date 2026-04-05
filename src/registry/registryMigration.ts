@@ -73,12 +73,10 @@ const SAMPLE_CONTENT_BY_FAMILY: Record<SceneFamily, Record<string, unknown>> = {
     afterState: "sample",
   },
   "evidence-stack": {
-    headline: "sample",
-    supportText: "sample",
-    evidence: "sample",
-    items: [
-      { title: "sample", description: "sample" },
-      { title: "sample2", description: "sample2" },
+    dataLabel: "sample",
+    data: [
+      { label: "sample", value: "100" },
+      { label: "sample2", value: "200" },
     ],
   },
   "reflective-anchor": {
