@@ -9,8 +9,10 @@ import type { SceneSpec } from "@/direction/types";
 import type { CompositionContext } from "./types";
 import type { SceneRegistry } from "@/registry/SceneRegistry";
 import type { RegistryEntry, ElementTemplate } from "@/registry/types";
+import type { FamilyRecipe } from "./types";
 import { recipeRegistry } from "./familyRecipes";
 import { resolveElements } from "./elementResolver";
+import { layoutRegistry } from "@/renderer/layouts";
 
 /**
  * Build VCLElements from a RegistryEntry's elementTemplate + scene content.
@@ -41,6 +43,62 @@ function resolveElementsFromRegistry(
       props,
     };
   });
+}
+
+/**
+ * Select the best layout from a recipe's alternatives based on content structure.
+ * Returns the default layout if no alternative is a better fit.
+ *
+ * Heuristics:
+ *   - 4 items exactly + matrix-2x2 available → matrix-2x2
+ *   - hierarchical/ordered items + pyramid available → pyramid
+ *   - sequential steps/process + flowchart available → flowchart
+ *   - layered/stacked items + stacked-layers available → stacked-layers
+ *   - otherwise → defaultLayout
+ */
+function selectLayoutFromAlternatives(
+  recipe: FamilyRecipe,
+  content: Record<string, unknown>,
+): LayoutType {
+  const alts = recipe.alternativeLayouts;
+  if (!alts || alts.length === 0) return recipe.defaultLayout;
+
+  const items = content.items as unknown[] | undefined;
+  const steps = content.steps as unknown[] | undefined;
+  const data = content.data as unknown[] | undefined;
+  const itemCount = items?.length ?? steps?.length ?? data?.length ?? 0;
+
+  // 4 items exactly → matrix-2x2 (perfect quadrant fit)
+  if (itemCount === 4 && alts.includes("matrix-2x2")) {
+    return "matrix-2x2";
+  }
+
+  // Sequential steps/process content → flowchart
+  if (
+    (steps || content.process || content.flow) &&
+    alts.includes("flowchart")
+  ) {
+    return "flowchart";
+  }
+
+  // Hierarchical/priority content → pyramid
+  if (
+    (content.hierarchy || content.priority || content.levels) &&
+    alts.includes("pyramid")
+  ) {
+    return "pyramid";
+  }
+
+  // 3+ layers/items with layering semantics → stacked-layers
+  if (
+    itemCount >= 3 &&
+    (content.layers || content.stack) &&
+    alts.includes("stacked-layers")
+  ) {
+    return "stacked-layers";
+  }
+
+  return recipe.defaultLayout;
 }
 
 /**
@@ -86,14 +144,14 @@ export function composeBlueprint(
     return null;
   }
 
-  // 2. Select layout: spec explicit > recipe default
+  // 2. Select layout: spec explicit > content-aware alternative > recipe default
   const specLayoutIsExplicit =
     spec.interpretationMeta?.derivedFrom?.some((d) =>
       d.startsWith("layout:"),
     ) ?? false;
   const layout: LayoutType = specLayoutIsExplicit
     ? spec.layout
-    : recipe.defaultLayout;
+    : selectLayoutFromAlternatives(recipe, spec.content ?? {});
 
   // 3. Select choreography: same priority logic
   const specChoreographyIsExplicit =

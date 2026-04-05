@@ -14,10 +14,13 @@ interface LayoutAdvice {
   sources: string[]; // trace: why these hints
 }
 
-// Family → dedicated layout affinity (Part B layouts!)
+// Family → dedicated layout affinity
 const FAMILY_LAYOUT_AFFINITY: Partial<Record<SceneFamily, LayoutType>> = {
   "reflective-anchor": "quote-hold",
   "structural-bridge": "band-divider",
+  "mechanism-explanation": "radial",
+  "tension-comparison": "split-compare",
+  "transformation-shift": "split-two",
 };
 
 // ArtDirection layoutBias → layout preference
@@ -26,6 +29,21 @@ const BIAS_LAYOUT_MAP: Record<string, LayoutType> = {
   asymmetric: "split-compare",
   flow: "timeline-h",
   centered: "center-focus",
+  hierarchical: "pyramid",
+  layered: "stacked-layers",
+  matrix: "matrix-2x2",
+  process: "flowchart",
+};
+
+// Family → choreography affinity (supplements layout affinity)
+const FAMILY_CHOREOGRAPHY_AFFINITY: Partial<
+  Record<SceneFamily, ChoreographyType>
+> = {
+  "tension-comparison": "split-reveal",
+  "transformation-shift": "split-reveal",
+  "mechanism-explanation": "stagger-clockwise",
+  "progression-journey": "path-trace",
+  "evidence-stack": "stagger-clockwise",
 };
 
 export function adviseLayout(input: AdvisorInput): LayoutAdvice {
@@ -51,13 +69,24 @@ export function adviseLayout(input: AdvisorInput): LayoutAdvice {
     }
   }
 
-  // 3. Segment-based choreography hints
-  if (
-    input.segment?.role === "climax" &&
-    input.family === "tension-comparison"
-  ) {
-    choreographyHint = "split-reveal";
-    sources.push("segment:climax + tension-comparison → split-reveal");
+  // 3. Family-choreography affinity
+  const familyChoreography = FAMILY_CHOREOGRAPHY_AFFINITY[input.family];
+  if (familyChoreography && !choreographyHint) {
+    choreographyHint = familyChoreography;
+    sources.push(
+      `family-choreography affinity: ${input.family} → ${familyChoreography}`,
+    );
+  }
+
+  // 4. Segment-based overrides (climax → more dramatic choreography)
+  if (input.segment?.role === "climax") {
+    if (input.family === "tension-comparison") {
+      choreographyHint = "split-reveal";
+      sources.push("segment:climax + tension-comparison → split-reveal");
+    } else if (layoutHint === "pyramid" || layoutHint === "stacked-layers") {
+      choreographyHint = "stack-build";
+      sources.push(`segment:climax + ${layoutHint} → stack-build`);
+    }
   }
 
   return { layoutHint, choreographyHint, sources };

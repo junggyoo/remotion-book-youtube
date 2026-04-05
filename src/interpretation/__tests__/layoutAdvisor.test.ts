@@ -85,7 +85,7 @@ describe("layoutAdvisor", () => {
     }
   });
 
-  it("non-climax segment → no choreography hint", () => {
+  it("non-climax segment → family choreography affinity applied", () => {
     const result = adviseLayout({
       family: "tension-comparison",
       segment: {
@@ -95,7 +95,8 @@ describe("layoutAdvisor", () => {
         requiredDelivery: [],
       },
     });
-    expect(result.choreographyHint).toBeUndefined();
+    // tension-comparison has family-choreography affinity → split-reveal
+    expect(result.choreographyHint).toBe("split-reveal");
   });
 
   it("concept-introduction (no affinity) + centered bias → center-focus", () => {

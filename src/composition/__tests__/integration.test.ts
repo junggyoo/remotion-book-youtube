@@ -55,7 +55,7 @@ describe("concept-introduction (keyInsight) composed path", () => {
 
 // ─── Test 2: system-model (framework) flows through composed path ─────────────
 describe("system-model (framework) composed path", () => {
-  it("produces headline + 4 items = 5 elements, layout:grid-expand, choreography:stagger-clockwise", () => {
+  it("produces headline + 4 items = 5 elements, layout:matrix-2x2 (content-aware), choreography:stagger-clockwise", () => {
     const spec = adaptPresetToSceneSpec(
       {
         id: "scene-fw-01",
@@ -83,14 +83,15 @@ describe("system-model (framework) composed path", () => {
 
     expect(blueprint).not.toBeNull();
     expect(blueprint!.elements).toHaveLength(5); // 1 headline + 4 items
-    expect(blueprint!.layout).toBe("grid-expand");
+    // 4 items triggers content-aware matrix-2x2 selection
+    expect(blueprint!.layout).toBe("matrix-2x2");
     expect(blueprint!.choreography).toBe("stagger-clockwise");
   });
 });
 
 // ─── Test 3: progression-journey (application) flows through composed path ────
 describe("progression-journey (application) composed path", () => {
-  it("produces headline + 2 steps = 3 elements, layout:timeline-h, choreography:path-trace", () => {
+  it("produces headline + 2 steps = 3 elements, layout:flowchart (content-aware), choreography:path-trace", () => {
     const spec = adaptPresetToSceneSpec(
       {
         id: "scene-app-01",
@@ -116,7 +117,8 @@ describe("progression-journey (application) composed path", () => {
 
     expect(blueprint).not.toBeNull();
     expect(blueprint!.elements).toHaveLength(3); // 1 headline + 2 steps
-    expect(blueprint!.layout).toBe("timeline-h");
+    // steps content triggers content-aware flowchart selection
+    expect(blueprint!.layout).toBe("flowchart");
     expect(blueprint!.choreography).toBe("path-trace");
   });
 });
