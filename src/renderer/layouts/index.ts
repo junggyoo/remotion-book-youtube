@@ -16,6 +16,9 @@ import { pyramid } from "./pyramid";
 import { stackedLayers } from "./stackedLayers";
 import { matrix2x2 } from "./matrix2x2";
 import { flowchart } from "./flowchart";
+import { orbit } from "./orbit";
+import { scatteredCards } from "./scatteredCards";
+import { comparisonBar } from "./comparisonBar";
 
 export type {
   LayoutPosition,
@@ -34,6 +37,9 @@ export { pyramid } from "./pyramid";
 export { stackedLayers } from "./stackedLayers";
 export { matrix2x2 } from "./matrix2x2";
 export { flowchart } from "./flowchart";
+export { orbit } from "./orbit";
+export { scatteredCards } from "./scatteredCards";
+export { comparisonBar } from "./comparisonBar";
 
 // ---------------------------------------------------------------------------
 // Layout Registry
@@ -95,6 +101,18 @@ export const layoutRegistry: Record<string, LayoutRegistration> = {
   flowchart: {
     fn: flowchart,
     compatibleChoreographies: ["path-trace", "reveal-sequence"],
+  },
+  orbit: {
+    fn: orbit,
+    compatibleChoreographies: ["stagger-clockwise", "reveal-sequence"],
+  },
+  "scattered-cards": {
+    fn: scatteredCards,
+    compatibleChoreographies: ["reveal-sequence", "wave-fill"],
+  },
+  "comparison-bar": {
+    fn: comparisonBar,
+    compatibleChoreographies: ["reveal-sequence", "count-up", "stack-build"],
   },
 };
 
