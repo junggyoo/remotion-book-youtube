@@ -57,6 +57,7 @@ import {
 } from "@/components/layout/CameraLayer";
 import { SceneWrapper } from "@/components/layout/SceneWrapper";
 import { BackgroundMotion } from "@/components/layout/BackgroundMotion";
+import { getGrainConfig } from "@/design/tokens/grainProfile";
 import type { CustomScene, SceneElementLayoutMeta } from "@/types";
 import type { Beat, BeatTimingResolution } from "../types";
 import { useBeatTimeline } from "../hooks/useBeatTimeline";
@@ -342,7 +343,13 @@ const SceneRenderer: React.FC<{
         durationFrames={scene.resolvedDuration}
         format={format}
       >
-        <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
+        <BackgroundMotion
+          format={format}
+          mode={getGrainConfig(scene.type).mode}
+          intensity={getGrainConfig(scene.type).intensity}
+        >
+          {sceneContent}
+        </BackgroundMotion>
       </HighlightCameraWrapper>
     );
   }
@@ -355,7 +362,13 @@ const SceneRenderer: React.FC<{
         durationFrames={scene.resolvedDuration}
         format={format}
       >
-        <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
+        <BackgroundMotion
+          format={format}
+          mode={getGrainConfig(scene.type).mode}
+          intensity={getGrainConfig(scene.type).intensity}
+        >
+          {sceneContent}
+        </BackgroundMotion>
       </KeyInsightCameraWrapper>
     );
   }
@@ -367,7 +380,13 @@ const SceneRenderer: React.FC<{
       sceneType={scene.type}
       durationFrames={scene.resolvedDuration}
     >
-      <BackgroundMotion format={format}>{sceneContent}</BackgroundMotion>
+      <BackgroundMotion
+        format={format}
+        mode={getGrainConfig(scene.type).mode}
+        intensity={getGrainConfig(scene.type).intensity}
+      >
+        {sceneContent}
+      </BackgroundMotion>
     </CameraLayer>
   );
 };

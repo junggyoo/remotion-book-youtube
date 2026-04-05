@@ -12,6 +12,9 @@ import { QuoteBlock } from "@/components/primitives/QuoteBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { DividerLine } from "@/components/primitives/DividerLine";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
@@ -56,6 +59,7 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const isShorts = format === "shorts";
   const vsLabel = content.vsLabel ?? "VS";
@@ -70,9 +74,33 @@ export const SplitQuoteScene: React.FC<SplitQuoteSceneProps> = ({
     },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "heavy", {
+      sceneType: "splitQuote",
+      format,
+    });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  // P2-3: Narration sync — emphasis words glow in quote text
+  const captions = useCaptions(captionsFile);
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "splitQuote",
+    format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "splitQuote",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
 
   const getBeatState = (key: string): ElementBeatState | undefined => {
     if (isWildcard) return WILDCARD_STAGGER[key];

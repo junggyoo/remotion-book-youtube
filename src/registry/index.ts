@@ -40,6 +40,11 @@ export {
   extractInventionRecord,
 } from "./InventionPromptContract";
 export { migrateBuiltinRecipes } from "./registryMigration";
+export { runInventionLoop, queryPromotedRecipe } from "./inventionLoop";
+export type {
+  InventionLoopResult,
+  InventionLoopOptions,
+} from "./inventionLoop";
 
 // ─── Schemas ───────────────────────────────────────────────────────────────────
 

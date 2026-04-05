@@ -11,6 +11,8 @@ export interface BackgroundMotionProps {
   mode?: NoiseMode;
   format?: FormatKey;
   blendMode?: BlendMode;
+  /** 0~1 grain intensity multiplier. Default 0.5 (mid). */
+  intensity?: number;
   children: React.ReactNode;
 }
 
@@ -51,13 +53,16 @@ export const BackgroundMotion: React.FC<BackgroundMotionProps> = ({
   mode = "grain",
   format,
   blendMode = "overlay",
+  intensity = 0.5,
   children,
 }) => {
   const frame = useCurrentFrame();
   const noiseStyle = getNoiseStyle(mode, frame);
 
+  const clampedIntensity = Math.max(0, Math.min(1, intensity));
+  const formatScale = format === "shorts" ? 0.5 : 1.0;
   const effectiveOpacity =
-    format === "shorts" ? noiseStyle.opacity * 0.5 : noiseStyle.opacity;
+    noiseStyle.opacity * clampedIntensity * 2 * formatScale;
 
   return (
     <>

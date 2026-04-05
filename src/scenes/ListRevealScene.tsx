@@ -12,6 +12,9 @@ import { TextBlock } from "@/components/primitives/TextBlock";
 import { LabelChip } from "@/components/primitives/LabelChip";
 import { NumberBadge } from "@/components/primitives/NumberBadge";
 import { useBeatTimeline } from "@/hooks/useBeatTimeline";
+import { useCaptions } from "@/hooks/useCaptions";
+import { useNarrationSync } from "@/hooks/useNarrationSync";
+import { useEmphasisGate } from "@/hooks/useEmphasisGate";
 import { resolveBeats } from "@/pipeline/resolveBeats";
 
 // zIndex layers
@@ -60,6 +63,7 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
   durationFrames,
   content,
   beats,
+  captionsFile,
 }) => {
   const frame = useCurrentFrame();
   const isShorts = format === "shorts";
@@ -76,9 +80,33 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
     { id: `listReveal-${from}`, type: "listReveal", beats, narrationText: "" },
     format,
   );
-  const { elementStates } = useBeatTimeline(resolvedBeats, durationFrames);
+  const { elementStates, activeBeat, activeChannels, isInRecoveryWindow } =
+    useBeatTimeline(resolvedBeats, durationFrames, "smooth", {
+      sceneType: "listReveal",
+      format,
+    });
   const isWildcard =
     resolvedBeats.length === 1 && resolvedBeats[0].activates.includes("*");
+
+  // P2-3: Narration sync — emphasis words glow in scene text
+  const captions = useCaptions(captionsFile);
+  const narrationSync = useNarrationSync({
+    captions,
+    emphasisTargets: activeBeat?.emphasisTargets ?? [],
+    sceneType: "listReveal",
+    format,
+  });
+
+  // P2-4: Gate sceneText channel
+  const { isChannelActive: sceneTextActive } = useEmphasisGate({
+    channelKey: "sceneText",
+    sceneType: "listReveal",
+    format,
+    beatTimeline: { activeChannels, isInRecoveryWindow },
+  });
+  const gatedEmphasisProgress = sceneTextActive
+    ? narrationSync.emphasisProgress
+    : 0;
 
   const getBeatState = (
     key: string,
@@ -206,6 +234,8 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                             text={item.title}
                             variant="bodyL"
                             weight="bold"
+                            emphasisWords={narrationSync.activeEmphasisTargets}
+                            emphasisProgress={gatedEmphasisProgress}
                           />
 
                           {!isShorts && item.subtitle && (
@@ -215,6 +245,10 @@ export const ListRevealScene: React.FC<ListRevealSceneProps> = ({
                               text={item.subtitle}
                               variant="bodyS"
                               color={theme.textMuted}
+                              emphasisWords={
+                                narrationSync.activeEmphasisTargets
+                              }
+                              emphasisProgress={gatedEmphasisProgress}
                             />
                           )}
                         </div>
