@@ -225,7 +225,7 @@ describe("compareContrast → tension-comparison composed path", () => {
 
 // 7. data → evidence-stack
 describe("data → evidence-stack composed path", () => {
-  it("produces grid-expand layout with dataLabel headline + data items", () => {
+  it("produces comparison-bar layout with dataLabel headline + data items", () => {
     const spec = adaptPresetToSceneSpec(
       {
         id: "p2b-data-01",
@@ -251,7 +251,7 @@ describe("data → evidence-stack composed path", () => {
 
     expect(blueprint).not.toBeNull();
     expect(blueprint!.origin).toBe("composed");
-    expect(blueprint!.layout).toBe("grid-expand");
+    expect(blueprint!.layout).toBe("comparison-bar");
     // 1 headline + 2 data items = 3 elements
     expect(blueprint!.elements).toHaveLength(3);
   });

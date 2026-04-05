@@ -98,6 +98,24 @@ function selectLayoutFromAlternatives(
     return "stacked-layers";
   }
 
+  // Data array present → comparison-bar (bar chart visualization)
+  if (data && data.length > 0 && alts.includes("comparison-bar")) {
+    return "comparison-bar";
+  }
+
+  // 5+ items → scattered-cards (organic spread for many items)
+  if (itemCount >= 5 && alts.includes("scattered-cards")) {
+    return "scattered-cards";
+  }
+
+  // Cyclic/loop content → orbit (circular arrangement)
+  if (
+    (content.cycle || content.loop || content.circular) &&
+    alts.includes("orbit")
+  ) {
+    return "orbit";
+  }
+
   return recipe.defaultLayout;
 }
 

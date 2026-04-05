@@ -13,7 +13,12 @@ interface ListItem {
 export const evidenceStackRecipe: FamilyRecipe = {
   family: "evidence-stack",
   defaultLayout: "grid-expand",
-  alternativeLayouts: ["stacked-layers", "matrix-2x2"],
+  alternativeLayouts: [
+    "stacked-layers",
+    "matrix-2x2",
+    "comparison-bar",
+    "scattered-cards",
+  ],
   defaultChoreography: "stagger-clockwise",
 
   resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {

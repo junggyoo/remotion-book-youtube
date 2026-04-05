@@ -22,6 +22,7 @@ const FAMILY_LAYOUT_AFFINITY: Partial<Record<SceneFamily, LayoutType>> = {
   "mechanism-explanation": "radial",
   "tension-comparison": "split-compare",
   "transformation-shift": "split-two",
+  "evidence-stack": "comparison-bar",
 };
 
 // ArtDirection layoutBias → layout preference
@@ -34,6 +35,9 @@ const BIAS_LAYOUT_MAP: Record<string, LayoutType> = {
   layered: "stacked-layers",
   matrix: "matrix-2x2",
   process: "flowchart",
+  organic: "scattered-cards",
+  orbital: "orbit",
+  bars: "comparison-bar",
 };
 
 // Family → choreography affinity (supplements layout affinity)
@@ -47,6 +51,8 @@ const FAMILY_CHOREOGRAPHY_AFFINITY: Partial<
   "mechanism-explanation": "stagger-clockwise",
   "progression-journey": "path-trace",
   "evidence-stack": "stagger-clockwise",
+  "closing-synthesis": "pulse-emphasis",
+  "reflective-anchor": "zoom-focus",
 };
 
 export function adviseLayout(input: AdvisorInput): LayoutAdvice {

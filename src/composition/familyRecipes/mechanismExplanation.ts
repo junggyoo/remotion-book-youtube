@@ -10,7 +10,7 @@ export const mechanismExplanationRecipe: FamilyRecipe = {
   family: "mechanism-explanation",
   defaultLayout: "radial",
   defaultChoreography: "stagger-clockwise",
-  alternativeLayouts: ["flowchart"],
+  alternativeLayouts: ["flowchart", "orbit"],
 
   resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const sid = hints?.sceneId ?? "me";
