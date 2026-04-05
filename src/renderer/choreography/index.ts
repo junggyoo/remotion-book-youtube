@@ -5,9 +5,19 @@ import { staggerClockwise } from "./staggerClockwise";
 import { pathTrace } from "./pathTrace";
 import { splitReveal } from "./splitReveal";
 import { countUp } from "./countUp";
+import { stackBuild } from "./stackBuild";
+import { zoomFocus } from "./zoomFocus";
 
 export type { ChoreographyFunction, ChoreographyTiming };
-export { revealSequence, staggerClockwise, pathTrace, splitReveal, countUp };
+export {
+  revealSequence,
+  staggerClockwise,
+  pathTrace,
+  splitReveal,
+  countUp,
+  stackBuild,
+  zoomFocus,
+};
 
 export const choreographyRegistry: Record<string, ChoreographyFunction> = {
   "reveal-sequence": revealSequence,
@@ -15,6 +25,8 @@ export const choreographyRegistry: Record<string, ChoreographyFunction> = {
   "path-trace": pathTrace,
   "split-reveal": splitReveal,
   "count-up": countUp,
+  "stack-build": stackBuild,
+  "zoom-focus": zoomFocus,
 };
 
 export function useChoreography(

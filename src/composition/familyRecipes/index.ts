@@ -10,6 +10,7 @@ import { reflectiveAnchorRecipe } from "./reflectiveAnchor";
 import { mechanismExplanationRecipe } from "./mechanismExplanation";
 import { tensionComparisonRecipe } from "./tensionComparison";
 import { evidenceStackRecipe } from "./evidenceStack";
+import { transformationShiftRecipe } from "./transformationShift";
 
 export const recipeRegistry: Partial<Record<SceneFamily, FamilyRecipe>> = {};
 
@@ -28,6 +29,7 @@ registerRecipe(reflectiveAnchorRecipe);
 registerRecipe(mechanismExplanationRecipe);
 registerRecipe(tensionComparisonRecipe);
 registerRecipe(evidenceStackRecipe);
+registerRecipe(transformationShiftRecipe);
 
 export {
   conceptIntroductionRecipe,
@@ -40,4 +42,5 @@ export {
   mechanismExplanationRecipe,
   tensionComparisonRecipe,
   evidenceStackRecipe,
+  transformationShiftRecipe,
 };

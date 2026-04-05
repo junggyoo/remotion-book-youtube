@@ -12,6 +12,10 @@ import { gridN } from "./gridN";
 import { timelineV } from "./timelineV";
 import { quoteHold } from "./quoteHold";
 import { bandDivider } from "./bandDivider";
+import { pyramid } from "./pyramid";
+import { stackedLayers } from "./stackedLayers";
+import { matrix2x2 } from "./matrix2x2";
+import { flowchart } from "./flowchart";
 
 export type {
   LayoutPosition,
@@ -26,6 +30,10 @@ export { gridN } from "./gridN";
 export { timelineV } from "./timelineV";
 export { quoteHold } from "./quoteHold";
 export { bandDivider } from "./bandDivider";
+export { pyramid } from "./pyramid";
+export { stackedLayers } from "./stackedLayers";
+export { matrix2x2 } from "./matrix2x2";
+export { flowchart } from "./flowchart";
 
 // ---------------------------------------------------------------------------
 // Layout Registry
@@ -71,6 +79,22 @@ export const layoutRegistry: Record<string, LayoutRegistration> = {
   "band-divider": {
     fn: bandDivider,
     compatibleChoreographies: ["reveal-sequence"],
+  },
+  pyramid: {
+    fn: pyramid,
+    compatibleChoreographies: ["reveal-sequence", "stack-build"],
+  },
+  "stacked-layers": {
+    fn: stackedLayers,
+    compatibleChoreographies: ["reveal-sequence", "stack-build"],
+  },
+  "matrix-2x2": {
+    fn: matrix2x2,
+    compatibleChoreographies: ["reveal-sequence", "stagger-clockwise"],
+  },
+  flowchart: {
+    fn: flowchart,
+    compatibleChoreographies: ["path-trace", "reveal-sequence"],
   },
 };
 

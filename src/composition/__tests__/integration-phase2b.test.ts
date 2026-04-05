@@ -335,8 +335,8 @@ describe("data with dataLabel but empty data array → null", () => {
 
 // 11. recipeRegistry has exactly 10 families registered
 describe("recipeRegistry count", () => {
-  it("has exactly 10 families registered", () => {
+  it("has exactly 11 families registered", () => {
     const registeredFamilies = Object.keys(recipeRegistry);
-    expect(registeredFamilies).toHaveLength(10);
+    expect(registeredFamilies).toHaveLength(11);
   });
 });

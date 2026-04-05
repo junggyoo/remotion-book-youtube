@@ -10,6 +10,7 @@ export const progressionJourneyRecipe: FamilyRecipe = {
   family: "progression-journey",
   defaultLayout: "timeline-h",
   defaultChoreography: "path-trace",
+  alternativeLayouts: ["flowchart"],
 
   resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const sceneId = hints?.sceneId ?? "scene";

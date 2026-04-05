@@ -19,6 +19,8 @@ export interface FamilyRecipe {
   resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[];
   defaultLayout: LayoutType;
   defaultChoreography: ChoreographyType;
+  /** Alternative layouts this recipe can use based on content structure */
+  alternativeLayouts?: LayoutType[];
 }
 
 export interface CompositionContext {

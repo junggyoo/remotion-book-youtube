@@ -10,6 +10,7 @@ export const systemModelRecipe: FamilyRecipe = {
   family: "system-model",
   defaultLayout: "grid-expand",
   defaultChoreography: "stagger-clockwise",
+  alternativeLayouts: ["pyramid", "matrix-2x2"],
 
   resolve(content: Record<string, unknown>, hints?: RecipeHints): VCLElement[] {
     const sceneId = hints?.sceneId ?? "scene";
