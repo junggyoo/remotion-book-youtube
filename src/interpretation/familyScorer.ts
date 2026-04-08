@@ -16,6 +16,7 @@ const SCENE_FAMILY_MAP: Record<string, SceneFamily> = {
   listReveal: "evidence-stack",
   splitQuote: "reflective-anchor",
   transition: "structural-bridge",
+  insight: "concept-introduction",
 };
 
 // Family capabilities for segmentFit scoring
@@ -44,6 +45,8 @@ const FAMILY_CAPABILITIES: Record<SceneFamily, string[]> = {
     "statistics",
     "list",
     "examples",
+    "framework",
+    "structure",
   ],
   "mechanism-explanation": [
     "mechanism",
@@ -67,7 +70,14 @@ const FAMILY_CAPABILITIES: Record<SceneFamily, string[]> = {
     "segment-change",
   ],
   "closing-synthesis": ["summary", "recap", "cta", "closing", "takeaway"],
-  "transformation-shift": ["shift", "evolution", "growth", "change-over-time"],
+  "transformation-shift": [
+    "shift",
+    "evolution",
+    "growth",
+    "change-over-time",
+    "contrast",
+    "comparison",
+  ],
 };
 
 // ArtDirection layoutBias → family affinity
@@ -76,6 +86,9 @@ const LAYOUT_BIAS_FAMILY_BOOST: Record<string, SceneFamily[]> = {
   "grid-heavy": ["system-model", "evidence-stack"],
   flow: ["progression-journey", "mechanism-explanation"],
   centered: ["concept-introduction", "reflective-anchor", "closing-synthesis"],
+  bars: ["evidence-stack"],
+  organic: ["evidence-stack", "reflective-anchor"],
+  orbital: ["mechanism-explanation"],
 };
 
 export interface ScorerInput {
@@ -114,11 +127,58 @@ function calcTypeMatch(
           : 0.0;
     }
 
+    // 5+ items → evidence-stack (large item sets suit data stacking)
+    if (itemCount >= 5) {
+      return family === "evidence-stack"
+        ? 0.9
+        : family === "system-model"
+          ? 0.7
+          : 0.0;
+    }
+
     // Default: bookStructure-based
     const expected =
       bookStructure === "framework" ? "system-model" : "mechanism-explanation";
     return family === expected ? 1.0 : 0.0;
   }
+
+  // keyInsight: evidence/data keywords → evidence-stack
+  if (sceneType === "keyInsight" || sceneType === "insight") {
+    const headline = String(content?.headline ?? "");
+    const supportText = String(content?.supportText ?? "");
+    const combined = `${headline} ${supportText}`;
+    const hasEvidenceHint =
+      /데이터|통계|수치|연구|실험|증거|퍼센트|%|\d+배|evidence|data|statistic|research/i.test(
+        combined,
+      );
+    if (hasEvidenceHint) {
+      return family === "evidence-stack"
+        ? 0.85
+        : family === "concept-introduction"
+          ? 0.5
+          : 0.0;
+    }
+    return family === "concept-introduction" ? 1.0 : 0.0;
+  }
+
+  // compareContrast: before/after transformation keywords → transformation-shift
+  if (sceneType === "compareContrast") {
+    const hasTransformHint =
+      content?.beforeState !== undefined ||
+      content?.afterState !== undefined ||
+      /변화|전환|변신|진화|성장|shift|transform|evolution/i.test(
+        String(content?.headline ?? ""),
+      );
+    if (hasTransformHint) {
+      return family === "transformation-shift"
+        ? 0.9
+        : family === "tension-comparison"
+          ? 0.5
+          : 0.0;
+    }
+    return family === "tension-comparison" ? 1.0 : 0.0;
+  }
+
   return SCENE_FAMILY_MAP[sceneType] === family ? 1.0 : 0.0;
 }
 
