@@ -1,0 +1,148 @@
+{
+  "id": "compare-01",
+  "intent": "Side-by-side comparison with left/right panels and optional tags",
+  "origin": "preset",
+  "layout": "split-compare",
+  "elements": [
+    {
+      "id": "compareContrast-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "left"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel",
+      "type": "container",
+      "props": {
+        "layer": 20,
+        "side": "right"
+      }
+    },
+    {
+      "id": "compareContrast-divider",
+      "type": "divider",
+      "props": {
+        "layer": 30,
+        "orientation": "vertical"
+      }
+    },
+    {
+      "id": "compareContrast-labels-left",
+      "type": "label",
+      "props": {
+        "text": "What → How → Why",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent"
+      }
+    },
+    {
+      "id": "compareContrast-labels-right",
+      "type": "label",
+      "props": {
+        "text": "Why → How → What",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal"
+      }
+    },
+    {
+      "id": "compareContrast-leftPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인, 사용하기 쉽습니다. 하나 사시겠습니까?",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-rightPanel-content",
+      "type": "body-text",
+      "props": {
+        "text": "우리는 현상에 도전합니다. 다르게 생각하는 것의 가치를 믿습니다. 그래서 훌륭한 컴퓨터가 탄생했습니다.",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyL"
+      }
+    },
+    {
+      "id": "compareContrast-labels-leftTag",
+      "type": "label",
+      "props": {
+        "text": "common",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "accent",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-labels-rightTag",
+      "type": "label",
+      "props": {
+        "text": "author",
+        "layer": 35,
+        "tokenRef": "typeScale.label",
+        "variant": "signal",
+        "role": "tag"
+      }
+    },
+    {
+      "id": "compareContrast-emphasis",
+      "type": "label",
+      "props": {
+        "text": "VS",
+        "layer": 40,
+        "tokenRef": "typeScale.label",
+        "role": "connector"
+      }
+    }
+  ],
+  "choreography": "split-reveal",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "이걸 실��로 비교해볼까요? 일반적인 컴퓨터 회사의 마케팅을 생각해보세요. 이렇게 말합니다. 우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인에 사용하기 쉽고 사용자 친화적이죠. 하나 사시겠습니까? 스펙을 나열하고 구매를 요청하는 방식입니다. 뇌의 바깥쪽, 신피질에 호소하는 거죠. 솔직히... 별로 끌리지 않습니다. 수백 개 회사가 똑같이 말하니까요. 하지만 애플은 완전히 반대로 이야기합니다! 우리가 하는 모든 일에는 현상에 도전한다는 믿음이 있습니다. 우리는 다르게 생각하는 것의 가치를 믿습니다. 우리가 현상에 도전하는 방법은 아름답게 디자인하고 쉽게 사용할 수 있게 만드는 것입니다. 그러다 보니 훌륭한 컴퓨터가 탄생했습니다. 하나 사시겠습니까? 느낌이 완전히 다르죠! 같은 제품, 같은 스펙인데 순서만 뒤집었을 뿐입니다. Why에서 시작하면 사람들은 논리가 아니라 마음으로 반응합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

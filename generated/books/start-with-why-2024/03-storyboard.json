@@ -1,0 +1,227 @@
+{
+  "bookId": "start-with-why-2024",
+  "totalScenes": 13,
+  "estimatedDurationSeconds": 480.0000000000001,
+  "scenes": [
+    {
+      "sceneId": "cover-01",
+      "order": 0,
+      "purpose": "책 표지와 브랜드 소개",
+      "narrativeGoal": "사이먼 시넥의 나는 왜 이 일을 하는가",
+      "visualFunction": "transition",
+      "visualIntent": "표지 이미지 중심 레이아웃, 브랜드 라벨 배치",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "나는 왜 이 일을 하는가",
+        "사이먼 시넥"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "cover"
+    },
+    {
+      "sceneId": "hook-01",
+      "order": 1,
+      "purpose": "시선을 사로잡는 후크: 당신 회사는 What부터 말하고 있다",
+      "narrativeGoal": "여러분 회사의 홈페이지를 한번 떠올려보세요",
+      "visualFunction": "hook",
+      "visualIntent": "강렬한 텍스트 등장, 키워드 강조",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 57.6,
+      "onScreenText": [
+        "당신 회사는 What부터 말하고 있다",
+        "왜 어떤 회사만 사람들의 마음을 움직일까?"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "blueprint",
+      "blueprintId": "hook-01"
+    },
+    {
+      "sceneId": "intro-01",
+      "order": 2,
+      "purpose": "핵심 인사이트 전달: 역대 3위 TED 강연이 던진 질문",
+      "narrativeGoal": "사이먼 시넥은 2009년 TED 강연에서 하나의 단순한 질문을 던졌습니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "역대 3위 TED 강연이 던진 질문"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "chapter-01",
+      "order": 3,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "첫 번째 파트, Golden Circle",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 19.2,
+      "onScreenText": [
+        "Golden Circle"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "framework-01",
+      "order": 4,
+      "purpose": "핵심 프레임워크 순차 공개: Golden Circle",
+      "narrativeGoal": "사이먼 시넥이 발견한 패턴은 세 개의 동심원으로 표현됩니다",
+      "visualFunction": "framework",
+      "visualIntent": "항목 stagger reveal, 번호 배지 + 제목 + 설명",
+      "layoutMode": "grid-expand",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "Golden Circle",
+        "What",
+        "How",
+        "Why"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "framework"
+    },
+    {
+      "sceneId": "insight-01",
+      "order": 5,
+      "purpose": "핵심 인사이트 전달: 뇌는 Why에 반응하도록 설계되었다",
+      "narrativeGoal": "그런데 왜 Why가 이렇게 강력할까요",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "뇌는 Why에 반응하도록 설계되었다"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "compare-01",
+      "order": 6,
+      "purpose": "대비를 통한 이해 강화",
+      "narrativeGoal": "이걸 실��로 비교해볼까요",
+      "visualFunction": "compare",
+      "visualIntent": "좌우 분할 패널, 순차 공개",
+      "layoutMode": "split-compare",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "What → How → Why",
+        "Why → How → What",
+        "우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인, 사용하기 쉽습니다. 하나 사시겠습니까?",
+        "우리는 현상에 도전합니다. 다르게 생각하는 것의 가치를 믿습니다. 그래서 훌륭한 컴퓨터가 탄생했습니다."
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "compareContrast"
+    },
+    {
+      "sceneId": "chapter-02",
+      "order": 7,
+      "purpose": "챕터 전환",
+      "narrativeGoal": "두 번째 파트입니다",
+      "visualFunction": "transition",
+      "visualIntent": "챕터 번호 + 타이틀 중앙 배치",
+      "layoutMode": "band-divider",
+      "targetDurationSeconds": 19.2,
+      "onScreenText": [
+        "Why의 증거"
+      ],
+      "transitionIntent": "directional",
+      "renderMode": "preset",
+      "presetSceneType": "chapterDivider"
+    },
+    {
+      "sceneId": "insight-02",
+      "order": 8,
+      "purpose": "핵심 인사이트 전달: I Have a Dream, 계획이 아니라 꿈",
+      "narrativeGoal": "애플만이 아닙니다",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "I Have a Dream, 계획이 아니라 꿈"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "quote-01",
+      "order": 9,
+      "purpose": "핵심 명언으로 감정적 임팩트: 사람들은 당신이 하는 것을 사지 않는다. 당신이 그것을 왜 하는지를 산다",
+      "narrativeGoal": "사이먼 시넥은 이렇게 말합니다",
+      "visualFunction": "quote",
+      "visualIntent": "serif 서체 인용문 중앙 배치, texture 배경",
+      "layoutMode": "quote-hold",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "사람들은 당신이 하는 것을 사지 않는다. 당신이 그것을 왜 하는지를 산다."
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "quote"
+    },
+    {
+      "sceneId": "application-01",
+      "order": 10,
+      "purpose": "실천 방법 제시",
+      "narrativeGoal": "그렇다면 나만의 Why는 어떻게 찾을 수 있을까요",
+      "visualFunction": "process",
+      "visualIntent": "anchor statement 후 step 순차 공개",
+      "layoutMode": "left-anchor",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "나만의 Why를 찾는 3단계",
+        "과거에서 패턴을 찾아라",
+        "한 문장으로 정리하라",
+        "Why부터 말하는 연습을 하라"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "application"
+    },
+    {
+      "sceneId": "insight-recap",
+      "order": 11,
+      "purpose": "핵심 인사이트 전달: Why에서 시작하라, 안에서 밖으로",
+      "narrativeGoal": "자, 정리해볼까요",
+      "visualFunction": "explain",
+      "visualIntent": "headline 등장 후 support text 확장",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 36.6,
+      "onScreenText": [
+        "Why에서 시작하라, 안에서 밖으로"
+      ],
+      "transitionIntent": "cut",
+      "renderMode": "preset",
+      "presetSceneType": "keyInsight"
+    },
+    {
+      "sceneId": "closing-01",
+      "order": 12,
+      "purpose": "행동 촉구 + CTA",
+      "narrativeGoal": "오늘 하나만 기억하세요",
+      "visualFunction": "compress-recap",
+      "visualIntent": "recap statement 중앙 + CTA 텍스트 하단",
+      "layoutMode": "center-focus",
+      "targetDurationSeconds": 33.6,
+      "onScreenText": [
+        "다음 자기소개에서 Why부터 시작해보세요",
+        "구독과 좋아요로 더 많은 인사이트를 받아보세요"
+      ],
+      "transitionIntent": "fade",
+      "renderMode": "preset",
+      "presetSceneType": "closing"
+    }
+  ]
+}

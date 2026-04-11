@@ -1,0 +1,19 @@
+{
+  "bookId": "start-with-why-2024",
+  "totalRequired": 1,
+  "byStatus": {
+    "ready": 1
+  },
+  "requirements": [
+    {
+      "assetId": "cover-01-cover-image",
+      "type": "image",
+      "description": "image element in cover-01",
+      "sourceScenes": [
+        "cover-01"
+      ],
+      "status": "ready",
+      "fallbackStrategy": "shape-placeholder"
+    }
+  ]
+}

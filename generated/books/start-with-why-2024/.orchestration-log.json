@@ -1,0 +1,158 @@
+{
+  "bookId": "start-with-why-2024",
+  "mode": "auto",
+  "startedAt": "2026-04-08T04:21:13.168Z",
+  "stageResults": [
+    {
+      "stageId": "1-analyzer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/00-fingerprint.json"
+      ],
+      "durationMs": 1,
+      "message": "Fingerprint: genre=business, structure=framework, hook=contrarian"
+    },
+    {
+      "stageId": "2-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/01-editorial-outline.json"
+      ],
+      "durationMs": 1,
+      "message": "Outline: framework-driven, 480s, 5 messages"
+    },
+    {
+      "stageId": "3-opening",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/02-art-direction.json"
+      ],
+      "durationMs": 1,
+      "message": "ArtDirection: palette=#F59E0B, shape=geometric, motion=precise"
+    },
+    {
+      "stageId": "4-scene-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/03-storyboard.json"
+      ],
+      "durationMs": 2,
+      "message": "Storyboard: 13 scenes (12 preset, 1 blueprint), 480.0000000000001s"
+    },
+    {
+      "stageId": "5-gap-detector",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/04-gap-analysis.json"
+      ],
+      "durationMs": 1,
+      "message": "Gaps: 5 (0 must, 5 nice), Presets: 8, Policy: min=2 max=5"
+    },
+    {
+      "stageId": "6-synthesizer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/synth-setup-0-0.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/synth-setup-1-1.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/synth-core-0-2.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/synth-core-1-3.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/synth-core-2-4.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/cover-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/hook-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/intro-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/chapter-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/framework-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/insight-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/compare-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/chapter-02.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/insight-02.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/quote-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/application-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/insight-recap.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06-blueprints/closing-01.blueprint.json",
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/05-synthesis-summary.json"
+      ],
+      "durationMs": 3,
+      "message": "Synthesized 5 blueprints (5 ephemeral), materialized 13 preset blueprints. Validation: passed"
+    },
+    {
+      "stageId": "6.1-registry-sync",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/registry/scene-registry.json"
+      ],
+      "durationMs": 3,
+      "message": "Synced 5 inventions (5 passed, 0 failed). 0 promotion evals. 0 expired."
+    },
+    {
+      "stageId": "6.3-beat-composer",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/06.3-beat-plan.json"
+      ],
+      "durationMs": 0,
+      "message": "Beats generated: 0 processed, 13 skipped (total 13 scenes)"
+    },
+    {
+      "stageId": "6.5-asset-planner",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/asset-requirements.json"
+      ],
+      "durationMs": 1156,
+      "message": "Assets: 1 total (ready:1) | Cover: fetched → start-with-why-2024-cover.jpg"
+    },
+    {
+      "stageId": "7-validate",
+      "status": "success",
+      "artifacts": [
+        "/Users/jungq/Study/remotion-book-youtube/generated/books/start-with-why-2024/.validation"
+      ],
+      "durationMs": 1341,
+      "message": "Passed after 1 auto-fix round(s): LAYOUT_WRAP_FAIL: headline tokenRef typeScale.headlineL → typeScale.headlineM (element keyInsight-headline); LAYOUT_WRAP_FAIL: headline tokenRef typeScale.headlineL → typeScale.headlineM (element keyInsight-headline); LAYOUT_WRAP_FAIL: headline tokenRef typeScale.headlineL → typeScale.headlineM (element keyInsight-headline); LAYOUT_WRAP_FAIL: headline tokenRef typeScale.headlineL → typeScale.headlineM (element synth-emphasis-headline); LAYOUT_WRAP_FAIL: headline tokenRef typeScale.headlineL → typeScale.headlineM (element synth-emphasis-headline)"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 171626,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 163406,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 179437,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 56256,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 32299,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    },
+    {
+      "stageId": "8-render",
+      "status": "halted",
+      "artifacts": [],
+      "durationMs": 21987,
+      "message": "Render failed: Command failed: npx ts-node scripts/make-video.ts /Users/jungq/Study/remotion-book-youtube/content/books/start-with-why.json --format longform"
+    }
+  ],
+  "lastCompletedStage": "7-validate"
+}

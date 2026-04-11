@@ -1,0 +1,921 @@
+{
+  "$schema": "../../src/schema/content-schema.json",
+  "metadata": {
+    "id": "start-with-why-2024",
+    "title": "나는 왜 이 일을 하는가",
+    "author": "사이먼 시넥",
+    "originalTitle": "Start with Why",
+    "genre": "business",
+    "publishYear": 2009,
+    "tags": [
+      "리더십",
+      "비즈니스",
+      "동기부여",
+      "골든서클",
+      "WHY"
+    ]
+  },
+  "thumbnail": {
+    "hookText": "당신 회사는 What부터 말하고 있다",
+    "accentWord": "Golden Circle",
+    "expression": "자신감 넘치는 표정",
+    "gesture": "X자 제스처",
+    "mood": "dramatic",
+    "backgroundStyle": "dark gradient with deep blue strategic tones"
+  },
+  "production": {
+    "format": "longform",
+    "targetDurationSeconds": 480,
+    "fps": 30,
+    "themeMode": "dark"
+  },
+  "narration": {
+    "voice": "ko-KR-SunHiNeural",
+    "ttsEngine": "fish-audio",
+    "speed": 1,
+    "pitch": "+0Hz"
+  },
+  "audio": {
+    "bgmVolume": 0
+  },
+  "scenes": [
+    {
+      "id": "cover-01",
+      "type": "cover",
+      "narrationText": "사이먼 시넥의 나는 왜 이 일을 하는가. 전 세계 5천만 명이 열광한 이 책이 말하는, 위대한 리더의 유일한 공통점을 지금부터 파헤칩니다.",
+      "content": {
+        "title": "나는 왜 이 일을 하는가",
+        "subtitle": "WHY로 시작하는 리더의 비밀",
+        "author": "사이먼 시넥",
+        "coverImageUrl": "covers/start-with-why-cover.jpg",
+        "brandLabel": "Editorial Signal",
+        "backgroundVariant": "dark"
+      },
+      "beats": [
+        {
+          "id": "cover-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.55,
+          "narrationText": "사이먼 시넥의 나는 왜 이 일을 하는가. 전 세계 5천만 명이 열광한 이 책이 말하는,",
+          "activates": [
+            "title",
+            "subtitle",
+            "author"
+          ],
+          "emphasisTargets": [
+            "나는 왜 이 일을 하는가"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cover-b2",
+          "role": "support",
+          "startRatio": 0.55,
+          "endRatio": 1,
+          "narrationText": "위대한 리더의 유일한 공통점을 지금부터 파헤칩니다.",
+          "activates": [
+            "title"
+          ],
+          "emphasisTargets": [
+            "공통점"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "수식절('말하는') 완료 후 본론 진입 문장으로 전환",
+        "evidenceDecision": "해당 없음 — cover 씬",
+        "densityDecision": "2-beat — 14초, cover 기본 패턴",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "hook-01",
+      "type": "highlight",
+      "narrationText": "여러분 회사의 홈페이지를 한번 떠올려보세요. 첫 화면에 뭐라고 적혀있나요? 아마 이런 식일 겁니다. 우리는 최고의 제품을 만듭니다. 차별화된 서비스를 제공합니다. 업계 최고의 기술력을 보유하고 있습니다. 그런데요... 이렇게 말하는 회사가 수천 개예요. 다들 똑같은 말을 하고 있죠. 왜 어떤 회사만 사람들의 마음을 사로잡을까요? 왜 어떤 리더만 열광적인 추종자를 만들어낼까요? 답은 의외로 간단합니다. 그들은 무엇을 하는지가 아니라, 왜 하는지를 먼저 말하기 때문입니다.",
+      "content": {
+        "mainText": "당신 회사는 What부터 말하고 있다",
+        "subText": "왜 어떤 회사만 사람들의 마음을 움직일까?",
+        "highlightColor": "signal",
+        "showPulse": true
+      },
+      "beats": [
+        {
+          "id": "hook-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.35,
+          "narrationText": "여러분 회사의 홈페이지를 한번 떠올려보세요. 첫 화면에 뭐라고 적혀있나요? 아마 이런 식일 겁니다. 우리는 최고의 제품을 만듭니다. 차별화된 서비스를 제공합니다. 업계 최고의 기술력을 보유하고 있습니다.",
+          "activates": [
+            "mainText"
+          ],
+          "emphasisTargets": [
+            "홈페이지",
+            "최고의 제품"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b2",
+          "role": "compare",
+          "startRatio": 0.35,
+          "endRatio": 0.62,
+          "narrationText": "그런데요... 이렇게 말하는 회사가 수천 개예요. 다들 똑같은 말을 하고 있죠. 왜 어떤 회사만 사람들의 마음을 사로잡을까요? 왜 어떤 리더만 열광적인 추종자를 만들어낼까요?",
+          "activates": [
+            "subText"
+          ],
+          "emphasisTargets": [
+            "수천 개",
+            "마음"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "hook-b3",
+          "role": "headline",
+          "startRatio": 0.62,
+          "endRatio": 1,
+          "narrationText": "답은 의외로 간단합니다. 그들은 무엇을 하는지가 아니라, 왜 하는지를 먼저 말하기 때문입니다.",
+          "activates": [
+            "mainText"
+          ],
+          "emphasisTargets": [
+            "왜",
+            "먼저"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "'그런데요...' 반전 접속사에서 hook→compare 전환. '답은' 결론 진술에서 headline 전환",
+        "evidenceDecision": "해당 없음 — highlight 씬",
+        "densityDecision": "3-beat — 28초 highlight, contrarian 톤으로 3단계 전개 (상황→반전→답)",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "intro-01",
+      "type": "keyInsight",
+      "narrationText": "사이먼 시넥은 2009년 TED 강연에서 하나의 단순한 질문을 던졌습니다. 왜 어떤 조직은 다른 조직보다 혁신적일까? 왜 어떤 리더는 사람들에게 깊은 충성을 이끌어낼까? 이 18분짜리 강연은 역대 세 번째로 많이 본 TED 영상이 되었습니다. 조회수 6천만 회를 넘겼죠. 그가 수년간 관찰한 결과, 위대한 리더와 조직에는 하나의 공통 패턴이 있었습니다. 애플, 마틴 루서 킹, 라이트 형제... 분야도 시대도 전혀 다르지만, 이들은 모두 같은 방식으로 생각하고 소통했습니다. 그리고 그 방식은 나머지 99%와 정반대였습니다.",
+      "content": {
+        "headline": "역대 3위 TED 강연이 던진 질문",
+        "supportText": "사이먼 시넥의 2009년 TED 강연은 조회수 6천만을 넘기며, 위대한 리더와 조직의 공통 패턴을 세상에 알렸습니다.",
+        "underlineKeyword": "질문",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "statistic",
+          "value": "TED 역대 3위, 조회수 6,000만+",
+          "caption": "2009년 이후 전 세계에서 가장 많이 본 TED 강연 중 하나",
+          "source": "TED.com"
+        }
+      },
+      "beats": [
+        {
+          "id": "intro-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.3,
+          "narrationText": "사이먼 시넥은 2009년 TED 강연에서 하나의 단순한 질문을 던졌습니다. 왜 어떤 조직은 다른 조직보다 혁신적일까? 왜 어떤 리더는 사람들에게 깊은 충성을 이끌어낼까?",
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "TED",
+            "질문"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "intro-b2",
+          "role": "support",
+          "startRatio": 0.3,
+          "endRatio": 0.58,
+          "narrationText": "이 18분짜리 강연은 역대 세 번째로 많이 본 TED 영상이 되었습니다. 조회수 6천만 회를 넘겼죠. 그가 수년간 관찰한 결과, 위대한 리더와 조직에는 하나의 공통 패턴이 있었습니다.",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "6천만",
+            "패턴"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "intro-b3",
+          "role": "evidence",
+          "startRatio": 0.58,
+          "endRatio": 1,
+          "narrationText": "애플, 마틴 루서 킹, 라이트 형제... 분야도 시대도 전혀 다르지만, 이들은 모두 같은 방식으로 생각하고 소통했습니다. 그리고 그 방식은 나머지 99%와 정반대였습니다.",
+          "activates": [
+            "evidenceCard"
+          ],
+          "deactivates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "같은 방식",
+            "정반대"
+          ],
+          "motionPreset": "snappy",
+          "transition": "replace"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "질문 연쇄('왜~일까?') 후 수치 근거('6천만')로 전환. '애플, 킹' 사례 열거에서 evidence 전환",
+        "evidenceDecision": "A등급 — TED 공식 조회수 데이터, 검증 가능한 플랫폼 통계",
+        "densityDecision": "3-beat — 40초, A등급 evidenceCard 보유",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "chapter-01",
+      "type": "chapterDivider",
+      "narrationText": "첫 번째 파트, Golden Circle. 모든 위대한 리더가 공유하는 하나의 패턴을 소개합니다.",
+      "content": {
+        "chapterNumber": 1,
+        "chapterTitle": "Golden Circle",
+        "chapterSubtitle": "안에서 밖으로, Why에서 시작하라"
+      },
+      "beats": [
+        {
+          "id": "ch01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "첫 번째 파트, Golden Circle.",
+          "activates": [
+            "chapterTitle"
+          ],
+          "emphasisTargets": [
+            "Golden Circle"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ch01-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "모든 위대한 리더가 공유하는 하나의 패턴을 소개합니다.",
+          "activates": [
+            "chapterTitle"
+          ],
+          "emphasisTargets": [
+            "패턴"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "챕터 번호/제목 → 부연 설명 전환",
+        "evidenceDecision": "해당 없음 — chapterDivider 씬",
+        "densityDecision": "2-beat — 10초, 기본 패턴",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "framework-01",
+      "type": "framework",
+      "narrationText": "사이먼 시넥이 발견한 패턴은 세 개의 동심원으로 표현됩니다. 바로 Golden Circle이죠. 가장 바깥쪽 원은 What입니다. 무엇을 하는가. 모든 조직은 자신이 무엇을 하는지 알고 있어요. 제품, 서비스, 직무... 이건 쉽습니다. 그 안쪽은 How입니다. 어떻게 하는가. 차별화된 가치 제안이나 독점 기술 같은 거죠. 일부 조직은 이걸 알고 있습니다. 그리고 가장 중심에 Why가 있습니다. 왜 하는가. 돈을 벌기 위해서가 아닙니다. 이익은 결과일 뿐이에요. 왜 이 조직이 존재하는가? 왜 매일 아침 이 일을 하는가? 답할 수 있는 사람은 극소수입니다. 놀랍게도... 대부분의 조직은 자신의 Why를 모릅니다. 그래서 밖에서 안으로, What부터 말하죠. 하지만 위대한 리더들은 정반대입니다. 항상 안에서 밖으로, Why에서 시작합니다.",
+      "content": {
+        "frameworkLabel": "Golden Circle",
+        "items": [
+          {
+            "number": 1,
+            "title": "What",
+            "description": "무엇을 하는가 — 제품, 서비스, 직무"
+          },
+          {
+            "number": 2,
+            "title": "How",
+            "description": "어떻게 하는가 — 차별화, 독점 기술"
+          },
+          {
+            "number": 3,
+            "title": "Why",
+            "description": "왜 하는가 — 존재 이유, 믿음, 대의"
+          }
+        ],
+        "showConnectors": true,
+        "showDescriptions": true
+      },
+      "beats": [
+        {
+          "id": "fw01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.13,
+          "narrationText": "사이먼 시넥이 발견한 패턴은 세 개의 동심원으로 표현됩니다. 바로 Golden Circle이죠.",
+          "activates": [
+            "frameworkLabel"
+          ],
+          "emphasisTargets": [
+            "동심원",
+            "Golden Circle"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b2",
+          "role": "reveal",
+          "startRatio": 0.13,
+          "endRatio": 0.32,
+          "narrationText": "가장 바깥쪽 원은 What입니다. 무엇을 하는가. 모든 조직은 자신이 무엇을 하는지 알고 있어요. 제품, 서비스, 직무... 이건 쉽습니다.",
+          "activates": [
+            "item-0"
+          ],
+          "emphasisTargets": [
+            "What",
+            "무엇을"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b3",
+          "role": "reveal",
+          "startRatio": 0.32,
+          "endRatio": 0.5,
+          "narrationText": "그 안쪽은 How입니다. 어떻게 하는가. 차별화된 가치 제안이나 독점 기술 같은 거죠. 일부 조직은 이걸 알고 있습니다.",
+          "activates": [
+            "item-1"
+          ],
+          "emphasisTargets": [
+            "How",
+            "차별화"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b4",
+          "role": "reveal",
+          "startRatio": 0.5,
+          "endRatio": 0.78,
+          "narrationText": "그리고 가장 중심에 Why가 있습니다. 왜 하는가. 돈을 벌기 위해서가 아닙니다. 이익은 결과일 뿐이에요. 왜 이 조직이 존재하는가? 왜 매일 아침 이 일을 하는가? 답할 수 있는 사람은 극소수입니다.",
+          "activates": [
+            "item-2"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "존재"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "fw01-b5",
+          "role": "recap",
+          "startRatio": 0.78,
+          "endRatio": 1,
+          "narrationText": "놀랍게도... 대부분의 조직은 자신의 Why를 모릅니다. 그래서 밖에서 안으로, What부터 말하죠. 하지만 위대한 리더들은 정반대입니다. 항상 안에서 밖으로, Why에서 시작합니다.",
+          "activates": [
+            "*"
+          ],
+          "emphasisTargets": [
+            "모릅니다",
+            "정반대"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "Framework N+2 패턴. 3개 items를 바깥→안쪽 순서로 reveal, 마지막 beat에서 전체 조망 + warning",
+        "evidenceDecision": "해당 없음 — framework 씬",
+        "densityDecision": "5-beat (N+2) — 3 items + headline + recap. 75초로 각 beat ~15초",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-01",
+      "type": "keyInsight",
+      "narrationText": "그런데 왜 Why가 이렇게 강력할까요? 여기에 놀라운 과학적 근거가 있습니다. 우리 뇌의 구조를 한번 들여다보면요... 가장 바깥쪽 신피질, neocortex는 분석과 언어를 담당합니다. What과 How에 해당하죠. 스펙을 비교하고, 기능을 나열하고, 가격을 따지는 영역입니다. 그런데 놀라운 건, 실제로 결정을 내리는 곳은 여기가 아니라는 겁니다! 뇌의 안쪽, 변연계 limbic brain이 감정과 의사결정을 담당합니다. 신뢰, 충성심, 모든 인간의 행동이 여기서 결정돼요. 그런데 이 영역에는 언어 능력이 없습니다. 그래서 우리가 뭔가를 깊이 느끼면서도 정확히 말로 설명하지 못하는 거예요. 그냥 느낌이 맞아, 라고 하죠. 직감이라는 게 바로 이겁니다. Why로 소통하면 바로 이 변연계를 직접 자극합니다. 사람들이 논리가 아니라 믿음으로 행동하게 만드는 겁니다. 이것이 Golden Circle의 생물학적 기반입니다.",
+      "content": {
+        "headline": "뇌는 Why에 반응하도록 설계되었다",
+        "supportText": "신피질(neocortex)은 분석과 언어를, 변연계(limbic brain)는 감정과 의사결정을 담당합니다. Why는 변연계를 직접 자극합니다.",
+        "underlineKeyword": "변연계",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "research",
+          "value": "변연계: 감정·의사결정 담당, 언어 기능 없음",
+          "caption": "인간의 구매 결정 95%가 무의식(변연계)에서 일어남",
+          "source": "Harvard Business School, Gerald Zaltman"
+        }
+      },
+      "beats": [
+        {
+          "id": "ins01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.2,
+          "narrationText": "그런데 왜 Why가 이렇게 강력할까요? 여기에 놀라운 과학적 근거가 있습니다. 우리 뇌의 구조를 한번 들여다보면요...",
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "과학적"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b2",
+          "role": "support",
+          "startRatio": 0.2,
+          "endRatio": 0.45,
+          "narrationText": "가장 바깥쪽 신피질, neocortex는 분석과 언어를 담당합니다. What과 How에 해당하죠. 스펙을 비교하고, 기능을 나열하고, 가격을 따지는 영역입니다. 그런데 놀라운 건, 실제로 결정을 내리는 곳은 여기가 아니라는 겁니다!",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "신피질",
+            "결정"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ins01-b3",
+          "role": "evidence",
+          "startRatio": 0.45,
+          "endRatio": 0.75,
+          "narrationText": "뇌의 안쪽, 변연계 limbic brain이 감정과 의사결정을 담당합니다. 신뢰, 충성심, 모든 인간의 행동이 여기서 결정돼요. 그런데 이 영역에는 언어 능력이 없습니다. 그래서 우리가 뭔가를 깊이 느끼면서도 정확히 말로 설명하지 못하는 거예요. 그냥 느낌이 맞아, 라고 하죠. 직감이라는 게 바로 이겁니다.",
+          "activates": [
+            "evidenceCard"
+          ],
+          "deactivates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "변연계",
+            "직감"
+          ],
+          "motionPreset": "snappy",
+          "transition": "replace"
+        },
+        {
+          "id": "ins01-b4",
+          "role": "recap",
+          "startRatio": 0.75,
+          "endRatio": 1,
+          "narrationText": "Why로 소통하면 바로 이 변연계를 직접 자극합니다. 사람들이 논리가 아니라 믿음으로 행동하게 만드는 겁니다. 이것이 Golden Circle의 생물학적 기반입니다.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "믿음",
+            "생물학적"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "질문 도입→neocortex 설명→limbic brain 전환('놀라운 건')→종합 진술. 4단계 논증 흐름",
+        "evidenceDecision": "A등급 — Gerald Zaltman(Harvard) 연구, 95% 무의식 구매 결정은 학술 근거",
+        "densityDecision": "4-beat — 55초, A등급 evidence + mechanism 설명",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "compare-01",
+      "type": "compareContrast",
+      "narrationText": "이걸 실��로 비교해볼까요? 일반적인 컴퓨터 회사의 마케팅을 생각해보세요. 이렇게 말합니다. 우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인에 사용하기 쉽고 사용자 친화적이죠. 하나 사시겠습니까? 스펙을 나열하고 구매를 요청하는 방식입니다. 뇌의 바깥쪽, 신피질에 호소하는 거죠. 솔직히... 별로 끌리지 않습니다. 수백 개 회사가 똑같이 말하니까요. 하지만 애플은 완전히 반대로 이야기합니다! 우리가 하는 모든 일에는 현상에 도전한다는 믿음이 있습니다. 우리는 다르게 생각하는 것의 가치를 믿습니다. 우리가 현상에 도전하는 방법은 아름답게 디자인하고 쉽게 사용할 수 있게 만드는 것입니다. 그러다 보니 훌륭한 컴퓨터가 탄생했습니다. 하나 사시겠습니까? 느낌이 완전히 다르죠! 같은 제품, 같은 스펙인데 순서만 뒤집었을 뿐입니다. Why에서 시작하면 사람들은 논리가 아니라 마음으로 반응합니다.",
+      "content": {
+        "leftLabel": "What → How → Why",
+        "leftContent": "우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인, 사용하기 쉽습니다. 하나 사시겠습니까?",
+        "rightLabel": "Why → How → What",
+        "rightContent": "우리는 현상에 도전합니다. 다르게 생각하는 것의 가치를 믿습니다. 그래서 훌륭한 컴퓨터가 탄생했습니다.",
+        "leftTag": "common",
+        "rightTag": "author",
+        "showConnector": true,
+        "revealOrder": "left-first"
+      },
+      "beats": [
+        {
+          "id": "cc01-b1",
+          "role": "hook",
+          "startRatio": 0,
+          "endRatio": 0.38,
+          "narrationText": "이걸 실��로 비교해볼까요? 일반적인 컴퓨터 회사의 마케팅을 생각해보세요. 이렇게 말합니다. 우리는 훌륭한 컴퓨터를 만듭니다. 아름다운 디자인에 사용하기 쉽고 사용자 친화적이죠. 하나 사시겠습니까? 스펙을 나열하고 구매를 요청하는 방식입니다. 뇌의 바깥쪽, 신피질에 호소하는 거죠. 솔직히... 별로 끌리지 않습니다. 수백 개 회사가 똑같이 말하니까요.",
+          "activates": [
+            "leftPanel"
+          ],
+          "emphasisTargets": [
+            "훌륭한 컴퓨터",
+            "신피질"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cc01-b2",
+          "role": "compare",
+          "startRatio": 0.38,
+          "endRatio": 0.78,
+          "narrationText": "하지만 애플은 완전히 반대로 이야기합니다! 우리가 하는 모든 일에는 현상에 도전한다는 믿음이 있습니다. 우리는 다르게 생각하는 것의 가치를 믿습니다. 우리가 현상에 도전하는 방법은 아름답게 디자인하고 쉽게 사용할 수 있게 만드는 것입니다. 그러다 보니 훌륭한 컴퓨터가 탄생했습니다. 하나 사시겠습니까?",
+          "activates": [
+            "rightPanel"
+          ],
+          "emphasisTargets": [
+            "애플",
+            "믿음",
+            "도전"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "cc01-b3",
+          "role": "recap",
+          "startRatio": 0.78,
+          "endRatio": 1,
+          "narrationText": "느낌이 완전히 다르죠! 같은 제품, 같은 스펙인데 순서만 뒤집었을 뿐입니다. Why에서 시작하면 사람들은 논리가 아니라 마음으로 반응합니다.",
+          "activates": [
+            "connector"
+          ],
+          "emphasisTargets": [
+            "순서",
+            "마음"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "'하지만 애플은' 반전 접속사에서 left→right 전환. '느낌이 완전히' 종합 진술에서 recap",
+        "evidenceDecision": "해당 없음 — compareContrast 씬은 대비 자체가 논증",
+        "densityDecision": "3-beat — 55초. left-first 패턴으로 순차 reveal + recap",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "chapter-02",
+      "type": "chapterDivider",
+      "narrationText": "두 번째 파트입니다. Why의 힘을 증명한 실제 사례들을 살펴보겠습니다.",
+      "content": {
+        "chapterNumber": 2,
+        "chapterTitle": "Why의 증거",
+        "chapterSubtitle": "애플, 킹 목사, 라이트 형제"
+      },
+      "beats": [
+        {
+          "id": "ch02-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "두 번째 파트입니다.",
+          "activates": [
+            "chapterTitle"
+          ],
+          "emphasisTargets": [
+            "두 번째"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ch02-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "Why의 힘을 증명한 실제 사례들을 살펴보겠습니다.",
+          "activates": [
+            "chapterTitle"
+          ],
+          "emphasisTargets": [
+            "실제 사례"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "챕터 번호 → 설명 전환",
+        "evidenceDecision": "해당 없음 — chapterDivider 씬",
+        "densityDecision": "2-beat — 10초, 기본 패턴",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-02",
+      "type": "keyInsight",
+      "narrationText": "애플만이 아닙니다. 마틴 루서 킹 주니어를 생각해보세요. 1963년 8월, 워싱턴에 무려 25만 명이 모였습니다. 초대장을 보낸 게 아니에요. 웹사이트를 만들어 날짜를 확인한 것도 아닙니다. 사람들은 오직 그의 Why에 공감했기 때문에 모인 겁니다. 킹 목사가 미국에서 유일하게 뛰어난 연설가였을까요? 아닙니다. 시민권을 위해 고통받은 유일한 사람이었을까요? 그것도 아니에요. 하지만 사람들이 따른 건 킹 목사였습니다. 그의 연설은 I have a plan이 아니었습니다. I have a dream이었죠! 라이트 형제도 마찬가지입니다. 당시 새뮤얼 랭글리라는 사람이 최고의 자금력과 인맥으로 비행기를 개발하고 있었어요. 정부 지원금에 하버드 인맥까지 있었죠. 하지만 라이트 형제가 먼저 날았습니다. 돈도, 학력도, 인맥도 없었지만... 그들에겐 Why가 있었습니다. 비행이 세상의 흐름을 바꿀 거라는 깊은 믿음이요.",
+      "content": {
+        "headline": "I Have a Dream, 계획이 아니라 꿈",
+        "supportText": "킹 목사의 워싱턴 연설에 25만 명이 자발적으로 모였습니다. 라이트 형제는 자금력에서 크게 뒤졌지만 먼저 하늘을 날았습니다. 공통점은 Why였습니다.",
+        "underlineKeyword": "Dream",
+        "useSignalBar": true,
+        "evidenceCard": {
+          "type": "case",
+          "value": "워싱턴 행진 25만 명 자발 참여",
+          "caption": "초대장 없이, Why에 대한 공감만으로 역사적 집회 성사",
+          "source": "March on Washington, 1963"
+        }
+      },
+      "beats": [
+        {
+          "id": "ins02-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.25,
+          "narrationText": "애플만이 아닙니다. 마틴 루서 킹 주니어를 생각해보세요. 1963년 8월, 워싱턴에 무려 25만 명이 모였습니다. 초대장을 보낸 게 아니에요. 웹사이트를 만들어 날짜를 확인한 것도 아닙니다.",
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "25만 명",
+            "킹"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ins02-b2",
+          "role": "support",
+          "startRatio": 0.25,
+          "endRatio": 0.52,
+          "narrationText": "사람들은 오직 그의 Why에 공감했기 때문에 모인 겁니다. 킹 목사가 미국에서 유일하게 뛰어난 연설가였을까요? 아닙니다. 시민권을 위해 고통받은 유일한 사람이었을까요? 그것도 아니에요. 하지만 사람들이 따른 건 킹 목사였습니다. 그의 연설은 I have a plan이 아니었습니다. I have a dream이었죠!",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "dream",
+            "plan"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "ins02-b3",
+          "role": "evidence",
+          "startRatio": 0.52,
+          "endRatio": 0.78,
+          "narrationText": "라이트 형제도 마찬가지입니다. 당시 새뮤얼 랭글리라는 사람이 최고의 자금력과 인맥으로 비행기를 개발하고 있었어요. 정부 지원금에 하버드 인맥까지 있었죠. 하지만 라이트 형제가 먼저 날았습니다.",
+          "activates": [
+            "evidenceCard"
+          ],
+          "deactivates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "라이트 형제",
+            "먼저"
+          ],
+          "motionPreset": "snappy",
+          "transition": "replace"
+        },
+        {
+          "id": "ins02-b4",
+          "role": "recap",
+          "startRatio": 0.78,
+          "endRatio": 1,
+          "narrationText": "돈도, 학력도, 인맥도 없었지만... 그들에겐 Why가 있었습니다. 비행이 세상의 흐름을 바꿀 거라는 깊은 믿음이요.",
+          "activates": [
+            "headline"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "믿음"
+          ],
+          "transition": "emphasis"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "킹 목사 사례→'I have a dream' 핵심→라이트 형제 전환→종합. 두 사례를 하나의 씬에서 대비-종합",
+        "evidenceDecision": "A등급 — 1963년 워싱턴 행진은 역사적 사실, 25만 명 참가는 공적 기록",
+        "densityDecision": "4-beat — 50초, 두 사례 + evidence + recap",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "quote-01",
+      "type": "quote",
+      "narrationText": "사이먼 시넥은 이렇게 말합니다... 사람들은 당신이 하는 것을 사는 게 아닙니다. 당신이 그것을 왜 하는지를 삽니다. 잠깐 이 말을 곱씹어보세요. 여러분이 애플 제품을 사는 이유, 특정 정치인을 지지하는 이유, 어떤 브랜드에 충성하는 이유... 그 밑바닥에는 항상 Why가 있었습니다. 가격이나 스펙이 아니라, 그들이 믿는 것에 공감했기 때문입니다.",
+      "content": {
+        "quoteText": "사람들은 당신이 하는 것을 사지 않는다. 당신이 그것을 왜 하는지를 산다.",
+        "attribution": "사이먼 시넥",
+        "useSerif": true,
+        "showTexture": true
+      },
+      "beats": [
+        {
+          "id": "qt01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.5,
+          "narrationText": "사이먼 시넥은 이렇게 말합니다... 사람들은 당신이 하는 것을 사는 게 아닙니다. 당신이 그것을 왜 하는지를 삽니다. 잠깐 이 말을 곱씹어보세요.",
+          "activates": [
+            "quoteText"
+          ],
+          "emphasisTargets": [
+            "왜 하는지"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "qt01-b2",
+          "role": "support",
+          "startRatio": 0.5,
+          "endRatio": 1,
+          "narrationText": "여러분이 애플 제품을 사는 이유, 특정 정치인을 지지하는 이유, 어떤 브랜드에 충성하는 이유... 그 밑바닥에는 항상 Why가 있었습니다. 가격이나 스펙이 아니라, 그들이 믿는 것에 공감했기 때문입니다.",
+          "activates": [
+            "attribution"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "공감"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "'곱씹어보세요' 여운 후 예시 나열로 전환",
+        "evidenceDecision": "해당 없음 — quote 씬",
+        "densityDecision": "2-beat — 30초, quote 패턴 (50/50 분할)",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "application-01",
+      "type": "application",
+      "narrationText": "그렇다면 나만의 Why는 어떻게 찾을 수 있을까요? 사이먼 시넥이 제안하는 방법을 세 단계로 정리했습니다. 첫 번째, 과거를 돌아보세요. 가장 충만했던 순간들을 떠올려보세요. 돈이 아니라, 진짜 의미를 느꼈던 순간들이요. 그 순간들의 공통 패턴이 당신의 Why에 대한 단서입니다. 두 번째, Why를 한 문장으로 정리하세요. 나는 무엇을 함으로써, 누군가가 어떻게 되도록 한다. 사이먼 시넥 자신의 Why는 이렇습니다. 사람들이 영감을 주는 일을 하도록 영감을 불어넣는 것. 이 한 문장이 모든 결정의 나침반이 됩니다. 세 번째, Why를 먼저 말하는 연습을 하세요. 자기소개, 프레젠테이션, 사업 설명... What이 아니라 Why부터 시작하세요. 처음엔 어색하겠지만, 한 달만 실천해보세요. 상대방의 반응이 완전히 달라질 겁니다.",
+      "content": {
+        "anchorStatement": "나만의 Why를 찾는 3단계",
+        "steps": [
+          {
+            "title": "과거에서 패턴을 찾아라",
+            "detail": "가장 충만했던 순간들의 공통분모가 당신의 Why 단서다"
+          },
+          {
+            "title": "한 문장으로 정리하라",
+            "detail": "나는 ___을 함으로써, ___가 ___하도록 한다"
+          },
+          {
+            "title": "Why부터 말하는 연습을 하라",
+            "detail": "자기소개, PT, 사업설명 모두 Why로 시작하라"
+          }
+        ]
+      },
+      "beats": [
+        {
+          "id": "app01-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.12,
+          "narrationText": "그렇다면 나만의 Why는 어떻게 찾을 수 있을까요? 사이먼 시넥이 제안하는 방법을 세 단계로 정리했습니다.",
+          "activates": [
+            "anchorStatement"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "세 단계"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app01-b2",
+          "role": "reveal",
+          "startRatio": 0.12,
+          "endRatio": 0.4,
+          "narrationText": "첫 번째, 과거를 돌아보세요. 가장 충만했던 순간들을 떠올려보세요. 돈이 아니라, 진짜 의미를 느꼈던 순간들이요. 그 순간들의 공통 패턴이 당신의 Why에 대한 단서입니다.",
+          "activates": [
+            "step-0"
+          ],
+          "emphasisTargets": [
+            "과거",
+            "충만했던",
+            "패턴"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app01-b3",
+          "role": "reveal",
+          "startRatio": 0.4,
+          "endRatio": 0.68,
+          "narrationText": "두 번째, Why를 한 문장으로 정리하세요. 나는 무엇을 함으로써, 누군가가 어떻게 되도록 한다. 사이먼 시넥 자신의 Why는 이렇습니다. 사람들이 영감을 주는 일을 하도록 영감을 불어넣는 것. 이 한 문장이 모든 결정의 나침반이 됩니다.",
+          "activates": [
+            "step-1"
+          ],
+          "emphasisTargets": [
+            "한 문장",
+            "나침반"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "app01-b4",
+          "role": "reveal",
+          "startRatio": 0.68,
+          "endRatio": 1,
+          "narrationText": "세 번째, Why를 먼저 말하는 연습을 하세요. 자기소개, 프레젠테이션, 사업 설명... What이 아니라 Why부터 시작하세요. 처음엔 어색하겠지만, 한 달만 실천해보세요. 상대방의 반응이 완전히 달라질 겁니다.",
+          "activates": [
+            "step-2"
+          ],
+          "emphasisTargets": [
+            "먼저 말하는",
+            "반응"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "Application N+1 패턴. 3개 steps + headline. '첫 번째/두 번째/세 번째' 명시적 번호 전환",
+        "evidenceDecision": "해당 없음 — application 씬",
+        "densityDecision": "4-beat (N+1) — 3 steps + headline. 70초로 각 beat ~17초",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "insight-recap",
+      "type": "keyInsight",
+      "narrationText": "자, 정리해볼까요? 오늘 우리가 배운 핵심은 이겁니다. 모든 위대한 리더와 조직은 안에서 밖으로, Why에서 시작합니다. Golden Circle의 중심에서 출발하는 거죠. Why는 뇌의 변연계를 자극해서, 논리가 아닌 깊은 믿음으로 사람을 움직입니다. 제품을 파는 게 아니라 신념을 공유하는 것. 이것이 사이먼 시넥이 Golden Circle로 말하고자 한 전부입니다.",
+      "content": {
+        "headline": "Why에서 시작하라, 안에서 밖으로",
+        "supportText": "모든 위대한 리더와 조직은 Why에서 시작합니다. 제품이 아니라 신념을 공유할 때, 사람들은 행동합니다.",
+        "underlineKeyword": "Why",
+        "useSignalBar": true
+      },
+      "beats": [
+        {
+          "id": "recap-b1",
+          "role": "headline",
+          "startRatio": 0,
+          "endRatio": 0.45,
+          "narrationText": "자, 정리해볼까요? 오늘 우리가 배운 핵심은 이겁니다. 모든 위대한 리더와 조직은 안에서 밖으로, Why에서 시작합니다. Golden Circle의 중심에서 출발하는 거죠.",
+          "activates": [
+            "signalBar",
+            "headline"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "Golden Circle"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "recap-b2",
+          "role": "support",
+          "startRatio": 0.45,
+          "endRatio": 1,
+          "narrationText": "Why는 뇌의 변연계를 자극해서, 논리가 아닌 깊은 믿음으로 사람을 움직입니다. 제품을 파는 게 아니라 신념을 공유하는 것. 이것이 사이먼 시넥이 Golden Circle로 말하고자 한 전부입니다.",
+          "activates": [
+            "supportText"
+          ],
+          "emphasisTargets": [
+            "신념",
+            "변연계"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "종합 진술 → 결론. '이것이' 지시어에서 마무리 전환",
+        "evidenceDecision": "C등급 — 종합 재진술, 새로운 근거 없음",
+        "densityDecision": "2-beat — 30초, C등급으로 evidenceCard 없음",
+        "riskFlags": []
+      }
+    },
+    {
+      "id": "closing-01",
+      "type": "closing",
+      "narrationText": "오늘 하나만 기억하세요. 다음에 누군가에게 자신을 소개할 때, 사업을 설명할 때, 팀에게 비전을 이야기할 때, What이 아니라 Why부터 시작해보세요. 그 한 마디가 완전히 다른 반응을 만들어낼 겁니다. 이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다.",
+      "content": {
+        "recapStatement": "다음 자기소개에서 Why부터 시작해보세요",
+        "ctaText": "구독과 좋아요로 더 많은 인사이트를 받아보세요",
+        "showBrandLabel": true
+      },
+      "beats": [
+        {
+          "id": "close-b1",
+          "role": "recap",
+          "startRatio": 0,
+          "endRatio": 0.6,
+          "narrationText": "오늘 하나만 기억하세요. 다음에 누군가에게 자신을 소개할 때, 사업을 설명할 때, 팀에게 비전을 이야기할 때, What이 아니라 Why부터 시작해보세요. 그 한 마디가 완전히 다른 반응을 만들어낼 겁니다.",
+          "activates": [
+            "recapStatement"
+          ],
+          "emphasisTargets": [
+            "Why",
+            "시작"
+          ],
+          "transition": "enter"
+        },
+        {
+          "id": "close-b2",
+          "role": "cta",
+          "startRatio": 0.6,
+          "endRatio": 1,
+          "narrationText": "이 영상이 도움이 되셨다면 구독과 좋아요 부탁드립니다.",
+          "activates": [
+            "ctaText"
+          ],
+          "emphasisTargets": [
+            "구독",
+            "좋아요"
+          ],
+          "transition": "enter"
+        }
+      ],
+      "_rationale": {
+        "segmentationReason": "행동 촉구 → 채널 CTA 메타 발화 전환",
+        "evidenceDecision": "해당 없음 — closing 씬",
+        "densityDecision": "2-beat — closing 기본 패턴 (recap → cta)",
+        "riskFlags": []
+      }
+    }
+  ]
+}

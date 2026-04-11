@@ -1,0 +1,172 @@
+{
+  "id": "framework-01",
+  "intent": "Framework grid with 3 item(s) in stagger-clockwise reveal",
+  "origin": "preset",
+  "layout": "grid-expand",
+  "elements": [
+    {
+      "id": "framework-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "framework-frameworkLabel",
+      "type": "label",
+      "props": {
+        "text": "Golden Circle",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineS",
+        "color": "signal"
+      }
+    },
+    {
+      "id": "framework-items-0-number",
+      "type": "number-display",
+      "props": {
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "What",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-0-description",
+      "type": "body-text",
+      "props": {
+        "text": "무엇을 하는가 — 제품, 서비스, 직무",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "framework-items-1-number",
+      "type": "number-display",
+      "props": {
+        "value": 2,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "How",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-1-description",
+      "type": "body-text",
+      "props": {
+        "text": "어떻게 하는가 — 차별화, 독점 기술",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "framework-items-2-number",
+      "type": "number-display",
+      "props": {
+        "value": 3,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineS",
+        "variant": "accent",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "Why",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-items-2-description",
+      "type": "body-text",
+      "props": {
+        "text": "왜 하는가 — 존재 이유, 믿음, 대의",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    },
+    {
+      "id": "framework-connectors",
+      "type": "divider",
+      "props": {
+        "layer": 25,
+        "role": "item-connector",
+        "dotted": true
+      }
+    }
+  ],
+  "choreography": "stagger-clockwise",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "사이먼 시넥이 발견한 패턴은 세 개의 동심원으로 표현됩니다. 바로 Golden Circle이죠. 가장 바깥쪽 원은 What입니다. 무엇을 하는가. 모든 조직은 자신이 무엇을 하는지 알고 있어요. 제품, 서비스, 직무... 이건 쉽습니다. 그 안쪽은 How입니다. 어떻게 하는가. 차별화된 가치 제안이나 독점 기술 같은 거죠. 일부 조직은 이걸 알고 있습니다. 그리고 가장 중심에 Why가 있습니다. 왜 하는가. 돈을 벌기 위해서가 아닙니다. 이익은 결과일 뿐이에요. 왜 이 조직이 존재하는가? 왜 매일 아침 이 일을 하는가? 답할 수 있는 사람은 극소수입니다. 놀랍게도... 대부분의 조직은 자신의 Why를 모릅니다. 그래서 밖에서 안으로, What부터 말하죠. 하지만 위대한 리더들은 정반대입니다. 항상 안에서 밖으로, Why에서 시작합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

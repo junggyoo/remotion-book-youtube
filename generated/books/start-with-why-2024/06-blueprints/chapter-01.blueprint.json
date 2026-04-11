@@ -1,0 +1,81 @@
+{
+  "id": "chapter-01",
+  "intent": "Chapter divider with number and title reveal",
+  "origin": "preset",
+  "layout": "left-anchor",
+  "elements": [
+    {
+      "id": "chapterDivider-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "chapterDivider-chapterNumber",
+      "type": "number-display",
+      "props": {
+        "value": 1,
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL"
+      }
+    },
+    {
+      "id": "chapterDivider-chapterTitle",
+      "type": "headline",
+      "props": {
+        "text": "Golden Circle",
+        "layer": 35,
+        "tokenRef": "typeScale.headlineM"
+      }
+    },
+    {
+      "id": "chapterDivider-baseContent",
+      "type": "body-text",
+      "props": {
+        "text": "안에서 밖으로, Why에서 시작하라",
+        "layer": 20,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 576,
+  "mediaPlan": {
+    "narrationText": "첫 번째 파트, Golden Circle. 모든 위대한 리더가 공유하는 하나의 패턴을 소개합니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

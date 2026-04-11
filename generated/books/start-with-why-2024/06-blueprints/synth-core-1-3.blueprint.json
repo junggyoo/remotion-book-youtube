@@ -1,0 +1,73 @@
+{
+  "id": "synth-core-1-3",
+  "intent": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623",
+  "origin": "synthesized",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "synth-emphasis-bg",
+      "type": "color-block",
+      "props": {
+        "colorKey": "surface",
+        "layer": 0
+      }
+    },
+    {
+      "id": "synth-emphasis-headline",
+      "type": "headline",
+      "props": {
+        "text": "",
+        "layer": 40,
+        "tokenRef": "typeScale.headlineL",
+        "weight": "bold",
+        "align": "center"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "snappy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 180,
+  "mediaPlan": {
+    "narrationText": "framework: d=0.29 s=0.95 c=0.90 l=0.40 → 0.623",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  },
+  "lifecycle": "ephemeral",
+  "fallbackPreset": "framework",
+  "fallbackContent": {
+    "frameworkLabel": "",
+    "items": []
+  },
+  "synthesisConfidence": 0.5
+}

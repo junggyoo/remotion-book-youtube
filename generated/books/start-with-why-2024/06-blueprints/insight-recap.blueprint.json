@@ -1,0 +1,82 @@
+{
+  "id": "insight-recap",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "Why에서 시작하라, 안에서 밖으로",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM",
+        "underlineKeyword": "Why"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "모든 위대한 리더와 조직은 Why에서 시작합니다. 제품이 아니라 신념을 공유할 때, 사람들은 행동합니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "자, 정리해볼까요? 오늘 우리가 배운 핵심은 이겁니다. 모든 위대한 리더와 조직은 안에서 밖으로, Why에서 시작합니다. Golden Circle의 중심에서 출발하는 거죠. Why는 뇌의 변연계를 자극해서, 논리가 아닌 깊은 믿음으로 사람을 움직입니다. 제품을 파는 게 아니라 신념을 공유하는 것. 이것이 사이먼 시넥이 Golden Circle로 말하고자 한 전부입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

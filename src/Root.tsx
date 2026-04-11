@@ -8,13 +8,14 @@ import type { CompositionProps } from "@/pipeline/buildProps";
 import testBook from "../content/books/test-book.json";
 // --- AUTO-GENERATED IMPORTS START ---
 import atomicHabitsBook from "../content/books/atomic-habits.json";
-import brainSuccess2025Book from "../content/books/brain-success-2025.json";
 import crazyOneYearBook from "../content/books/crazy-one-year.json";
 import linchpin2025Book from "../content/books/linchpin-2025.json";
 import millionaireFastlaneBook from "../content/books/millionaire-fastlane.json";
 import miracleMorningBook from "../content/books/miracle-morning.json";
 import nightCompass2025Book from "../content/books/night-compass-2025.json";
+import purpleCow2025Book from "../content/books/purple-cow-2025.json";
 import richDadPoorDadBook from "../content/books/rich-dad-poor-dad.json";
+import startWithWhyBook from "../content/books/start-with-why.json";
 import startupDesignerBook from "../content/books/startup-designer.json";
 import storyBrand2025Book from "../content/books/story-brand-2025.json";
 import toolsOfTitans2025Book from "../content/books/tools-of-titans-2025.json";
@@ -145,10 +146,6 @@ const atomicHabitsProps: CompositionProps = buildCompositionProps(
   atomicHabitsBook as unknown as BookContent,
   "longform",
 );
-const brainSuccess2025Props: CompositionProps = buildCompositionProps(
-  brainSuccess2025Book as unknown as BookContent,
-  "longform",
-);
 const crazyOneYearProps: CompositionProps = buildCompositionProps(
   crazyOneYearBook as unknown as BookContent,
   "longform",
@@ -169,8 +166,16 @@ const nightCompass2025Props: CompositionProps = buildCompositionProps(
   nightCompass2025Book as unknown as BookContent,
   "longform",
 );
+const purpleCow2025Props: CompositionProps = buildCompositionProps(
+  purpleCow2025Book as unknown as BookContent,
+  "longform",
+);
 const richDadPoorDadProps: CompositionProps = buildCompositionProps(
   richDadPoorDadBook as unknown as BookContent,
+  "longform",
+);
+const startWithWhyProps: CompositionProps = buildCompositionProps(
+  startWithWhyBook as unknown as BookContent,
   "longform",
 );
 const startupDesignerProps: CompositionProps = buildCompositionProps(
@@ -185,6 +190,7 @@ const toolsOfTitans2025Props: CompositionProps = buildCompositionProps(
   toolsOfTitans2025Book as unknown as BookContent,
   "longform",
 );
+
 // --- AUTO-GENERATED BOOKS END ---
 
 // Build synthesized scene preview props
@@ -255,16 +261,6 @@ export const RemotionRoot: React.FC = () => {
       />
       {/* --- AUTO-GENERATED COMPOSITIONS START --- */}
       <Composition
-        id="BrainSuccess2025"
-        component={LongformComposition as any}
-        durationInFrames={brainSuccess2025Props.totalDurationFrames}
-        fps={brainSuccess2025Props.fps}
-        width={brainSuccess2025Props.width}
-        height={brainSuccess2025Props.height}
-        defaultProps={brainSuccess2025Props as any}
-        calculateMetadata={calculateMetadataFromManifest as any}
-      />
-      <Composition
         id="AtomicHabits"
         component={LongformComposition as any}
         durationInFrames={atomicHabitsProps.totalDurationFrames}
@@ -312,6 +308,16 @@ export const RemotionRoot: React.FC = () => {
         width={richDadPoorDadProps.width}
         height={richDadPoorDadProps.height}
         defaultProps={richDadPoorDadProps as any}
+        calculateMetadata={calculateMetadataFromManifest as any}
+      />
+      <Composition
+        id="StartWithWhy"
+        component={LongformComposition as any}
+        durationInFrames={startWithWhyProps.totalDurationFrames}
+        fps={startWithWhyProps.fps}
+        width={startWithWhyProps.width}
+        height={startWithWhyProps.height}
+        defaultProps={startWithWhyProps as any}
         calculateMetadata={calculateMetadataFromManifest as any}
       />
       <Composition

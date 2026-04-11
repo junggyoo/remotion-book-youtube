@@ -1,0 +1,83 @@
+{
+  "id": "quote-01",
+  "intent": "Quote reveal with attribution",
+  "origin": "preset",
+  "layout": "quote-hold",
+  "elements": [
+    {
+      "id": "quote-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5,
+        "visible": true
+      }
+    },
+    {
+      "id": "quote-quoteMark",
+      "type": "shape",
+      "props": {
+        "role": "quote-mark",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "quote-quoteText",
+      "type": "quote-text",
+      "props": {
+        "text": "사람들은 당신이 하는 것을 사지 않는다. 당신이 그것을 왜 하는지를 산다.",
+        "layer": 30,
+        "tokenRef": "typography.fontFamily.serif",
+        "useSerif": true
+      }
+    },
+    {
+      "id": "quote-attribution",
+      "type": "caption",
+      "props": {
+        "text": "사이먼 시넥",
+        "layer": 25,
+        "tokenRef": "typeScale.caption"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "사이먼 시넥은 이렇게 말합니다... 사람들은 당신이 하는 것을 사는 게 아닙니다. 당신이 그것을 왜 하는지를 삽니다. 잠깐 이 말을 곱씹어보세요. 여러분이 애플 제품을 사는 이유, 특정 정치인을 지지하는 이유, 어떤 브랜드에 충성하는 이유... 그 밑바닥에는 항상 Why가 있었습니다. 가격이나 스펙이 아니라, 그들이 믿는 것에 공감했기 때문입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

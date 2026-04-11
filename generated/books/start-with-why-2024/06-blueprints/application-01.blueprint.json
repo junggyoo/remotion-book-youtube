@@ -1,0 +1,130 @@
+{
+  "id": "application-01",
+  "intent": "Application flow with 3 step(s) in path-trace reveal",
+  "origin": "preset",
+  "layout": "map-flow",
+  "elements": [
+    {
+      "id": "application-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "application-anchorStatement",
+      "type": "headline",
+      "props": {
+        "text": "나만의 Why를 찾는 3단계",
+        "layer": 20,
+        "tokenRef": "typeScale.headlineM",
+        "weight": "bold"
+      }
+    },
+    {
+      "id": "application-steps-0-title",
+      "type": "body-text",
+      "props": {
+        "text": "과거에서 패턴을 찾아라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-0-detail",
+      "type": "caption",
+      "props": {
+        "text": "가장 충만했던 순간들의 공통분모가 당신의 Why 단서다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 0
+      }
+    },
+    {
+      "id": "application-steps-1-title",
+      "type": "body-text",
+      "props": {
+        "text": "한 문장으로 정리하라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-1-detail",
+      "type": "caption",
+      "props": {
+        "text": "나는 ___을 함으로써, ___가 ___하도록 한다",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 1
+      }
+    },
+    {
+      "id": "application-steps-2-title",
+      "type": "body-text",
+      "props": {
+        "text": "Why부터 말하는 연습을 하라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyL",
+        "weight": "bold",
+        "index": 2
+      }
+    },
+    {
+      "id": "application-steps-2-detail",
+      "type": "caption",
+      "props": {
+        "text": "자기소개, PT, 사업설명 모두 Why로 시작하라",
+        "layer": 30,
+        "tokenRef": "typeScale.bodyS",
+        "color": "textMuted",
+        "index": 2
+      }
+    }
+  ],
+  "choreography": "path-trace",
+  "motionPreset": "smooth",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "그렇다면 나만의 Why는 어떻게 찾을 수 있을까요? 사이먼 시넥이 제안하는 방법을 세 단계로 정리했습니다. 첫 번째, 과거를 돌아보세요. 가장 충만했던 순간들을 떠올려보세요. 돈이 아니라, 진짜 의미를 느꼈던 순간들이요. 그 순간들의 공통 패턴이 당신의 Why에 대한 단서입니다. 두 번째, Why를 한 문장으로 정리하세요. 나는 무엇을 함으로써, 누군가가 어떻게 되도록 한다. 사이먼 시넥 자신의 Why는 이렇습니다. 사람들이 영감을 주는 일을 하도록 영감을 불어넣는 것. 이 한 문장이 모든 결정의 나침반이 됩니다. 세 번째, Why를 먼저 말하는 연습을 하세요. 자기소개, 프레젠테이션, 사업 설명... What이 아니라 Why부터 시작하세요. 처음엔 어색하겠지만, 한 달만 실천해보세요. 상대방의 반응이 완전히 달라질 겁니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

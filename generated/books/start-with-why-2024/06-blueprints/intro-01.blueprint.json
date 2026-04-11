@@ -1,0 +1,82 @@
+{
+  "id": "intro-01",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "역대 3위 TED 강연이 던진 질문",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineL",
+        "underlineKeyword": "질문"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "사이먼 시넥의 2009년 TED 강연은 조회수 6천만을 넘기며, 위대한 리더와 조직의 공통 패턴을 세상에 알렸습니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "사이먼 시넥은 2009년 TED 강연에서 하나의 단순한 질문을 던졌습니다. 왜 어떤 조직은 다른 조직보다 혁신적일까? 왜 어떤 리더는 사람들에게 깊은 충성을 이끌어낼까? 이 18분짜리 강연은 역대 세 번째로 많이 본 TED 영상이 되었습니다. 조회수 6천만 회를 넘겼죠. 그가 수년간 관찰한 결과, 위대한 리더와 조직에는 하나의 공통 패턴이 있었습니다. 애플, 마틴 루서 킹, 라이트 형제... 분야도 시대도 전혀 다르지만, 이들은 모두 같은 방식으로 생각하고 소통했습니다. 그리고 그 방식은 나머지 99%와 정반대였습니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

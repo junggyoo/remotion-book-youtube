@@ -1,0 +1,82 @@
+{
+  "id": "insight-02",
+  "intent": "Key insight headline reveal with optional support text",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "keyInsight-texture",
+      "type": "texture-overlay",
+      "props": {
+        "layer": 5
+      }
+    },
+    {
+      "id": "keyInsight-signalBar",
+      "type": "shape",
+      "props": {
+        "role": "signal-bar",
+        "layer": 20,
+        "tokenRef": "colors.signal"
+      }
+    },
+    {
+      "id": "keyInsight-headline",
+      "type": "headline",
+      "props": {
+        "text": "I Have a Dream, 계획이 아니라 꿈",
+        "layer": 30,
+        "tokenRef": "typeScale.headlineM",
+        "underlineKeyword": "Dream"
+      }
+    },
+    {
+      "id": "keyInsight-supportText",
+      "type": "body-text",
+      "props": {
+        "text": "킹 목사의 워싱턴 연설에 25만 명이 자발적으로 모였습니다. 라이트 형제는 자금력에서 크게 뒤졌지만 먼저 하늘을 날았습니다. 공통점은 Why였습니다.",
+        "layer": 25,
+        "tokenRef": "typeScale.bodyM"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1098,
+  "mediaPlan": {
+    "narrationText": "애플만이 아닙니다. 마틴 루서 킹 주니어를 생각해보세요. 1963년 8월, 워싱턴에 무려 25만 명이 모였습니다. 초대장을 보낸 게 아니에요. 웹사이트를 만들어 날짜를 확인한 것도 아닙니다. 사람들은 오직 그의 Why에 공감했기 때문에 모인 겁니다. 킹 목사가 미국에서 유일하게 뛰어난 연설가였을까요? 아닙니다. 시민권을 위해 고통받은 유일한 사람이었을까요? 그것도 아니에요. 하지만 사람들이 따른 건 킹 목사였습니다. 그의 연설은 I have a plan이 아니었습니다. I have a dream이었죠! 라이트 형제도 마찬가지입니다. 당시 새뮤얼 랭글리라는 사람이 최고의 자금력과 인맥으로 비행기를 개발하고 있었어요. 정부 지원금에 하버드 인맥까지 있었죠. 하지만 라이트 형제가 먼저 날았습니다. 돈도, 학력도, 인맥도 없었지만... 그들에겐 Why가 있었습니다. 비행이 세상의 흐름을 바꿀 거라는 깊은 믿음이요.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}

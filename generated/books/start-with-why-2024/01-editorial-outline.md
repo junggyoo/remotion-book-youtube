@@ -1,0 +1,34 @@
+# Editorial outline
+
+**bookId:** start-with-why-2024
+
+**oneLiner:** 나는 왜 이 일을 하는가의 핵심 인사이트를 체계적으로 정리한다
+
+**targetAudience:** 비즈니스 전략과 성공에 관심 있는 직장인 및 창업가 시청자
+
+**hookAngle:** 반직관적 선언으로 시작하여 당신 회사는 What부터 말하고 있다
+
+## coreMessages
+
+- 당신 회사는 What부터 말하고 있다
+- 역대 3위 TED 강연이 던진 질문
+- 뇌는 Why에 반응하도록 설계되었다
+- I Have a Dream, 계획이 아니라 꿈
+- Why에서 시작하라, 안에서 밖으로
+
+## excludedTopics
+
+
+**targetDurationSeconds:** 480
+
+## toneKeywords
+
+- 구어체
+- 정보 밀도
+- 동기 부여
+- 실용적
+
+**narrativeArc:** framework-driven
+
+---
+> Auto-generated from 01-editorial-outline.json. JSON is source of truth.

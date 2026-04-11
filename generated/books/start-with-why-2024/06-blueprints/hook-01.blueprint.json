@@ -1,0 +1,55 @@
+{
+  "id": "hook-01",
+  "intent": "시선을 사로잡는 후크: 당신 회사는 What부터 말하고 있다",
+  "origin": "preset",
+  "layout": "center-focus",
+  "elements": [
+    {
+      "id": "headline-0",
+      "type": "text",
+      "props": {
+        "content": "당신 회사는 What부터 말하고 있다",
+        "role": "headline"
+      }
+    }
+  ],
+  "choreography": "reveal-sequence",
+  "motionPreset": "heavy",
+  "format": "longform",
+  "theme": {
+    "mode": "dark",
+    "genre": "business",
+    "bg": "#0F172A",
+    "surface": "#1E293B",
+    "surfaceMuted": "#334155",
+    "textStrong": "#F8F7F2",
+    "textMuted": "#94A3B8",
+    "lineSubtle": "#334155",
+    "signal": "#356DFF",
+    "accent": "#F59E0B",
+    "premium": "#D4A853"
+  },
+  "from": 0,
+  "durationFrames": 1728,
+  "mediaPlan": {
+    "narrationText": "여러분 회사의 홈페이지를 한번 떠올려보세요. 첫 화면에 뭐라고 적혀있나요? 아마 이런 식일 겁니다. 우리는 최고의 제품을 만듭니다. 차별화된 서비스를 제공합니다. 업계 최고의 기술력을 보유하고 있습니다. 그런데요... 이렇게 말하는 회사가 수천 개예요. 다들 똑같은 말을 하고 있죠. 왜 어떤 회사만 사람들의 마음을 사로잡을까요? 왜 어떤 리더만 열광적인 추종자를 만들어낼까요? 답은 의외로 간단합니다. 그들은 무엇을 하는지가 아니라, 왜 하는지를 먼저 말하기 때문입니다.",
+    "captionPlan": {
+      "mode": "sentence-by-sentence",
+      "maxCharsPerLine": 28,
+      "maxLines": 2,
+      "leadFrames": 3,
+      "trailFrames": 6,
+      "transitionStyle": "fade-slide"
+    },
+    "audioPlan": {
+      "ttsEngine": "edge-tts",
+      "voiceKey": "ko-KR-SunHiNeural",
+      "speed": 1,
+      "pitch": "+0Hz"
+    },
+    "assetPlan": {
+      "required": [],
+      "fallbackMode": "text-only"
+    }
+  }
+}
